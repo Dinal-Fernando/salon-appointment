@@ -6,7 +6,7 @@ import Board from "react-trello";
 function ControlledBoard(props){
 
     //const [controlledBoard, setBoard] = useState(props.board);
-    
+
       //function handleCardMove(_card, source, destination) {
 
 
@@ -16,7 +16,7 @@ function ControlledBoard(props){
         //console.log(_card)
       //  props.value(source,destination);
       //}
-    
+
      // return (
 
       //   <Board
@@ -26,22 +26,23 @@ function ControlledBoard(props){
       //   initialBoard={props.board}
       //   disableColumnDrag
       // />
-     
+
 
 
     //  );
 
     return (
       <div>
-        <Board 
+        <Board
         style={{backgroundColor: '#e4e5e6'}}
-        data={props.board} 
+        data={props.board}
         draggable
         onCardClick={console.log}
+        hideCardDeleteIcon={true}
         onCardMoveAcrossLanes={console.log} />
-        hideCardDeleteIcon=true
+
       </div>
     );
-  
+
 }
 export default ControlledBoard;

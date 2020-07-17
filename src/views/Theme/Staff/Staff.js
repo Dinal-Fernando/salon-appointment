@@ -38,13 +38,13 @@ import {
   DropdownMenu,
   DropdownToggle,
   Dropdown,
-  
+
   FormGroup,
 
   Input,
   InputGroup,
   InputGroupAddon,
-  
+
   InputGroupText,
   Label,
 } from "reactstrap";
@@ -125,7 +125,7 @@ class Staff extends Component {
       pageCount: null,
       updateId: null,
       loading: true,
-     
+
     };
 
     //this.toggle = this.toggle.bind(this);
@@ -166,7 +166,7 @@ class Staff extends Component {
       .then((res) => {
         setTimeout(()=>{
           document.getElementById('preloder').style.display="none";
-         
+
       },400);
 
         if (res.data.success === true) {
@@ -200,7 +200,7 @@ class Staff extends Component {
       .then((res) => {
         setTimeout(()=>{
           document.getElementById('preloder').style.display="none";
-         
+
       },400);
 
         if (res.data.success === true) {
@@ -297,7 +297,7 @@ class Staff extends Component {
 
   componentDidMount() {
     document.getElementById('preloder').style.display="block";
-    
+
 
     // var day1 = new Date();
     // var nextDay = new Date(day1);
@@ -365,7 +365,7 @@ class Staff extends Component {
 
 
 
-        
+
         axios({
           method: "GET",
           url:
@@ -375,7 +375,7 @@ class Staff extends Component {
           .then((res) => {
             setTimeout(()=>{
               document.getElementById('preloder').style.display="none";
-             
+
           },400);
 
             this.setState({
@@ -427,7 +427,7 @@ class Staff extends Component {
           .then((res) => {
             setTimeout(()=>{
               document.getElementById('preloder').style.display="none";
-             
+
           },400);
 
             this.setState({
@@ -481,7 +481,7 @@ class Staff extends Component {
 
 
   staffUpdateHandler=(e)=>{
-   
+
     e.preventDefault();
 
     if(this.state.mobileisUpdated===true)
@@ -510,7 +510,7 @@ class Staff extends Component {
           .then((res) => {
             setTimeout(()=>{
               document.getElementById('preloder').style.display="none";
-             
+
           },400);
             console.log("response"+res)
             if (res.data.success === true) {
@@ -520,17 +520,17 @@ class Staff extends Component {
               'successfuly updated staff',
               'success'
             )
-      
+
               this.setState({
                 large3:false
               })
-      
+
             } else {
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'cannot perform operation!',
-                
+
               })
             }
           })
@@ -539,11 +539,11 @@ class Staff extends Component {
               icon: 'error',
               title: 'Oops...',
               text: 'cannot perform operation!',
-              
+
             })
             console.log("if error"+err);
           });
-  
+
 
       })
 
@@ -574,7 +574,7 @@ class Staff extends Component {
           .then((res) => {
             setTimeout(()=>{
               document.getElementById('preloder').style.display="none";
-             
+
           },400);
             console.log("response"+res)
             if (res.data.success === true) {
@@ -584,17 +584,17 @@ class Staff extends Component {
               'successfuly updated staff',
               'success'
             )
-      
+
               this.setState({
                 large3:false
               })
-      
+
             } else {
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'cannot perform operation!',
-                
+
               })
             }
           })
@@ -603,11 +603,11 @@ class Staff extends Component {
               icon: 'error',
               title: 'Oops...',
               text: 'cannot perform operation!',
-              
+
             })
             console.log("if error"+err);
           });
-  
+
 
 
       })
@@ -635,20 +635,11 @@ class Staff extends Component {
       params: { id: valueId},
     })
       .then((res) => {
-      
+
         res.data.data.map((item) => {
 
-          const service={
-            name:item.name,
-            nic:item.nic,
-            address1:item.address_line1,
-            address2:item.address_line2,
-            city:item.city,
-            country:item.country,
-            countrycode:item.country_code,
-            mobile:item.mobile
-          }
-         
+
+
 console.log(item.country_code)
 console.log(item.mobile)
          this.setState({
@@ -662,13 +653,13 @@ console.log(item.mobile)
 
          })
          console.log(this.state.mobileNumberupd)
-          
+
         });
-      
+
       })
       .catch((err) => console.log(err));
 
-  
+
   }
 
   tabPane() {
@@ -744,7 +735,7 @@ console.log(item.mobile)
                                   </Label>
                                   {/* <InputGroup>
                                     <InputGroupAddon addonType="prepend">
-                                    
+
                                       <Input type="select">
                                         <option
                                           label="+94"
@@ -944,7 +935,7 @@ console.log(item.mobile)
                                   </Label>
                                   {/* <InputGroup>
                                     <InputGroupAddon addonType="prepend">
-                                    
+
                                       <Input type="select">
                                         <option
                                           label="+94"
@@ -969,7 +960,7 @@ console.log(item.mobile)
                                     //country={"lk"}
                                     name="mobileNumberupd"
                                      value={this.state.mobileNumberupd}
-                                     
+
                                     onChange={(country, value, event) => {
                                       this.setState({
                                         mobileisUpdated:true,
@@ -1216,14 +1207,14 @@ console.log(item.mobile)
                         </Button>
                       </ModalFooter>
                     </form>
-                  </Modal> 
+                  </Modal>
 
                   <Table responsive className="table table-hover">
                     <thead>
                       <tr>
                       <i className="fa fa-reorder fa-lg mt-4" style={{paddingTop:12}}></i>
                         <th>
-                        
+
                           <i className="fa fa-user-circle-o fa-fw"></i>Staff
                           Name
                         </th>
@@ -1259,22 +1250,22 @@ console.log(item.mobile)
                     </tbody>
                   </Table>
                   <Pagination>
-               
+
 
 
 
 
                     <PaginationItem disabled={pageNumber <= 1}>
-              
+
               <PaginationLink
                 onClick={e => this.receivedData(e, pageNumber - 1)}
                 previous
-                
+
               />
-              
+
             </PaginationItem>
 
-              {[...Array(this.state.pageCount)].map((page, i) => 
+              {[...Array(this.state.pageCount)].map((page, i) =>
               <PaginationItem active={i === pageNumber-1} key={i}>
                 <PaginationLink onClick={e => this.receivedData(e, i+1)}>
                   {i + 1}
@@ -1284,13 +1275,13 @@ console.log(item.mobile)
 
 
 <PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
-              
+
               <PaginationLink
                 onClick={e => this.handleClick(e, pageNumber + 1)}
                 next
-               
+
               />
-              
+
             </PaginationItem>
 
 
@@ -1380,9 +1371,9 @@ console.log(item.mobile)
             <Table responsive className="table table-hover">
             <thead>
               <tr>
-              
+
                 <th>
-                
+
                   <i className="fa fa-user-circle-o fa-fw"></i>First Name
                 </th>
 
@@ -1402,7 +1393,7 @@ console.log(item.mobile)
             <tbody>
               {this.state.data6.map((item) => (
                 <tr >
-                  
+
                   <td>{item.fname}</td>
                   <td>{item.lname}</td>
                   <td>{item.email}</td>
@@ -1414,22 +1405,22 @@ console.log(item.mobile)
             </tbody>
           </Table>
           <Pagination>
-       
+
 
 
 
 
             <PaginationItem disabled={pageNumber <= 1}>
-      
+
       <PaginationLink
         onClick={e => this.receivedData(e, pageNumber - 1)}
         previous
-        
+
       />
-      
+
     </PaginationItem>
 
-      {[...Array(this.state.pageCount)].map((page, i) => 
+      {[...Array(this.state.pageCount)].map((page, i) =>
       <PaginationItem active={i === pageNumber-1} key={i}>
         <PaginationLink onClick={e => this.receivedData(e, i+1)}>
           {i + 1}
@@ -1439,13 +1430,13 @@ console.log(item.mobile)
 
 
 <PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
-      
+
       <PaginationLink
         onClick={e => this.handleClick(e, pageNumber + 1)}
         next
-       
+
       />
-      
+
     </PaginationItem>
 
 
@@ -1459,15 +1450,15 @@ console.log(item.mobile)
   }
 
   render() {
-    
+
     return (
       <div className="animated fadeIn">
                <div id="preloder">
-          
+
           <div >
 
           <div>
-          
+
                <ClockLoader css={override} size={60} color={"#03081b"} loading="true" />
   </div>
           </div>

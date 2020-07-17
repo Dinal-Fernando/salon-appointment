@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import {
-  Badge,
   Card,
   CardBody,
-  CardHeader,
-  Col,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Row,
   Table,
   Button,
   ModalBody,
@@ -18,13 +14,8 @@ import {
   FormGroup,
   Input,
   Label,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
 } from "reactstrap";
 import "../../Home/style.css";
-import classnames from "classnames";
-import axios from "axios";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -38,7 +29,6 @@ import Swal from 'sweetalert2'
 import { css } from "@emotion/core";
 import DotLoader from "react-spinners/DotLoader";
 import ClockLoader from "react-spinners/ClockLoader";
-const Base_URL = "https://jsonplaceholder.typicode.com/";
 
 
 
@@ -88,7 +78,7 @@ class Client extends Component {
 
   componentDidMount = () => {
     // document.getElementById('preloder').style.display="block";
-    
+
     this.receivedData(1, 1);
   };
 
@@ -117,15 +107,15 @@ class Client extends Component {
         const url2= "/client/getbypage/";
       BaseService.GetDataWithParams(url2,paramdata)
         .then((res) => {
-          
+
           setTimeout(()=>{
             document.getElementById('preloder').style.display="none";
-           
+
         },400);
 
           if (res.data.success === true) {
 
-            
+
 
 
           this.setState({
@@ -150,36 +140,36 @@ class Client extends Component {
             });
           });
 
-            
+
           } else {
-         
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: 'Error loading data!',
-              
+
             })
           }
-      
-       
-      
+
+
+
         })
         .catch((err) => {
-         
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Error loading data!',
-          
+
         })
         });
-        
 
 
 
 
 
-        
+
+
         // axios({
         //   method: "GET",
         //   url:
@@ -189,7 +179,7 @@ class Client extends Component {
         //   .then((res) => {
         //     setTimeout(()=>{
         //       document.getElementById('preloder').style.display="none";
-             
+
         //   },400);
 
         //     this.setState({
@@ -256,7 +246,7 @@ class Client extends Component {
       .then((res) => {
       //   setTimeout(()=>{
       //     document.getElementById('preloder').style.display="none";
-         
+
       // },400);
 
         if (res.data.success === true) {
@@ -290,7 +280,7 @@ console.log(code)
       mobilewithoutupd:mobile
     })
 
-   
+
 
 
   }
@@ -301,7 +291,7 @@ console.log(code)
 
     event.preventDefault();
 
-    
+
     if(this.state.mobileupdated===true)
     {
       this.setState({
@@ -323,7 +313,7 @@ console.log(code)
           .then((res) => {
             setTimeout(()=>{
               document.getElementById('preloder').style.display="none";
-             
+
           },100);
 
             console.log("response"+res)
@@ -334,11 +324,11 @@ console.log(code)
             'Client successfuly Updated',
             'success'
           )
-      
+
               this.setState({
                 large2:false
               })
-      
+
             } else {
 
               Swal.fire({
@@ -353,7 +343,7 @@ console.log(code)
             console.log("if error"+err);
           });
 
-      });	
+      });
 
     }
 
@@ -367,7 +357,7 @@ console.log("value here:"+this.state.countrycd)
 
 
          const client={
-         
+
           name: this.state.fullNameupd,
           nic: this.state.NICupd,
           country_code: this.state.dialfinal,
@@ -380,7 +370,7 @@ console.log("value here:"+this.state.countrycd)
           .then((res) => {
             setTimeout(()=>{
               document.getElementById('preloder').style.display="none";
-             
+
           },0);
 
             console.log("response"+res)
@@ -391,11 +381,11 @@ console.log("value here:"+this.state.countrycd)
                 'Client successfuly Updated',
                 'success'
               )
-      
+
               this.setState({
                 large2:false
               })
-      
+
             } else {
               Swal.fire({
             icon: 'error',
@@ -408,12 +398,12 @@ console.log("value here:"+this.state.countrycd)
             alertify.alert("Cannot perform the operation");
             console.log("if error"+err);
           });
-      
-    
-    
-    
+
+
+
+
     })
-      
+
     }
 
 
@@ -422,22 +412,22 @@ console.log("value here:"+this.state.countrycd)
   }
 
   render() {
-   
+
     const { pageNumber } = this.state;
     return (
       <Card>
                <div id="preloder">
-          
+
           <div >
 
           <div>
-           
+
                <ClockLoader css={override} size={60} color={"#03081b"} loading="true" />
   </div>
           </div>
       </div>
 
-    
+
         <CardBody>
           <div className="text-center">
             <Button
@@ -660,7 +650,7 @@ console.log("value here:"+this.state.countrycd)
                 next
               />
             </PaginationItem>
-            {/* 
+            {/*
                 <PaginationItem>
                   <PaginationLink tag="button">2</PaginationLink>
                 </PaginationItem>

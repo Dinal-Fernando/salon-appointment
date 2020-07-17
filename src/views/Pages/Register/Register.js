@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
+import { Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
 import queryString from 'query-string'
-import axios from "axios";
+
 import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
@@ -27,7 +27,7 @@ class Register extends Component {
 
 
   componentDidMount=()=>{
-    
+
       const values = queryString.parse(this.props.location.search)
 
       if(values.token===undefined||values.user_id===undefined)
@@ -41,9 +41,9 @@ class Register extends Component {
           userId:values.user_id
         })
       }
-      
-    
-    
+
+
+
   }
 
   onChangeHandler=(e)=>{
@@ -72,7 +72,7 @@ class Register extends Component {
       );
 
     }
-   
+
   }
 
   HandlepasswordConfirm=(e)=>{
@@ -93,7 +93,7 @@ class Register extends Component {
       );
     }
     // console.log(this.state.malidi);
-  
+
   }
 
   onSubmitHandler=(e)=>{
@@ -125,11 +125,11 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
 
 
   }
-  
+
   render() {
     return (
 
-      
+
       <div className="app flex-row align-items-center">
         <Container>
           <Row className="justify-content-center">
@@ -139,7 +139,7 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
                   <Form onSubmit={this.onSubmitHandler}>
                     <h1>Register</h1>
                     <p className="text-muted">Create your account</p>
-                    
+
                     {/* <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
@@ -163,8 +163,8 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
                       <Input type="password" placeholder="Password" name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onChangeHandler}/>
                       <FormFeedback>Password length should be more than 7</FormFeedback>
                     </InputGroup>
-                    
-                    
+
+
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row, FormFeedback } from 'reactstrap';
-import queryString from 'query-string'
-import axios from "axios";
+import { Button, Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row} from 'reactstrap';
+
 import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
@@ -36,8 +35,8 @@ class ForgotPassword extends Component {
       [e.target.name]:e.target.value
     })
 
-    
-   
+
+
   }
 
 
@@ -69,19 +68,19 @@ BaseService.PostServiceWithoutHeader(url, reset)
 
 
   }
-  
+
   render() {
     return (
 
-      
+
       <div className="app flex-row align-items-center">
         <Container>
         <div id="preloder">
-          
+
           <div >
 
           <div>
-            <p style={{left:"50%",top:"50%"}}>please wait.........</p> 
+            <p style={{left:"50%",top:"50%"}}>please wait.........</p>
                <ClockLoader css={override} size={100} color={"#03081b"} loading="true" />
   </div>
           </div>
@@ -98,7 +97,7 @@ BaseService.PostServiceWithoutHeader(url, reset)
                   <Form onSubmit={this.onSubmitHandler}>
                     <h1>Forgot Password</h1>
                     <p className="text-muted">Add username to reset password</p>
-                    
+
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
@@ -122,8 +121,8 @@ BaseService.PostServiceWithoutHeader(url, reset)
                       <Input type="password" placeholder="Password" name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onChangeHandler}/>
                       <FormFeedback>Password length should be more than 7</FormFeedback>
                     </InputGroup>
-                    
-                    
+
+
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>

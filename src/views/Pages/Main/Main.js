@@ -18,7 +18,7 @@ import footer from "../../../images/footer.jpg";
 import author_1 from "../../../images/author_1.jpg";
 import author_2 from "../../../images/author_2.jpg";
 import author_3 from "../../../images/author_3.jpg";
-import { createElement } from 'react';
+
 
 class Main extends Component {
     constructor(props){
@@ -27,7 +27,7 @@ class Main extends Component {
             large: false,
         }
     }
-    
+
     componentDidMount=()=>{
         const script = document.createElement("script");
         script.src = "../../../js/custom.js";
@@ -36,14 +36,14 @@ class Main extends Component {
     }
 
 
-    
-    render() { 
-        return ( <div className="super_container">
-	
 
-     
+    render() {
+        return ( <div className="super_container">
+
+
+
      <Header/>
-        
+
         <div className="menu">
             <nav className="menu_nav">
                 <ul className="d-flex flex-column align-items-start justify-content-start">
@@ -57,16 +57,13 @@ class Main extends Component {
         </div>
 
 
-    
-       
-       
         <div className="home">
-    
-      
+
+
             <div className="home_slider_container">
                 <div className="owl-carousel owl-theme home_slider">
-                    
-                   
+
+
                      <div className="owl-item home_slide">
                         <div className="background_image" style={{backgroundImage:`url(${index})`}}></div>
                         <div className="slide_text" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
@@ -88,13 +85,13 @@ class Main extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div> 
-    
+                    </div>
 
 
 
 
-                  
+
+
                     <div className="owl-item home_slide">
                         <div className="background_image" style={{backgroundImage:`url(${index})`}}></div>
                         <div className="slide_text" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
@@ -115,10 +112,10 @@ class Main extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-    
-             
+
+
 
 
 
@@ -133,10 +130,10 @@ class Main extends Component {
                                 <div className="row">
                                     <div className="col-lg-11">
                                         <div className="slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
-                                            
+
                                             <div className="home_text">
                                             <div className="home_title"><h1>Responsive <span>Web</span> Design</h1></div>
-                                                
+
                                             </div>
                                             <div className="home_link"><a href="#">View our offers</a></div>
                                         </div>
@@ -145,25 +142,25 @@ class Main extends Component {
                             </div>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-    
-        
+
+
             <div className="scroll_down scroll_to d-flex flex-column align-items-center justify-content-center" data-scroll-to="#services">
                 <div className="scroll_icon"></div>
                 <div>Scroll Down</div>
             </div>
-    
-            
+
+
             <div className="slide_progress">
                 <div className="slide_num">01.</div>
                 <div className="slide_bar"><div></div></div>
             </div>
         </div>
-    
-        
-    
+
+
+
         <div className="services" id="services">
             <div className="parallax_background" data-image-src={services}></div>
             <div className="container">
@@ -178,14 +175,14 @@ class Main extends Component {
                 <div className="row services_row">
                     <div className="col">
                         <div className="section_expander">
-    
+
                             <div className="services_slider_container">
                                 <div className="owl-carousel owl-theme services_slider">
-                                    
-                                   
+
+
                                     <div className="owl-item">
-    
-                                        
+
+
                                         <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
                                             <div className="service_icon"><div><img src={mirror} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
                                             <div className="service_content">
@@ -195,8 +192,8 @@ class Main extends Component {
                                                 </div>
                                             </div>
                                         </div>
-    
-                                       
+
+
                                         <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
                                             <div className="service_icon"><div><img src={facial} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
                                             <div className="service_content">
@@ -206,13 +203,13 @@ class Main extends Component {
                                                 </div>
                                             </div>
                                         </div>
-    
+
                                     </div>
-    
-                                
+
+
                                     <div className="owl-item">
-                                        
-                                    
+
+
                                         <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
                                             <div className="service_icon"><div><img src={makeup} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
                                             <div className="service_content">
@@ -222,7 +219,7 @@ class Main extends Component {
                                                 </div>
                                             </div>
                                         </div>
-    
+
                                         <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
                                             <div className="service_icon service_icon_2"><div><img src={cream} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
                                             <div className="service_content">
@@ -232,13 +229,13 @@ class Main extends Component {
                                                 </div>
                                             </div>
                                         </div>
-    
+
                                     </div>
-    
-                                  
+
+
                                     <div className="owl-item">
-                                        
-                                      
+
+
                                         <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
                                             <div className="service_icon service_icon_flip"><div><img src={makeup2} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
                                             <div className="service_content">
@@ -248,8 +245,8 @@ class Main extends Component {
                                                 </div>
                                             </div>
                                         </div>
-    
-                                       
+
+
                                         <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
                                             <div className="service_icon service_icon_3"><div><img src={cream} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
                                             <div className="service_content">
@@ -259,7 +256,7 @@ class Main extends Component {
                                                 </div>
                                             </div>
                                         </div>
-    
+
                                     </div>
                                 </div>
                             </div>
@@ -268,9 +265,9 @@ class Main extends Component {
                 </div>
             </div>
         </div>
-    
-    
-    
+
+
+
         <div className="testimonials">
             <div className="parallax_background" data-image-src={testimonial}></div>
             <div className="container">
@@ -285,12 +282,12 @@ class Main extends Component {
                 <div className="row testimonials_row">
                     <div className="col">
                         <div className="section_expander">
-                            
-                         
+
+
                             <div className="testimonials_slider_container">
                                 <div className="owl-carousel owl-theme testimonials_slider">
-                                    
-                                   
+
+
                                     <div className="owl-item">
                                         <div className="testimonial_container">
                                             <div className="testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
@@ -303,8 +300,8 @@ class Main extends Component {
                                             </div>
                                         </div>
                                     </div>
-    
-                                  
+
+
                                     <div className="owl-item">
                                         <div className="testimonial_container">
                                             <div className="testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
@@ -317,8 +314,8 @@ class Main extends Component {
                                             </div>
                                         </div>
                                     </div>
-    
-                                   
+
+
                                     <div className="owl-item">
                                         <div className="testimonial_container">
                                             <div className="testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
@@ -331,7 +328,7 @@ class Main extends Component {
                                             </div>
                                         </div>
                                     </div>
-    
+
                                 </div>
                             </div>
                             <div className="testimonials_more">
@@ -342,12 +339,12 @@ class Main extends Component {
                 </div>
             </div>
         </div>
-  
-   
-    
+
+
+
         <footer className="footer">
             <div className="parallax_background" data-image-src={footer}></div>
-  
+
             <div className="footer_container">
                 <div className="container">
                     <div className="row">
@@ -423,5 +420,5 @@ class Main extends Component {
      );
     }
 }
- 
+
 export default Main;

@@ -4,7 +4,7 @@ import * as router from "react-router-dom";
 import { Container } from "reactstrap";
 
 import {
-  AppAside,
+
   AppFooter,
   AppHeader,
   AppSidebar,
@@ -20,17 +20,13 @@ import navigation from "../../_nav";
 // routes config
 import routes from "../../routes";
 
-import { css } from "@emotion/core";
-import DotLoader from "react-spinners/DotLoader";
-const DefaultAside = React.lazy(() => import("./DefaultAside"));
+
+
+//const DefaultAside = React.lazy(() => import("./DefaultAside"));
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
+
 class DefaultLayout extends Component {
   // loading = () => (
   //   <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -60,13 +56,13 @@ class DefaultLayout extends Component {
           <AppSidebar fixed display="lg">
             <AppSidebarHeader />
             <AppSidebarForm />
-            
+
               <AppSidebarNav
                 navConfig={navigation}
                 {...this.props}
                 router={router}
               />
-          
+
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>

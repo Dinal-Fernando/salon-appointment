@@ -3,7 +3,6 @@ import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
-import Swal from 'sweetalert2';
 
 const base_url = "http://salon-be-dev2.ap-southeast-1.elasticbeanstalk.com";
 
@@ -316,7 +315,7 @@ export const GetDataWithoutParams = (url) => {
                   localStorage.getItem("AccessToken")
                 ),
               },
-              
+
             }).then(
               (res) => {
                 return res;

@@ -48,7 +48,6 @@
     "query-string": "^6.12.1",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
-    "react-big-calendar": "^0.24.1",
     "react-bootstrap-typeahead": "^4.2.2",
     "react-calendar": "^3.0.1",
     "react-chartjs-2": "^2.7.6",

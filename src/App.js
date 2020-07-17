@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { HashRouter, Route, Switch,Redirect,Router } from "react-router-dom";
+import { HashRouter, Route, Switch} from "react-router-dom";
 // import { renderRoutes } from 'react-router-config';
-import { css } from "@emotion/core";
+
 
 import "./App.scss";
 
@@ -33,9 +33,9 @@ const ResetPassword=React.lazy(() => import("./views/Pages/ResetPassword/ResetPa
 //       ? <Component {...props} />
 //       : <Redirect to={{
 //           pathname: '/#/login',
-         
+
 //         }} />
-       
+
 //   )} />
 // )
 
@@ -93,8 +93,8 @@ class App extends Component {
               render={(props) => <DefaultLayout {...props} />}
             />
 
-            
-         
+
+
           </Switch>
        </React.Suspense>
           </HashRouter>

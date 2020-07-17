@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import * as BaseService from "../../../BaseService.js";
-import axios from "axios";
+
 import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
 import Swal from 'sweetalert2'
 import { css } from "@emotion/core";
-import DotLoader from "react-spinners/DotLoader";
-import image3 from "../../../assets/image3.jpg"
+
 import ClockLoader from "react-spinners/ClockLoader";
 const override = css`
 display: block;
@@ -31,7 +30,7 @@ class Login extends Component {
       password:"",
     }
   }
-  
+
 
 
   onChangeHandler=(e)=>{
@@ -52,7 +51,7 @@ class Login extends Component {
     const url = "/user/varify/";
 BaseService.PostServiceWithoutHeader(url, login)
   .then((res) => {
-    
+
 
     if (res.data.success === true) {
       alertify.success("Successfully logged in");
@@ -60,49 +59,49 @@ BaseService.PostServiceWithoutHeader(url, login)
       localStorage.setItem('RefreshToken',res.data.Refresh_Token);
       localStorage.setItem('type',res.data.type);
       window.location.href="/#/dashboard";
-     
+
     } else {
       setTimeout(()=>{
         document.getElementById('preloder').style.display="none";
-       
+
     },400);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Invalid Credentials!',
-        
+
       })
     }
 
- 
+
 
   })
   .catch((err) => {
     setTimeout(()=>{
       document.getElementById('preloder').style.display="none";
-     
+
   },400);
   Swal.fire({
     icon: 'error',
     title: 'Oops...',
     text: 'Invalid Credentials!',
-    
+
   })
   });
   }
   render() {
     return (
       <div>
-                    
+
       <div className="app flex-row align-items-center">
-         
+
         <Container>
         <div id="preloder">
-          
+
           <div >
 
           <div>
-           
+
                <ClockLoader css={override} size={60} color={"#03081b"} loading="true" />
   </div>
           </div>
@@ -111,7 +110,7 @@ BaseService.PostServiceWithoutHeader(url, login)
       <p style={{display:"none"}}>{setTimeout(()=>{
             document.getElementById('preloder').style.display="none";
         },400)}</p>
-      
+
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>
@@ -120,7 +119,7 @@ BaseService.PostServiceWithoutHeader(url, login)
                     <Form onSubmit={this.onSubmitHandler}>
                       <h1>Login to proceed</h1>
                       <p className="text-muted">Sign In to your account</p>
-      
+
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -166,7 +165,7 @@ BaseService.PostServiceWithoutHeader(url, login)
         </Container>
       </div>
       </div>
-      
+
     );
   }
 }

@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import {  UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import {AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo.png'
 import sygnet from '../../assets/img/brand/sygnet.svg'
 
@@ -29,7 +29,7 @@ class DefaultHeader extends Component {
         <p style={{display:"none"}}>{setTimeout(()=>{
             document.getElementById('lock').style.display="none";
         },0)}</p>
-      
+
 
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
@@ -45,7 +45,7 @@ class DefaultHeader extends Component {
           <NavItem className="px-3">
             <Link to="/saloon/Staff" className="nav-link">Users</Link>
           </NavItem>
-        
+
         </Nav>
         <Nav className="ml-auto" navbar>
           {/* <NavItem className="d-md-down-none">

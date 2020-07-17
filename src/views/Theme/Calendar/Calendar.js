@@ -10,12 +10,11 @@ import * as BaseService from "../../../BaseService.js";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import axios from "axios";
+
 import moment from "moment";
 
-import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import DailyDisplay from "./DailyDisplay.js";
+
 import Swal from "sweetalert2";
 
 import {
@@ -26,7 +25,7 @@ import {
   FormGroup,
   Input,
   Label,
-  ButtonDropdown,
+
   Modal,
   ModalBody,
   ModalHeader,
@@ -41,7 +40,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import WeeklyDisplay from "./WeeklyDisplay.js";
+
 
 import {
   PDFDownloadLink,
@@ -53,8 +52,8 @@ import {
   Image,
 } from "@react-pdf/renderer";
 
-import FullCalendar, { formatDate } from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
+import FullCalendar from "@fullcalendar/react";
+//import dayGridPlugin from "@fullcalendar/daygrid";
 import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -147,13 +146,13 @@ class Calendarc extends Component {
     await BaseService.GetDataWithoutParams(url2)
       .then((res) => {
         if (res.data.success === true) {
-         
+
           res.data.data.map( val=>{
                     const data={
                      id:val.id,
                      title:val.name
                  }
-               
+
                  this.setState({
                            empInfo:[data,...this.state.empInfo],
                           });
@@ -178,7 +177,7 @@ class Calendarc extends Component {
     setTimeout(() => {
       document.getElementById("preloder").style.display = "none";
     }, 0);
-    
+
     //to get daily appointments
     await this.eventInfo();
   };
@@ -200,14 +199,14 @@ class Calendarc extends Component {
 
 res2.data.data.map(async value=>{
 
-  
-  
+
+
   await value.details.map(async value2=>{
 
    const index1=this.state.empInfo.findIndex((res)=>{
-              
+
       return res.title===value2.employee
-      
+
   });
     const data=await {
       id:value.id,
@@ -228,7 +227,7 @@ await this.setState({
 
 
         }
-      
+
       })
         .catch((err) => {
           Swal.fire({
@@ -309,11 +308,11 @@ await this.setState({
 
 res2.data.data.map(async value=>{
 
-  
-  
+
+
   await value.details.map(async value2=>{
 
- 
+
     const data=await {
       id:value.id,
       client:value.client,
@@ -334,7 +333,7 @@ await this.setState({
 
 
         }
-      
+
       })
         .catch((err) => {
           Swal.fire({
@@ -1343,7 +1342,7 @@ await this.setState({
   };
 
   render() {
-    
+
 
     const styles = StyleSheet.create({
       page: {
@@ -1394,7 +1393,7 @@ await this.setState({
 
         {/* The flex line on header */}
         <Row className="d-flex justify-content-end">
-        
+
 
           {/* To add appointment */}
           <div>
@@ -1471,7 +1470,7 @@ await this.setState({
           placeholder="date placeholder"
           onChange={this.changeHandler}
           value={this.state.reportstart}
-          
+
         />
       </FormGroup>
 
@@ -1577,7 +1576,7 @@ await this.setState({
           </ModalBody>
         </Modal>
 
-    
+
 
         <FullCalendar
           schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
@@ -1592,10 +1591,10 @@ await this.setState({
           editable={true}
           selectable={true}
           selectMirror={true}
-          
+
 
     height= "auto" // will activate stickyHeaderDates automatically!
-    
+
     slotDuration= "00:05:00"
     datesAboveResources= {true}
           select={() => {
@@ -1605,7 +1604,7 @@ await this.setState({
           resources= {this.state.empInfo}
             // your list of resources
         />
-        
+
       </div>
     );
   }

@@ -4,14 +4,11 @@ import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
 import * as BaseService from "../../../BaseService.js";
-import axios from "axios";
 import Swal from "sweetalert2";
 
 import {
-  Badge,
   Card,
   CardBody,
-  CardHeader,
   Col,
   Pagination,
   PaginationItem,
@@ -25,20 +22,9 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Form,
   Jumbotron,
   FormGroup,
-  FormText,
-  FormFeedback,
   Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButtonDropdown,
-  InputGroupText,
   Label,
   Container,
 } from "reactstrap";
@@ -120,34 +106,34 @@ class Services extends Component {
     const url2= "/category/get/";
      BaseService.GetDataWithoutParams(url2)
        .then((res) => {
-         
-     
+
+
          if (res.data.success === true) {
-           
+
            this.setState({
              data2: res.data.data,
            });
-          
+
          } else {
-        
+
            Swal.fire({
              icon: 'error',
              title: 'Oops...',
              text: 'Error loading data!',
-             
+
            })
          }
-     
-      
-     
+
+
+
        })
        .catch((err) => {
-        
+
        Swal.fire({
          icon: 'error',
          title: 'Oops...',
          text: 'Error loading data!',
-         
+
        })
        });
 
@@ -180,12 +166,12 @@ class Services extends Component {
       this.receivedData(1,1);
 
 
-   
+
   };
 
 
   receivedData=(e,index)=>{
-    
+
 
     console.log("index"+index)
     this.setState({
@@ -201,10 +187,10 @@ class Services extends Component {
       const url2= "/service/getbypage/";
     BaseService.GetDataWithParams(url2,paramdata)
       .then((res) => {
-        
+
         setTimeout(()=>{
           document.getElementById('preloder').style.display="none";
-         
+
       },400);
 
         if (res.data.success === true) {
@@ -213,20 +199,20 @@ class Services extends Component {
           this.setState({
             data3: res.data.data,
             pageCount:Math.ceil(res.data.count / this.state.limit),
-  
-            
+
+
           });
-          
+
           console.log("length of limit" + this.state.data3.length);
-  
+
           this.state.data3.map((item) => {
-  
+
             const index1=this.state.data2.findIndex((res)=>{
-              
+
               return res.name===item.category
-              
+
           });
-  
+
             const values = {
               id: item.id,
               name: item.name,
@@ -241,27 +227,27 @@ class Services extends Component {
             });
           });
 
-          
+
         } else {
-       
+
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
-            
+
           })
         }
-    
-     
-    
+
+
+
       })
       .catch((err) => {
-       
+
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
-        
+
       })
       });
 
@@ -277,18 +263,18 @@ class Services extends Component {
     //     params:{page:this.state.pageNumber,limit:this.state.limit}
     // })
     //   .then((res) => {
-        
+
     //     setTimeout(()=>{
     //       document.getElementById('preloder').style.display="none";
-         
+
     //   },400);
-        
+
 
     //     this.setState({
     //       data3: res.data.data,
     //       pageCount:Math.ceil(res.data.count / this.state.limit),
 
-          
+
     //     });
     //     this.loaderService();
     //     console.log("length of limit" + this.state.data3.length);
@@ -296,9 +282,9 @@ class Services extends Component {
     //     this.state.data3.map((item) => {
 
     //       const index1=this.state.data2.findIndex((res)=>{
-            
+
     //         return res.name===item.category
-            
+
     //     });
 
     //       const values = {
@@ -314,7 +300,7 @@ class Services extends Component {
     //         data4: [values,...this.state.data4],
     //       });
     //     });
-        
+
     //     console.log("length of data4"+this.state.data4.length);
     //   })
     //   .catch((err) => console.log(err));
@@ -371,18 +357,18 @@ class Services extends Component {
       name: this.state.serviceName,
       price: this.state.price,
       cost: this.state.cost,
-      
+
       category_id: parseInt(this.state.servCatergory),
       slots: parseInt(this.state.time),
     };
 
-  
+
   const url = "/service/update/";
   BaseService.UpdateService(url, Updateservice,this.state.updateId)
     .then((res) => {
 
-     
-      
+
+
       console.log("response"+res)
       if (res.data.success === true) {
        // this.receivedData(1,1);
@@ -415,21 +401,21 @@ class Services extends Component {
     const {pageNumber}=this.state;
     return (
       <Col>
-       
+
         <Card>
 
         <div id="preloder">
-          
+
           <div >
 
           <div>
-            
+
                <ClockLoader css={override} size={60} color={"#03081b"} loading="true" />
   </div>
           </div>
       </div>
 
-       
+
           <CardBody>
             <div className="text-center">
               {/* <Button onClick={this.toggleLarge} color="dark" className="pull-right" style={{marginBottom:20}}>Add Staff</Button> */}
@@ -445,9 +431,9 @@ class Services extends Component {
                   Add New
                 </DropdownToggle>
                 <DropdownMenu>
-                 
+
                   <DropdownItem onClick={this.pass}>New service</DropdownItem>
-                  
+
                   <DropdownItem>Add catergory</DropdownItem>
                 </DropdownMenu>
               </Dropdown> */}
@@ -485,7 +471,7 @@ class Services extends Component {
                     className={"modal-lg " + this.props.className}
                   >
                     {/*table model*/}
-                  
+
           <form onSubmit={this.updateServiceHandler}>
             <ModalHeader toggle={this.toggleLarge}>Edit Service</ModalHeader>
             <ModalBody>
@@ -707,16 +693,16 @@ class Services extends Component {
                 <PaginationLink tag="button" value="1">1</PaginationLink>
               </PaginationItem> */}
   <PaginationItem disabled={pageNumber <= 1}>
-              
+
               <PaginationLink
                 onClick={e => this.receivedData(e, pageNumber - 1)}
                 previous
-                
+
               />
-              
+
             </PaginationItem>
 
-              {[...Array(this.state.pageCount)].map((page, i) => 
+              {[...Array(this.state.pageCount)].map((page, i) =>
               <PaginationItem active={i === pageNumber-1} key={i}>
                 <PaginationLink onClick={e => this.receivedData(e, i+1)}>
                   {i + 1}
@@ -726,13 +712,13 @@ class Services extends Component {
 
 
 <PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
-              
+
               <PaginationLink
                 onClick={e => this.handleClick(e, pageNumber + 1)}
                 next
-               
+
               />
-              
+
             </PaginationItem>
 
               {/* <PaginationItem>
