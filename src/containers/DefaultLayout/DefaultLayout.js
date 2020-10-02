@@ -2,9 +2,12 @@ import React, { Component, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import * as router from "react-router-dom";
 import { Container } from "reactstrap";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
+
+import "./style.scss";
 
 import {
-
   AppFooter,
   AppHeader,
   AppSidebar,
@@ -22,15 +25,32 @@ import routes from "../../routes";
 
 
 
-//const DefaultAside = React.lazy(() => import("./DefaultAside"));
+
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
 
 class DefaultLayout extends Component {
-  // loading = () => (
-  //   <div className="animated fadeIn pt-1 text-center">Loading...</div>
-  // );
+  constructor(props) {
+    super(props);
+    this.state = {
+      jumpDate:new Date()
+    }
+  
+  }
+
+
+  
+onSelectCalendar = (gate) => {
+console.log(gate)
+  this.setState({
+      jumpDate: gate,
+      
+    })
+
+ 
+   
+}
 
    loading = () => (
     <div>
@@ -46,30 +66,39 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
+        <profile propdate={this.state.jumpDate.toString} />
         <AppHeader fixed>
-          {/* <Suspense fallback={this.loading()}> */}
+   
           <Suspense>
             <DefaultHeader onLogout={e => this.signOut(e)} />
           </Suspense>
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">
+      
             <AppSidebarHeader />
             <AppSidebarForm />
-
+            
               <AppSidebarNav
                 navConfig={navigation}
                 {...this.props}
                 router={router}
               />
-
+          
             <AppSidebarFooter />
-            <AppSidebarMinimizer />
+            <div style={{zIndex:"2",position:"relative"}}>
+        <Calendar
+                    onChange={this.onSelectCalendar}
+                    value={this.state.jumpDate}
+                   style={{width:"10px"}}
+                  />
+          </div>
+            {/* <AppSidebarMinimizer /> */}
+
           </AppSidebar>
           <main className="main">
           <p>{routes.name}</p>
-            {/* <AppBreadcrumb appRoutes={routes} router={routes.component} /> */}
-            {/* appRoutes={routes} router={router} */}
+         
             <Container fluid>
             <Suspense fallback={this.loading()}>
                 <Switch>
@@ -80,7 +109,8 @@ class DefaultLayout extends Component {
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
-                        render={props => <route.component {...props} />}
+                        render={props => <route.component {...props} propdate={this.state.jumpDate.toString()}/>}
+                        
                       />
                     ) : null;
                   })}
@@ -89,11 +119,7 @@ class DefaultLayout extends Component {
                 </Suspense>
             </Container>
           </main>
-          {/* <AppAside fixed>
-            <Suspense fallback={this.loading()}>
-              <DefaultAside />
-            </Suspense>
-          </AppAside> */}
+    
         </div>
         <AppFooter>
           <Suspense fallback={this.loading()}>

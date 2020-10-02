@@ -27,7 +27,7 @@ class Register extends Component {
 
 
   componentDidMount=()=>{
-
+    
       const values = queryString.parse(this.props.location.search)
 
       if(values.token===undefined||values.user_id===undefined)
@@ -41,9 +41,9 @@ class Register extends Component {
           userId:values.user_id
         })
       }
-
-
-
+      
+    
+    
   }
 
   onChangeHandler=(e)=>{
@@ -72,7 +72,7 @@ class Register extends Component {
       );
 
     }
-
+   
   }
 
   HandlepasswordConfirm=(e)=>{
@@ -93,7 +93,7 @@ class Register extends Component {
       );
     }
     // console.log(this.state.malidi);
-
+  
   }
 
   onSubmitHandler=(e)=>{
@@ -125,11 +125,11 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
 
 
   }
-
+  
   render() {
     return (
 
-
+      
       <div className="app flex-row align-items-center">
         <Container>
           <Row className="justify-content-center">
@@ -139,7 +139,7 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
                   <Form onSubmit={this.onSubmitHandler}>
                     <h1>Register</h1>
                     <p className="text-muted">Create your account</p>
-
+                    
                     {/* <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
@@ -163,8 +163,8 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
                       <Input type="password" placeholder="Password" name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onChangeHandler}/>
                       <FormFeedback>Password length should be more than 7</FormFeedback>
                     </InputGroup>
-
-
+                    
+                    
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
@@ -177,16 +177,7 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
                     <Button color="success" block>Create Account</Button>
                   </Form>
                 </CardBody>
-                {/* <CardFooter className="p-4">
-                  <Row>
-                    <Col xs="12" sm="6">
-                      <Button className="btn-facebook mb-1" block><span>facebook</span></Button>
-                    </Col>
-                    <Col xs="12" sm="6">
-                      <Button className="btn-twitter mb-1" block><span>twitter</span></Button>
-                    </Col>
-                  </Row>
-                </CardFooter> */}
+            
               </Card>
             </Col>
           </Row>

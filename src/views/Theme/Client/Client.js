@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import {
+
   Card,
   CardBody,
+
   Pagination,
   PaginationItem,
   PaginationLink,
@@ -14,8 +16,11 @@ import {
   FormGroup,
   Input,
   Label,
+
+  FormText
 } from "reactstrap";
-import "../../Home/style.css";
+//import "../../Home/style.css";
+
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -26,24 +31,19 @@ import "alertifyjs/build/css/themes/default.min.css";
 
 import * as BaseService from "../../../BaseService.js";
 import Swal from 'sweetalert2'
-import { css } from "@emotion/core";
-import DotLoader from "react-spinners/DotLoader";
-import ClockLoader from "react-spinners/ClockLoader";
+
+
+
+import Back4 from "../../../assets/back4.png";
+import Back3 from "../../../assets/back3.png";
 
 
 
 
 
-const override = css`
-display: block;
-margin: 0 auto;
-border-color: red;
-position: absolute;
-margin-top: -13px;
-margin-left: -13px;
-left: 50%;
-top: 50%;
-`;
+
+
+
 class Client extends Component {
   constructor(props) {
     super(props);
@@ -77,19 +77,14 @@ class Client extends Component {
   }
 
   componentDidMount = () => {
-    // document.getElementById('preloder').style.display="block";
-
+    // 
+    
     this.receivedData(1, 1);
   };
 
-  loading = () => (
-    <div>
-      <DotLoader css={override} size={150} color={"#03081b"} loading="true" />
-    </div>
-  );
 
   receivedData = (e, index) => {
-    // document.getElementById('preloder').style.display="block";
+   
     console.log("index" + index);
     this.setState(
       {
@@ -107,15 +102,12 @@ class Client extends Component {
         const url2= "/client/getbypage/";
       BaseService.GetDataWithParams(url2,paramdata)
         .then((res) => {
-
-          setTimeout(()=>{
-            document.getElementById('preloder').style.display="none";
-
-        },400);
+          
+         
 
           if (res.data.success === true) {
 
-
+            
 
 
           this.setState({
@@ -140,73 +132,37 @@ class Client extends Component {
             });
           });
 
-
+            
           } else {
-
+         
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: 'Error loading data!',
-
+              
             })
           }
-
-
-
+      
+       
+      
         })
         .catch((err) => {
-
+         
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Error loading data!',
-
+          
         })
         });
+        
 
 
 
 
 
-
-
-        // axios({
-        //   method: "GET",
-        //   url:
-        //   global.Backend+"/client/getbypage/",
-        //   params: { page: this.state.pageNumber, limit: this.state.limit },
-        // })
-        //   .then((res) => {
-        //     setTimeout(()=>{
-        //       document.getElementById('preloder').style.display="none";
-
-        //   },400);
-
-        //     this.setState({
-        //       data3: res.data.data,
-        //       pageCount: Math.ceil(res.data.count / this.state.limit),
-        //     });
-
-        //     console.log("length of limit" + this.state.data3.length);
-
-        //     this.state.data3.map((item) => {
-        //       const values = {
-        //         id: item.id,
-        //         name: item.name,
-        //         nic: item.nic,
-        //         countryCode: item.country_code,
-        //         mobile: item.mobile,
-        //         lastdate: item.last_date,
-        //       };
-        //       console.log("last date" + item.last_date);
-        //       this.setState({
-        //         data4: [values, ...this.state.data4],
-        //       });
-        //     });
-
-        //     console.log("length of data4" + this.state.data4[1]);
-        //   })
-        //   .catch((err) => console.log(err));
+        
+   
       }
     );
   };
@@ -233,21 +189,21 @@ class Client extends Component {
 
   clientsubmitHandler = (event) => {
     event.preventDefault();
-    const client = {
+    if(this.state.nic==="")
+    {const client = {
       name: this.state.fullName,
-      nic: this.state.NIC,
+      nic: "Not Provided",
       country_code: "+" + this.state.dialCode,
       mobile: this.state.mobileNumber,
       is_active: "1",
     };
-    document.getElementById('preloder').style.display="block";
+
+
+
     const url = "/client/save/";
     BaseService.PostService(url, client)
       .then((res) => {
-      //   setTimeout(()=>{
-      //     document.getElementById('preloder').style.display="none";
-
-      // },400);
+    
 
         if (res.data.success === true) {
           Swal.fire(
@@ -255,6 +211,11 @@ class Client extends Component {
             'Client successfuly inserted',
             'success'
           )
+          this.setState({
+            large:false
+          })
+          this.receivedData(1, 1);
+
         } else {
           Swal.fire({
             icon: 'error',
@@ -266,6 +227,52 @@ class Client extends Component {
       .catch((err) => {
         alertify.alert("Cannot perform the operation");
       });
+
+    }else{
+
+
+      const client = {
+        name: this.state.fullName,
+        nic: this.state.NIC,
+        country_code: "+" + this.state.dialCode,
+        mobile: this.state.mobileNumber,
+        is_active: "1",
+      };
+
+
+
+      const url = "/client/save/";
+    BaseService.PostService(url, client)
+      .then((res) => {
+    
+
+        if (res.data.success === true) {
+
+          Swal.fire(
+            'Good job!',
+            'Client successfuly inserted',
+            'success'
+          )
+          this.setState({
+            large:false
+          })
+          this.receivedData(1, 1);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          })
+        }
+      })
+      .catch((err) => {
+        alertify.alert("Cannot perform the operation");
+      });
+
+    }
+    
+ 
+    
   };
 
   pass=(id,name,nic,mobile,code)=>{
@@ -280,7 +287,7 @@ console.log(code)
       mobilewithoutupd:mobile
     })
 
-
+   
 
 
   }
@@ -291,7 +298,7 @@ console.log(code)
 
     event.preventDefault();
 
-
+    
     if(this.state.mobileupdated===true)
     {
       this.setState({
@@ -307,15 +314,11 @@ console.log(code)
           country_code: this.state.dialfinal,
           mobile: this.state.mobilefinal,
         }
-        document.getElementById('preloder').style.display="block";
+      
         const url = "/client/update/";
         BaseService.UpdateService(url, client,this.state.updateId)
           .then((res) => {
-            setTimeout(()=>{
-              document.getElementById('preloder').style.display="none";
-
-          },100);
-
+          
             console.log("response"+res)
             if (res.data.success === true) {
              // this.receivedData(1,1);
@@ -324,11 +327,11 @@ console.log(code)
             'Client successfuly Updated',
             'success'
           )
-
+      
               this.setState({
                 large2:false
               })
-
+      
             } else {
 
               Swal.fire({
@@ -343,7 +346,7 @@ console.log(code)
             console.log("if error"+err);
           });
 
-      });
+      });	
 
     }
 
@@ -357,21 +360,18 @@ console.log("value here:"+this.state.countrycd)
 
 
          const client={
-
+         
           name: this.state.fullNameupd,
           nic: this.state.NICupd,
           country_code: this.state.dialfinal,
           mobile: this.state.mobilefinal,
         }
 
-        document.getElementById('preloder').style.display="block";
+      
         const url = "/client/update/";
         BaseService.UpdateService(url, client,this.state.updateId)
           .then((res) => {
-            setTimeout(()=>{
-              document.getElementById('preloder').style.display="none";
-
-          },0);
+      
 
             console.log("response"+res)
             if (res.data.success === true) {
@@ -381,11 +381,11 @@ console.log("value here:"+this.state.countrycd)
                 'Client successfuly Updated',
                 'success'
               )
-
+      
               this.setState({
                 large2:false
               })
-
+      
             } else {
               Swal.fire({
             icon: 'error',
@@ -398,12 +398,12 @@ console.log("value here:"+this.state.countrycd)
             alertify.alert("Cannot perform the operation");
             console.log("if error"+err);
           });
-
-
-
-
+      
+    
+    
+    
     })
-
+      
     }
 
 
@@ -412,21 +412,13 @@ console.log("value here:"+this.state.countrycd)
   }
 
   render() {
-
+   
     const { pageNumber } = this.state;
     return (
       <Card>
-               <div id="preloder">
+          
 
-          <div >
-
-          <div>
-
-               <ClockLoader css={override} size={60} color={"#03081b"} loading="true" />
-  </div>
-          </div>
-      </div>
-
+    {this.props.employee}
 
         <CardBody>
           <div className="text-center">
@@ -447,7 +439,7 @@ console.log("value here:"+this.state.countrycd)
           >
             <form onSubmit={this.clientsubmitHandler}>
               <ModalHeader toggle={this.toggleLarge}>Add Client</ModalHeader>
-              <ModalBody>
+              <ModalBody style={{backgroundImage: `url(${Back4})`,backgroundSize:"auto"}}>
                 <Card>
                   <CardBody>
                     <FormGroup>
@@ -472,8 +464,11 @@ console.log("value here:"+this.state.countrycd)
                         placeholder="Enter NIC"
                         value={this.state.NIC}
                         onChange={this.changeHandler}
-                        required
+                        
                       />
+                      <FormText color="muted">
+          Optional field
+        </FormText>
                     </FormGroup>
                     <FormGroup>
                       <Label htmlFor="mobileNumber">Mobile Number</Label>
@@ -566,9 +561,11 @@ console.log("value here:"+this.state.countrycd)
           >
             <form onSubmit={this.clientUpdateHandler}>
               <ModalHeader toggle={this.toggleLarge2}>Edit Client</ModalHeader>
-              <ModalBody>
-                <Card>
-                  <CardBody>
+              <ModalBody style={{backgroundImage: `url(${Back3})`,backgroundSize:"auto"}}>
+              <Card>
+                <CardBody>
+
+                
                     <FormGroup>
                       <Label htmlFor="fullNameupd">Full Name</Label>
                       <Input
@@ -608,8 +605,8 @@ console.log("value here:"+this.state.countrycd)
                         }}
                       />
                     </FormGroup>
-                  </CardBody>
-                </Card>
+                    </CardBody>
+              </Card>
               </ModalBody>
               <ModalFooter>
                 <Button type="submit" color="primary">
@@ -650,7 +647,7 @@ console.log("value here:"+this.state.countrycd)
                 next
               />
             </PaginationItem>
-            {/*
+            {/* 
                 <PaginationItem>
                   <PaginationLink tag="button">2</PaginationLink>
                 </PaginationItem>
@@ -670,4 +667,7 @@ console.log("value here:"+this.state.countrycd)
   }
 }
 
-export default Client;
+
+
+
+export default  Client;

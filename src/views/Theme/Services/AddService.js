@@ -186,24 +186,29 @@ class AddService extends Component {
       name: this.state.catName,
       is_active: 1,
     };
-
-    axios
-      .post(
-        global.Backend+`/category/save/`,
-        catergory
-      )
+    const url = "/category/save/";
+    BaseService.PostService(url, catergory)
       .then((res) => {
+        console.log(res)
+        if (res.data.success === true) {
+    
         console.log(res);
         console.log(res.data);
         this.setState({
           catName: "",
+          large1:false
         });
 
-        alertify.success("Successfully Inserted");
+        Swal.fire(
+          "Good job!",
+          "Catergory successfuly inserted",
+          "success"
+        );
         window.location.reload(false)
+      }
       })
       .catch((error) => {
-        console.log(error);
+        alertify.alert("Cannot perform operation "+error);
       });
   };
 
@@ -234,11 +239,19 @@ class AddService extends Component {
       BaseService.PostService(url, service)
         .then((res) => {
           if (res.data.success === true) {
+            this.setState({
+              large:false,
+
+            })
+this.props.displayservice(1,1);
+
             Swal.fire(
               "Good job!",
               "Service successfuly inserted",
               "success"
             );
+
+            
           } else {
             alertify.alert("Cannot perform the operation");
           }
@@ -324,7 +337,7 @@ class AddService extends Component {
               </Card>
             </ModalBody>
             <ModalFooter>
-              <Button type="submit" color="success" onClick={this.toggleLarge1}>
+              <Button type="submit" color="success">
                 Save
               </Button>{" "}
               <Button color="secondary" onClick={this.toggleLarge1}>
@@ -530,7 +543,7 @@ class AddService extends Component {
                         </FormGroup>
                       </Col>
                     </FormGroup> */}
-                      <img src={Scissor} alt="img" style={{ paddingTop: 50 }} />
+                      <img src={Scissor}  className="img-fluid" alt="img" style={{ paddingTop: 50 }} />
                     </CardBody>
                   </Card>
                 </Col>

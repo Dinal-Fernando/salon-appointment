@@ -22,7 +22,7 @@ class DailyDisplay extends Component {
     return (
       <div>
         
-        <ControlledBoard board={board} />
+        <ControlledBoard board={board} size="50%"/>
        
       </div>
     );

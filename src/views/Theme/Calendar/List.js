@@ -12,14 +12,15 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import axios from "axios";
 import moment from "moment";
-
+import { Calendar as Calendar2, momentLocalizer,Views } from 'react-big-calendar';
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import DailyDisplay from "./DailyDisplay.js";
 import Swal from "sweetalert2";
 
-
+import Back from "../../../assets/bg6.jpg";
 
 import {
   Dropdown,
@@ -56,18 +57,7 @@ import {
   Image,
 } from "@react-pdf/renderer";
 
-import { css } from "@emotion/core";
-import ClockLoader from "react-spinners/ClockLoader";
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-  position: absolute;
-  margin-top: -13px;
-	margin-left: -13px;
-  left: 50%;
-  top: 50%;
-`;
+const localizer = momentLocalizer(moment);
 class List extends Component {
   constructor(props) {
     super(props);
@@ -127,7 +117,9 @@ class List extends Component {
       appemp: "",
       selectemp: "",
       selectempname: "",
-      dailyreport:[]
+      dailyreport:[],
+      sendReminder:0,
+      sendSMS:0,
 
     };
   }
@@ -179,11 +171,6 @@ class List extends Component {
 
 
 
-
-      setTimeout(() => {
-        document.getElementById("preloder").style.display = "none";
-      }, 0);
-
 //to get daily appointments
     await this.fordailydisplay();
   
@@ -191,13 +178,84 @@ class List extends Component {
 
 
 
+  
+SmsreminderCheck=(e)=>{
+  if(e.target.checked===true)
+  {
+    this.setState({
+      sendReminder:1
+    })
+  }else{
+    this.setState({
+      sendReminder:0
+    })
+  }
+  
+  }
+
+  
+
+
+  ShowAvailableSlots=(date)=>{
+    console.log("slot"+date);
+      this.setState({
+        resources:[],
+        availableSlots:[]
+      },()=>{
+    this.state.events.map(async(val)=>{
+    
+      const dateparam = moment(val.start).format("YYYY-MM-DD");
+      console.log("slot"+date);
+      console.log(dateparam);
+      if(dateparam===date){
+    
+        const data=await{
+          id:val.id,
+          title:val.desc,
+          start:new Date(val.start),
+          end:new Date(val.end),
+          resourceId:val.resourceId
+        }
+        
+    
+    this.setState({
+      availableSlots:[data,...this.state.availableSlots],
+      resources:this.state.empInfo
+    })
+      }
+    
+    
+    })
+    
+    })
+    
+    
+    }
+
+    
+
+
+  SmsCheck=(e)=>{
+    if(e.target.checked===true)
+    {
+      this.setState({
+        sendSMS:1
+      })
+    }else{
+      this.setState({
+        sendSMS:0
+      })
+    }
+    
+    }
+
 //for daily appointment display
   fordailydisplay = () => {
 
     
     
     let count = 0;
-    this.state.data4.map((val) => {
+    this.state.data4.map((val,index) => {
       const dateparam = moment(this.state.date).format("YYYY-MM-DD");
 
 
@@ -262,7 +320,7 @@ class List extends Component {
                     });
 
                     const app = await {
-                      id: this.state.appemp,
+                      id: index,
                       title: this.state.appemp,
                       cards: this.state.data6,
                     };
@@ -277,9 +335,7 @@ class List extends Component {
             }
           );
 
-          setTimeout(() => {
-            document.getElementById("preloder").style.display = "none";
-          }, 0);
+        
 
         } else {
 
@@ -326,7 +382,7 @@ class List extends Component {
 
   //get appoointment data weekly
   forweeklydisplay = () => {
-    document.getElementById("preloder").style.display = "block";
+   
     let count = 0;
     console.log(this.state.date);
     const dateparam = moment(this.state.date).format("YYYY-MM-DD");
@@ -380,10 +436,7 @@ class List extends Component {
             );
           })
         ).then(async (res) => {
-          setTimeout(() => {
-            document.getElementById("preloder").style.display = "none";
-          }, 400);
-
+  
           res.map((val, index) => {
             count = count + 1;
             console.log(count);
@@ -404,15 +457,10 @@ class List extends Component {
                 title: value.service,
                 label: startparam + " " + endtimeparam,
                 description: "Client is " + value.client,
+               
               };
 
-              var data1={
-                        name:this.state.appemp,
-                        title: value.service,
-                        start: startparam,
-                        end:endtimeparam,
-                        client:value.client,
-              }
+            
 
               this.setState(
                 {
@@ -604,6 +652,8 @@ BaseService.GetDataWithoutParams(url)
         let start = "";
         const cldetails = {
           client_id: this.state.clientID,
+          send_sms:this.state.sendSMS,
+          send_reminder:this.state.sendReminder
         };
 
         this.state.appointmentDet.map((val, index) => {
@@ -616,7 +666,7 @@ BaseService.GetDataWithoutParams(url)
           appointment_time: start,
         };
 
-        document.getElementById("preloder").style.display = "block";
+      
 
         const data={
           client: cldetails,
@@ -633,11 +683,6 @@ BaseService.GetDataWithoutParams(url)
             if (res.data.success === true) {
 
 
-            setTimeout(() => {
-              document.getElementById("preloder").style.display = "none";
-            }, 100);
-
-
             this.setState({
               large: false,
             });
@@ -650,10 +695,7 @@ BaseService.GetDataWithoutParams(url)
               window.location.reload();
 
             } else {
-              setTimeout(()=>{
-                document.getElementById('preloder').style.display="none";
-
-            },100);
+ 
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -667,10 +709,7 @@ BaseService.GetDataWithoutParams(url)
 
           })
           .catch((err) => {
-            setTimeout(()=>{
-              document.getElementById('preloder').style.display="none";
 
-          },100);
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -692,6 +731,8 @@ BaseService.GetDataWithoutParams(url)
           name: this.state.fullnameInput,
           country_code: "+" + this.state.dialCode,
           mobile: this.state.mobileNumber,
+          send_sms:this.state.sendSMS,
+          send_reminder:this.state.sendReminder
         };
 
         this.state.appointmentDet.map((val, index) => {
@@ -703,7 +744,7 @@ BaseService.GetDataWithoutParams(url)
           appointment_date: this.state.appdate,
           appointment_time: start,
         };
-        document.getElementById("preloder").style.display = "block";
+      
 
 
 
@@ -722,10 +763,7 @@ BaseService.GetDataWithoutParams(url)
             if (res.data.success === true) {
 
 
-            setTimeout(() => {
-              document.getElementById("preloder").style.display = "none";
-            }, 400);
-
+    
 
             this.setState({
               large: false,
@@ -740,10 +778,7 @@ BaseService.GetDataWithoutParams(url)
               window.location.reload();
 
             } else {
-              setTimeout(()=>{
-                document.getElementById('preloder').style.display="none";
-
-            },100);
+  
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -757,10 +792,7 @@ BaseService.GetDataWithoutParams(url)
 
           })
           .catch((err) => {
-            setTimeout(()=>{
-              document.getElementById('preloder').style.display="none";
 
-          },100);
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -983,14 +1015,11 @@ BaseService.GetDataWithoutParams(url)
             indexarr: index,
           };
 
-          document.getElementById("preloder").style.display = "block";
+       
           const url = "/appointment/check/";
           BaseService.PostService(url, data)
             .then((res) => {
-              setTimeout(() => {
-                document.getElementById("preloder").style.display = "none";
-              }, 400);
-
+            
               if (res.data.success === true) {
                 console.log(res);
                 alertify.success("Slot Available");
@@ -1074,516 +1103,554 @@ BaseService.GetDataWithoutParams(url)
 
 
   //for add appointment tab pane
-  tabPane() {
-    return (
-      <>
-        <TabPane tabId="1">
-          {
-            <form>
-              <Card style={{ border: "transparent" }}>
-                <CardBody>
-                  {/* <FormGroup> */}
-                  <Label htmlFor="fullName">Full Name</Label>
-                  <Typeahead
-                    filterBy={(option, props) => {
-                      if (props.selected.length > 0) {
-                        // Display all the options if there's a selection.
-                        console.log(props.selected);
-                        return true;
-                      }
-                      // Otherwise filter on some criteria.
-                      return (
-                        option.name
-                          .toLowerCase()
-                          .indexOf(props.text.toLowerCase()) !== -1
-                      );
-                    }}
-                    id="basic-typeahead-example"
-                    labelKey="name"
-                    options={this.state.data}
-                    placeholder="Choose a state..."
-                    onInputChange={this.handleInputChange}
-                    onChange={this.handleChange}
-                  />
+//   tabPane() {
+//     return (
+//       <>
+//         <TabPane tabId="1">
+//           {
+//             <form>
+//               <Card style={{ border: "transparent" }}>
+//                 <CardBody>
+//                   {/* <FormGroup> */}
+//                   <Label htmlFor="fullName">Full Name</Label>
+//                   <Typeahead
+//                     filterBy={(option, props) => {
+//                       if (props.selected.length > 0) {
+//                         // Display all the options if there's a selection.
+                     
+//                         return true;
+//                       }
+//                       // Otherwise filter on some criteria.
+//                       return (
+//                         option.name
+//                           .toLowerCase()
+//                           .indexOf(props.text.toLowerCase()) !== -1
+//                       );
+//                     }}
+//                     id="basic-typeahead-example"
+//                     labelKey="name"
+//                     options={this.state.data}
+//                     placeholder="Choose a state..."
+//                     onInputChange={this.handleInputChange}
+//                     onChange={this.handleChange}
+//                   />
+
+//                   <FormGroup>
+//                     <Label htmlFor="NIC">NIC</Label>
+//                     <Input
+//                       type="text"
+//                       id="NIC"
+//                       name="NIC"
+//                       disabled={this.state.setdisable}
+//                       placeholder="Enter NIC"
+//                       value={this.state.NIC}
+//                       onChange={this.changeHandler}
+//                     />
+//                   </FormGroup>
+//                   <FormGroup>
+//                     <Label htmlFor="mobileNumber">Mobile Number</Label>
+//                     <PhoneInput
+//                       containerStyle={{ width: "20px" }}
+//                       country={"lk"}
+//                       disabled={this.state.setdisable}
+//                       name="mobileNumber"
+//                       value={this.state.mobileNum}
+//                       onChange={(country, value, event) => {
+//                         this.setState({
+//                           dialCode: value["dialCode"],
+//                           Country: value["name"],
+//                           mobileNumber: country.slice(value.dialCode.length),
+//                         });
+//                       }}
+//                     />
+//                   </FormGroup>
+
+//                   <FormGroup check>
+//         <Label check>
+//           <Input name="sms" value="sms" type="checkbox" onChange={this.SmsCheck}/>{' '}
+//           Check this box if you want to send sms
+//         </Label>
+//       </FormGroup><br></br>
 
 
-                  <FormGroup>
-                    <Label htmlFor="NIC">NIC</Label>
-                    <Input
-                      type="text"
-                      id="NIC"
-                      name="NIC"
-                      disabled={this.state.setdisable}
-                      placeholder="Enter NIC"
-                      value={this.state.NIC}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label htmlFor="mobileNumber">Mobile Number</Label>
-                    <PhoneInput
-                    containerStyle={{width:'20px'}}
-                      country={"lk"}
-                      disabled={this.state.setdisable}
-                      name="mobileNumber"
-                      value={this.state.mobileNum}
-                      onChange={(country, value, event) => {
-                        this.setState({
-                          dialCode: value["dialCode"],
-                          Country: value["name"],
-                          mobileNumber: country.slice(value.dialCode.length),
-                        });
-                      }}
-                    />
-                  </FormGroup>
-                  <Button
-                    color="primary"
-                    onClick={() => {
-                      this.toggle(0, "2");
-                    }}
-                  >
-                    Save and next
-                  </Button>
-                </CardBody>
-              </Card>
-            </form>
-          }
-        </TabPane>
-        <TabPane tabId="2">
-          {
-            <div>
-              <form onSubmit={this.appointmentSubmit}>
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="date-input">Appointment Date</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input
-                      type="date"
-                      id="appdate"
-                      name="appdate"
-                      placeholder="date"
-                      value={this.state.appdate}
-                      onChange={this.onChangeHandler}
-                      disabled={this.state.datedisable}
-                    />
-                  </Col>
-                </FormGroup>
+//       <FormGroup check>
+//         <Label check>
+//           <Input type="checkbox" value="reminder" name="reminder" onChange={this.SmsreminderCheck}/>{' '}
+//           Check this box if you want to send reminder
+//         </Label>
+//       </FormGroup><br></br>
 
-                {this.state.arrayVal.map((val, index) => (
-                  <div>
-                    {this.state.arrayVal.length > 1 ? (
-                      <span onClick={(e) => this.printconsole(index)}>
-                        <i className="fa fa-close fa-lg mt-4 pull-right"></i>
-                      </span>
-                    ) : (
-                      <p></p>
-                    )}
 
-                    <Row>
-                      <Col xs="4">
-                        <FormGroup>
-                          <Label htmlFor="ccmonth">start time</Label>
-                          <Input
-                            type="select"
-                            name="starttime"
-                            id="starttime"
-                            onChange={(e) => {
-                              this.checkStatus(e, index);
-                            }}
-                            disabled={this.state.arrayVal[index]}
-                          >
-                            <option value="00:00">00:00</option>
-                            <option value="00:05">00:05</option>
-                            <option value="00:10">00:10</option>
-                            <option value="00:15">00:15</option>
-                            <option value="00:20">00:20</option>
-                            <option value="00:25">00:25</option>
-                            <option value="00:30">00:30</option>
-                            <option value="00:35">00:35</option>
-                            <option value="00:40">00:40</option>
-                            <option value="00:45">00:45</option>
-                            <option value="00:50">00:50</option>
-                            <option value="00:55">00:55</option>
-                            <option value="01:00">01:00</option>
-                            <option value="01:05">01:05</option>
-                            <option value="01:10">01:10</option>
-                            <option value="01:15">01:15</option>
-                            <option value="01:20">01:20</option>
-                            <option value="01:25">01:25</option>
-                            <option value="01:30">01:30</option>
-                            <option value="01:35">01:35</option>
-                            <option value="01:40">01:40</option>
-                            <option value="01:45">01:45</option>
-                            <option value="01:50">01:50</option>
-                            <option value="01:55">01:55</option>
-                            <option value="02:00">02:00</option>
-                            <option value="02:05">02:05</option>
-                            <option value="02:10">02:10</option>
-                            <option value="02:15">02:15</option>
-                            <option value="02:20">02:20</option>
-                            <option value="02:25">02:25</option>
-                            <option value="02:30">02:30</option>
-                            <option value="02:35">02:35</option>
-                            <option value="02:40">02:40</option>
-                            <option value="02:45">02:45</option>
-                            <option value="02:50">02:50</option>
-                            <option value="02:55">02:55</option>
-                            <option value="03:00">03:00</option>
-                            <option value="03:05">03:05</option>
-                            <option value="03:10">03:10</option>
-                            <option value="03:15">03:15</option>
-                            <option value="03:20">03:20</option>
-                            <option value="03:25">03:25</option>
-                            <option value="03:30">03:30</option>
-                            <option value="03:35">03:35</option>
-                            <option value="03:40">03:40</option>
-                            <option value="03:45">03:45</option>
-                            <option value="03:50">03:50</option>
-                            <option value="03:55">03:55</option>
-                            <option value="04:00">04:00</option>
-                            <option value="04:05">04:05</option>
-                            <option value="04:10">04:10</option>
-                            <option value="04:15">04:15</option>
-                            <option value="04:20">04:20</option>
-                            <option value="04:25">04:25</option>
-                            <option value="04:30">04:30</option>
-                            <option value="04:35">04:35</option>
-                            <option value="04:40">04:40</option>
-                            <option value="04:45">04:45</option>
-                            <option value="04:50">04:50</option>
-                            <option value="04:55">04:55</option>
-                            <option value="05:00">05:00</option>
-                            <option value="05:05">05:05</option>
-                            <option value="05:10">05:10</option>
-                            <option value="05:15">05:15</option>
-                            <option value="05:20">05:20</option>
-                            <option value="05:25">05:25</option>
-                            <option value="05:30">05:30</option>
-                            <option value="05:35">05:35</option>
-                            <option value="05:40">05:40</option>
-                            <option value="05:45">05:45</option>
-                            <option value="05:50">05:50</option>
-                            <option value="05:55">05:55</option>
-                            <option value="06:00">06:00</option>
-                            <option value="06:05">06:05</option>
-                            <option value="06:10">06:10</option>
-                            <option value="06:15">06:15</option>
-                            <option value="06:20">06:20</option>
-                            <option value="06:25">06:25</option>
-                            <option value="06:30">06:30</option>
-                            <option value="06:35">06:35</option>
-                            <option value="06:40">06:40</option>
-                            <option value="06:45">06:45</option>
-                            <option value="06:50">06:50</option>
-                            <option value="06:55">06:55</option>
-                            <option value="07:00">07:00</option>
-                            <option value="07:05">07:05</option>
-                            <option value="07:10">07:10</option>
-                            <option value="07:15">07:15</option>
-                            <option value="07:20">07:20</option>
-                            <option value="07:25">07:25</option>
-                            <option value="07:30">07:30</option>
-                            <option value="07:35">07:35</option>
-                            <option value="07:40">07:40</option>
-                            <option value="07:45">07:45</option>
-                            <option value="07:50">07:50</option>
-                            <option value="07:55">07:55</option>
-                            <option value="08:00">08:00</option>
-                            <option value="08:05">08:05</option>
-                            <option value="08:10">08:10</option>
-                            <option value="08:15">08:15</option>
-                            <option value="08:20">08:20</option>
-                            <option value="08:25">08:25</option>
-                            <option value="08:30">08:30</option>
-                            <option value="08:35">08:35</option>
-                            <option value="08:40">08:40</option>
-                            <option value="08:45">08:45</option>
-                            <option value="08:50">08:50</option>
-                            <option value="08:55">08:55</option>
-                            <option value="09:00">09:00</option>
-                            <option value="09:05">09:05</option>
-                            <option value="09:10">09:10</option>
-                            <option value="09:15">09:15</option>
-                            <option value="09:20">09:20</option>
-                            <option value="09:25">09:25</option>
-                            <option value="09:30">09:30</option>
-                            <option value="09:35">09:35</option>
-                            <option value="09:40">09:40</option>
-                            <option value="09:45">09:45</option>
-                            <option value="09:50">09:50</option>
-                            <option value="09:55">09:55</option>
-                            <option value="10:00">10:00</option>
-                            <option value="10:05">10:05</option>
-                            <option value="10:10">10:10</option>
-                            <option value="10:15">10:15</option>
-                            <option value="10:20">10:20</option>
-                            <option value="10:25">10:25</option>
-                            <option value="10:30">10:30</option>
-                            <option value="10:35">10:35</option>
-                            <option value="10:40">10:40</option>
-                            <option value="10:45">10:45</option>
-                            <option value="10:50">10:50</option>
-                            <option value="10:55">10:55</option>
-                            <option value="11:00">11:00</option>
-                            <option value="11:05">11:05</option>
-                            <option value="11:10">11:10</option>
-                            <option value="11:15">11:15</option>
-                            <option value="11:20">11:20</option>
-                            <option value="11:25">11:25</option>
-                            <option value="11:30">11:30</option>
-                            <option value="11:35">11:35</option>
-                            <option value="11:40">11:40</option>
-                            <option value="11:45">11:45</option>
-                            <option value="11:50">11:50</option>
-                            <option value="11:55">11:55</option>
-                            <option value="12:00">12:00</option>
-                            <option value="12:05">12:05</option>
-                            <option value="12:10">12:10</option>
-                            <option value="12:15">12:15</option>
-                            <option value="12:20">12:20</option>
-                            <option value="12:25">12:25</option>
-                            <option value="12:30">12:30</option>
-                            <option value="12:35">12:35</option>
-                            <option value="12:40">12:40</option>
-                            <option value="12:45">12:45</option>
-                            <option value="12:50">12:50</option>
-                            <option value="12:55">12:55</option>
-                            <option value="13:00">13:00</option>
-                            <option value="13:05">13:05</option>
-                            <option value="13:10">13:10</option>
-                            <option value="13:15">13:15</option>
-                            <option value="13:20">13:20</option>
-                            <option value="13:25">13:25</option>
-                            <option value="13:30">13:30</option>
-                            <option value="13:35">13:35</option>
-                            <option value="13:40">13:40</option>
-                            <option value="13:45">13:45</option>
-                            <option value="13:50">13:50</option>
-                            <option value="13:55">13:55</option>
-                            <option value="14:00">14:00</option>
-                            <option value="14:05">14:05</option>
-                            <option value="14:10">14:10</option>
-                            <option value="14:15">14:15</option>
-                            <option value="14:20">14:20</option>
-                            <option value="14:25">14:25</option>
-                            <option value="14:30">14:30</option>
-                            <option value="14:35">14:35</option>
-                            <option value="14:40">14:40</option>
-                            <option value="14:45">14:45</option>
-                            <option value="14:50">14:50</option>
-                            <option value="14:55">14:55</option>
-                            <option value="15:00">15:00</option>
-                            <option value="15:05">15:05</option>
-                            <option value="15:10">15:10</option>
-                            <option value="15:15">15:15</option>
-                            <option value="15:20">15:20</option>
-                            <option value="15:25">15:25</option>
-                            <option value="15:30">15:30</option>
-                            <option value="15:35">15:35</option>
-                            <option value="15:40">15:40</option>
-                            <option value="15:45">15:45</option>
-                            <option value="15:50">15:50</option>
-                            <option value="15:55">15:55</option>
-                            <option value="16:00">16:00</option>
-                            <option value="16:05">16:05</option>
-                            <option value="16:10">16:10</option>
-                            <option value="16:15">16:15</option>
-                            <option value="16:20">16:20</option>
-                            <option value="16:25">16:25</option>
-                            <option value="16:30">16:30</option>
-                            <option value="16:35">16:35</option>
-                            <option value="16:40">16:40</option>
-                            <option value="16:45">16:45</option>
-                            <option value="16:50">16:50</option>
-                            <option value="16:55">16:55</option>
-                            <option value="17:00">17:00</option>
-                            <option value="17:05">17:05</option>
-                            <option value="17:10">17:10</option>
-                            <option value="17:15">17:15</option>
-                            <option value="17:20">17:20</option>
-                            <option value="17:25">17:25</option>
-                            <option value="17:30">17:30</option>
-                            <option value="17:35">17:35</option>
-                            <option value="17:40">17:40</option>
-                            <option value="17:45">17:45</option>
-                            <option value="17:50">17:50</option>
-                            <option value="17:55">17:55</option>
-                            <option value="18:00">18:00</option>
-                            <option value="18:05">18:05</option>
-                            <option value="18:10">18:10</option>
-                            <option value="18:15">18:15</option>
-                            <option value="18:20">18:20</option>
-                            <option value="18:25">18:25</option>
-                            <option value="18:30">18:30</option>
-                            <option value="18:35">18:35</option>
-                            <option value="18:40">18:40</option>
-                            <option value="18:45">18:45</option>
-                            <option value="18:50">18:50</option>
-                            <option value="18:55">18:55</option>
-                            <option value="19:00">19:00</option>
-                            <option value="19:05">19:05</option>
-                            <option value="19:10">19:10</option>
-                            <option value="19:15">19:15</option>
-                            <option value="19:20">19:20</option>
-                            <option value="19:25">19:25</option>
-                            <option value="19:30">19:30</option>
-                            <option value="19:35">19:35</option>
-                            <option value="19:40">19:40</option>
-                            <option value="19:45">19:45</option>
-                            <option value="19:50">19:50</option>
-                            <option value="19:55">19:55</option>
-                            <option value="20:00">20:00</option>
-                            <option value="20:05">20:05</option>
-                            <option value="20:10">20:10</option>
-                            <option value="20:15">20:15</option>
-                            <option value="20:20">20:20</option>
-                            <option value="20:25">20:25</option>
-                            <option value="20:30">20:30</option>
-                            <option value="20:35">20:35</option>
-                            <option value="20:40">20:40</option>
-                            <option value="20:45">20:45</option>
-                            <option value="20:50">20:50</option>
-                            <option value="20:55">20:55</option>
-                            <option value="21:00">21:00</option>
-                            <option value="21:05">21:05</option>
-                            <option value="21:10">21:10</option>
-                            <option value="21:15">21:15</option>
-                            <option value="21:20">21:20</option>
-                            <option value="21:25">21:25</option>
-                            <option value="21:30">21:30</option>
-                            <option value="21:35">21:35</option>
-                            <option value="21:40">21:40</option>
-                            <option value="21:45">21:45</option>
-                            <option value="21:50">21:50</option>
-                            <option value="21:55">21:55</option>
-                            <option value="22:00">22:00</option>
-                            <option value="22:05">22:05</option>
-                            <option value="22:10">22:10</option>
-                            <option value="22:15">22:15</option>
-                            <option value="22:20">22:20</option>
-                            <option value="22:25">22:25</option>
-                            <option value="22:30">22:30</option>
-                            <option value="22:35">22:35</option>
-                            <option value="22:40">22:40</option>
-                            <option value="22:45">22:45</option>
-                            <option value="22:50">22:50</option>
-                            <option value="22:55">22:55</option>
-                            <option value="22:00">22:00</option>
-                            <option value="22:05">22:05</option>
-                            <option value="22:10">22:10</option>
-                            <option value="22:15">22:15</option>
-                            <option value="22:20">22:20</option>
-                            <option value="22:25">22:25</option>
-                            <option value="22:30">22:30</option>
-                            <option value="22:35">22:35</option>
-                            <option value="22:40">22:40</option>
-                            <option value="22:45">22:45</option>
-                            <option value="22:50">22:50</option>
-                            <option value="22:55">22:55</option>
-                            <option value="23:00">23:00</option>
-                            <option value="23:05">23:05</option>
-                            <option value="23:10">23:10</option>
-                            <option value="23:15">23:15</option>
-                            <option value="23:20">23:20</option>
-                            <option value="23:25">23:25</option>
-                            <option value="23:30">23:30</option>
-                            <option value="23:35">23:35</option>
-                            <option value="23:40">23:40</option>
-                            <option value="23:45">23:45</option>
-                            <option value="23:50">23:50</option>
-                            <option value="23:55">23:55</option>
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col xs="8">
-                        <FormGroup>
-                          <Label htmlFor="ccyear">Service</Label>
 
-                          <Input
-                            type="select"
-                            name="service"
-                            id="service"
-                            onChange={(e) => {
-                              this.checkStatus(e, index);
-                            }}
-                            disabled={this.state.arrayVal[index]}
-                          >
-                            <option value="">Select service</option>
-                            {this.state.data2.map((val) => (
-                              <option value={val.id}>{val.name}</option>
-                            ))}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                    </Row>
+//                   <Button
+//                     color="primary"
+//                     onClick={() => {
+//                       this.toggle(0, "2");
+//                     }}
+//                   >
+//                     Save and next
+//                   </Button>
+//                 </CardBody>
+//               </Card>
+//             </form>
+//           }
+//         </TabPane>
+//         <TabPane tabId="2">
+//           {
+//             <div>
+//               <form onSubmit={this.appointmentSubmit}>
+//                 <FormGroup row>
+//                   <Col md="3">
+//                     <Label htmlFor="date-input">Appointment Date</Label>
+//                   </Col>
+//                   <Col xs="12" md="9">
+//                     <Input
+//                       type="date"
+//                       id="appdate"
+//                       name="appdate"
+//                       placeholder="date"
+//                       value={this.state.appdate}
+//                       onChange={this.onChangeHandler}
+//                       disabled={this.state.datedisable}
+//                     />
+//                   </Col>
+//                 </FormGroup>
 
-                    <Row>
-                      <Col xs="4">
-                        <FormGroup>
-                          <Label htmlFor="ccmonth">Time Allocated</Label>
-                          <Input
-                            type="select"
-                            name="duration"
-                            id="duration"
-                            onChange={(e) => {
-                              this.checkStatus(e, index);
-                            }}
-                            disabled={this.state.arrayVal[index]}
-                          >
-                            <option value="">Duration</option>
-                            <option value="0">0 min</option>
-                            <option value="30">30 min</option>
-                            <option value="45">45 min</option>
-                            <option value="60">1 hr</option>
-                            <option value="75">1 hr 15 min</option>
-                            <option value="90">1 hr 30 min</option>
-                            <option value="105">1 hr 45 min</option>
-                            <option value="120">2 hr</option>
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                      <Col xs="8">
-                        <FormGroup>
-                          <Label htmlFor="ccyear">Select Stylist</Label>
-                          <Input
-                            type="select"
-                            name="employee"
-                            id="employee"
-                            onChange={(e) => {
-                              this.checkStatus(e, index);
-                            }}
-                            disabled={this.state.arrayVal[index]}
-                          >
-                            <option value="">Select stylist</option>
-                            {this.state.data4.map((val) => (
-                              <option value={val.id}>{val.name}</option>
-                            ))}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <hr></hr>
-                  </div>
-                ))}
-                <hr></hr>
-                <div>
-                  <Button color="primary" type="submit">
-                    Save appointment
-                  </Button>
 
-                  <Button color="secondary" onClick={(e) => this.resetform()}>
-                    Reset
-                  </Button>
-                </div>
-              </form>
-            </div>
-          }
-        </TabPane>
-       
-      </>
-    );
-  }
+
+// <hr style={{paddingBottom:"10px"}}></hr>
+//                 {this.state.arrayVal.map((val, index) => (
+//                   <div>
+//                     {this.state.arrayVal.length > 1 ? (
+//                       <span onClick={(e) => this.printconsole(index)}>
+//                         <i className="fa fa-close fa-lg mt-4 pull-right"></i>
+//                       </span>
+//                     ) : (
+//                       <p></p>
+//                     )}
+
+//                     <Row>
+//                       <Col xs="4">
+//                         <FormGroup>
+//                           <Label htmlFor="ccmonth">start time</Label>
+//                           <Input
+//                             type="select"
+//                             name="starttime"
+//                             id="starttime"
+//                             onChange={(e) => {
+//                               this.checkStatus(e, index);
+//                             }}
+//                             disabled={this.state.arrayVal[index]}
+//                           >
+//                             <option value="">Time</option>
+//                             <option value="00:05">00:05</option>
+//                             <option value="00:10">00:10</option>
+//                             <option value="00:15">00:15</option>
+//                             <option value="00:20">00:20</option>
+//                             <option value="00:25">00:25</option>
+//                             <option value="00:30">00:30</option>
+//                             <option value="00:35">00:35</option>
+//                             <option value="00:40">00:40</option>
+//                             <option value="00:45">00:45</option>
+//                             <option value="00:50">00:50</option>
+//                             <option value="00:55">00:55</option>
+//                             <option value="01:00">01:00</option>
+//                             <option value="01:05">01:05</option>
+//                             <option value="01:10">01:10</option>
+//                             <option value="01:15">01:15</option>
+//                             <option value="01:20">01:20</option>
+//                             <option value="01:25">01:25</option>
+//                             <option value="01:30">01:30</option>
+//                             <option value="01:35">01:35</option>
+//                             <option value="01:40">01:40</option>
+//                             <option value="01:45">01:45</option>
+//                             <option value="01:50">01:50</option>
+//                             <option value="01:55">01:55</option>
+//                             <option value="02:00">02:00</option>
+//                             <option value="02:05">02:05</option>
+//                             <option value="02:10">02:10</option>
+//                             <option value="02:15">02:15</option>
+//                             <option value="02:20">02:20</option>
+//                             <option value="02:25">02:25</option>
+//                             <option value="02:30">02:30</option>
+//                             <option value="02:35">02:35</option>
+//                             <option value="02:40">02:40</option>
+//                             <option value="02:45">02:45</option>
+//                             <option value="02:50">02:50</option>
+//                             <option value="02:55">02:55</option>
+//                             <option value="03:00">03:00</option>
+//                             <option value="03:05">03:05</option>
+//                             <option value="03:10">03:10</option>
+//                             <option value="03:15">03:15</option>
+//                             <option value="03:20">03:20</option>
+//                             <option value="03:25">03:25</option>
+//                             <option value="03:30">03:30</option>
+//                             <option value="03:35">03:35</option>
+//                             <option value="03:40">03:40</option>
+//                             <option value="03:45">03:45</option>
+//                             <option value="03:50">03:50</option>
+//                             <option value="03:55">03:55</option>
+//                             <option value="04:00">04:00</option>
+//                             <option value="04:05">04:05</option>
+//                             <option value="04:10">04:10</option>
+//                             <option value="04:15">04:15</option>
+//                             <option value="04:20">04:20</option>
+//                             <option value="04:25">04:25</option>
+//                             <option value="04:30">04:30</option>
+//                             <option value="04:35">04:35</option>
+//                             <option value="04:40">04:40</option>
+//                             <option value="04:45">04:45</option>
+//                             <option value="04:50">04:50</option>
+//                             <option value="04:55">04:55</option>
+//                             <option value="05:00">05:00</option>
+//                             <option value="05:05">05:05</option>
+//                             <option value="05:10">05:10</option>
+//                             <option value="05:15">05:15</option>
+//                             <option value="05:20">05:20</option>
+//                             <option value="05:25">05:25</option>
+//                             <option value="05:30">05:30</option>
+//                             <option value="05:35">05:35</option>
+//                             <option value="05:40">05:40</option>
+//                             <option value="05:45">05:45</option>
+//                             <option value="05:50">05:50</option>
+//                             <option value="05:55">05:55</option>
+//                             <option value="06:00">06:00</option>
+//                             <option value="06:05">06:05</option>
+//                             <option value="06:10">06:10</option>
+//                             <option value="06:15">06:15</option>
+//                             <option value="06:20">06:20</option>
+//                             <option value="06:25">06:25</option>
+//                             <option value="06:30">06:30</option>
+//                             <option value="06:35">06:35</option>
+//                             <option value="06:40">06:40</option>
+//                             <option value="06:45">06:45</option>
+//                             <option value="06:50">06:50</option>
+//                             <option value="06:55">06:55</option>
+//                             <option value="07:00">07:00</option>
+//                             <option value="07:05">07:05</option>
+//                             <option value="07:10">07:10</option>
+//                             <option value="07:15">07:15</option>
+//                             <option value="07:20">07:20</option>
+//                             <option value="07:25">07:25</option>
+//                             <option value="07:30">07:30</option>
+//                             <option value="07:35">07:35</option>
+//                             <option value="07:40">07:40</option>
+//                             <option value="07:45">07:45</option>
+//                             <option value="07:50">07:50</option>
+//                             <option value="07:55">07:55</option>
+//                             <option value="08:00">08:00</option>
+//                             <option value="08:05">08:05</option>
+//                             <option value="08:10">08:10</option>
+//                             <option value="08:15">08:15</option>
+//                             <option value="08:20">08:20</option>
+//                             <option value="08:25">08:25</option>
+//                             <option value="08:30">08:30</option>
+//                             <option value="08:35">08:35</option>
+//                             <option value="08:40">08:40</option>
+//                             <option value="08:45">08:45</option>
+//                             <option value="08:50">08:50</option>
+//                             <option value="08:55">08:55</option>
+//                             <option value="09:00">09:00</option>
+//                             <option value="09:05">09:05</option>
+//                             <option value="09:10">09:10</option>
+//                             <option value="09:15">09:15</option>
+//                             <option value="09:20">09:20</option>
+//                             <option value="09:25">09:25</option>
+//                             <option value="09:30">09:30</option>
+//                             <option value="09:35">09:35</option>
+//                             <option value="09:40">09:40</option>
+//                             <option value="09:45">09:45</option>
+//                             <option value="09:50">09:50</option>
+//                             <option value="09:55">09:55</option>
+//                             <option value="10:00">10:00</option>
+//                             <option value="10:05">10:05</option>
+//                             <option value="10:10">10:10</option>
+//                             <option value="10:15">10:15</option>
+//                             <option value="10:20">10:20</option>
+//                             <option value="10:25">10:25</option>
+//                             <option value="10:30">10:30</option>
+//                             <option value="10:35">10:35</option>
+//                             <option value="10:40">10:40</option>
+//                             <option value="10:45">10:45</option>
+//                             <option value="10:50">10:50</option>
+//                             <option value="10:55">10:55</option>
+//                             <option value="11:00">11:00</option>
+//                             <option value="11:05">11:05</option>
+//                             <option value="11:10">11:10</option>
+//                             <option value="11:15">11:15</option>
+//                             <option value="11:20">11:20</option>
+//                             <option value="11:25">11:25</option>
+//                             <option value="11:30">11:30</option>
+//                             <option value="11:35">11:35</option>
+//                             <option value="11:40">11:40</option>
+//                             <option value="11:45">11:45</option>
+//                             <option value="11:50">11:50</option>
+//                             <option value="11:55">11:55</option>
+//                             <option value="12:00">12:00</option>
+//                             <option value="12:05">12:05</option>
+//                             <option value="12:10">12:10</option>
+//                             <option value="12:15">12:15</option>
+//                             <option value="12:20">12:20</option>
+//                             <option value="12:25">12:25</option>
+//                             <option value="12:30">12:30</option>
+//                             <option value="12:35">12:35</option>
+//                             <option value="12:40">12:40</option>
+//                             <option value="12:45">12:45</option>
+//                             <option value="12:50">12:50</option>
+//                             <option value="12:55">12:55</option>
+//                             <option value="13:00">13:00</option>
+//                             <option value="13:05">13:05</option>
+//                             <option value="13:10">13:10</option>
+//                             <option value="13:15">13:15</option>
+//                             <option value="13:20">13:20</option>
+//                             <option value="13:25">13:25</option>
+//                             <option value="13:30">13:30</option>
+//                             <option value="13:35">13:35</option>
+//                             <option value="13:40">13:40</option>
+//                             <option value="13:45">13:45</option>
+//                             <option value="13:50">13:50</option>
+//                             <option value="13:55">13:55</option>
+//                             <option value="14:00">14:00</option>
+//                             <option value="14:05">14:05</option>
+//                             <option value="14:10">14:10</option>
+//                             <option value="14:15">14:15</option>
+//                             <option value="14:20">14:20</option>
+//                             <option value="14:25">14:25</option>
+//                             <option value="14:30">14:30</option>
+//                             <option value="14:35">14:35</option>
+//                             <option value="14:40">14:40</option>
+//                             <option value="14:45">14:45</option>
+//                             <option value="14:50">14:50</option>
+//                             <option value="14:55">14:55</option>
+//                             <option value="15:00">15:00</option>
+//                             <option value="15:05">15:05</option>
+//                             <option value="15:10">15:10</option>
+//                             <option value="15:15">15:15</option>
+//                             <option value="15:20">15:20</option>
+//                             <option value="15:25">15:25</option>
+//                             <option value="15:30">15:30</option>
+//                             <option value="15:35">15:35</option>
+//                             <option value="15:40">15:40</option>
+//                             <option value="15:45">15:45</option>
+//                             <option value="15:50">15:50</option>
+//                             <option value="15:55">15:55</option>
+//                             <option value="16:00">16:00</option>
+//                             <option value="16:05">16:05</option>
+//                             <option value="16:10">16:10</option>
+//                             <option value="16:15">16:15</option>
+//                             <option value="16:20">16:20</option>
+//                             <option value="16:25">16:25</option>
+//                             <option value="16:30">16:30</option>
+//                             <option value="16:35">16:35</option>
+//                             <option value="16:40">16:40</option>
+//                             <option value="16:45">16:45</option>
+//                             <option value="16:50">16:50</option>
+//                             <option value="16:55">16:55</option>
+//                             <option value="17:00">17:00</option>
+//                             <option value="17:05">17:05</option>
+//                             <option value="17:10">17:10</option>
+//                             <option value="17:15">17:15</option>
+//                             <option value="17:20">17:20</option>
+//                             <option value="17:25">17:25</option>
+//                             <option value="17:30">17:30</option>
+//                             <option value="17:35">17:35</option>
+//                             <option value="17:40">17:40</option>
+//                             <option value="17:45">17:45</option>
+//                             <option value="17:50">17:50</option>
+//                             <option value="17:55">17:55</option>
+//                             <option value="18:00">18:00</option>
+//                             <option value="18:05">18:05</option>
+//                             <option value="18:10">18:10</option>
+//                             <option value="18:15">18:15</option>
+//                             <option value="18:20">18:20</option>
+//                             <option value="18:25">18:25</option>
+//                             <option value="18:30">18:30</option>
+//                             <option value="18:35">18:35</option>
+//                             <option value="18:40">18:40</option>
+//                             <option value="18:45">18:45</option>
+//                             <option value="18:50">18:50</option>
+//                             <option value="18:55">18:55</option>
+//                             <option value="19:00">19:00</option>
+//                             <option value="19:05">19:05</option>
+//                             <option value="19:10">19:10</option>
+//                             <option value="19:15">19:15</option>
+//                             <option value="19:20">19:20</option>
+//                             <option value="19:25">19:25</option>
+//                             <option value="19:30">19:30</option>
+//                             <option value="19:35">19:35</option>
+//                             <option value="19:40">19:40</option>
+//                             <option value="19:45">19:45</option>
+//                             <option value="19:50">19:50</option>
+//                             <option value="19:55">19:55</option>
+//                             <option value="20:00">20:00</option>
+//                             <option value="20:05">20:05</option>
+//                             <option value="20:10">20:10</option>
+//                             <option value="20:15">20:15</option>
+//                             <option value="20:20">20:20</option>
+//                             <option value="20:25">20:25</option>
+//                             <option value="20:30">20:30</option>
+//                             <option value="20:35">20:35</option>
+//                             <option value="20:40">20:40</option>
+//                             <option value="20:45">20:45</option>
+//                             <option value="20:50">20:50</option>
+//                             <option value="20:55">20:55</option>
+//                             <option value="21:00">21:00</option>
+//                             <option value="21:05">21:05</option>
+//                             <option value="21:10">21:10</option>
+//                             <option value="21:15">21:15</option>
+//                             <option value="21:20">21:20</option>
+//                             <option value="21:25">21:25</option>
+//                             <option value="21:30">21:30</option>
+//                             <option value="21:35">21:35</option>
+//                             <option value="21:40">21:40</option>
+//                             <option value="21:45">21:45</option>
+//                             <option value="21:50">21:50</option>
+//                             <option value="21:55">21:55</option>
+//                             <option value="22:00">22:00</option>
+//                             <option value="22:05">22:05</option>
+//                             <option value="22:10">22:10</option>
+//                             <option value="22:15">22:15</option>
+//                             <option value="22:20">22:20</option>
+//                             <option value="22:25">22:25</option>
+//                             <option value="22:30">22:30</option>
+//                             <option value="22:35">22:35</option>
+//                             <option value="22:40">22:40</option>
+//                             <option value="22:45">22:45</option>
+//                             <option value="22:50">22:50</option>
+//                             <option value="22:55">22:55</option>
+//                             <option value="22:00">22:00</option>
+//                             <option value="22:05">22:05</option>
+//                             <option value="22:10">22:10</option>
+//                             <option value="22:15">22:15</option>
+//                             <option value="22:20">22:20</option>
+//                             <option value="22:25">22:25</option>
+//                             <option value="22:30">22:30</option>
+//                             <option value="22:35">22:35</option>
+//                             <option value="22:40">22:40</option>
+//                             <option value="22:45">22:45</option>
+//                             <option value="22:50">22:50</option>
+//                             <option value="22:55">22:55</option>
+//                             <option value="23:00">23:00</option>
+//                             <option value="23:05">23:05</option>
+//                             <option value="23:10">23:10</option>
+//                             <option value="23:15">23:15</option>
+//                             <option value="23:20">23:20</option>
+//                             <option value="23:25">23:25</option>
+//                             <option value="23:30">23:30</option>
+//                             <option value="23:35">23:35</option>
+//                             <option value="23:40">23:40</option>
+//                             <option value="23:45">23:45</option>
+//                             <option value="23:50">23:50</option>
+//                             <option value="23:55">23:55</option>
+//                           </Input>
+//                         </FormGroup>
+//                       </Col>
+//                       <Col xs="8">
+//                         <FormGroup>
+//                           <Label htmlFor="ccyear">Service</Label>
+
+//                           <Input
+//                             type="select"
+//                             name="service"
+//                             id="service"
+//                             onChange={(e) => {
+//                               this.checkStatus(e, index);
+//                             }}
+//                             disabled={this.state.arrayVal[index]}
+//                           >
+//                             <option value="">Select service</option>
+//                             {this.state.data2.map((val) => (
+//                               <option value={val.id}>{val.name}</option>
+//                             ))}
+//                           </Input>
+//                         </FormGroup>
+//                       </Col>
+//                     </Row>
+
+//                     <Row>
+
+//                     <Col xs="6">
+//                         <FormGroup>
+//                           <Label htmlFor="ccyear">Select Stylist</Label>
+//                           <Input
+//                             type="select"
+//                             name="employee"
+//                             id="employee"
+//                             onChange={(e) => {
+//                               this.checkStatus(e, index);
+//                               this.checkSlotWithEmployee(e.target.value)
+//                             }}
+//                             disabled={this.state.arrayVal[index]}
+//                           >
+//                             <option value="">Select stylist</option>
+//                             {this.state.data4.map((val) => (
+//                               <option value={val.id}>{val.title}</option>
+//                             ))}
+//                           </Input>
+//                         </FormGroup>
+//                       </Col>
+
+//                       <Col xs="6">
+//                         <FormGroup>
+//                           <Label htmlFor="ccmonth">Time Allocated</Label>
+//                           <Input
+//                             type="select"
+//                             name="duration"
+//                             id="duration"
+//                             onChange={(e) => {
+//                               this.checkStatus(e, index);
+//                             }}
+//                             disabled={this.state.arrayVal[index]}
+//                           >
+//                             <option value="">Duration</option>
+//                             <option value="0">0 min</option>
+//                             <option value="30">30 min</option>
+//                             <option value="45">45 min</option>
+//                             <option value="60">1 hr</option>
+//                             <option value="75">1 hr 15 min</option>
+//                             <option value="90">1 hr 30 min</option>
+//                             <option value="105">1 hr 45 min</option>
+//                             <option value="120">2 hr</option>
+//                           </Input>
+//                         </FormGroup>
+//                       </Col>
+                   
+//                     </Row>
+
+//                     <hr></hr>
+//                   </div>
+//                 ))}
+//                 {this.state.appdate!==""?
+//                     <Calendar2
+//       localizer={localizer}
+//       events={this.state.availableSlots}
+//       defaultView={Views.DAY}
+//       views={['day']}
+//       date={this.state.appdate}
+//       startAccessor="start"
+//       endAccessor="end"
+//       style={{ height: 500 }}
+//       resources={this.state.resources}
+//       resourceIdAccessor="resourceId"
+//       resourceTitleAccessor="resourceTitle"
+//     />:<></>}
+//                 <hr></hr>
+//                 <div>
+//                   <Button color="primary" type="submit">
+//                     Save appointment
+//                   </Button>
+
+//                   <Button color="secondary" onClick={(e) => this.resetform()}>
+//                     Reset
+//                   </Button>
+//                 </div>
+//               </form>
+//             </div>
+//           }
+//         </TabPane>
+//       </>
+//     );
+//   }
 
   render() {
 
@@ -1624,19 +1691,7 @@ BaseService.GetDataWithoutParams(url)
   });
     return (
       <div className="animated fadeIn">
-        <div id="preloder">
-          <div>
-            <div>
-            
-              <ClockLoader
-                css={override}
-                size={60}
-                color={"#03081b"}
-                loading="true"
-              />
-            </div>
-          </div>
-        </div>
+ 
 
     
 
@@ -1649,11 +1704,12 @@ BaseService.GetDataWithoutParams(url)
             <div>
               <ButtonDropdown
                 isOpen={this.state.dropdownOpen2[0]}
+                color="dark"
                 toggle={() => {
                   this.toggle2(0);
                 }}
               >
-                <DropdownToggle caret>
+                <DropdownToggle caret color="dark">
                   {this.state.selectempname}
                 </DropdownToggle>
 
@@ -1676,12 +1732,13 @@ BaseService.GetDataWithoutParams(url)
           <div className="text-center">
             <ButtonDropdown
               isOpen={this.state.dropdownOpen[0]}
+              color="dark"
               toggle={() => {
                 this.toggle1(0);
               }}
               className="mr-1"
             >
-              <DropdownToggle caret>
+              <DropdownToggle caret color="dark">
                 {new Intl.DateTimeFormat("en-GB", {
                   year: "numeric",
                   month: "long",
@@ -1702,13 +1759,14 @@ BaseService.GetDataWithoutParams(url)
 
           {/* day week drop down */}
           <div>
-            <ButtonDropdown
+            <Dropdown
               isOpen={this.state.dropdownOpen3[0]}
+              color="dark"
               toggle={() => {
                 this.toggle3(0);
               }}
             >
-              <DropdownToggle caret>
+              <DropdownToggle caret color="dark">
                 {" "}
                 {this.state.daily ? "Daily" : "weekly"}
               </DropdownToggle>
@@ -1728,11 +1786,11 @@ BaseService.GetDataWithoutParams(url)
                   Week
                 </DropdownItem>
               </DropdownMenu>
-            </ButtonDropdown>
+            </Dropdown>
           </div>
 
           {/* To add appointment */}
-          <div>
+          {/* <div>
           <Dropdown
           color="dark"
           className="pull-right"
@@ -1753,11 +1811,11 @@ BaseService.GetDataWithoutParams(url)
 
           </DropdownMenu>
         </Dropdown>
-          </div>
-        </Row>
+          </div> */}
+        </Row><br></br>
 
-        <Modal isOpen={this.state.large} toggle={this.toggleLarge}>
-          <ModalHeader toggle={this.toggleLarge}>Add New Appointment</ModalHeader>
+        {/* <Modal className="modal-xl" isOpen={this.state.large} toggle={this.toggleLarge}>
+          <ModalHeader toggle={this.toggleLarge}  style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>Add New Appointment</ModalHeader>
           <ModalBody>
             <Nav tabs>
               <NavItem>
@@ -1786,12 +1844,12 @@ BaseService.GetDataWithoutParams(url)
               {this.tabPane()}
             </TabContent>
           </ModalBody>
-        </Modal>
+        </Modal> */}
 
 
 
 
-        <Modal isOpen={this.state.large1} toggle={this.toggleLarge1}>
+        <Modal   isOpen={this.state.large1} toggle={this.toggleLarge1}>
           <ModalHeader>Report Generator</ModalHeader>
           <ModalBody>
        
@@ -1860,9 +1918,17 @@ BaseService.GetDataWithoutParams(url)
         </Modal>
 
         {this.state.daily ? (
+          <Card>
+            <CardBody  style={{backgroundImage: `url(${Back})`,backgroundRepeat:"no-repeat"}}>
            <DailyDisplay board={this.state.data7}/>
+           </CardBody>
+           </Card>
         ) : (
+          <Card>
+            <CardBody  style={{backgroundImage: `url(${Back})`,backgroundRepeat:"no-repeat"}}>
           <WeeklyDisplay board={this.state.weekdata3} />
+          </CardBody>
+           </Card>
         )}
 
 

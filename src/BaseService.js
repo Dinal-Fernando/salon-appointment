@@ -4,6 +4,8 @@ import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
 
+
+
 const base_url = "http://salon-be-dev2.ap-southeast-1.elasticbeanstalk.com";
 
 export const PostService = (url, data) => {
@@ -315,7 +317,7 @@ export const GetDataWithoutParams = (url) => {
                   localStorage.getItem("AccessToken")
                 ),
               },
-
+              
             }).then(
               (res) => {
                 return res;

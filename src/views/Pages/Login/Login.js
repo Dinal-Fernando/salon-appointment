@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import * as BaseService from "../../../BaseService.js";
 
@@ -9,17 +8,18 @@ import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
 import Swal from 'sweetalert2'
 import { css } from "@emotion/core";
-
 import ClockLoader from "react-spinners/ClockLoader";
+
+
 const override = css`
-display: block;
-margin: 0 auto;
-border-color: red;
-position: absolute;
-margin-top: -13px;
-margin-left: -13px;
-left: 50%;
-top: 50%;
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+  position: absolute;
+  margin-top: -13px;
+	margin-left: -13px;
+  left: 50%;
+  top: 50%;
 `;
 class Login extends Component {
 
@@ -28,9 +28,10 @@ class Login extends Component {
     this.state={
       username:"",
       password:"",
+      loading:false
     }
   }
-
+  
 
 
   onChangeHandler=(e)=>{
@@ -42,75 +43,78 @@ class Login extends Component {
   }
 
   onSubmitHandler=(e)=>{
+    this.setState({
+      loading:true
+    })
     e.preventDefault();
     const login={
       username:this.state.username,
       password:this.state.password
     }
-    document.getElementById('preloder').style.display="block";
+   
     const url = "/user/varify/";
 BaseService.PostServiceWithoutHeader(url, login)
   .then((res) => {
-
+    
+    this.setState({
+      loading:false
+    })
 
     if (res.data.success === true) {
-      alertify.success("Successfully logged in");
+     
       localStorage.setItem('AccessToken',res.data.Access_Token);
       localStorage.setItem('RefreshToken',res.data.Refresh_Token);
       localStorage.setItem('type',res.data.type);
-      window.location.href="/#/dashboard";
+      
+      
+    
+      alertify.success("Successfully logged in");
+
+window.location.href="/#/dashboard";
 
     } else {
-      setTimeout(()=>{
-        document.getElementById('preloder').style.display="none";
-
-    },400);
+      
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Invalid Credentials!',
-
+        
       })
     }
 
-
+ 
 
   })
   .catch((err) => {
-    setTimeout(()=>{
-      document.getElementById('preloder').style.display="none";
-
-  },400);
+   
   Swal.fire({
     icon: 'error',
     title: 'Oops...',
     text: 'Invalid Credentials!',
-
+    
   })
   });
   }
   render() {
     return (
       <div>
-
+                    
       <div className="app flex-row align-items-center">
 
-        <Container>
-        <div id="preloder">
-
-          <div >
-
-          <div>
-
-               <ClockLoader css={override} size={60} color={"#03081b"} loading="true" />
-  </div>
-          </div>
+               <div className="sweet-loading text-center" style={{zIndex:"5"}}>
+        <ClockLoader
+          css={override}
+          size={75}
+          color={"#123abc"}
+          loading={this.state.loading}
+        />
       </div>
+         
+        <Container>
+      
 
-      <p style={{display:"none"}}>{setTimeout(()=>{
-            document.getElementById('preloder').style.display="none";
-        },400)}</p>
-
+    
+      
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>
@@ -119,7 +123,7 @@ BaseService.PostServiceWithoutHeader(url, login)
                     <Form onSubmit={this.onSubmitHandler}>
                       <h1>Login to proceed</h1>
                       <p className="text-muted">Sign In to your account</p>
-
+      
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -165,7 +169,7 @@ BaseService.PostServiceWithoutHeader(url, login)
         </Container>
       </div>
       </div>
-
+      
     );
   }
 }

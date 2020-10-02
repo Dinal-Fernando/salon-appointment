@@ -17,15 +17,7 @@ export default {
     //   class: ''             // optional class names space delimited list for title item ex: "text-center"
     // },
  
-    {
-      name: 'Calendar',
-      url: '/saloon/Calendar',
-      icon: 'icon-calendar',
-    }, {
-      name: 'List',
-      url: '/saloon/List',
-      icon: 'icon-list',
-    },
+
     {
       name: 'Client',
       url: '/saloon/Client',
@@ -40,6 +32,21 @@ export default {
       name: 'Services',
       url: '/saloon/Services',
       icon: 'icon-list',
+    },
+    {
+      name: 'Calendar',
+      url: '/saloon/Calendar',
+      icon: 'icon-calendar',
+    }, 
+    {
+      name: 'List',
+      url: '/saloon/List',
+      icon: 'icon-list',
+    },
+    {
+      name: 'Location',
+      url: '/saloon/location',
+      icon: 'icon-location-pin',
     },
     // {
     //   title: true,

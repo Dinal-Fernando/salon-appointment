@@ -4,9 +4,12 @@ import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
 import * as BaseService from "../../../BaseService.js";
+
 import Swal from "sweetalert2";
 
+
 import {
+
   Card,
   CardBody,
   Col,
@@ -30,49 +33,12 @@ import {
 } from "reactstrap";
 import Scissor from "../../../assets/Scissor.png";
 import AddService from "./AddService";
-//import EditServices from "./EditService";
 
-import { css } from "@emotion/core";
 
-import ClockLoader from "react-spinners/ClockLoader";
-
-const override = css`
-display: block;
-margin: 0 auto;
-border-color: red;
-position: absolute;
-margin-top: -13px;
-margin-left: -13px;
-left: 50%;
-top: 50%;
-`;
 class Services extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      serv: [
-        {
-          id: 1,
-          service: "hair cut",
-          time: "1h 30min",
-          price: "LKR500",
-          catergory: "Hair",
-        },
-        {
-          id: 2,
-          service: "Facial Hair Trim",
-          time: "1h 30min",
-          price: "LKR500",
-          catergory: "Face",
-        },
-        {
-          id: 3,
-          service: "Beard Trim",
-          time: "1h 30min",
-          price: "LKR500",
-          catergory: "Beard",
-        },
-      ],
       large: false,
       large1: false,
       dropdownOpen: new Array(6).fill(false),
@@ -92,86 +58,58 @@ class Services extends Component {
       updateId:null,
       loading:true,
     };
-    this.toggleLarge = this.toggleLarge.bind(this);
-    this.toggleLarge1 = this.toggleLarge1.bind(this);
-    this.toggle = this.toggle.bind(this);
-    this.pass = this.pass.bind(this);
+ 
   }
 
 
   componentWillMount = () => {
-    //document.getElementById('preloder').style.display="block";
+  
 
 
     const url2= "/category/get/";
      BaseService.GetDataWithoutParams(url2)
        .then((res) => {
-
-
+         
+     
          if (res.data.success === true) {
-
+           
            this.setState({
              data2: res.data.data,
            });
-
+          
          } else {
-
+        
            Swal.fire({
              icon: 'error',
              title: 'Oops...',
              text: 'Error loading data!',
-
+             
            })
          }
-
-
-
+     
+      
+     
        })
        .catch((err) => {
-
+        
        Swal.fire({
          icon: 'error',
          title: 'Oops...',
          text: 'Error loading data!',
-
+         
        })
        });
 
 
-    // axios({
-    //   method: "GET",
-    //   url:
-    //     global.Backend+"/category/get/",
-    // })
-    //   .then((res) => {
-    //     this.setState({
-    //       data: res.data.data,
-    //     });
-
-    //     //console.log("length " + this.state.data.length);
-
-    //     this.state.data.map((item) => {
-    //       const values = {
-    //         id: item.id,
-    //         name: item.name,
-    //       };
-    //       this.setState({
-    //         data2: [values,...this.state.data2],
-    //       });
-    //     });
-    //    // console.log(this.state.data2);
-    //   })
-    //   .catch((err) => console.log(err));
-
       this.receivedData(1,1);
 
 
-
+   
   };
 
 
   receivedData=(e,index)=>{
-
+    
 
     console.log("index"+index)
     this.setState({
@@ -187,32 +125,28 @@ class Services extends Component {
       const url2= "/service/getbypage/";
     BaseService.GetDataWithParams(url2,paramdata)
       .then((res) => {
-
-        setTimeout(()=>{
-          document.getElementById('preloder').style.display="none";
-
-      },400);
-
+        
+       
         if (res.data.success === true) {
 
 
           this.setState({
             data3: res.data.data,
             pageCount:Math.ceil(res.data.count / this.state.limit),
-
-
+  
+            
           });
-
+          
           console.log("length of limit" + this.state.data3.length);
-
+  
           this.state.data3.map((item) => {
-
+  
             const index1=this.state.data2.findIndex((res)=>{
-
+              
               return res.name===item.category
-
+              
           });
-
+  
             const values = {
               id: item.id,
               name: item.name,
@@ -227,100 +161,49 @@ class Services extends Component {
             });
           });
 
-
+          
         } else {
-
+       
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
-
+            
           })
         }
-
-
-
+    
+     
+    
       })
       .catch((err) => {
-
+       
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
-
+        
       })
       });
 
 
 
-
-
-
-    // axios({
-    //   method: "GET",
-    //   url:
-    //   global.Backend+"/service/getbypage/",
-    //     params:{page:this.state.pageNumber,limit:this.state.limit}
-    // })
-    //   .then((res) => {
-
-    //     setTimeout(()=>{
-    //       document.getElementById('preloder').style.display="none";
-
-    //   },400);
-
-
-    //     this.setState({
-    //       data3: res.data.data,
-    //       pageCount:Math.ceil(res.data.count / this.state.limit),
-
-
-    //     });
-    //     this.loaderService();
-    //     console.log("length of limit" + this.state.data3.length);
-
-    //     this.state.data3.map((item) => {
-
-    //       const index1=this.state.data2.findIndex((res)=>{
-
-    //         return res.name===item.category
-
-    //     });
-
-    //       const values = {
-    //         id: item.id,
-    //         name: item.name,
-    //         price:item.price,
-    //         time:item.time,
-    //         category:this.state.data2[index1],
-    //         cost:item.cost,
-    //         slots:item.time/45
-    //       };
-    //       this.setState({
-    //         data4: [values,...this.state.data4],
-    //       });
-    //     });
-
-    //     console.log("length of data4"+this.state.data4.length);
-    //   })
-    //   .catch((err) => console.log(err));
     })
 
   }
 
-  toggleLarge() {
+  toggleLarge=()=> {
     this.setState({
       large: !this.state.large,
     });
   }
 
-  toggleLarge1() {
+  toggleLarge1=()=> {
     this.setState({
       large: !this.state.large,
     });
   }
 
-  toggle(i) {
+  toggle=(i)=> {
     const newArray = this.state.dropdownOpen.map((element, index) => {
       return index === i ? !element : false;
     });
@@ -357,18 +240,18 @@ class Services extends Component {
       name: this.state.serviceName,
       price: this.state.price,
       cost: this.state.cost,
-
+      
       category_id: parseInt(this.state.servCatergory),
       slots: parseInt(this.state.time),
     };
 
-
+  
   const url = "/service/update/";
   BaseService.UpdateService(url, Updateservice,this.state.updateId)
     .then((res) => {
 
-
-
+     
+      
       console.log("response"+res)
       if (res.data.success === true) {
        // this.receivedData(1,1);
@@ -401,45 +284,16 @@ class Services extends Component {
     const {pageNumber}=this.state;
     return (
       <Col>
-
+       
         <Card>
 
-        <div id="preloder">
 
-          <div >
-
-          <div>
-
-               <ClockLoader css={override} size={60} color={"#03081b"} loading="true" />
-  </div>
-          </div>
-      </div>
-
-
+       
           <CardBody>
             <div className="text-center">
-              {/* <Button onClick={this.toggleLarge} color="dark" className="pull-right" style={{marginBottom:20}}>Add Staff</Button> */}
-              {/* <Dropdown
-                color="dark"
-                className="pull-right"
-                isOpen={this.state.dropdownOpen[0]}
-                toggle={() => {
-                  this.toggle(0);
-                }}
-              >
-                <DropdownToggle caret color="dark">
-                  Add New
-                </DropdownToggle>
-                <DropdownMenu>
+        
 
-                  <DropdownItem onClick={this.pass}>New service</DropdownItem>
-
-                  <DropdownItem>Add catergory</DropdownItem>
-                </DropdownMenu>
-              </Dropdown> */}
-
-
-              <AddService />
+              <AddService displayservice={this.receivedData}/>
             </div>
 
             <Table responsive striped className="table-hover">
@@ -471,10 +325,10 @@ class Services extends Component {
                     className={"modal-lg " + this.props.className}
                   >
                     {/*table model*/}
-
+                  
           <form onSubmit={this.updateServiceHandler}>
             <ModalHeader toggle={this.toggleLarge}>Edit Service</ModalHeader>
-            <ModalBody>
+            <ModalBody >
               <Row>
                 <Col xs="12" sm="6">
                   <Card style={{ border: "transparent" }}>
@@ -693,16 +547,16 @@ class Services extends Component {
                 <PaginationLink tag="button" value="1">1</PaginationLink>
               </PaginationItem> */}
   <PaginationItem disabled={pageNumber <= 1}>
-
+              
               <PaginationLink
                 onClick={e => this.receivedData(e, pageNumber - 1)}
                 previous
-
+                
               />
-
+              
             </PaginationItem>
 
-              {[...Array(this.state.pageCount)].map((page, i) =>
+              {[...Array(this.state.pageCount)].map((page, i) => 
               <PaginationItem active={i === pageNumber-1} key={i}>
                 <PaginationLink onClick={e => this.receivedData(e, i+1)}>
                   {i + 1}
@@ -712,13 +566,13 @@ class Services extends Component {
 
 
 <PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
-
+              
               <PaginationLink
                 onClick={e => this.handleClick(e, pageNumber + 1)}
                 next
-
+               
               />
-
+              
             </PaginationItem>
 
               {/* <PaginationItem>

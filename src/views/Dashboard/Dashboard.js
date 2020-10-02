@@ -5,28 +5,22 @@ import Swal from "sweetalert2";
 import moment from "moment";
 import {
   Button,
+
+  
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Col,
+
   Progress,
   Row,
 } from 'reactstrap';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
-import { css } from "@emotion/core";
-import ClockLoader from "react-spinners/ClockLoader";
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-  position:fixed;
-  left:50%;
-  top:50%
-`;
+import { getStyle } from '@coreui/coreui/dist/js/coreui-utilities'
 
-//Dinal Fernando
+
+
 
 const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
 
@@ -382,80 +376,7 @@ for (var i = 0; i <= elements; i++) {
   data3.push(65);
 }
 
-const mainChart = {
-  labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: hexToRgba(brandInfo, 10),
-      borderColor: brandInfo,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 2,
-      data: data1,
-    },
-    {
-      label: 'My Second dataset',
-      backgroundColor: 'transparent',
-      borderColor: brandSuccess,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 2,
-      data: data2,
-    },
-    {
-      label: 'My Third dataset',
-      backgroundColor: 'transparent',
-      borderColor: brandDanger,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 1,
-      borderDash: [8, 5],
-      data: data3,
-    },
-  ],
-};
 
-const mainChartOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips,
-    intersect: true,
-    mode: 'index',
-    position: 'nearest',
-    callbacks: {
-      labelColor: function(tooltipItem, chart) {
-        return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor }
-      }
-    }
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          drawOnChartArea: false,
-        },
-      }],
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250,
-        },
-      }],
-  },
-  elements: {
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3,
-    },
-  },
-};
 
 class Dashboard extends Component {
   constructor(props) {
@@ -483,7 +404,7 @@ class Dashboard extends Component {
 
   componentDidMount=async()=>{
     await this.eventInfo();
-
+    
   }
 
   eventInfo=()=>{
@@ -502,8 +423,8 @@ class Dashboard extends Component {
 
 await res2.data.data.map(async value=>{
 
-
-
+  
+  
   await value.details.map(async value2=>{
 
 
@@ -527,7 +448,7 @@ await this.setState({
 
 
         }
-
+      
       })
         .catch((err) => {
           Swal.fire({
@@ -547,7 +468,7 @@ await this.setState({
      BaseService.GetDataWithoutParams(url2)
       .then((res) => {
         if (res.data.success === true) {
-
+         
       this.setState({
         emp:res.data.data
       })
@@ -600,25 +521,25 @@ await this.setState({
               data2: res.data.data,
             });
 
-
+            
               this.state.events.map(val2=>{
 
                 const index1=res.data.data.findIndex((res)=>{
-
+              
                   return res.name===val2.title
-
+                  
               });
 
               total=total+parseInt(res.data.data[index1].price);
               total2=total2+parseInt(res.data.data[index1].cost);
-
+              
 
               })
               this.setState({
                 totalPrice:total,
                 totalCost:total2
               })
-
+            
           } else {
             Swal.fire({
               icon: "error",
@@ -644,7 +565,7 @@ await this.setState({
           avg1:value2,
           avg2:value,
           avg3:value3,
-
+          
         })
   }
 
@@ -668,21 +589,9 @@ await this.setState({
     return (
       <div className="animated fadeIn">
         <Row>
-        <div id="preloder">
-
-          <div >
-
-          <div>
-            <p style={{left:"50%",top:"50%"}}>please wait.........</p>
-               <ClockLoader css={override} size={60} color={"#03081b"} loading="true" />
-  </div>
-          </div>
-      </div>
-
-            <p style={{display:"none"}}>{setTimeout(()=>{
-            document.getElementById('preloder').style.display="none";
-        },400)}</p>
-
+   
+         
+         
           <Col xs="12" sm="6" lg="3">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
@@ -745,7 +654,7 @@ await this.setState({
                       <DropdownItem>Another action</DropdownItem>
                       <DropdownItem>Something else here</DropdownItem>
                     </DropdownMenu>
-                  </Dropdown>
+                  </Dropdown> 
                 </ButtonGroup>*/}
                 <div className="text-value">{this.state.emp.length}</div>
                 <div>Staff Members</div>
@@ -903,7 +812,8 @@ await this.setState({
                         <div className="callout callout-danger">
                           <small className="text-muted">Average Sale per client</small>
                           <br />
-                <strong className="h4">LKR {this.state.totalPrice/this.state.client.length}</strong>
+
+                <strong className="h4">LKR {this.state.totalPrice/parseInt(this.state.client.length)}</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
