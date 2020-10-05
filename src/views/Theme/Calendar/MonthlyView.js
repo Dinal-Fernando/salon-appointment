@@ -164,7 +164,7 @@ class MonthlyView extends Component {
 this.setState({
   showAppTitle:info.title,
   showEmpName:this.state.empInfo[index1].resourceTitle,
-  showDate:info.start.getDate()+"/"+info.start.getMonth()+"/"+info.start.getFullYear(),
+  showDate:info.start.getDate()+"/"+(info.start.getMonth()+1)+"/"+info.start.getFullYear(),
   showTimeStart:info.start.getHours()+":"+info.start.getMinutes(),
   showTimeEnd:info.end.getHours()+":"+info.end.getMinutes(),
 },()=>{this.eventClickModelFunction()})
@@ -924,7 +924,7 @@ await this.setState({
         <p ><b>Appointment Date:-</b> {this.state.showDate}</p>
         <p ><b>Appointment Start Time:-</b> {this.state.showTimeStart}</p>
         <p ><b>Appointment End Time:-</b> {this.state.showTimeEnd}</p><br></br>
-        <div className="float-right">
+        {/* <div className="float-right">
         <Button color="dark" onClick={()=>{this.setState({cancelAppointment:true})}}>Cancel Appointment</Button>
         </div><br></br>
         {this.state.cancelAppointment===true?
@@ -942,7 +942,7 @@ await this.setState({
                   </FormGroup>
                   <Button className="btn btn-danger" type="submit">Submit Cancellation</Button>
                   </form>
-                  :<></>}
+                  :<></>} */}
           </ModalBody>
         </Modal>
 

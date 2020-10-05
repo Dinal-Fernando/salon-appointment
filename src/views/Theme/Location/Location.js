@@ -173,10 +173,10 @@ render(){
     return(
 
       <div>
-
+{/* 
 <div className="text-right">
   <Button color="dark" style={{position:"relative",zIndex:"1"}} onClick={this.LocationModelFunction}>Add Location</Button>
-</div>
+</div> */}
 
 {/* <div style={{zIndex:"1",position:"relative"}}>
 <Col md="9" lg="3" xl="4">

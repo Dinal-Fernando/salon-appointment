@@ -4,7 +4,7 @@ import {  UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav,
 import PropTypes from 'prop-types';
 
 import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/logo.png'
+import logo from '../../assets/img/brand/logo.jpg'
 import sygnet from '../../assets/img/brand/sygnet.svg'
 
 const propTypes = {
@@ -35,7 +35,8 @@ class DefaultHeader extends Component {
 
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: logo, width: 100, height: 75, alt: 'CoreUI Logo' }}
+         // full={{ src: logo, width: 100, height: 75, alt: 'CoreUI Logo' }}
+         full={{ src: logo, width: 100, height: 56, alt: 'CoreUI Logo' }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />

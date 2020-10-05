@@ -423,7 +423,7 @@ SmsCheck=(e)=>{
 this.setState({
   showAppTitle:info.event.title,
   showEmpName:this.state.empInfo[index1].title,
-  showDate:info.event.start.getDate()+"/"+info.event.start.getMonth()+"/"+info.event.start.getFullYear(),
+  showDate:info.event.start.getDate()+"/"+(info.event.start.getMonth()+1)+"/"+info.event.start.getFullYear(),
   showTimeStart:info.event.start.getHours()+":"+info.event.start.getMinutes(),
   showTimeEnd:info.event.end.getHours()+":"+info.event.end.getMinutes(),
 },()=>{this.eventClickModelFunction()})
@@ -779,6 +779,9 @@ this.state.dailyreport.push(reportdata);
            
               this.setState({
                 large: false,
+                appointmentDet:[],
+                appointmentDetails:[],
+                arrayVal: [true]
               });
 
               Swal.fire(
@@ -845,6 +848,9 @@ this.setState({
 
               this.setState({
                 large: false,
+                appointmentDet:[],
+                appointmentDetails:[],
+                arrayVal: [true]
               });
 
               Swal.fire(
@@ -1170,7 +1176,10 @@ alertify.message('we are checking availability...');
     });
 
     console.log(this.state.appointmentDetails[index1])
+if(index1>=0)
+{
 
+console.log("removed")
     const copy1 = Object.assign([], this.state.appointmentDetails);
     copy1.splice(index1, 1);
     this.setState(
@@ -1186,7 +1195,7 @@ alertify.message('we are checking availability...');
         appointmentDet: copy2,
       },
     );
-
+    }
 //     var ele = document.querySelectorAll('[id="starttime"]');
 //     ele[index].value= "";
 
@@ -2233,7 +2242,7 @@ document.getElementById("service").value="";
         <p ><b>Appointment Date:-</b> {this.state.showDate}</p>
         <p ><b>Appointment Start Time:-</b> {this.state.showTimeStart}</p>
         <p ><b>Appointment End Time:-</b> {this.state.showTimeEnd}</p><br></br>
-        <div className="float-right">
+        {/* <div className="float-right">
         <Button color="dark" onClick={()=>{this.setState({cancelAppointment:true})}}>Cancel Appointment</Button>
         </div><br></br>
         {this.state.cancelAppointment===true?
@@ -2251,7 +2260,7 @@ document.getElementById("service").value="";
                   </FormGroup>
                   <Button className="btn btn-danger" type="submit">Submit Cancellation</Button>
                   </form>
-                  :<></>}
+                  :<></>} */}
           </ModalBody>
         </Modal>
       
