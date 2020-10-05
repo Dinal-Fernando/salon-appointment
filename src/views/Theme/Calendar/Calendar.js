@@ -598,6 +598,14 @@ eventClickModelFunction=()=>{
 
   Report=()=>{
 let num=0;
+
+if(this.state.reportstart==="" ||this.state.reportend==="")
+{
+  alertify.alert("Cannot keep start and end dates empty");
+}else{
+
+
+
     const dateparam = moment(this.state.reportstart).format("YYYY-MM-DD");
     const dateparam2 = moment(this.state.reportend).format("YYYY-MM-DD");
     const paramdata = {
@@ -607,11 +615,11 @@ let num=0;
 
     const url2 = "/appointment/get/";
     BaseService.GetDataWithParams(url2, paramdata)
-      .then((res2) => {
+      .then(async(res2) => {
 
         if (res2.data.success === true) {
 
-res2.data.data.map(async (value,index)=>{
+await res2.data.data.map(async (value,index)=>{
 
   
   
@@ -647,7 +655,7 @@ this.state.dailyreport.push(reportdata);
 // },console.log(this.state.dailyreport))
   })
 })
-
+this.generatePDF();
 
         }else{
 
@@ -662,7 +670,7 @@ this.state.dailyreport.push(reportdata);
             text: "Error loading data!",
           });
         });
-
+      }
 
   }
 
@@ -2057,7 +2065,7 @@ document.getElementById("service").value="";
           placeholder="date placeholder"
           onChange={this.changeHandler}
           value={this.state.reportstart}
-          
+          required
         />
       </FormGroup>
 
@@ -2070,15 +2078,16 @@ document.getElementById("service").value="";
           placeholder="date placeholder"
           onChange={this.changeHandler}
           value={this.state.reportend}
+          required
         />
 
       </FormGroup>
       <button className="btn-primary"onClick={()=>{this.Report();this.setState({reportbtn:true})}}>Generate Report</button>
-      {this.state.reportstart!==""&&this.state.reportend!==""&&this.state.reportbtn===true?
+      {/* {this.state.reportstart!==""&&this.state.reportend!==""&&this.state.reportbtn===true?
       <div>
             <p>
               Please wait till we generate report
-            </p>
+            </p> */}
 
             {/* <PDFDownloadLink
               document={
@@ -2194,9 +2203,9 @@ document.getElementById("service").value="";
 
 
 
-            </div>:<></>}
+            {/* </div>:<></>} */}
 
-            {this.state.dailyreport.length!==0?<button onClick={this.generatePDF}>Download</button>:<></>}
+         
           </ModalBody>
         </Modal>
 <Card>
