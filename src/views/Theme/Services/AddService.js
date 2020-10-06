@@ -214,6 +214,17 @@ class AddService extends Component {
 
   ServiceSubmitHandler = (event) => {
     event.preventDefault();
+
+    if(this.state.servCatergory==="")
+    {
+      alertify.alert("Please add service")
+    }else if(this.state.time==="")
+    {
+      alertify.alert("Please add time")
+    }else{
+
+
+    
     const service = {
       name: this.state.serviceName,
       price: this.state.price,
@@ -223,17 +234,6 @@ class AddService extends Component {
       category: parseInt(this.state.servCatergory),
     };
 
-    // axios
-    //   .post(`https://jsonplaceholder.typicode.com/posts`, service)
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.data);
-
-    //     alertify.success("Successfully Inserted");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
 
       const url = "/service/save/";
       BaseService.PostService(url, service)
@@ -259,6 +259,9 @@ this.props.displayservice(1,1);
         .catch((err) => {
           alertify.alert("Cannot perform the operation");
         });
+
+
+      }
   };
 
   render() {
@@ -368,6 +371,7 @@ this.props.displayservice(1,1);
                           value={this.state.serviceName}
                           placeholder="Enter service name"
                           onChange={this.OnChangeHandler}
+                          required
                         />
                       </FormGroup>
 
@@ -383,7 +387,7 @@ this.props.displayservice(1,1);
                             
                             onChange={this.OnChangeHandler}
                           >
-                            <option value="0">Select Catergory</option>
+                            <option value="">Select Catergory</option>
                             {this.state.data2.map((item1) => (
                               <option value={item1.id}>{item1.name}</option>
                             ))}
@@ -415,6 +419,7 @@ this.props.displayservice(1,1);
                                   placeholder="LKR"
                                   value={this.state.cost}
                                   onChange={this.OnChangeHandler}
+                                  required
                                 />
                               </FormGroup>
                             </Col>
@@ -428,6 +433,7 @@ this.props.displayservice(1,1);
                                   value={this.state.price}
                                   onChange={this.OnChangeHandler}
                                   placeholder="LKR"
+                                  required
                                 />
                               </FormGroup>
                             </Col>
