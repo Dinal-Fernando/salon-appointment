@@ -19,7 +19,8 @@ import {
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle } from '@coreui/coreui/dist/js/coreui-utilities'
 
-
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
@@ -403,9 +404,13 @@ class Dashboard extends Component {
   }
 
   componentDidMount=async()=>{
+    
     await this.eventInfo();
     
   }
+
+
+ 
 
   eventInfo=()=>{
 
@@ -588,6 +593,9 @@ await this.setState({
 
     return (
       <div className="animated fadeIn">
+
+
+
         <Row>
    
          

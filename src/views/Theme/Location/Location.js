@@ -82,23 +82,23 @@ class Location extends Component {
     }
 
 
-    componentDidMount=()=>{
+    // componentDidMount=()=>{
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.showPosition);
-      } else { 
-        alert("not supported")
-      }
-    }
+    //   if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(this.showPosition);
+    //   } else { 
+    //     alert("not supported")
+    //   }
+    // }
 
 
-    showPosition=(position)=> {
-    console.log(position)
-    this.setState({
-      displaylatitude:position.coords.latitude,
-      displaylongitude:position.coords.longitude
-    })
-    }
+    // showPosition=(position)=> {
+    // console.log(position)
+    // this.setState({
+    //   displaylatitude:position.coords.latitude,
+    //   displaylongitude:position.coords.longitude
+    // })
+    // }
 
 
     OnChangeHandler=(e)=>{
@@ -178,7 +178,9 @@ render(){
   <Button color="dark" style={{position:"relative",zIndex:"1"}} onClick={this.LocationModelFunction}>Add Location</Button>
 </div> */}
 
-{/* <div style={{zIndex:"1",position:"relative"}}>
+
+
+<div style={{zIndex:"1",position:"relative"}}>
 <Col md="9" lg="3" xl="4">
   <Card  className="mx-4">
 <CardBody>
@@ -188,7 +190,7 @@ render(){
         <Avatar>A</Avatar>
         </ListItemAvatar>
         <ListItemText
-           primary="Kollupitiya"
+           primary={localStorage.getItem("place")}
           secondary={
             <React.Fragment>
               <Typography
@@ -211,7 +213,7 @@ render(){
 </CardBody>
   </Card>
   </Col>
-</div> */}
+</div> 
 
         <div >
         <GoogleMapReact
@@ -222,7 +224,7 @@ apiKey="AIzaSyAjT5CUd_6F5bb5gWErov6Ns2evmXHuKKM"
           size= { "50px", "50px"}
        
           >
-   <div style={PlacesStyle} lat={this.state.displaylatitude} lng={this.state.displaylongitude}>
+   <div style={PlacesStyle} lat={localStorage.getItem("latitude")} lng={localStorage.getItem("longitude")}>
               A  
            </div>
 

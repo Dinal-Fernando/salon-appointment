@@ -11,6 +11,10 @@ import { css } from "@emotion/core";
 import ClockLoader from "react-spinners/ClockLoader";
 
 
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
+
 const override = css`
   display: block;
   margin: 0 auto;
@@ -33,7 +37,10 @@ class Login extends Component {
   }
   
 
+componentDidMount=()=>{
+  this.toatnotify();
 
+}
   onChangeHandler=(e)=>{
 
     this.setState({
@@ -65,8 +72,11 @@ BaseService.PostServiceWithoutHeader(url, login)
       localStorage.setItem('AccessToken',res.data.Access_Token);
       localStorage.setItem('RefreshToken',res.data.Refresh_Token);
       localStorage.setItem('type',res.data.type);
+      localStorage.setItem('latitude',res.data.latitude);
+      localStorage.setItem('longitude',res.data.longitude);
+      localStorage.setItem('place',res.data.place);
       
-      
+    
     
       alertify.success("Successfully logged in");
 
@@ -95,10 +105,74 @@ window.location.href="/#/dashboard";
   })
   });
   }
+
+
+  toatnotify=()=>{
+
+    var today = new Date()
+var curHr = today.getHours()
+
+if (curHr < 12) {
+  toast('🌞 Hi! good morning login to continue!', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+  console.log('good morning')
+} else if (curHr < 15) {
+
+
+  toast.info('☀️ Hi! good afternoon login to continue!', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+  console.log('good afternoon')
+} else {
+
+  toast.dark('🌙 Hi! good evening login to continue!', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+  console.log('good evening')
+}
+
+    
+  }
+
+
   render() {
     return (
       <div>
-                    
+
+
+<ToastContainer
+position="bottom-center"
+autoClose={2000}
+hideProgressBar={false}
+newestOnTop
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+/>
+{/* Same as */}
+<ToastContainer />
+
       <div className="app flex-row align-items-center">
 
                <div className="sweet-loading text-center" style={{zIndex:"5"}}>
