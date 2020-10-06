@@ -31,7 +31,7 @@ export const PostService = (url, data) => {
             "content-type": "application/json", // whatever you want
             Authorization: "Token ".concat(localStorage.getItem("RefreshToken"))
           },
-          data: obj,
+          data: data,
         }).then(
           (res) => {
             localStorage.setItem("AccessToken", res.data["access"]);
@@ -166,24 +166,26 @@ export const UpdateService=(url, data,param)=>{
           refresh: localStorage.getItem("RefreshToken"),
         };
         return axios(base_url + "/refresh/", {
-          method: "POST",
+          method: "PUT",
           headers: {
             "content-type": "application/json", // whatever you want
             Authorization: "Token ".concat(localStorage.getItem("RefreshToken"))
           },
-          params: obj,
+          params:{id:param},
+          data: data,
         }).then(
           (res) => {
             localStorage.setItem("AccessToken", res.data["access"]);
             return axios(base_url + url, {
-              method: "POST",
+              method: "PUT",
               headers: {
                 "content-type": "application/json", // whatever you want
                 Authorization: "Bearer ".concat(
                   localStorage.getItem("AccessToken")
                 ),
               },
-              params: data,
+              params:{id:param},
+              data: data,
             }).then(
               (res) => {
                 return res;
@@ -233,17 +235,17 @@ export const GetDataWithParams = (url, data) => {
           refresh: localStorage.getItem("RefreshToken"),
         };
         return axios(base_url + "/refresh/", {
-          method: "POST",
+          method: "GET",
           headers: {
             "content-type": "application/json", // whatever you want
             Authorization: "Token ".concat(localStorage.getItem("RefreshToken"))
           },
-          params: obj,
+          params: data,
         }).then(
           (res) => {
             localStorage.setItem("AccessToken", res.data["access"]);
             return axios(base_url + url, {
-              method: "POST",
+              method: "GET",
               headers: {
                 "content-type": "application/json", // whatever you want
                 Authorization: "Bearer ".concat(
@@ -300,17 +302,17 @@ export const GetDataWithoutParams = (url) => {
           refresh: localStorage.getItem("RefreshToken"),
         };
         return axios(base_url + "/refresh/", {
-          method: "POST",
+          method: "GET",
           headers: {
             "content-type": "application/json", // whatever you want
             Authorization: "Token ".concat(localStorage.getItem("RefreshToken"))
           },
-          data: obj,
+          
         }).then(
           (res) => {
             localStorage.setItem("AccessToken", res.data["access"]);
             return axios(base_url + url, {
-              method: "POST",
+              method: "GET",
               headers: {
                 "content-type": "application/json", // whatever you want
                 Authorization: "Bearer ".concat(

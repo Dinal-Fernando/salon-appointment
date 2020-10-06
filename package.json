@@ -66,6 +66,7 @@
     "react-spinners": "^0.8.3",
     "react-tackle-box": "^2.1.0",
     "react-test-renderer": "^16.8.6",
+    "react-toastify": "^6.0.9",
     "react-trello": "^2.2.5",
     "reactstrap": "^8.0.0",
     "simple-line-icons": "^2.4.1",
