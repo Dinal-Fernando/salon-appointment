@@ -175,6 +175,12 @@ class Staff extends Component {
   SystemUserSubmitHandler = (event) => {
     event.preventDefault();
 
+    if(this.state.type==="")
+    {
+      alertify.alert("please add user type")
+    }else{
+
+  
     const users = {
       username: this.state.username,
       first_name: this.state.firstName,
@@ -201,6 +207,8 @@ class Staff extends Component {
       .catch((err) => {
         alertify.alert("Cannot perform the operation");
       });
+
+    }
   };
 
   setSize = (e) => {
@@ -677,6 +685,7 @@ class Staff extends Component {
                                     placeholder="Enter first Name"
                                     value={this.state.fullname}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
 
@@ -732,6 +741,7 @@ class Staff extends Component {
                                     placeholder="Enter Employee NIC"
                                     value={this.state.Nic}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
                               </CardBody>
@@ -764,6 +774,7 @@ class Staff extends Component {
                                     placeholder="Enter Address line 1"
                                     value={this.state.address1}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
 
@@ -776,6 +787,7 @@ class Staff extends Component {
                                     placeholder="Enter Address line 2"
                                     value={this.state.address2}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
 
@@ -788,6 +800,7 @@ class Staff extends Component {
                                     placeholder="Enter your city"
                                     value={this.state.city}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
 
@@ -877,6 +890,7 @@ class Staff extends Component {
                                     placeholder="Enter first Name"
                                     value={this.state.fullnameupd}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
 
@@ -934,6 +948,7 @@ class Staff extends Component {
                                     placeholder="Enter Employee NIC"
                                     value={this.state.Nicupd}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
                               </CardBody>
@@ -978,6 +993,7 @@ class Staff extends Component {
                                     placeholder="Enter Address line 2"
                                     value={this.state.address2upd}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
 
@@ -990,6 +1006,7 @@ class Staff extends Component {
                                     placeholder="Enter your city"
                                     value={this.state.cityupd}
                                     onChange={this.changeHandler}
+                                    required
                                   />
                                 </FormGroup>
 
@@ -1136,9 +1153,9 @@ class Staff extends Component {
                                   id="type"
                                   onChange={this.changeHandler}
                                 >
-                                  <option value="0">select User Type</option>
-                                  <option value="1">Admin</option>
-                                  <option value="2">User</option>
+                                  <option value="">select User Type</option>
+                                  <option value="2">Admin</option>
+                                  <option value="3">User</option>
                                 </Input>
                               </Col>
                             </FormGroup>

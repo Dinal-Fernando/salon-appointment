@@ -75,6 +75,7 @@ BaseService.PostServiceWithoutHeader(url, login)
       localStorage.setItem('latitude',res.data.latitude);
       localStorage.setItem('longitude',res.data.longitude);
       localStorage.setItem('place',res.data.place);
+      localStorage.setItem('logo',res.data.logo)
       
     
     

@@ -47,8 +47,6 @@ import Back3 from "../../../assets/back3.png";
 class Client extends Component {
   constructor(props) {
     super(props);
-    this.toggleLarge = this.toggleLarge.bind(this);
-    this.toggleLarge2 = this.toggleLarge2.bind(this);
     this.state = {
       large: false,
       large2: false,
@@ -167,14 +165,14 @@ class Client extends Component {
     );
   };
 
-  toggleLarge() {
+  toggleLarge=()=> {
     this.setState({
       large: !this.state.large,
     });
   }
 
 
-  toggleLarge2() {
+  toggleLarge2=()=> {
     this.setState({
       large2: !this.state.large2,
     });
