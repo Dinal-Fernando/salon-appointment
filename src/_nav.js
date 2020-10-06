@@ -48,6 +48,9 @@ export default {
       url: '/saloon/location',
       icon: 'icon-location-pin',
     },
+    {
+      
+    }
     // {
     //   title: true,
     //   name: 'Components',
