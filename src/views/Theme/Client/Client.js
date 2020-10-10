@@ -486,7 +486,7 @@ console.log("value here:"+this.state.countrycd)
                 </Card>
               </ModalBody>
               <ModalFooter>
-                <Button type="submit" color="primary">
+                <Button type="submit" color="success">
                   Save
                 </Button>
                 <Button color="secondary" onClick={this.toggleLarge}>
@@ -607,7 +607,7 @@ console.log("value here:"+this.state.countrycd)
               </Card>
               </ModalBody>
               <ModalFooter>
-                <Button type="submit" color="primary">
+                <Button type="submit" color="success">
                   Save
                 </Button>
                 <Button color="secondary" onClick={this.toggleLarge2}>

@@ -36,7 +36,7 @@ class DefaultHeader extends Component {
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
          // full={{ src: logo, width: 100, height: 75, alt: 'CoreUI Logo' }}
-         full={{ src: "http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+localStorage.getItem("logo"), width: 100, height: 56, alt: logo }}
+         full={{ src: "http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+localStorage.getItem("logo"), width:80, height: 50, alt: logo }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />

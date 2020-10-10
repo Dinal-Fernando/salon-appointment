@@ -1338,7 +1338,7 @@ document.getElementById("service").value="";
 
 
                   <Button
-                    color="primary"
+                    color="success"
                     onClick={() => {
                       this.toggle(0, "2");
                     }}
@@ -1791,7 +1791,7 @@ document.getElementById("service").value="";
     />:<></>}
                 <hr></hr>
                 <div>
-                  <Button color="primary" type="submit">
+                  <Button color="success" type="submit">
                     Save appointment
                   </Button>
 

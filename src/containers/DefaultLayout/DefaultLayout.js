@@ -20,6 +20,8 @@ import {
 } from "@coreui/react";
 // sidebar nav config
 import navigation from "../../_nav";
+
+import navigation2 from "../../_nav2";
 // routes config
 import routes from "../../routes";
 
@@ -73,6 +75,7 @@ console.log(gate)
             <DefaultHeader onLogout={e => this.signOut(e)} />
           </Suspense>
         </AppHeader>
+        {localStorage.getItem("type")==="1" || localStorage.getItem("type")==="2"?
         <div className="app-body">
           <AppSidebar fixed display="lg">
       
@@ -121,6 +124,58 @@ console.log(gate)
           </main>
     
         </div>
+
+:
+<div className="app-body">
+<AppSidebar fixed display="lg">
+
+  <AppSidebarHeader />
+  <AppSidebarForm />
+  
+    <AppSidebarNav
+      navConfig={navigation2}
+      {...this.props}
+      router={router}
+    />
+
+  <AppSidebarFooter />
+  <div style={{zIndex:"2",position:"relative"}}>
+<Calendar
+          onChange={this.onSelectCalendar}
+          value={this.state.jumpDate}
+         style={{width:"10px"}}
+        />
+</div>
+  {/* <AppSidebarMinimizer /> */}
+
+</AppSidebar>
+<main className="main">
+<p>{routes.name}</p>
+
+  <Container fluid>
+  <Suspense fallback={this.loading()}>
+      <Switch>
+        {routes.map((route, idx) => {
+          return route.component &&localStorage.getItem("AccessToken")!==null ? (
+            <Route
+              key={idx}
+              path={route.path}
+              exact={route.exact}
+              name={route.name}
+              render={props => <route.component {...props} propdate={this.state.jumpDate.toString()}/>}
+              
+            />
+          ) : null;
+        })}
+        <Redirect from="/" to="/main" />
+      </Switch>
+      </Suspense>
+  </Container>
+</main>
+
+</div>
+
+}
         <AppFooter>
           <Suspense fallback={this.loading()}>
             <DefaultFooter />

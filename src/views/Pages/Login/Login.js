@@ -81,7 +81,14 @@ BaseService.PostServiceWithoutHeader(url, login)
     
       alertify.success("Successfully logged in");
 
-window.location.href="/#/dashboard";
+      if(res.data.type===1||res.data.type===2)
+      {
+        window.location.href="/#/dashboard";
+        
+      }else{
+        window.location.href="/#/saloon/Client";
+      }
+
 
     } else {
       

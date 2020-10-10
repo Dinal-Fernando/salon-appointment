@@ -319,7 +319,12 @@ class Services extends Component {
                   </tr>
 
 
-                  <Modal
+         
+                </tbody>
+              ))}
+            </Table>
+
+            <Modal
                     isOpen={this.state.large}
                     toggle={this.toggleLarge}
                     className={"modal-lg " + this.props.className}
@@ -525,18 +530,16 @@ class Services extends Component {
               </Row>
             </ModalBody>
             <ModalFooter>
-              <Button color="danger" onClick={this.toggleLarge}>
+       
+              <Button type="submit" color="success">
+                Save
+              </Button>
+              <Button color="secondary" onClick={this.toggleLarge}>
                 Cancel
               </Button>{" "}
-              <Button type="submit" color="success">
-                Update
-              </Button>
             </ModalFooter>
           </form>
                   </Modal>
-                </tbody>
-              ))}
-            </Table>
             <Pagination>
               {/* <PaginationItem disabled>
                 <PaginationLink previous tag="button">

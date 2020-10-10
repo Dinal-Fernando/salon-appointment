@@ -556,12 +556,13 @@ this.props.displayservice(1,1);
               </Row>
             </ModalBody>
             <ModalFooter>
-              <Button color="danger" onClick={this.toggleLarge}>
-                Cancel
-              </Button>{" "}
+            
               <Button type="submit" color="success">
                 Save
               </Button>
+              <Button color="secondary" onClick={this.toggleLarge}>
+                Cancel
+              </Button>{" "}
             </ModalFooter>
           </form>
         </Modal>{" "}

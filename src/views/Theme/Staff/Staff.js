@@ -840,7 +840,7 @@ class Staff extends Component {
                         </Row>
                         <Button
                           type="submit"
-                          color="primary"
+                          color="success"
                           className="pull-right"
                         >
                           Save
@@ -1046,7 +1046,7 @@ class Staff extends Component {
                         </Row>
                         <Button
                           type="submit"
-                          color="primary"
+                          color="success"
                           className="pull-right"
                         >
                           Edit
