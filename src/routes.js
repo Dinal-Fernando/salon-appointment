@@ -20,10 +20,10 @@ const routes = [
   
   
   { path: '/', exact: true, name: 'Home'},
-  localStorage.getItem("AccessToken")!==""?{ path: '/dashboard', name: 'Dashboard', component: Dashboard }:window.location.href="/#/login",
+  localStorage.getItem("AccessToken")!==""&&(localStorage.getItem("type")==="1"||localStorage.getItem("type")==="2")?{ path: '/dashboard', name: 'Dashboard', component: Dashboard }:window.location.href="/#/login",
   
  
-  {path:'/saloon/Staff',name:'Staff',component:Staff}, //Added Staff Route
+  localStorage.getItem("AccessToken")!==""&&(localStorage.getItem("type")==="1"||localStorage.getItem("type")==="2")?{path:'/saloon/Staff',name:'Staff',component:Staff}:window.location.href="/#/login", //Added Staff Route
   {path:'/saloon/Calendar',name:'Calendar',component:Calendar},//Added Calendar Route
   {path:'/saloon/List',name:'List',component:List}, //Added Staff Route
   {path:'/saloon/Client',name:'Client',component:Client},// added client
