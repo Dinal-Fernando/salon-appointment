@@ -27,7 +27,7 @@ const routes = [
   {path:'/saloon/Calendar',name:'Calendar',component:Calendar},//Added Calendar Route
   {path:'/saloon/List',name:'List',component:List}, //Added Staff Route
   {path:'/saloon/Client',name:'Client',component:Client},// added client
-  {path:'/saloon/Services',name:'Services',component:Services},// added services
+  localStorage.getItem("AccessToken")!==""&&(localStorage.getItem("type")==="1"||localStorage.getItem("type")==="2")?{path:'/saloon/Services',name:'Services',component:Services}:window.location.href="/#/login",
   {path:'/saloon/monthly',name:'MonthlyView',component:MonthlyView},//Added Calendar Route
   {path:'/saloon/location',name:'MonthlyView',component:Location},//Added Calendar Route
 
