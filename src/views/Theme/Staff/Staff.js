@@ -165,9 +165,17 @@ class Staff extends Component {
             'successfuly added staff member',
             'success'
           )
+
+          this.setState({
+large:false
+          })
+
+          this.receivedData(1, 1);
         } else {
           alertify.alert("Cannot perform the operation");
         }
+
+        
       })
       .catch((err) => {
         alertify.alert("Cannot perform the operation");
@@ -203,6 +211,11 @@ class Staff extends Component {
             'successfuly added system user',
             'success'
           )
+
+          this.setState({
+            large2:false
+          })
+
         } else {
           alertify.alert("Cannot perform the operation");
         }
@@ -415,6 +428,7 @@ class Staff extends Component {
 
   receivedData1 = (e, index) => {
   
+    let values=""
     console.log("index" + index);
     this.setState(
       {
@@ -441,13 +455,29 @@ class Staff extends Component {
             console.log("length of limit" + this.state.data3.length);
 
             this.state.data5.map((item) => {
-              const values = {
-                id: item.id,
-                fname: item.first_name,
-                lname: item.last_name,
-                email: item.email,
-                type: item.type,
-              };
+
+              if(item.is_admin===true)
+              {
+                values = {
+                  id: item.id,
+                  fname: item.first_name,
+                  lname: item.last_name,
+                  email: item.email,
+                  type: "admin",
+                };
+
+              }else{
+
+                values = {
+                  id: item.id,
+                  fname: item.first_name,
+                  lname: item.last_name,
+                  email: item.email,
+                  type: "User",
+                };
+
+              }
+            
               this.setState({
                 data6: [values, ...this.state.data6],
               });
@@ -524,7 +554,7 @@ class Staff extends Component {
               this.setState({
                 large3:false
               })
-      
+              this.receivedData(1, 1);
             } else {
               Swal.fire({
                 icon: 'error',
@@ -585,7 +615,7 @@ class Staff extends Component {
               this.setState({
                 large3:false
               })
-      
+              this.receivedData(1, 1);
             } else {
               Swal.fire({
                 icon: 'error',
@@ -1373,6 +1403,7 @@ class Staff extends Component {
                   <td>{item.fname}</td>
                   <td>{item.lname}</td>
                   <td>{item.email}</td>
+                  
                   <td>
                     {item.type}
                   </td>

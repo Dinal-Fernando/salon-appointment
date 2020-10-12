@@ -139,10 +139,16 @@ class List extends Component {
             data4: res.data.data,
           },
           () => {
+
+            if(res.data.data.length!==0)
+            {
+
+            
             this.setState({
               selectemp: this.state.data4[0].id,
               selectempname: this.state.data4[0].name,
             });
+          }
 
           });
 

@@ -154,7 +154,7 @@ class Services extends Component {
               time:item.time,
               category:this.state.data2[index1],
               cost:item.cost,
-              slots:item.time/45
+              slots:item.slots
             };
             this.setState({
               data4: [values,...this.state.data4],
@@ -221,6 +221,28 @@ class Services extends Component {
       updateId:id
 
     })
+
+    // if(time1==="1")
+    // {
+    //   document.getElementById("time").value="1";
+    // }else if(time1==="2")
+    // {
+    //   document.getElementById("time").value="2";
+    // }else if(time1==="3")
+    // {
+    //   document.getElementById("time").value="3";
+    // }else if(time1==="4")
+    // {
+    //   document.getElementById("time").value="4";
+    // }else if(time1==="5")
+    // {
+    //   document.getElementById("time").value="5";
+    // }else 
+    // {
+    //   document.getElementById("time").value="6";
+    // }
+
+    console.log(time1)
   };
 
   OnChangeHandler=(e)=>{
@@ -296,7 +318,7 @@ class Services extends Component {
               <AddService displayservice={this.receivedData}/>
             </div>
 
-            <Table responsive striped className="table-hover">
+            <Table responsive className="table table-hover hover">
               <thead>
                 <tr>
                   <i className="fa fa-reorder fa-lg mt-4"></i>
@@ -370,12 +392,13 @@ class Services extends Component {
                         </Col>
                       </FormGroup>
                       <hr />
-                      <Jumbotron fluid>
+                      <Jumbotron  fluid style={{borderRadius:"10px"}}>
                         <p
                           style={{
                             color: "grey",
                             textDecoration: "italic",
                             paddingTop: -200,
+                            marginLeft:"10px"
                           }}
                         >
                           Add catergory and time
@@ -441,8 +464,7 @@ class Services extends Component {
                 </Col>
 
                 <Col xs="12" sm="6">
-                  <Card style={{ border: "transparent" }}>
-                    <CardBody>
+                 
                       {/* <p
                       style={{
                         color: "grey",
@@ -523,9 +545,8 @@ class Services extends Component {
                         </FormGroup>
                       </Col>
                     </FormGroup> */}
-                      <img src={Scissor} alt="img" style={{ paddingTop: 50 }} />
-                    </CardBody>
-                  </Card>
+                      <img src={Scissor} className="img-fluid" alt="img" style={{ paddingTop: 50 }} />
+                   
                 </Col>
               </Row>
             </ModalBody>

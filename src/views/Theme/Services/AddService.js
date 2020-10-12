@@ -395,12 +395,13 @@ this.props.displayservice(1,1);
                         </Col>
                       </FormGroup>
                       <hr />
-                      <Jumbotron fluid>
+                      <Jumbotron fluid style={{borderRadius:"10px"}}>
                         <p
                           style={{
                             color: "grey",
                             textDecoration: "italic",
                             paddingTop: -200,
+                            marginLeft:"10px"
                           }}
                         >
                           Add catergory and time
@@ -438,8 +439,9 @@ this.props.displayservice(1,1);
                               </FormGroup>
                             </Col>
                           </FormGroup>
+
                           <FormGroup row className="my-0">
-                            <Label htmlFor="select" style={{ marginLeft: 10 }}>
+                            <Label htmlFor="select" style={{ marginLeft: "20px" }}>
                               Time
                             </Label>
 
@@ -449,6 +451,7 @@ this.props.displayservice(1,1);
                               id="time"
                               style={{ marginLeft: 10 }}
                               onChange={this.OnChangeHandler}
+                              style={{ marginRight: "10px",marginLeft:"10px" }}
                             >
                               <option value="">Select Time</option>
 
@@ -467,8 +470,7 @@ this.props.displayservice(1,1);
                 </Col>
 
                 <Col xs="12" sm="6">
-                  <Card style={{ border: "transparent" }}>
-                    <CardBody>
+                
                       {/* <p
                       style={{
                         color: "grey",
@@ -550,8 +552,7 @@ this.props.displayservice(1,1);
                       </Col>
                     </FormGroup> */}
                       <img src={Scissor}  className="img-fluid" alt="img" style={{ paddingTop: 50 }} />
-                    </CardBody>
-                  </Card>
+               
                 </Col>
               </Row>
             </ModalBody>

@@ -780,45 +780,50 @@ this.generatePDF();
           detail: this.state.appointmentDetails,
         };
 
-        const url = "/appointment/save/";
-        BaseService.PostService(url, data)
-          .then((res) => {
-            if (res.data.success === true) {
-           
-              this.setState({
-                large: false,
-                appointmentDet:[],
-                appointmentDetails:[],
-                arrayVal: [true]
-              });
+        console.log(data)
 
-              Swal.fire(
-                "Good job!",
-                "Appointment successfuly inserted",
-                "success"
-              );
-              //window.location.reload();
-this.setState({
-  events:[]
-},()=>this.eventInfo())
+//         const url = "/appointment/save/";
+//         BaseService.PostService(url, data)
+//           .then((res) => {
+//             if (res.data.success === true) {
+           
+//               this.setState({
+//                 large: false,
+//                 appointmentDet:[],
+//                 appointmentDetails:[],
+//                 arrayVal: [true]
+//               });
+
+//               Swal.fire(
+//                 "Good job!",
+//                 "Appointment successfuly inserted",
+//                 "success"
+//               );
+//               //window.location.reload();
+// this.setState({
+//   events:[]
+// },()=>this.eventInfo())
              
-            } else {
+//             } else {
         
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "cannot perform operation!",
-              });
-            }
-          })
-          .catch((err) => {
+//               Swal.fire({
+//                 icon: "error",
+//                 title: "Oops...",
+//                 text: "cannot perform operation!",
+//               });
+//             }
+//           })
+//           .catch((err) => {
           
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "cannot perform operation!",
-            });
-          });
+//             Swal.fire({
+//               icon: "error",
+//               title: "Oops...",
+//               text: "cannot perform operation!",
+//             });
+//           });
+
+
+
       } else {
         let start = "";
         const cldetails = {
@@ -848,42 +853,48 @@ this.setState({
           detail: this.state.appointmentDetails,
         };
 
-        const url = "/appointment/save/";
-        BaseService.PostService(url, data)
-          .then((res) => {
-            if (res.data.success === true) {
+        console.log(data)
+
+        // const url = "/appointment/save/";
+        // BaseService.PostService(url, data)
+        //   .then((res) => {
+        //     if (res.data.success === true) {
             
 
-              this.setState({
-                large: false,
-                appointmentDet:[],
-                appointmentDetails:[],
-                arrayVal: [true]
-              });
+        //       this.setState({
+        //         large: false,
+        //         appointmentDet:[],
+        //         appointmentDetails:[],
+        //         arrayVal: [true]
+        //       });
 
-              Swal.fire(
-                "Good job!",
-                "Appointment successfuly inserted",
-                "success"
-              );
-              window.location.reload();
-            } else {
+        //       Swal.fire(
+        //         "Good job!",
+        //         "Appointment successfuly inserted",
+        //         "success"
+        //       );
+        //       window.location.reload();
+        //     } else {
           
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "cannot perform operation!",
-              });
-            }
-          })
-          .catch((err) => {
+        //       Swal.fire({
+        //         icon: "error",
+        //         title: "Oops...",
+        //         text: "cannot perform operation!",
+        //       });
+        //     }
+        //   })
+        //   .catch((err) => {
          
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "cannot perform operation!",
-            });
-          });
+        //     Swal.fire({
+        //       icon: "error",
+        //       title: "Oops...",
+        //       text: "cannot perform operation!",
+        //     });
+        //   });
+
+
+
+
       }
     } else {
       Swal.fire({
