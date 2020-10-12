@@ -116,6 +116,8 @@ class Staff extends Component {
       pageCount: null,
       updateId: null,
       loading: true,
+      isadmin:0,
+      isuser:0
      
     };
 
@@ -175,18 +177,19 @@ class Staff extends Component {
   SystemUserSubmitHandler = (event) => {
     event.preventDefault();
 
-    if(this.state.type==="")
+    if(this.state.isuser===0 && this.state.isadmin===0)
     {
       alertify.alert("please add user type")
     }else{
 
   
     const users = {
-      username: this.state.username,
+      
       first_name: this.state.firstName,
       last_name: this.state.lastName,
       email: this.state.email,
-      type: this.state.type,
+      is_admin:this.state.isadmin,
+      is_user:this.state.isuser
     };
   
     const url = "/user/save/";
@@ -263,6 +266,29 @@ class Staff extends Component {
     });
     // console.log(this.state.firstName)
   };
+
+
+  onChangeType=(e)=>{
+
+    if(e.target.value==="2")
+    {
+
+      this.setState({
+        isadmin:1,
+        isuser:0
+      })
+
+    }else if(e.target.value==="3")
+    {
+
+      this.setState({
+        isadmin:0,
+        isuser:1
+      })
+
+    }
+
+  }
 
   staffWork(value) {
     return (
@@ -1103,25 +1129,7 @@ class Staff extends Component {
                               </Col>
                             </FormGroup>
 
-                            <FormGroup>
-                              <InputGroup>
-                                <InputGroupAddon addonType="prepend">
-                                  <InputGroupText>
-                                    <i className="fa fa-user"></i>
-                                  </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                  type="text"
-                                  id="username"
-                                  name="username"
-                                  placeholder="Username"
-                                  autoComplete="name"
-                                  value={this.state.username}
-                                  onChange={this.changeHandler}
-                                  required
-                                />
-                              </InputGroup>
-                            </FormGroup>
+               
                             <FormGroup>
                               <InputGroup>
                                 <InputGroupAddon addonType="prepend">
@@ -1151,7 +1159,7 @@ class Staff extends Component {
                                   type="select"
                                   name="type"
                                   id="type"
-                                  onChange={this.changeHandler}
+                                  onChange={this.onChangeType}
                                 >
                                   <option value="">select User Type</option>
                                   <option value="2">Admin</option>

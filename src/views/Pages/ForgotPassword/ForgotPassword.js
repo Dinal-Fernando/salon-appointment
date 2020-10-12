@@ -36,7 +36,7 @@ class ForgotPassword extends Component {
 e.preventDefault();
 
 const reset={
-  username:this.state.username
+  email:this.state.username
 }
 
 const url = "/user/reset/";
@@ -83,7 +83,7 @@ BaseService.PostServiceWithoutHeader(url, reset)
                           <i className="icon-user"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" placeholder="Username" autoComplete="username" name="username" onChange={this.onChangeHandler} value={this.state.username}  />
+                      <Input type="Email" placeholder="Email" autoComplete="username" name="username" onChange={this.onChangeHandler} value={this.state.username}  />
                     </InputGroup>
                     {/* <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">

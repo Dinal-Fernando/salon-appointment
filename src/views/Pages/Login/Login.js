@@ -55,7 +55,7 @@ componentDidMount=()=>{
     })
     e.preventDefault();
     const login={
-      username:this.state.username,
+      email:this.state.username,
       password:this.state.password
     }
    
@@ -212,7 +212,7 @@ pauseOnHover
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username" name="username" value={this.state.username} onChange={this.onChangeHandler} required/>
+                        <Input type="email" placeholder="Email" autoComplete="email" name="username" value={this.state.username} onChange={this.onChangeHandler} required/>
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
