@@ -686,7 +686,7 @@ console.log("value here:"+this.state.countrycd)
               {this.state.data3.map((person) => (
                 <tr>
                   <i
-                    className="fa fa-edit fa-lg mt-4"
+                    className="fa fa-edit fa-lg mt-4"  style={{cursor:"pointer"}}
                     onClick={() => {
                       this.toggleLarge2();this.pass(
                         person.id,

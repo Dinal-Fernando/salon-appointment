@@ -529,15 +529,20 @@ await this.setState({
             
               this.state.events.map(val2=>{
 
+              
                 const index1=res.data.data.findIndex((res)=>{
               
                   return res.name===val2.title
                   
               });
 
+              if(index1>=0)
+            {
+
+           
               total=total+parseInt(res.data.data[index1].price);
               total2=total2+parseInt(res.data.data[index1].cost);
-              
+            }
 
               })
               this.setState({

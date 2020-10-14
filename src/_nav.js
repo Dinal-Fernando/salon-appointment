@@ -13,32 +13,23 @@ export default {
       url: '/dashboard',
       icon: 'icon-speedometer',
     },
- 
     {
       title:true,
-      name:'Client Management',
+      name:'Appointment Management',
       wrapper:{
         element:'',
         attributes:{},
       }
     },
     {
-      name: 'Client',
-      url: '/saloon/Client',
-      icon: 'icon-user',
-    },
+      name: 'Calendar',
+      url: '/saloon/Calendar',
+      icon: 'icon-calendar',
+    }, 
     {
-      title:true,
-      name:'Staff Management',
-      wrapper:{
-        element:'',
-        attributes:{},
-      }
-    },
-    {
-      name: 'Staff',
-      url: '/saloon/Staff',
-      icon: 'icon-briefcase',
+      name: 'List',
+      url: '/saloon/List',
+      icon: 'icon-list',
     },
     {
       title:true,
@@ -61,22 +52,33 @@ export default {
     },
     {
       title:true,
-      name:'Appointment Management',
+      name:'Staff Management',
       wrapper:{
         element:'',
         attributes:{},
       }
     },
     {
-      name: 'Calendar',
-      url: '/saloon/Calendar',
-      icon: 'icon-calendar',
-    }, 
-    {
-      name: 'List',
-      url: '/saloon/List',
-      icon: 'icon-list',
+      name: 'Staff',
+      url: '/saloon/Staff',
+      icon: 'icon-briefcase',
     },
+    {
+      title:true,
+      name:'Client Management',
+      wrapper:{
+        element:'',
+        attributes:{},
+      }
+    },
+    {
+      name: 'Client',
+      url: '/saloon/Client',
+      icon: 'icon-user',
+    },
+   
+  
+
     {
       title:true,
       name:'Salon Location',

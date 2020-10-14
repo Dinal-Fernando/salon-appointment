@@ -1272,7 +1272,7 @@ if(e===true)
                       {this.state.data3.map((item) => (
                         <tr >
                            <i
-                      className="fa fa-edit fa-lg mt-4"
+                      className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
                       onClick={()=>{this.toggleLarge3();this.pass(item.id,item.name,item.nic,item.mobile,item.country_code)}}
                     ></i>
                           <td>{item.name}</td>

@@ -117,8 +117,7 @@ class Services extends Component {
     console.log("index"+index)
     this.setState({
       pageNumber:index,
-      data3:[],
-      data4:[]
+     
     },()=>{
 
 
@@ -142,28 +141,28 @@ class Services extends Component {
           
           console.log("length of limit" + this.state.data3.length);
   
-          this.state.data3.map((item) => {
+          // this.state.data3.map((item) => {
   
-            const index1=this.state.data2.findIndex((res)=>{
+          //   const index1=this.state.data2.findIndex((res)=>{
               
-              return res.name===item.category
+          //     return res.name===item.category
               
-          });
+          // });
   
-            const values = {
-              id: item.id,
-              name: item.name,
-              price:item.price,
-              time:item.time,
-              category:this.state.data2[index1],
-              cost:item.cost,
-              slots:item.slots,
-              is_active:item.is_active
-            };
-            this.setState({
-              data4: [values,...this.state.data4],
-            });
-          });
+          //   const values = {
+          //     id: item.id,
+          //     name: item.name,
+          //     price:item.price,
+          //     time:item.time,
+          //     category:this.state.data2[index1],
+          //     cost:item.cost,
+          //     slots:item.slots,
+          //     is_active:item.is_active
+          //   };
+          //   this.setState({
+          //     data4: [values,...this.state.data4],
+          //   });
+          // });
 
           
         } else {
@@ -216,9 +215,22 @@ class Services extends Component {
     });
   }
   pass = (servvalue,catvalue,price,cost,time1,id) => {
+
+
+ 
+
+   
+   const index1=this.state.data2.findIndex((res)=>{
+              
+              return res.name===catvalue
+              
+          });
+
+      
+
     this.setState({
       serviceName:servvalue,
-      servCatergory: catvalue,
+      servCatergory: this.state.data2[index1].id,
       price: price,
       cost: cost,
       time: time1,
@@ -335,7 +347,7 @@ if(e===true)
       
       console.log("response"+res)
       if (res.data.success === true) {
-       // this.receivedData(1,1);
+     this.receivedData(1,1);
        Swal.fire(
         'Good job!',
         'Service successfuly Updated',
@@ -454,12 +466,12 @@ deleteservice=()=>{
                   <th><i className="fa fa-exclamation-triangle fa-fw mt-4"></i>Action</th>
                 </tr>
               </thead>
-              {this.state.data4.map((item) => (
+              {this.state.data3.map((item) => (
                 <tbody>
                   <tr>
                     <i
-                      className="fa fa-edit fa-lg mt-4"
-                      onClick={()=>{this.toggleLarge();this.pass(item.name,item.category['id'],item.price,item.cost,item.slots,item.id)}}
+                      className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
+                      onClick={()=>{this.toggleLarge();this.pass(item.name,item.category,item.price,item.cost,item.slots,item.id)}}
                     ></i>
                     <td>{item.name}</td>
                     <td>{item.time} min</td>

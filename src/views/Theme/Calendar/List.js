@@ -397,8 +397,10 @@ SmsreminderCheck=(e)=>{
         selectempname: valname,
         weekdata2: [],
         weekdata3: [],
+        dropdownOpen2: new Array(19).fill(false),
       },
       () => {
+        
         this.forweeklydisplay();
       }
     );
