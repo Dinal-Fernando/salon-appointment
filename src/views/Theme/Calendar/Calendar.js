@@ -45,7 +45,9 @@ import {
   TabPane,
   Row,
   Col,
-  ButtonDropdown
+  ButtonDropdown,
+  ModalFooter,
+  CardHeader
 } from "reactstrap";
 
 
@@ -156,6 +158,7 @@ class Calendarc extends Component {
       reportend:"",
       reportbtn:false,
       eventClickModel:false,
+      showappId:"",
       showEmpName:"",
       showAppTitle:"",
       showDate:"",
@@ -169,7 +172,9 @@ class Calendarc extends Component {
       sendReminder:0,
       sendSMS:0,
       jumpDate:new Date(),
-     
+      cancelReason:"",
+      iscanceled:true,
+      cancelReason:""
     };
   }
 
@@ -334,10 +339,10 @@ if(e.target.checked===true)
 }
 
 
-onSelectCalendar = () => {
-  console.log(new Date(Date.parse(this.props.propdate)))
+onSelectCalendar = (gate) => {
+
   let calendarApi = this.calendarComponentRef.current.getApi();
-    calendarApi.gotoDate(new Date(Date.parse(this.props.propdate))); // call a method on the Calendar object
+    calendarApi.gotoDate(gate); // call a method on the Calendar object
   // this.setState({
   //     jumpDate: gate,
       
@@ -409,27 +414,32 @@ SmsCheck=(e)=>{
 
   displayEventClick=async(info)=>{
 
-    
+    console.log(info.event._def.extendedProps.desc)
 
- const index1=await this.state.empInfo.findIndex( (res)=>{
+ const index1=await this.state.events.findIndex( (res)=>{
 
   console.log(info.event._def.resourceIds[0])
-  console.log(res.id)
+  console.log("this is id "+res.id)
   
-  return  res.id===parseInt(info.event._def.resourceIds[0])
+  return  parseInt(res.id)===parseInt(info.event.id)
   
 });
 
+console.log(index1)
+console.log(this.state.events[index1])
+
 this.setState({
+  showappId:info.event.id,
   showAppTitle:info.event.title,
-  showEmpName:this.state.empInfo[index1].title,
+  showEmpName:info.event._def.extendedProps.desc,
   showDate:info.event.start.getDate()+"/"+(info.event.start.getMonth()+1)+"/"+info.event.start.getFullYear(),
   showTimeStart:info.event.start.getHours()+":"+info.event.start.getMinutes(),
   showTimeEnd:info.event.end.getHours()+":"+info.event.end.getMinutes(),
+  iscanceled:this.state.events[index1].cancel
 },()=>{this.eventClickModelFunction()})
+}
 
-
-  }
+  
 
 
 
@@ -446,7 +456,7 @@ this.setState({
     BaseService.GetDataWithParams(url2, paramdata)
       .then(async(res2) => {
 
-
+let data=""
         if (res2.data.success === true) {
 
           if(this.state.empInfo.length!==0)
@@ -459,26 +469,38 @@ this.setState({
   
               await value.details.map(async value2=>{
 
-            // console.log(value2.employee_name)
-            // console.log(value2.employee_id)
-            //    const index1= this.state.empInfo.findIndex((res)=>{
-                          
-            //       return res.title===value2.employee_name
-                  
-            //   });
 
+if(value.is_canceled===true)
+{
+
+  data= await{
+    id:value.id,
+    resourceId: value2.employee_id,
+    title:value2.service,
+    start:value2.start_time,
+    end:value2.end_time,
+    desc: value2.employee_name,
+    cancel:value.is_canceled,
+    color:"red"
+  }
+
+}else{
+
+ data= await{
+    id:value.id,
+    resourceId: value2.employee_id,
+    title:value2.service,
+    start:value2.start_time,
+    end:value2.end_time,
+    desc: value2.employee_name,
+    cancel:value.is_canceled,
+    color:"blue"
+  }
+
+}
 
            
                 
-            
-                const data= await{
-                  id:value.id,
-                  resourceId: value2.employee_id,
-                  title:value2.service,
-                  start:value2.start_time,
-                  end:value2.end_time,
-                  desc: value2.employee_name,
-                }
             
              this.setState({
               events:[data,...this.state.events]
@@ -753,6 +775,7 @@ this.generatePDF();
   appointmentSubmit = (e) => {
     e.preventDefault();
 
+   
 
     if (this.state.appdate !== "" && this.state.appointmentDet.length !== 0) {
       if (this.state.setdisable === true) {
@@ -781,46 +804,48 @@ this.generatePDF();
         };
 
         console.log(data)
+        document.getElementById("submitbtn").disabled=true;
+        const url = "/appointment/save/";
+        BaseService.PostService(url, data)
+          .then((res) => {
+            document.getElementById("submitbtn").disabled=false;
 
-//         const url = "/appointment/save/";
-//         BaseService.PostService(url, data)
-//           .then((res) => {
-//             if (res.data.success === true) {
-           
-//               this.setState({
-//                 large: false,
-//                 appointmentDet:[],
-//                 appointmentDetails:[],
-//                 arrayVal: [true]
-//               });
-
-//               Swal.fire(
-//                 "Good job!",
-//                 "Appointment successfuly inserted",
-//                 "success"
-//               );
-//               //window.location.reload();
-// this.setState({
-//   events:[]
-// },()=>this.eventInfo())
+            if (res.data.success === true) {
              
-//             } else {
+              this.setState({
+                large: false,
+                appointmentDet:[],
+                appointmentDetails:[],
+                arrayVal: [true]
+              });
+
+              Swal.fire(
+                "Good job!",
+                "Appointment successfuly inserted",
+                "success"
+              );
+              //window.location.reload();
+this.setState({
+  events:[]
+},()=>this.eventInfo())
+             
+            } else {
         
-//               Swal.fire({
-//                 icon: "error",
-//                 title: "Oops...",
-//                 text: "cannot perform operation!",
-//               });
-//             }
-//           })
-//           .catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "cannot perform operation!",
+              });
+            }
+          })
+          .catch((err) => {
           
-//             Swal.fire({
-//               icon: "error",
-//               title: "Oops...",
-//               text: "cannot perform operation!",
-//             });
-//           });
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "cannot perform operation!",
+            });
+          });
 
 
 
@@ -855,42 +880,44 @@ this.generatePDF();
 
         console.log(data)
 
-        // const url = "/appointment/save/";
-        // BaseService.PostService(url, data)
-        //   .then((res) => {
-        //     if (res.data.success === true) {
+        document.getElementById("submitbtn").disabled=true;
+        const url = "/appointment/save/";
+        BaseService.PostService(url, data)
+          .then((res) => {
+            document.getElementById("submitbtn").disabled=false;
+            if (res.data.success === true) {
             
 
-        //       this.setState({
-        //         large: false,
-        //         appointmentDet:[],
-        //         appointmentDetails:[],
-        //         arrayVal: [true]
-        //       });
+              this.setState({
+                large: false,
+                appointmentDet:[],
+                appointmentDetails:[],
+                arrayVal: [true]
+              });
 
-        //       Swal.fire(
-        //         "Good job!",
-        //         "Appointment successfuly inserted",
-        //         "success"
-        //       );
-        //       window.location.reload();
-        //     } else {
+              Swal.fire(
+                "Good job!",
+                "Appointment successfuly inserted",
+                "success"
+              );
+              window.location.reload();
+            } else {
           
-        //       Swal.fire({
-        //         icon: "error",
-        //         title: "Oops...",
-        //         text: "cannot perform operation!",
-        //       });
-        //     }
-        //   })
-        //   .catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "cannot perform operation!",
+              });
+            }
+          })
+          .catch((err) => {
          
-        //     Swal.fire({
-        //       icon: "error",
-        //       title: "Oops...",
-        //       text: "cannot perform operation!",
-        //     });
-        //   });
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "cannot perform operation!",
+            });
+          });
 
 
 
@@ -915,24 +942,28 @@ this.generatePDF();
 
 
     const data = {
-   
+   id:parseInt(this.state.showappId),
+   cancel_reason:this.state.cancelReason
     };
 
-    const url = "/appointment/save/";
-    BaseService.PostService(url, data)
+    const url = "/appointment/delete/";
+    BaseService.DeleteDataWithParams(url, data)
       .then((res) => {
         if (res.data.success === true) {
        
           this.setState({
             eventClickModel: false,
-          });
+            events:[]
+          },()=>this.eventInfo());
 
-          Swal.fire(
-            "Good job!",
-            "Appointment successfuly inserted",
-            "success"
-          );
-         
+     
+
+          // Swal.fire(
+          //   "Good job!",
+          //   "Appointment successfuly inserted",
+          //   "success"
+          // );
+         alertify.success("Appointment successfully deleted")
 
          
         } else {
@@ -1106,7 +1137,7 @@ this.generatePDF();
           };
 
   
-
+          document.getElementById("submitbtn").disabled=true;
          document.getElementById("starttime").disabled=true;
 document.getElementById("duration").disabled=true;
 document.getElementById("employee").disabled=true;
@@ -1139,7 +1170,7 @@ alertify.message('we are checking availability...');
           const url = "/appointment/check/";
           BaseService.PostService(url, data)
             .then((res) => {
-          
+              document.getElementById("submitbtn").disabled=false;
               
               if (res.data.validity === true) {
            
@@ -1167,6 +1198,23 @@ alertify.message('we are checking availability...');
                   datedisable: true,
                 });
               } else {
+
+                var ele10 = document.querySelectorAll('[id="starttime"]');
+                ele[index].disabled = false;
+
+                var ele11 = document.querySelectorAll('[id="duration"]');
+
+  ele11[index].disabled = false;
+
+
+var ele12 = document.querySelectorAll('[id="employee"]');
+
+  ele12[index].disabled = false;
+
+var ele13 = document.querySelectorAll('[id="service"]');
+
+  ele13[index].disabled = false;
+
                 alertify.alert("Slot unavailable");
               }
             })
@@ -1181,7 +1229,63 @@ alertify.message('we are checking availability...');
 
   //for appointment form selection
   printconsole = (index) => {
-  console.log(index)
+
+//     const copy = Object.assign([], this.state.arrayVal);
+//     copy.splice(index, 1);
+//     this.setState(
+//       {
+//         arrayVal: copy,
+//       },
+//     );
+
+//     const index1 = this.state.appointmentDet.findIndex((res) => {
+//       return res.indexarr === index;
+//     });
+
+//     console.log(this.state.appointmentDetails[index1])
+// if(index1>=0)
+// {
+
+// console.log("removed")
+//     const copy1 = Object.assign([], this.state.appointmentDetails);
+//     copy1.splice(index1, 1);
+//     this.setState(
+//       {
+//         appointmentDetails: copy1,
+//       },
+//     );
+
+//     const copy2 = Object.assign([], this.state.appointmentDet);
+//     copy2.splice(index1, 1);
+//     this.setState(
+//       {
+//         appointmentDet: copy2,
+//       },
+//     );
+//     }
+
+console.log(this.state.arrayVal.length)
+console.log(index)
+
+
+//     var ele = document.querySelectorAll('[id="starttime"]');
+//     ele[index].value= "";
+
+//        var ele1 = document.querySelectorAll('[id="duration"]');
+//    ele1[index].value= "";
+
+//    var ele2 = document.querySelectorAll('[id="employee"]');
+// ele2[index].value= "";
+
+// var ele3 = document.querySelectorAll('[id="service"]');
+// ele3[index].value= "";
+
+// if(index!==(this.state.arrayVal.length-1))
+// {
+//   this.state.arrayVal[this.state.arrayVal.length-1]=false
+// }
+
+
     const copy = Object.assign([], this.state.arrayVal);
     copy.splice(index, 1);
     this.setState(
@@ -1190,31 +1294,9 @@ alertify.message('we are checking availability...');
       },
     );
 
-    const index1 = this.state.appointmentDet.findIndex((res) => {
-      return res.indexarr === index;
-    });
 
-    console.log(this.state.appointmentDetails[index1])
-if(index1>=0)
-{
 
-console.log("removed")
-    const copy1 = Object.assign([], this.state.appointmentDetails);
-    copy1.splice(index1, 1);
-    this.setState(
-      {
-        appointmentDetails: copy1,
-      },
-    );
 
-    const copy2 = Object.assign([], this.state.appointmentDet);
-    copy2.splice(index1, 1);
-    this.setState(
-      {
-        appointmentDet: copy2,
-      },
-    );
-    }
 //     var ele = document.querySelectorAll('[id="starttime"]');
 //     ele[index].value= "";
 
@@ -1387,13 +1469,22 @@ document.getElementById("service").value="";
 <hr style={{paddingBottom:"10px"}}></hr>
                 {this.state.arrayVal.map((val, index) => (
                   <div>
-                    {this.state.arrayVal.length > 1 ? (
+                    {(this.state.arrayVal.length -1)!== index && this.state.arrayVal.length > 1 && this.state.arrayVal[0]===true ? 
+                       <span >
+                       <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
+                     </span>
+                    : 
+                     <></>
+                   }
+
+
+          {(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length >1 ? 
                       <span onClick={(e) => this.printconsole(index)}>
                         <i className="fa fa-close fa-lg mt-4 pull-right"></i>
                       </span>
-                    ) : (
-                      <p></p>
-                    )}
+                     : 
+                      <></>
+                    }
 
                     <Row>
                       <Col xs="4">
@@ -1801,15 +1892,16 @@ document.getElementById("service").value="";
       resourceTitleAccessor="resourceTitle"
     />:<></>}
                 <hr></hr>
-                <div>
-                  <Button color="success" type="submit">
+                <ModalFooter>
+                  <Button color="success" type="submit" id="submitbtn">
                     Save appointment
                   </Button>
 
                   <Button color="secondary" onClick={(e) => this.resetform()}>
                     Reset
                   </Button>
-                </div>
+                  </ModalFooter>
+                
               </form>
             </div>
           }
@@ -1961,7 +2053,7 @@ document.getElementById("service").value="";
 </div> */}
      
             {/* Calendar dropdown */}
-            {/* <div className="text-center">
+          <div className="text-center">
             <ButtonDropdown
               isOpen={this.state.dropdownOpen[0]}
               color="dark"
@@ -1987,9 +2079,9 @@ document.getElementById("service").value="";
                 </DropdownItem>
               </DropdownMenu>
             </ButtonDropdown>
-          </div> */}
+          </div> 
 
-          <div>
+          {/* <div>
             <Button color="dark" onClick={()=>{this.onSelectCalendar()}}>
             
                Go to {new Intl.DateTimeFormat("en-GB", {
@@ -1998,7 +2090,7 @@ document.getElementById("service").value="";
                   day: "2-digit",
                 }).format(new Date(Date.parse(this.props.propdate)))}
             </Button>
-          </div>
+          </div> */}
 
           {/* To add appointment */}
           <div>
@@ -2220,7 +2312,10 @@ document.getElementById("service").value="";
           </ModalBody>
         </Modal>
 <Card>
-  
+<CardHeader>
+            <h5>
+           Appointment Details</h5>
+          </CardHeader>
   <CardBody>
 <FullCalendar
           schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
@@ -2262,25 +2357,28 @@ document.getElementById("service").value="";
         <p ><b>Appointment Date:-</b> {this.state.showDate}</p>
         <p ><b>Appointment Start Time:-</b> {this.state.showTimeStart}</p>
         <p ><b>Appointment End Time:-</b> {this.state.showTimeEnd}</p><br></br>
-        {/* <div className="float-right">
+        {this.state.iscanceled===false?
+        <div className="float-right">
         <Button color="dark" onClick={()=>{this.setState({cancelAppointment:true})}}>Cancel Appointment</Button>
-        </div><br></br>
+        </div>
+        :<></>}<br></br>
+        
         {this.state.cancelAppointment===true?
         <form onSubmit={this.cancelAppointmentSubmit}>
         <FormGroup>
-                    <Label htmlFor="NIC">Cancel Reason</Label>
+                    <Label htmlFor="reason">Cancel Reason</Label>
                     <Input
                       type="textarea"
                       id="cancelReason"
                       name="cancelReason"
                       placeholder="Enter Cancel Reason"
-                      value={this.state.NIC}
+                      value={this.state.cancelReason}
                       onChange={this.changeHandler}
                     />
                   </FormGroup>
                   <Button className="btn btn-danger" type="submit">Submit Cancellation</Button>
                   </form>
-                  :<></>} */}
+                  :<></>}
           </ModalBody>
         </Modal>
       

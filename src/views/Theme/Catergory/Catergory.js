@@ -20,6 +20,7 @@ import {
   PaginationLink,
   Row,
   Table,
+  CardHeader
 } from "reactstrap";
 import {
   Button,
@@ -31,14 +32,13 @@ import {
   FormGroup,
   Input,
   Label,
-  CardHeader,
   Container,
 } from "reactstrap";
-import Scissor from "../../../assets/Scissor.png";
-import AddService from "./AddService";
 
 
-class Services extends Component {
+
+
+class Catergory extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,6 +60,7 @@ class Services extends Component {
       pageCount:null,
       updateId:null,
       loading:true,
+      catNameupdate:""
     };
  
   }
@@ -67,41 +68,6 @@ class Services extends Component {
 
   componentWillMount = () => {
   
-
-
-    const url2= "/category/get/";
-     BaseService.GetDataWithoutParams(url2)
-       .then((res) => {
-         
-     
-         if (res.data.success === true) {
-           
-           this.setState({
-             data2: res.data.data,
-           });
-          
-         } else {
-        
-           Swal.fire({
-             icon: 'error',
-             title: 'Oops...',
-             text: 'Error loading data!',
-             
-           })
-         }
-     
-      
-     
-       })
-       .catch((err) => {
-        
-       Swal.fire({
-         icon: 'error',
-         title: 'Oops...',
-         text: 'Error loading data!',
-         
-       })
-       });
 
 
       this.receivedData(1,1);
@@ -125,7 +91,7 @@ class Services extends Component {
       const paramdata= {
         page: this.state.pageNumber, limit: this.state.limit
       };
-      const url2= "/service/getbypage/";
+      const url2= "/category/getbypage/";
     BaseService.GetDataWithParams(url2,paramdata)
       .then((res) => {
         
@@ -153,12 +119,7 @@ class Services extends Component {
             const values = {
               id: item.id,
               name: item.name,
-              price:item.price,
-              time:item.time,
-              category:this.state.data2[index1],
-              cost:item.cost,
-              slots:item.slots,
-              is_active:item.is_active
+          is_active:item.is_active
             };
             this.setState({
               data4: [values,...this.state.data4],
@@ -203,7 +164,7 @@ class Services extends Component {
 
   toggleLarge1=()=> {
     this.setState({
-      large: !this.state.large,
+      large1: !this.state.large1,
     });
   }
 
@@ -215,16 +176,13 @@ class Services extends Component {
       dropdownOpen: newArray,
     });
   }
-  pass = (servvalue,catvalue,price,cost,time1,id) => {
+  pass = (name,id) => {
     this.setState({
-      serviceName:servvalue,
-      servCatergory: catvalue,
-      price: price,
-      cost: cost,
-      time: time1,
-      updateId:id
+      updateId:id,
+      catNameupdate:name
 
     })
+
 
     // if(time1==="1")
     // {
@@ -246,9 +204,48 @@ class Services extends Component {
     //   document.getElementById("time").value="6";
     // }
 
-    console.log(time1)
+   
   };
 
+
+
+
+  catergorySubmitHandler = (event) => {
+    event.preventDefault();
+    const catergory = {
+      name: this.state.catName,
+      is_active: 1,
+    };
+    const url = "/category/save/";
+    BaseService.PostService(url, catergory)
+      .then((res) => {
+        console.log(res)
+        if (res.data.success === true) {
+    
+        console.log(res);
+        console.log(res.data);
+        this.setState({
+          catName: "",
+          large1:false
+        });
+
+        Swal.fire(
+          "Good job!",
+          "Catergory successfuly inserted",
+          "success"
+        );
+        window.location.reload(false)
+      }
+      })
+      .catch((error) => {
+        alertify.alert("Cannot perform operation "+error);
+      });
+  };
+
+
+
+
+  
   OnChangeHandler=(e)=>{
 
     this.setState({
@@ -279,7 +276,7 @@ if(e===true)
 }
    
 
-    const url = "/service/update/";
+    const url = "/category/update/";
     BaseService.UpdateService(url, updatestate,id)
       .then((res) => {
   
@@ -313,25 +310,23 @@ if(e===true)
 
 
 
-  updateServiceHandler=(e)=>{
+  updateCatergoryHandler=(e)=>{
 
     e.preventDefault();
-    const Updateservice = {
-      name: this.state.serviceName,
-      price: this.state.price,
-      cost: this.state.cost,
-      
-      category_id: parseInt(this.state.servCatergory),
-      slots: parseInt(this.state.time),
+    const Updatecatergory = {
+      name: this.state.catNameupdate,
+
     };
     document.getElementById("updatebtn").disabled=true;
     document.getElementById("deletebtn").disabled=true;
   
-  const url = "/service/update/";
-  BaseService.UpdateService(url, Updateservice,this.state.updateId)
+  const url = "/catergory/update/";
+  BaseService.UpdateService(url, Updatecatergory,this.state.updateId)
     .then((res) => {
 
-     
+      document.getElementById("updatebtn").disabled=false;
+      document.getElementById("deletebtn").disabled=false;
+
       
       console.log("response"+res)
       if (res.data.success === true) {
@@ -341,9 +336,7 @@ if(e===true)
         'Service successfuly Updated',
         'success'
       );
-      document.getElementById("updatebtn").disabled=false;
-      document.getElementById("deletebtn").disabled=false;
-
+     
         this.setState({
           large:false
         })
@@ -364,11 +357,46 @@ if(e===true)
 
 
 
-deleteservice=()=>{
+catergorySubmitHandler = (event) => {
+  event.preventDefault();
+  const catergory = {
+    name: this.state.catName,
+    is_active: 1,
+  };
+  document.getElementById("submitbtn").disabled=true;
+  const url = "/category/save/";
+  BaseService.PostService(url, catergory)
+    .then((res) => {
+      console.log(res)
+      document.getElementById("submitbtn").disabled=false;
+      if (res.data.success === true) {
+  
+      console.log(res);
+      console.log(res.data);
+      this.setState({
+        catName: "",
+        large1:false
+      });
+      this.receivedData(1,1);
+      Swal.fire(
+        "Good job!",
+        "Catergory successfuly inserted",
+        "success"
+      );
+     
+    }
+    })
+    .catch((error) => {
+      alertify.alert("Cannot perform operation "+error);
+    });
+};
+
+
+deletecatergory=()=>{
   document.getElementById("updatebtn").disabled=true;
   document.getElementById("deletebtn").disabled=true;
 
-  const url = "/service/delete/";
+  const url = "/category/delete/";
   BaseService.DeleteData(url,this.state.updateId)
     .then((res) => {
 
@@ -407,30 +435,28 @@ deleteservice=()=>{
 
     const {pageNumber}=this.state;
     return (
+      <div>
+        
       <Col>
        
         <Card>
+
         <CardHeader>
             <h5>
-           Client Details</h5>
+          Catergory Details</h5>
           </CardHeader>
-
        
           <CardBody>
-            <div className="text-center">
-        
-
-              <AddService displayservice={this.receivedData}/>
-            </div>
+          <Button color="dark"
+          className="pull-right" onClick={this.toggleLarge1}>Add New</Button>
 
             <Table responsive className="table table-hover hover">
               <thead>
                 <tr>
                   <i className="fa fa-reorder fa-lg mt-4"></i>
-                  <th>Service Type</th>
-                  <th>Average time</th>
-                  <th>Price</th>
+                  <th>Catergory Name</th>
                   <th>Action</th>
+               
                 </tr>
               </thead>
               {this.state.data4.map((item) => (
@@ -438,11 +464,10 @@ deleteservice=()=>{
                   <tr>
                     <i
                       className="fa fa-edit fa-lg mt-4"
-                      onClick={()=>{this.toggleLarge();this.pass(item.name,item.category['id'],item.price,item.cost,item.slots,item.id)}}
+                      onClick={()=>{this.toggleLarge();this.pass(item.name,item.id)}}
                     ></i>
                     <td>{item.name}</td>
-                    <td>{item.time} min</td>
-                    <td>{item.price}</td>
+                
                     <td><Switch checkedChildren="Active" unCheckedChildren="Deactive" defaultChecked checked={item.is_active} onChange={(e) => this.setStatus(item.id,item.is_active, e)}/></td>
 
                     {/* <button onClick={this.toggleLarge}>click</button> */}
@@ -455,140 +480,79 @@ deleteservice=()=>{
             </Table>
 
 
-
-
-
             <Modal
-                    isOpen={this.state.large}
-                    toggle={this.toggleLarge}
-                    className={"modal-lg " + this.props.className}
-                  >
-                    {/*table model*/}
-                  
-          <form onSubmit={this.updateServiceHandler}>
-            <ModalHeader toggle={this.toggleLarge}>Edit Service</ModalHeader>
-            <ModalBody >
-              <Row>
-                <Col xs="12" sm="6">
-                  <Card style={{ border: "transparent" }}>
-                    <CardBody>
-                      <FormGroup>
-                        <Label htmlFor="serviceName">Service Name</Label>
-                        <Input
-                          type="text"
-                          id="serviceName"
-                          name="serviceName"
-                          value={this.state.serviceName}
-                          placeholder="Enter service name"
-                          onChange={this.OnChangeHandler}
-                        />
-                      </FormGroup>
-
-                      <FormGroup row>
-                        <Col md="3">
-                          <Label htmlFor="select">catergory</Label>
-                        </Col>
-                        <Col xs="12" md="9">
-                          <Input
-                            type="select"
-                            name="servCatergory"
-                            id="servCatergory"
-                            value={this.state.servCatergory}
-                            onChange={this.OnChangeHandler}
-                          >
-                            <option value="0">Select Catergory</option>
-                            {this.state.data2.map((item1) => (
-                              <option value={item1.id}>{item1.name}</option>
-                            ))}
-                          </Input>
-                        </Col>
-                      </FormGroup>
-                      <hr />
-                      <Jumbotron  fluid style={{borderRadius:"10px"}}>
-                        <p
-                          style={{
-                            color: "grey",
-                            textDecoration: "italic",
-                            paddingTop: -200,
-                            marginLeft:"10px"
-                          }}
-                        >
-                          Add catergory and time
-                        </p>
-                        <hr />
-                        <Container fluid>
-                          <FormGroup row className="my-0">
-                            <Col xs="6">
-                              <FormGroup>
-                                <Label htmlFor="city">Cost</Label>
-                                <Input
-                                  style={{ marginLeft: 10 }}
-                                  type="number"
-                                  id="cost"
-                                  name="cost"
-                                  placeholder="LKR"
-                                  value={this.state.cost}
-                                  onChange={this.OnChangeHandler}
-                                />
-                              </FormGroup>
-                            </Col>
-                            <Col xs="6">
-                              <FormGroup>
-                                <Label htmlFor="lastName">Price</Label>
-                                <Input
-                                  type="number"
-                                  id="price"
-                                  name="price"
-                                  value={this.state.price}
-                                  onChange={this.OnChangeHandler}
-                                  placeholder="LKR"
-                                />
-                              </FormGroup>
-                            </Col>
-                          </FormGroup>
-                          <FormGroup row className="my-0">
-                            <Label htmlFor="select" style={{ marginLeft: 10 }}>
-                              Time
-                            </Label>
-
-                            <Input
-                              type="select"
-                              name="time"
-                              id="time"
-                              value={this.state.time}
-                              style={{ marginLeft: 10 }}
-                              onChange={this.OnChangeHandler}
-                            >
-                              <option value="">Select Time</option>
-
-                              <option value="1">Slots 1</option>
-                              <option value="2">Slots 2</option>
-                              <option value="3">Slots 3</option>
-                              <option value="4">Slots 4</option>
-                              <option value="5">Slots 5</option>
-                              <option value="6">Slots 6</option>
-                            </Input>
-                          </FormGroup>
-                        </Container>
-                      </Jumbotron>
-                    </CardBody>
-                  </Card>
-                </Col>
-
-                <Col xs="12" sm="6">
-                 
-                
-                      <img src={Scissor} className="img-fluid" alt="img" style={{ paddingTop: 50 }} />
-                   
-                </Col>
-              </Row>
+          isOpen={this.state.large1}
+          toggle={this.toggleLarge1}
+          className={"modal-lg " + this.props.className}
+        >
+          <form onSubmit={this.catergorySubmitHandler}>
+            <ModalHeader toggle={this.toggleLarge1}>New Catergory</ModalHeader>
+            <ModalBody>
+              <Card>
+                <CardBody>
+                  <FormGroup>
+                    <Label htmlFor="catName">Catergory Name</Label>
+                    <Input
+                      type="text"
+                      id="catName"
+                      name="catName"
+                      placeholder="Enter Catergory name"
+                      value={this.state.catName}
+                      onChange={this.OnChangeHandler}
+                      required
+                    />
+                  </FormGroup>
+                                                     
+                </CardBody>
+              </Card>
             </ModalBody>
             <ModalFooter>
-       
-              <Button id="updatebtn" type="submit" color="success">
+              <Button id="submitbtn" type="submit" color="success">
+                Save
+              </Button>{" "}
+              <Button color="secondary" onClick={this.toggleLarge1}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </form>
+        </Modal>
+
+   
+
+
+
+        <Modal
+          isOpen={this.state.large}
+          toggle={this.toggleLarge}
+          className={"modal-lg " + this.props.className}
+        >
+          <form onSubmit={this.updateCatergoryHandler}>
+            <ModalHeader toggle={this.toggleLarge}>Edit Catergory</ModalHeader>
+            <ModalBody>
+              <Card>
+                <CardBody>
+                  <FormGroup>
+                    <Label htmlFor="catName">Catergory Name</Label>
+                    <Input
+                      type="text"
+                      id="catNameupdate"
+                      name="catNameupdate"
+                      placeholder="Enter Catergory name"
+                      value={this.state.catNameupdate}
+                      onChange={this.OnChangeHandler}
+                      required
+                    />
+                  </FormGroup>
+                                                     
+                </CardBody>
+              </Card>
+            </ModalBody>
+            <ModalFooter>
+              
+            <Button id="updatebtn" type="submit" color="success">
                 Save
               </Button>
-              <Button onClick={()=>this.deleteservice()} id="deletebtn"  color="danger">
+              <Button onClick={()=>this.deletecatergory()} id="deletebtn"  color="danger">
                   Delete
                 </Button>
               <Button color="secondary" onClick={this.toggleLarge}>
@@ -596,7 +560,9 @@ deleteservice=()=>{
               </Button>{" "}
             </ModalFooter>
           </form>
-                  </Modal>
+        </Modal>
+
+
             <Pagination>
               {/* <PaginationItem disabled>
                 <PaginationLink previous tag="button">
@@ -653,8 +619,9 @@ deleteservice=()=>{
           </CardBody>
         </Card>
       </Col>
+      </div>
     );
   }
 }
 
-export default Services;
+export default Catergory;

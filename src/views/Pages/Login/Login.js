@@ -61,7 +61,7 @@ componentDidMount=()=>{
    
     const url = "/user/varify/";
 BaseService.PostServiceWithoutHeader(url, login)
-  .then((res) => {
+  .then(async(res) => {
     
     this.setState({
       loading:false
@@ -69,24 +69,47 @@ BaseService.PostServiceWithoutHeader(url, login)
 
     if (res.data.success === true) {
      
-      localStorage.setItem('AccessToken',res.data.Access_Token);
-      localStorage.setItem('RefreshToken',res.data.Refresh_Token);
-      localStorage.setItem('type',res.data.type);
-      localStorage.setItem('latitude',res.data.latitude);
-      localStorage.setItem('longitude',res.data.longitude);
-      localStorage.setItem('place',res.data.place);
-      localStorage.setItem('logo',res.data.logo)
+      
       
     
     
-      alertify.success("Successfully logged in");
+     
 
-      if(res.data.type===1||res.data.type===2)
-      {
+      if (parseInt(res.data.type)===2)
+
+
+      { alertify.success("Successfully logged in");
+
+        localStorage.setItem('AccessToken',res.data.Access_Token);
+        localStorage.setItem('RefreshToken',res.data.Refresh_Token);
+       await localStorage.setItem('type',res.data.type);
+        localStorage.setItem('latitude',res.data.latitude);
+        localStorage.setItem('longitude',res.data.longitude);
+        localStorage.setItem('place',res.data.place);
+        localStorage.setItem('logo',res.data.logo)
+
         window.location.href="/#/dashboard";
+
+       
+        
+      }else if(res.data.type===3){
+
+        alertify.success("Successfully logged in");
+
+        localStorage.setItem('AccessToken',res.data.Access_Token);
+        localStorage.setItem('RefreshToken',res.data.Refresh_Token);
+        await  localStorage.setItem('type',res.data.type);
+        localStorage.setItem('latitude',res.data.latitude);
+        localStorage.setItem('longitude',res.data.longitude);
+        localStorage.setItem('place',res.data.place);
+        localStorage.setItem('logo',res.data.logo)
+
+
+        window.location.href="/#/saloon/Client";
         
       }else{
-        window.location.href="/#/saloon/Client";
+
+        alertify.alert("Invalid user type login")
       }
 
 

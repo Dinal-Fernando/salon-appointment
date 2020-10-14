@@ -85,7 +85,7 @@ class AddService extends Component {
               name: item.name,
             };
             this.setState({
-              data2: [values],
+              data2: [values,...this.state.data2],
             });
           });
 
@@ -234,14 +234,18 @@ class AddService extends Component {
       category: parseInt(this.state.servCatergory),
     };
 
-
+    document.getElementById("submitbtn").disabled=true;
       const url = "/service/save/";
       BaseService.PostService(url, service)
         .then((res) => {
+          document.getElementById("submitbtn").disabled=false;
           if (res.data.success === true) {
+
             this.setState({
               large:false,
-
+serviceName:"",
+price:"",
+cost:""
             })
 this.props.displayservice(1,1);
 
@@ -268,7 +272,7 @@ this.props.displayservice(1,1);
     //const contentKets=Object.keys(this.state.data.data);
     return (
       <div>
-        <Dropdown
+        {/* <Dropdown
           color="dark"
           className="pull-right"
           isOpen={this.state.dropdownOpen[0]}
@@ -287,7 +291,10 @@ this.props.displayservice(1,1);
             </DropdownItem>
 
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown> */}
+
+<Button color="dark"
+          className="pull-right" onClick={this.toggleLarge}>New Service</Button>
         {/* To add new Catergory */}
         <Modal
           isOpen={this.state.large1}
@@ -558,7 +565,7 @@ this.props.displayservice(1,1);
             </ModalBody>
             <ModalFooter>
             
-              <Button type="submit" color="success">
+              <Button id="submitbtn" type="submit" color="success">
                 Save
               </Button>
               <Button color="secondary" onClick={this.toggleLarge}>

@@ -34,6 +34,7 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
+  CardHeader,
   Button,
   Card,
   CardBody,
@@ -261,7 +262,7 @@ SmsreminderCheck=(e)=>{
     
     
     let count = 0;
-    this.state.data4.map((val,index) => {
+    this.state.data4.map(async(val,index) => {
       const dateparam = moment(this.state.date).format("YYYY-MM-DD");
 
 
@@ -271,7 +272,7 @@ SmsreminderCheck=(e)=>{
         employee_id: val.id,
       };
       const url2= "/appointment/getbyemployee/";
-    BaseService.GetDataWithParams(url2,paramdata)
+ BaseService.GetDataWithParams(url2,paramdata)
       .then((res2) => {
 
 
@@ -297,26 +298,42 @@ SmsreminderCheck=(e)=>{
                       const endtimeparam = moment(value.end_time).format(
                         "HH:mm:ss"
                       );
-                      var data =  {
-                        id: count.toString(),
-                        title: value.service,
-                        label: startparam + " " + endtimeparam,
-                        description: "Client is " + value.client,
-                      };
 
-                      var data1 =  {
+
+                      if(value.is_canceled===true)
+                      {
+                        var data =  await{
+                          id: count.toString(),
+                          title: value.service,
+                          label: startparam + " " + endtimeparam,
+                          description: "Client is " + value.client+" (Cancelled)",
+                          
+                        };
+                      }else{
+
+
+                        var data =  await{
+                          id: count.toString(),
+                          title: value.service,
+                          label: startparam + " " + endtimeparam,
+                          description: "Client is " + value.client,
+
+                      }
                      
-                        name:this.state.appemp,
-                        title: value.service,
-                        start: startparam,
-                        end:endtimeparam,
-                        client:value.client,
-                      };
+                    }
+                      // var data1 =  {
+                     
+                      //   name:this.state.appemp,
+                      //   title: value.service,
+                      //   start: startparam,
+                      //   end:endtimeparam,
+                      //   client:value.client,
+                      // };
 
                       await this.setState(
                         {
                           data6: [data, ...this.state.data6],
-                          dailyreport:[data1, ...this.state.dailyreport]
+                          
                         },
                         () => {
                           console.log("data6");
@@ -329,6 +346,7 @@ SmsreminderCheck=(e)=>{
                       id: index,
                       title: this.state.appemp,
                       cards: this.state.data6,
+                      
                     };
                     console.log(app);
 
@@ -1925,12 +1943,20 @@ BaseService.GetDataWithoutParams(url)
 
         {this.state.daily ? (
           <Card>
+            <CardHeader>
+            <h5>
+           Daily Appointment Details</h5>
+          </CardHeader>
             <CardBody  style={{backgroundImage: `url(${Back})`,backgroundRepeat:"no-repeat"}}>
            <DailyDisplay board={this.state.data7}/>
            </CardBody>
            </Card>
         ) : (
           <Card>
+             <CardHeader>
+            <h5>
+           Weekly Appointment Details</h5>
+          </CardHeader>
             <CardBody  style={{backgroundImage: `url(${Back})`,backgroundRepeat:"no-repeat"}}>
           <WeeklyDisplay board={this.state.weekdata3} />
           </CardBody>

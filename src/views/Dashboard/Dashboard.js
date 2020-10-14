@@ -725,17 +725,17 @@ await this.setState({
                 <Row className="text-center">
                   <Col sm={12} md className="mb-sm-2 mb-0">
                     <div className="text-muted">Average Appointments per client</div>
-                    <strong>{this.state.avg2}</strong>
+                    <strong>{parseInt(this.state.avg2)}</strong>
                     <Progress className="progress-xs mt-2" color="success" value="40" />
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
                     <div className="text-muted">Average appointment per Staff member</div>
-                    <strong>{this.state.avg1}</strong>
+                    <strong>{parseInt(this.state.avg1)}</strong>
                     <Progress className="progress-xs mt-2" color="info" value="20" />
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0">
                     <div className="text-muted">Average Client per Staff Member</div>
-                    <strong>{this.state.avg3}</strong>
+                    <strong>{parseInt(this.state.avg3)}</strong>
                     <Progress className="progress-xs mt-2" color="warning" value="60" />
                   </Col>
                   {/* <Col sm={12} md className="mb-sm-2 mb-0">
@@ -754,7 +754,7 @@ await this.setState({
           </Col>
         </Row>
 
-        <Row>
+        {/* <Row>
           <Col xs="6" sm="6" lg="3">
             <Suspense fallback={this.loading()}>
               <Widget03 dataBox={() => ({ variant: 'facebook', friends: '89k', feeds: '459' })} >
@@ -794,7 +794,7 @@ await this.setState({
               </Widget03>
             </Suspense>
           </Col>
-        </Row>
+        </Row> */}
 
         <Row>
           <Col>
@@ -810,7 +810,7 @@ await this.setState({
                         <div className="callout callout-info">
                           <small className="text-muted">Total sale price</small>
                           <br />
-                <strong className="h4">LKR {this.state.totalPrice}</strong>
+                <strong className="h4">LKR {parseInt(this.state.totalPrice)}</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -821,7 +821,7 @@ await this.setState({
                           <small className="text-muted">Average Sale per client</small>
                           <br />
 
-                <strong className="h4">LKR {this.state.totalPrice/parseInt(this.state.client.length)}</strong>
+                <strong className="h4">LKR {parseInt(this.state.totalPrice/this.state.client.length)}</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -922,7 +922,7 @@ await this.setState({
                         <div className="callout callout-warning">
                           <small className="text-muted">Average sales per employee</small>
                           <br />
-                  <strong className="h4">LKR {this.state.totalPrice/this.state.emp.length}</strong>
+                  <strong className="h4">LKR {parseInt(this.state.totalPrice/this.state.emp.length)}</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(2, brandWarning)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -932,7 +932,7 @@ await this.setState({
                         <div className="callout callout-success">
                           <small className="text-muted">Cost of Sales</small>
                           <br />
-                  <strong className="h4">LKR {this.state.totalCost}</strong>
+                  <strong className="h4">LKR {parseInt(this.state.totalCost)}</strong>
                           <div className="chart-wrapper">
                             <Line data={makeSparkLineData(3, brandSuccess)} options={sparklineChartOpts} width={100} height={30} />
                           </div>
@@ -965,7 +965,7 @@ await this.setState({
                         <div className="progress-group-header">
                           <i className="icon-globe progress-group-icon"></i>
                           <span className="title">Total Income</span>
-                          <span className="ml-auto font-weight-bold">LKR {this.state.totalPrice}</span>
+                          <span className="ml-auto font-weight-bold">LKR {parseInt(this.state.totalPrice)}</span>
                         </div>
                         <div className="progress-group-bars">
                           <Progress className="progress-xs" color="success" value="56" />
@@ -975,7 +975,7 @@ await this.setState({
                         <div className="progress-group-header">
                           <i className="fa fa-icon-money"></i>
                           <span className="title">Total Expenses</span>
-                          <span className="ml-auto font-weight-bold">LKR {this.state.totalCost}</span>
+                          <span className="ml-auto font-weight-bold">LKR {parseInt(this.state.totalCost)}</span>
                         </div>
                         <div className="progress-group-bars">
                           <Progress className="progress-xs" color="success" value="15" />
@@ -985,7 +985,7 @@ await this.setState({
                         <div className="progress-group-header">
                           <i ></i>
                           <span className="title">Total Profit</span>
-                          <span className="ml-auto font-weight-bold">LKR {this.state.totalPrice-this.state.totalCost}</span>
+                          <span className="ml-auto font-weight-bold">LKR {parseInt(this.state.totalPrice-this.state.totalCost)}</span>
                         </div>
                         <div className="progress-group-bars">
                           <Progress className="progress-xs" color="success" value="11" />

@@ -10,6 +10,8 @@ import Back from "../../../assets/back.png";
 import Back2 from "../../../assets/back2.png";
 import Back5 from "../../../assets/back5.png";
 import Swal from 'sweetalert2'
+import { Switch } from 'antd';
+import 'antd/dist/antd.css';
 
 import {
   Badge,
@@ -136,11 +138,11 @@ class Staff extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
-    // for (var j = 0; j < this.state.size.length + 1; j++) {
-    //   if (this.state.size[j] !== "false") {
-    //     this.state.value.push(this.state.size[j]);
-    //   }
-    // }
+
+if(this.state.mobileNumber.length===9)
+{
+
+  document.getElementById("submitbtn").disabled=true;
 
     const staff = {
       name: this.state.fullname,
@@ -165,9 +167,16 @@ class Staff extends Component {
             'successfuly added staff member',
             'success'
           )
-
+          document.getElementById("submitbtn").disabled=false;
           this.setState({
-large:false
+large:false,
+fullname:"",
+Nic:"",
+address1:"",
+address2:"",
+city:"",
+mobileNumber:"",
+
           })
 
           this.receivedData(1, 1);
@@ -180,7 +189,22 @@ large:false
       .catch((err) => {
         alertify.alert("Cannot perform the operation");
       });
+
+
+    }else{
+  
+      alertify.alert("please provide valid phone number")
+    }
   };
+
+
+
+
+
+
+
+
+
 
   SystemUserSubmitHandler = (event) => {
     event.preventDefault();
@@ -410,6 +434,7 @@ large:false
                 nic: item.nic,
                 countryCode: item.country_code,
                 mobile: item.mobile,
+                is_active:item.is_active
               };
               this.setState({
                 data4: [values, ...this.state.data4],
@@ -519,6 +544,13 @@ large:false
 
     if(this.state.mobileisUpdated===true)
     {
+      document.getElementById("updatebtn").disabled=true;
+      document.getElementById("deletebtn").disabled=true;
+
+      if(this.state.mobileNumber.length===9)
+{
+
+
       this.setState({
         mobilefinal:this.state.mobileNumber,
         dialcodefinal:this.state.dialCodeupd,
@@ -550,7 +582,8 @@ large:false
               'successfuly updated staff',
               'success'
             )
-      
+            document.getElementById("updatebtn").disabled=false;
+            document.getElementById("deletebtn").disabled=false;
               this.setState({
                 large3:false
               })
@@ -578,6 +611,14 @@ large:false
       })
 
     }else{
+      alertify.alert("please provide valid phone number")
+    }
+
+
+    }else{
+
+      document.getElementById("updatebtn").disabled=true;
+      document.getElementById("deletebtn").disabled=true;
 
 
       this.setState({
@@ -611,7 +652,8 @@ large:false
               'successfuly updated staff',
               'success'
             )
-      
+            document.getElementById("updatebtn").disabled=false;
+            document.getElementById("deletebtn").disabled=false;
               this.setState({
                 large3:false
               })
@@ -686,6 +728,99 @@ large:false
   
   }
 
+
+  setStatus=(id,isactive,e)=>{
+
+    console.log(isactive)
+    let updatestate=""
+    
+console.log(id)
+
+if(e===true)
+{
+
+  updatestate={
+    is_active:1
+  }
+
+}else if(e===false)
+{
+  updatestate={
+    is_active:0
+  }
+
+}
+   
+
+    const url = "/employee/update/";
+    BaseService.UpdateService(url, updatestate,id)
+      .then((res) => {
+  
+       
+        
+        console.log("response"+res)
+        if (res.data.success === true) {
+         
+        this.receivedData(1,1);
+        alertify.success("state changed")
+  
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          })
+        }
+      })
+      .catch((err) => {
+        alertify.alert("Cannot perform the operation");
+        console.log("if error"+err);
+      });
+
+  }
+
+
+  deletestaff=()=>{
+    document.getElementById("updatebtn").disabled=true;
+    document.getElementById("deletebtn").disabled=true;
+  
+    const url = "/employee/delete/";
+    BaseService.DeleteData(url,this.state.updateId)
+      .then((res) => {
+  
+  
+        console.log("response"+res)
+        document.getElementById("updatebtn").disabled=false;
+        document.getElementById("deletebtn").disabled=false;
+  
+        if (res.data.success === true) {
+          this.receivedData(1,1);
+      
+         
+  
+          alertify.success("Successfully deleted staff");
+  
+          this.setState({
+            large3:false
+          })
+  
+        } else {
+          Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
+        }
+      })
+      .catch((err) => {
+        alertify.alert("Cannot perform the operation");
+        console.log("if error"+err);
+      });
+    
+  }
+
+
+
   tabPane() {
     const {pageNumber}=this.state;
     return (
@@ -697,7 +832,7 @@ large:false
                 <CardBody>
                  
 
-                  <Dropdown
+                  {/* <Dropdown
                     color="dark"
                     className="pull-right"
                     isOpen={this.state.dropdownOpen[0]}
@@ -716,7 +851,7 @@ large:false
                         System User
                       </DropdownItem>
                     </DropdownMenu>
-                  </Dropdown>
+                  </Dropdown> */}
 
                   <Modal
                     isOpen={this.state.large}
@@ -749,28 +884,7 @@ large:false
                                   <Label htmlFor="mobileNumber">
                                     Mobile Number
                                   </Label>
-                                  {/* <InputGroup>
-                                    <InputGroupAddon addonType="prepend">
-                                    
-                                      <Input type="select">
-                                        <option
-                                          label="+94"
-                                        >
-                                          +94
-                                        </option>
-                                      </Input>
-
-                                    </InputGroupAddon>
-                                    <Input
-                                      type="text"
-                                      id="mobileNumber"
-                                      name="mobileNumber"
-                                      placeholder="+94 71 2345 6789"
-                                      autoComplete="mobileNumber"
-                                      value={this.state.mobileNumber}
-                                      onChange={this.changeHandler}
-                                    />
-                                  </InputGroup> */}
+                                
 
                                   <PhoneInput
                                     country={"lk"}
@@ -807,19 +921,7 @@ large:false
                           <Col xs="12" sm="6">
                             <Card style={{ borderColor: "white" }}>
                               <CardBody>
-                                {/* <FormGroup>
-                                  <Label htmlFor="employeeTitle">
-                                    Employee Title
-                                  </Label>
-                                  <Input
-                                    type="text"
-                                    id="employeeTitle"
-                                    name="employeeTitle"
-                                    placeholder="Enter Employee Title"
-                                    value={this.state.employeeTitle}
-                                    onChange={this.changeHandler}
-                                  />
-                                </FormGroup> */}
+                               
 
                                 <FormGroup>
                                   <Label htmlFor="street">Address 1</Label>
@@ -860,47 +962,24 @@ large:false
                                   />
                                 </FormGroup>
 
-                                {/* <FormGroup row>
-                                  <Col md="3">
-                                    <Label>Services Offered</Label>
-                                  </Col>
-                                  <Col md="9">
-                                    {this.state.serv.map((val) => (
-                                      <FormGroup check className="checkbox">
-                                        <Input
-                                          className="form-check-input"
-                                          type="checkbox"
-                                          id="checkbox1"
-                                          name={val.service}
-                                          key={val.service}
-                                          value={val.id}
-                                          checked={
-                                            this.state.size[val.id] !== "false"
-                                          }
-                                          onClick={this.setSize}
-                                        />
-                                        <Label
-                                          check
-                                          className="form-check-label"
-                                          htmlFor="checkbox1"
-                                        >
-                                          {val.service}
-                                        </Label>
-                                      </FormGroup>
-                                    ))}
-                                  </Col>
-                                </FormGroup> */}
+                            
                               </CardBody>
                             </Card>
                           </Col>
                         </Row>
+                        <ModalFooter>
                         <Button
+                        id="submitbtn"
                           type="submit"
                           color="success"
-                          className="pull-right"
+                          
                         >
                           Save
                         </Button>
+                        <Button color="secondary" onClick={this.toggleLarge}>
+                Cancel
+              </Button>{" "}
+              </ModalFooter>
                       </form>
                     </ModalBody>
                   </Modal>
@@ -954,28 +1033,7 @@ large:false
                                   <Label htmlFor="mobileNumber">
                                     Mobile Number
                                   </Label>
-                                  {/* <InputGroup>
-                                    <InputGroupAddon addonType="prepend">
-                                    
-                                      <Input type="select">
-                                        <option
-                                          label="+94"
-                                        >
-                                          +94
-                                        </option>
-                                      </Input>
-
-                                    </InputGroupAddon>
-                                    <Input
-                                      type="text"
-                                      id="mobileNumber"
-                                      name="mobileNumber"
-                                      placeholder="+94 71 2345 6789"
-                                      autoComplete="mobileNumber"
-                                      value={this.state.mobileNumber}
-                                      onChange={this.changeHandler}
-                                    />
-                                  </InputGroup> */}
+                                
 
                                   <PhoneInput
                                     //country={"lk"}
@@ -1014,19 +1072,7 @@ large:false
                           <Col xs="12" sm="6">
                             <Card style={{ borderColor: "white" }}>
                               <CardBody>
-                                {/* <FormGroup>
-                                  <Label htmlFor="employeeTitle">
-                                    Employee Title
-                                  </Label>
-                                  <Input
-                                    type="text"
-                                    id="employeeTitle"
-                                    name="employeeTitle"
-                                    placeholder="Enter Employee Title"
-                                    value={this.state.employeeTitle}
-                                    onChange={this.changeHandler}
-                                  />
-                                </FormGroup> */}
+                         
 
                                 <FormGroup>
                                   <Label htmlFor="street">Address 1</Label>
@@ -1066,47 +1112,26 @@ large:false
                                   />
                                 </FormGroup>
 
-                                {/* <FormGroup row>
-                                  <Col md="3">
-                                    <Label>Services Offered</Label>
-                                  </Col>
-                                  <Col md="9">
-                                    {this.state.serv.map((val) => (
-                                      <FormGroup check className="checkbox">
-                                        <Input
-                                          className="form-check-input"
-                                          type="checkbox"
-                                          id="checkbox1"
-                                          name={val.service}
-                                          key={val.service}
-                                          value={val.id}
-                                          checked={
-                                            this.state.size[val.id] !== "false"
-                                          }
-                                          onClick={this.setSize}
-                                        />
-                                        <Label
-                                          check
-                                          className="form-check-label"
-                                          htmlFor="checkbox1"
-                                        >
-                                          {val.service}
-                                        </Label>
-                                      </FormGroup>
-                                    ))}
-                                  </Col>
-                                </FormGroup> */}
                               </CardBody>
                             </Card>
                           </Col>
                         </Row>
+                        <ModalFooter>
                         <Button
                           type="submit"
                           color="success"
-                          className="pull-right"
+                          id="updatebtn"
                         >
-                          Edit
+                          Save
                         </Button>
+                        <Button onClick={()=>this.deletestaff()} id="deletebtn"  color="danger">
+                  Delete
+                </Button>
+                
+                <Button color="secondary" onClick={this.toggleLarge3}>
+                Cancel
+              </Button>
+              </ModalFooter>
                       </form>
                     </ModalBody>
                   </Modal>
@@ -1248,9 +1273,7 @@ large:false
                           <td>{item.name}</td>
                           <td>{item.nic}</td>
                           <td>{item.mobile}</td>
-                          <td>
-                            <Badge color="success">Active</Badge>
-                          </td>
+                          <td><Switch checkedChildren="Active" unCheckedChildren="Deactive" defaultChecked checked={item.is_active} onChange={(e) => this.setStatus(item.id,item.is_active, e)}/></td>
                         </tr>
                       ))}
                     </tbody>
@@ -1462,6 +1485,26 @@ large:false
       <div className="animated fadeIn">
            
 
+           <Dropdown
+                    color="dark"
+                    className="pull-right"
+                    isOpen={this.state.dropdownOpen[0]}
+                    toggle={() => {
+                      this.toggle1(0);
+                    }}
+                  >
+                    <DropdownToggle caret color="dark">
+                      Add New
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem onClick={this.toggleLarge}>
+                        Staff
+                      </DropdownItem>
+                      <DropdownItem onClick={this.toggleLarge2}>
+                        System User
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
 
 
         <Row>

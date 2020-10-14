@@ -17,8 +17,12 @@ import {
   Input,
   Label,
 
-  FormText
+  FormText,
+  CardHeader
 } from "reactstrap";
+
+import { Switch } from 'antd';
+import 'antd/dist/antd.css';
 //import "../../Home/style.css";
 
 import PhoneInput from "react-phone-input-2";
@@ -81,6 +85,56 @@ class Client extends Component {
   };
 
 
+  setStatus=(id,isactive,e)=>{
+
+    let updatestate=""
+
+    if(e===true)
+      {
+
+        updatestate={
+          is_active:1
+        }
+
+      }else if(e===false)
+      {
+        updatestate={
+          is_active:0
+        }
+
+      }
+
+
+    const url = "/client/update/";
+        BaseService.UpdateService(url, updatestate,id)
+          .then((res) => {
+          
+            console.log("response"+res)
+            if (res.data.success === true) {
+             // this.receivedData(1,1);
+             this.receivedData(1, 1);
+             alertify.success("status updated")
+            
+      
+            } else {
+
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+              })
+            }
+          })
+          .catch((err) => {
+            alertify.alert("Cannot perform the operation");
+            console.log("if error"+err);
+          });
+
+    
+
+  }
+
+
   receivedData = (e, index) => {
    
     console.log("index" + index);
@@ -122,6 +176,7 @@ class Client extends Component {
               nic: item.nic,
               countryCode: item.country_code,
               mobile: item.mobile,
+              is_active:item.is_active,
               lastdate: item.last_date,
             };
             console.log("last date" + item.last_date);
@@ -187,8 +242,19 @@ class Client extends Component {
 
   clientsubmitHandler = (event) => {
     event.preventDefault();
-    if(this.state.nic==="")
-    {const client = {
+
+
+
+if(this.state.mobileNumber.length===9)
+{
+  document.getElementById("submitbtn").disabled=true;
+
+
+    if(this.state.NIC==="")
+    {
+      
+      
+      const client = {
       name: this.state.fullName,
       nic: "Not Provided",
       country_code: "+" + this.state.dialCode,
@@ -210,8 +276,12 @@ class Client extends Component {
             'success'
           )
           this.setState({
-            large:false
+            large:false,
+            fullName:"",
+            NIC:"",
+            mobileNumber:""
           })
+          document.getElementById("submitbtn").disabled=false;
           this.receivedData(1, 1);
 
         } else {
@@ -252,9 +322,14 @@ class Client extends Component {
             'success'
           )
           this.setState({
-            large:false
+            large:false,
+            fullName:"",
+            NIC:"",
+            mobileNumber:""
           })
+          document.getElementById("submitbtn").disabled=false;
           this.receivedData(1, 1);
+
         } else {
           Swal.fire({
             icon: 'error',
@@ -268,7 +343,10 @@ class Client extends Component {
       });
 
     }
-    
+  }else{
+
+    alertify.alert("please provide valid phone number")
+  }
  
     
   };
@@ -312,6 +390,9 @@ console.log(code)
           country_code: this.state.dialfinal,
           mobile: this.state.mobilefinal,
         }
+
+        document.getElementById("updatebtn").disabled=true;
+        document.getElementById("deletebtn").disabled=true;
       
         const url = "/client/update/";
         BaseService.UpdateService(url, client,this.state.updateId)
@@ -319,16 +400,20 @@ console.log(code)
           
             console.log("response"+res)
             if (res.data.success === true) {
-             // this.receivedData(1,1);
+           this.receivedData(1,1);
                 Swal.fire(
             'Good job!',
             'Client successfuly Updated',
             'success'
           )
+          document.getElementById("updatebtn").disabled=false;
+          document.getElementById("deletebtn").disabled=false;
       
               this.setState({
                 large2:false
               })
+
+
       
             } else {
 
@@ -365,6 +450,9 @@ console.log("value here:"+this.state.countrycd)
           mobile: this.state.mobilefinal,
         }
 
+        document.getElementById("updatebtn").disabled=true;
+        document.getElementById("deletebtn").disabled=true;
+
       
         const url = "/client/update/";
         BaseService.UpdateService(url, client,this.state.updateId)
@@ -379,7 +467,9 @@ console.log("value here:"+this.state.countrycd)
                 'Client successfuly Updated',
                 'success'
               )
-      
+              document.getElementById("updatebtn").disabled=false;
+              document.getElementById("deletebtn").disabled=false;
+
               this.setState({
                 large2:false
               })
@@ -409,16 +499,60 @@ console.log("value here:"+this.state.countrycd)
 
   }
 
+
+  deleteClient=()=>{
+    document.getElementById("updatebtn").disabled=true;
+    document.getElementById("deletebtn").disabled=true;
+
+    const url = "/client/delete/";
+    BaseService.DeleteData(url,this.state.updateId)
+      .then((res) => {
+  
+
+        console.log("response"+res)
+        document.getElementById("updatebtn").disabled=false;
+        document.getElementById("deletebtn").disabled=false;
+
+        if (res.data.success === true) {
+          this.receivedData(1,1);
+      
+         
+
+          alertify.success("Successfully deleted client");
+  
+          this.setState({
+            large2:false
+          })
+  
+        } else {
+          Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
+        }
+      })
+      .catch((err) => {
+        alertify.alert("Cannot perform the operation");
+        console.log("if error"+err);
+      });
+    
+  }
+
   render() {
    
     const { pageNumber } = this.state;
     return (
       <Card>
-          
+            <CardHeader>
+            <h5>
+           Client Details</h5>
+          </CardHeader>
 
     {this.props.employee}
 
         <CardBody>
+        
           <div className="text-center">
             <Button
               onClick={this.toggleLarge}
@@ -486,7 +620,7 @@ console.log("value here:"+this.state.countrycd)
                 </Card>
               </ModalBody>
               <ModalFooter>
-                <Button type="submit" color="success">
+                <Button id="submitbtn" type="submit" color="success">
                   Save
                 </Button>
                 <Button color="secondary" onClick={this.toggleLarge}>
@@ -519,6 +653,10 @@ console.log("value here:"+this.state.countrycd)
                   <i className="fa fa-calendar fa-fw mt-4"></i>
                   last Date
                 </th>
+                  <th>
+                <i className="fa fa-exclamation-triangle fa-fw mt-4"></i>
+                  Action
+                </th>
               </tr>
             </thead>
 
@@ -546,6 +684,7 @@ console.log("value here:"+this.state.countrycd)
                   ) : (
                     <td>{person.lastdate}</td>
                   )}
+                  <td><Switch checkedChildren="Active" unCheckedChildren="Deactive" defaultChecked checked={person.is_active} onChange={(e) => this.setStatus(person.id,person.is_active, e)}/></td>
                 </tr>
               ))}
             </tbody>
@@ -607,8 +746,11 @@ console.log("value here:"+this.state.countrycd)
               </Card>
               </ModalBody>
               <ModalFooter>
-                <Button type="submit" color="success">
+                <Button id="updatebtn" type="submit" color="success">
                   Save
+                </Button>
+                <Button onClick={()=>this.deleteClient()} id="deletebtn"  color="danger">
+                  Delete
                 </Button>
                 <Button color="secondary" onClick={this.toggleLarge2}>
                   Cancel

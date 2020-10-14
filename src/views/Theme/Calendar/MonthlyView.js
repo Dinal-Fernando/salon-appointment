@@ -184,6 +184,8 @@ this.setState({
 
   eventInfo=()=>{
 
+    let data=""
+
     const dateparam = moment(this.state.date).format("YYYY-MM-DD");
     const paramdata = {
       first_date: "2020-06-01",
@@ -202,27 +204,36 @@ res2.data.data.map(async value=>{
   
   await value.details.map(async value2=>{
 
-   const index1= this.state.empInfo.findIndex((res)=>{
-              
-      return res.resourceTitle===value2.employee_name
+
+
+    if(value.is_canceled===true)
+    {
+    data= {
+      id:value.id,
+      title:value2.service+" (cancelled)",
+      start:new Date(value2.start_time),
+      end:new Date(value2.end_time),
+      resourceId: value2.employee_id,
       
-  });
+    }
+  }else{
 
-
-  if(index1>=0){
-    const data= {
+    data= {
       id:value.id,
       title:value2.service,
       start:new Date(value2.start_time),
       end:new Date(value2.end_time),
       resourceId: value2.employee_id,
+      
     }
+
+  }
 
  this.setState({
   events:[data,...this.state.events]
 },console.log(this.state.events))
 
-}
+
 
   })
 })

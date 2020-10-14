@@ -27,10 +27,10 @@ class DefaultHeader extends Component {
 
     return (
       <React.Fragment>
-        <div id="lock"></div>
+        {/* <div id="lock"></div>
         <p style={{display:"none"}}>{setTimeout(()=>{
             document.getElementById('lock').style.display="none";
-        },0)}</p>
+        },0)}</p> */}
 
 
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
@@ -59,7 +59,7 @@ class DefaultHeader extends Component {
             <DropdownMenu right>
               <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
            
-              <DropdownItem onClick={()=>document.getElementById('lock').style.display="block"}><i className="fa fa-shield"></i> Lock Screen</DropdownItem>
+              {/* <DropdownItem onClick={()=>document.getElementById('lock').style.display="block"}><i className="fa fa-shield"></i> Lock Screen</DropdownItem> */}
               <DropdownItem onClick={e => {localStorage.clear();window.location.href="/"}}><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>

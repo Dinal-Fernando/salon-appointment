@@ -42,17 +42,7 @@ class DefaultLayout extends Component {
   }
 
 
-  
-onSelectCalendar = (gate) => {
-console.log(gate)
-  this.setState({
-      jumpDate: gate,
-      
-    })
 
- 
-   
-}
 
    loading = () => (
     <div>
@@ -75,7 +65,7 @@ console.log(gate)
             <DefaultHeader onLogout={e => this.signOut(e)} />
           </Suspense>
         </AppHeader>
-        {localStorage.getItem("type")==="1" || localStorage.getItem("type")==="2"?
+        {localStorage.getItem("type")==="2"?
         <div className="app-body">
           <AppSidebar fixed display="lg">
       
@@ -89,14 +79,7 @@ console.log(gate)
               />
           
             <AppSidebarFooter />
-            <div style={{zIndex:"2",position:"relative"}}>
-        <Calendar
-                    onChange={this.onSelectCalendar}
-                    value={this.state.jumpDate}
-                   style={{width:"10px"}}
-                  />
-          </div>
-            {/* <AppSidebarMinimizer /> */}
+
 
           </AppSidebar>
           <main className="main">
@@ -112,7 +95,7 @@ console.log(gate)
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
-                        render={props => <route.component {...props} propdate={this.state.jumpDate.toString()}/>}
+                        render={props => <route.component {...props} />}
                         
                       />
                     ) : null;
@@ -139,14 +122,8 @@ console.log(gate)
     />
 
   <AppSidebarFooter />
-  <div style={{zIndex:"2",position:"relative"}}>
-<Calendar
-          onChange={this.onSelectCalendar}
-          value={this.state.jumpDate}
-         style={{width:"10px"}}
-        />
-</div>
-  {/* <AppSidebarMinimizer /> */}
+
+
 
 </AppSidebar>
 <main className="main">
@@ -162,7 +139,7 @@ console.log(gate)
               path={route.path}
               exact={route.exact}
               name={route.name}
-              render={props => <route.component {...props} propdate={this.state.jumpDate.toString()}/>}
+              render={props => <route.component {...props}/>}
               
             />
           ) : null;
@@ -176,6 +153,8 @@ console.log(gate)
 </div>
 
 }
+
+
         <AppFooter>
           <Suspense fallback={this.loading()}>
             <DefaultFooter />

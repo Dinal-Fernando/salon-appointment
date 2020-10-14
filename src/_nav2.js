@@ -6,11 +6,27 @@ export default {
 
 
     items: [
+      {
+        title:true,
+        name:'Client Management',
+        wrapper:{
+          element:'',
+          attributes:{},
+        }
+      },
   
       {
         name: 'Client',
         url: '/saloon/Client',
         icon: 'icon-user',
+      },
+      {
+        title:true,
+        name:'Appointment Management',
+        wrapper:{
+          element:'',
+          attributes:{},
+        }
       },
       {
         name: 'Calendar',
@@ -21,6 +37,14 @@ export default {
         name: 'List',
         url: '/saloon/List',
         icon: 'icon-list',
+      },
+      {
+        title:true,
+        name:'Salon Location',
+        wrapper:{
+          element:'',
+          attributes:{},
+        }
       },
       {
         name: 'Location',
