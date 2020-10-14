@@ -928,7 +928,7 @@ await this.setState({
 
 
 <Modal isOpen={this.state.eventClickModel} toggle={this.eventClickModelFunction}>
-          <ModalHeader toggle={this.eventClickModelFunction}>View Event</ModalHeader>
+          <ModalHeader toggle={this.eventClickModelFunction}><i className="fa fa-calendar-o fa-lg mt-4" style={{paddingRight:"8px"}}></i>View Event</ModalHeader>
           <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
           <p><b>Appointment Type:-</b> {this.state.showAppTitle} </p>
         <p ><b>Appointment assigned employee:-</b> {this.state.showEmpName}</p>

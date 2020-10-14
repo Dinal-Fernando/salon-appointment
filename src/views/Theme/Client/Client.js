@@ -546,7 +546,7 @@ console.log("value here:"+this.state.countrycd)
       <div className="animated fadeIn">
       <Card>
             <CardHeader>
-            <h5>
+            <h5><i className="fa fa-user fa-lg mt-4" style={{paddingRight:"8px"}}></i>
            Client Details</h5>
           </CardHeader>
 
@@ -571,7 +571,7 @@ console.log("value here:"+this.state.countrycd)
             className={"modal-lg " + this.props.className}
           >
             <form onSubmit={this.clientsubmitHandler}>
-              <ModalHeader toggle={this.toggleLarge}>Add Client</ModalHeader>
+              <ModalHeader toggle={this.toggleLarge}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add Client</ModalHeader>
               <ModalBody style={{backgroundImage: `url(${Back4})`,backgroundSize:"auto"}}>
                 <Card>
                   <CardBody>
@@ -698,7 +698,7 @@ console.log("value here:"+this.state.countrycd)
             className={"modal-lg " + this.props.className}
           >
             <form onSubmit={this.clientUpdateHandler}>
-              <ModalHeader toggle={this.toggleLarge2}>Edit Client</ModalHeader>
+              <ModalHeader toggle={this.toggleLarge2}><i className="fa fa-edit fa-lg mt-4" style={{paddingRight:"8px"}}></i>Edit Client</ModalHeader>
               <ModalBody style={{backgroundImage: `url(${Back3})`,backgroundSize:"auto"}}>
               <Card>
                 <CardBody>

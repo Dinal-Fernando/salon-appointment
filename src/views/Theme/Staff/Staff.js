@@ -859,7 +859,7 @@ if(e===true)
                     className={"modal-lg " + this.props.className}
                   >
                     <ModalHeader toggle={this.toggleLarge}>
-                      Add New Staff Member
+                    <i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add New Staff Member
                     </ModalHeader>
                     <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
                       <form onSubmit={this.submitHandler}>
@@ -1008,7 +1008,7 @@ if(e===true)
                     className={"modal-lg " + this.props.className}
                   >
                     <ModalHeader toggle={this.toggleLarge3}>
-                      Edit Staff Member
+                    <i className="fa fa-edit fa-lg mt-4" style={{paddingRight:"8px"}}></i> Edit Staff Member
                     </ModalHeader>
                     <ModalBody style={{backgroundImage: `url(${Back2})`,backgroundSize:"auto"}}>
                       <form onSubmit={this.staffUpdateHandler}>
@@ -1148,7 +1148,7 @@ if(e===true)
                   >
                     <form onSubmit={this.SystemUserSubmitHandler}>
                       <ModalHeader toggle={this.toggleLarge2}>
-                        Add System User
+                      <i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add System User
                       </ModalHeader>
                       <ModalBody style={{backgroundImage: `url(${Back5})`,backgroundSize:"auto"}}>
                         <Card style={{ borderColor: "white" }}>

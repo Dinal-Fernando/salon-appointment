@@ -363,7 +363,7 @@ this.props.displayservice(1,1);
           className={"modal-lg " + this.props.className}
         >
           <form onSubmit={this.ServiceSubmitHandler}>
-            <ModalHeader toggle={this.toggleLarge}>New Service</ModalHeader>
+            <ModalHeader toggle={this.toggleLarge}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>New Service</ModalHeader>
             <ModalBody>
               <Row>
                 <Col xs="12" sm="6">

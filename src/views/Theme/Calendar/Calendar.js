@@ -343,10 +343,10 @@ onSelectCalendar = (gate) => {
 
   let calendarApi = this.calendarComponentRef.current.getApi();
     calendarApi.gotoDate(gate); // call a method on the Calendar object
-  // this.setState({
-  //     jumpDate: gate,
+  this.setState({
+      jumpDate: gate,
       
-  //   })
+    })
 }
 
 
@@ -2125,7 +2125,7 @@ document.getElementById("service").value="";
         </Row><br></br>
 
         <Modal className="modal-xl" isOpen={this.state.large} toggle={this.toggleLarge}>
-          <ModalHeader toggle={this.toggleLarge}>Add New Appointment</ModalHeader>
+          <ModalHeader toggle={this.toggleLarge}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add New Appointment</ModalHeader>
           <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
             <Nav tabs>
               <NavItem>
@@ -2156,7 +2156,7 @@ document.getElementById("service").value="";
         </Modal>
 
         <Modal isOpen={this.state.large1} toggle={this.toggleLarge1}>
-          <ModalHeader toggle={()=>{this.toggleLarge1();this.setState({reportstart:"",reportend:""});}}>Report Generator</ModalHeader>
+          <ModalHeader toggle={()=>{this.toggleLarge1();this.setState({reportstart:"",reportend:""});}}><i className="fa fa-book fa-lg mt-4" style={{paddingRight:"8px"}}></i>Report Generator</ModalHeader>
           <ModalBody>
 
           <FormGroup>
@@ -2313,7 +2313,7 @@ document.getElementById("service").value="";
         </Modal>
 <Card>
 <CardHeader>
-            <h5>
+            <h5><i className="fa fa-calendar fa-lg mt-4" style={{paddingRight:"8px"}}></i>
            Appointment Details</h5>
           </CardHeader>
   <CardBody>
@@ -2350,7 +2350,7 @@ document.getElementById("service").value="";
 
 
         <Modal isOpen={this.state.eventClickModel} toggle={this.eventClickModelFunction}>
-          <ModalHeader toggle={this.eventClickModelFunction}>View Event</ModalHeader>
+          <ModalHeader toggle={this.eventClickModelFunction}> <i className="fa fa-calendar-o fa-lg mt-4" style={{paddingRight:"8px"}}></i>View Event</ModalHeader>
           <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
           <p><b>Appointment Type:-</b> {this.state.showAppTitle} </p>
         <p ><b>Appointment assigned employee:-</b> {this.state.showEmpName}</p>

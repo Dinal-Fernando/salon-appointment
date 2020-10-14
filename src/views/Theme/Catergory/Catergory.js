@@ -442,20 +442,21 @@ deletecatergory=()=>{
         <Card>
 
         <CardHeader>
-            <h5>
+       
+            <h5> <i className="fa fa-list-alt fa-lg mt-4" style={{paddingRight:"8px"}}></i>
           Catergory Details</h5>
           </CardHeader>
        
           <CardBody>
           <Button color="dark"
-          className="pull-right" onClick={this.toggleLarge1}>Add New</Button>
+          className="pull-right" onClick={this.toggleLarge1}>New Catergory</Button>
 
             <Table responsive className="table table-hover hover">
               <thead>
                 <tr>
-                  <i className="fa fa-reorder fa-lg mt-4"></i>
-                  <th>Catergory Name</th>
-                  <th>Action</th>
+                  <i className="fa fa-reorder fa-lg mt-4" style={{paddingTop:12}}></i>
+                  <th> <i className="fa fa-user-circle-o fa-fw"></i>Catergory Name</th>
+                  <th><i className="fa fa-exclamation-triangle fa-fw mt-4"></i>Action</th>
                
                 </tr>
               </thead>
@@ -463,7 +464,7 @@ deletecatergory=()=>{
                 <tbody>
                   <tr>
                     <i
-                      className="fa fa-edit fa-lg mt-4"
+                      className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
                       onClick={()=>{this.toggleLarge();this.pass(item.name,item.id)}}
                     ></i>
                     <td>{item.name}</td>
@@ -486,7 +487,7 @@ deletecatergory=()=>{
           className={"modal-lg " + this.props.className}
         >
           <form onSubmit={this.catergorySubmitHandler}>
-            <ModalHeader toggle={this.toggleLarge1}>New Catergory</ModalHeader>
+            <ModalHeader toggle={this.toggleLarge1}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>New Catergory</ModalHeader>
             <ModalBody>
               <Card>
                 <CardBody>
@@ -527,7 +528,7 @@ deletecatergory=()=>{
           className={"modal-lg " + this.props.className}
         >
           <form onSubmit={this.updateCatergoryHandler}>
-            <ModalHeader toggle={this.toggleLarge}>Edit Catergory</ModalHeader>
+            <ModalHeader toggle={this.toggleLarge}><i className="fa fa-edit fa-lg mt-4" style={{paddingRight:"8px"}}></i>Edit Catergory</ModalHeader>
             <ModalBody>
               <Card>
                 <CardBody>

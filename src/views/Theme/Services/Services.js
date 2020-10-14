@@ -412,8 +412,8 @@ deleteservice=()=>{
        
         <Card>
         <CardHeader>
-            <h5>
-           Client Details</h5>
+            <h5><i className="fa fa-book fa-lg mt-4" style={{paddingRight:"8px"}}></i>
+           Service Details</h5>
           </CardHeader>
 
        
@@ -427,11 +427,11 @@ deleteservice=()=>{
             <Table responsive className="table table-hover hover">
               <thead>
                 <tr>
-                  <i className="fa fa-reorder fa-lg mt-4"></i>
-                  <th>Service Type</th>
-                  <th>Average time</th>
-                  <th>Price</th>
-                  <th>Action</th>
+                  <i className="fa fa-reorder fa-lg mt-4"  style={{paddingTop:12}}></i>
+                  <th><i className="fa fa-file-text-o fa-fw"></i>Service Type</th>
+                  <th><i className="fa fa-clock-o fa-fw"></i>Average time</th>
+                  <th><i className="fa fa-money fa-fw"></i>Price</th>
+                  <th><i className="fa fa-exclamation-triangle fa-fw mt-4"></i>Action</th>
                 </tr>
               </thead>
               {this.state.data4.map((item) => (
@@ -467,7 +467,7 @@ deleteservice=()=>{
                     {/*table model*/}
                   
           <form onSubmit={this.updateServiceHandler}>
-            <ModalHeader toggle={this.toggleLarge}>Edit Service</ModalHeader>
+            <ModalHeader toggle={this.toggleLarge}><i className="fa fa-edit fa-lg mt-4" style={{paddingRight:"8px"}}></i>Edit Service</ModalHeader>
             <ModalBody >
               <Row>
                 <Col xs="12" sm="6">

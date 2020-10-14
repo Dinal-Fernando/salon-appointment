@@ -1944,7 +1944,7 @@ BaseService.GetDataWithoutParams(url)
         {this.state.daily ? (
           <Card>
             <CardHeader>
-            <h5>
+            <h5><i className="fa fa-th-list fa-lg mt-4" style={{paddingRight:"8px"}}></i>
            Daily Appointment Details</h5>
           </CardHeader>
             <CardBody  style={{backgroundImage: `url(${Back})`,backgroundRepeat:"no-repeat"}}>
@@ -1954,7 +1954,7 @@ BaseService.GetDataWithoutParams(url)
         ) : (
           <Card>
              <CardHeader>
-            <h5>
+            <h5><i className="fa fa-th-list fa-lg mt-4" style={{paddingRight:"8px"}}></i>
            Weekly Appointment Details</h5>
           </CardHeader>
             <CardBody  style={{backgroundImage: `url(${Back})`,backgroundRepeat:"no-repeat"}}>
