@@ -543,6 +543,7 @@ console.log("value here:"+this.state.countrycd)
    
     const { pageNumber } = this.state;
     return (
+      <div className="animated fadeIn">
       <Card>
             <CardHeader>
             <h5>
@@ -803,6 +804,7 @@ console.log("value here:"+this.state.countrycd)
           </Pagination>
         </CardBody>
       </Card>
+      </div>
     );
   }
 }

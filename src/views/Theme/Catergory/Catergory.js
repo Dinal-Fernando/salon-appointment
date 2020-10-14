@@ -435,7 +435,7 @@ deletecatergory=()=>{
 
     const {pageNumber}=this.state;
     return (
-      <div>
+      <div className="animated fadeIn">
         
       <Col>
        

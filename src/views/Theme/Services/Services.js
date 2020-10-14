@@ -407,6 +407,7 @@ deleteservice=()=>{
 
     const {pageNumber}=this.state;
     return (
+      <div className="animated fadeIn">
       <Col>
        
         <Card>
@@ -653,6 +654,7 @@ deleteservice=()=>{
           </CardBody>
         </Card>
       </Col>
+      </div>
     );
   }
 }

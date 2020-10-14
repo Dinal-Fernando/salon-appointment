@@ -45,8 +45,8 @@ class DefaultLayout extends Component {
 
 
    loading = () => (
-    <div>
-     loading
+    <div className="animated fadeIn">
+    
     </div>
   );
 
