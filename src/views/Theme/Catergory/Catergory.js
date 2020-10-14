@@ -83,8 +83,7 @@ class Catergory extends Component {
     console.log("index"+index)
     this.setState({
       pageNumber:index,
-      data3:[],
-      data4:[]
+    
     },()=>{
 
 
@@ -106,25 +105,25 @@ class Catergory extends Component {
             
           });
           
-          console.log("length of limit" + this.state.data3.length);
+          // console.log("length of limit" + this.state.data3.length);
   
-          this.state.data3.map((item) => {
+          // this.state.data3.map((item) => {
   
-            const index1=this.state.data2.findIndex((res)=>{
+          //   const index1=this.state.data2.findIndex((res)=>{
               
-              return res.name===item.category
+          //     return res.name===item.category
               
-          });
+          // });
   
-            const values = {
-              id: item.id,
-              name: item.name,
-          is_active:item.is_active
-            };
-            this.setState({
-              data4: [values,...this.state.data4],
-            });
-          });
+          //   const values = {
+          //     id: item.id,
+          //     name: item.name,
+          // is_active:item.is_active
+          //   };
+          //   this.setState({
+          //     data4: [values,...this.state.data4],
+          //   });
+          // });
 
           
         } else {
@@ -393,6 +392,21 @@ catergorySubmitHandler = (event) => {
 
 
 deletecatergory=()=>{
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+ 
+    if (result.value) {
+
+
+
   document.getElementById("updatebtn").disabled=true;
   document.getElementById("deletebtn").disabled=true;
 
@@ -429,6 +443,10 @@ deletecatergory=()=>{
       console.log("if error"+err);
     });
   
+
+  }
+})
+
 }
 
   render() {
@@ -460,7 +478,7 @@ deletecatergory=()=>{
                
                 </tr>
               </thead>
-              {this.state.data4.map((item) => (
+              {this.state.data3.map((item) => (
                 <tbody>
                   <tr>
                     <i

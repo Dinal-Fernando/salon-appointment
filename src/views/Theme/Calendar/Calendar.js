@@ -21,8 +21,8 @@ import moment from "moment";
 
 import Swal from "sweetalert2";
 import Back from "../../../assets/back.png";
-import MonthlyView from "./MonthlyView";
-import profile from "../../../containers/DefaultLayout/DefaultLayout"
+// import MonthlyView from "./MonthlyView";
+// import profile from "../../../containers/DefaultLayout/DefaultLayout"
 import $ from 'jquery';
 import {
   Dropdown,
@@ -51,15 +51,15 @@ import {
 } from "reactstrap";
 
 
-import {
-  PDFDownloadLink,
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  Image,
-} from "@react-pdf/renderer";
+// import {
+//   PDFDownloadLink,
+//   Page,
+//   Text,
+//   View,
+//   Document,
+//   StyleSheet,
+//   Image,
+// } from "@react-pdf/renderer";
 
 import FullCalendar, { formatDate } from "@fullcalendar/react"; 
 //import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
@@ -77,20 +77,20 @@ import resourceTimelinePlugin from "@fullcalendar/resource-timeline"
 
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable';
-import { css } from "@emotion/core";
-import ClockLoader from "react-spinners/ClockLoader";
+//import { css } from "@emotion/core";
+//import ClockLoader from "react-spinners/ClockLoader";
 
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-  position: absolute;
-  margin-top: -13px;
-	margin-left: -13px;
-  left: 50%;
-  top: 50%;
-`;
+// const override = css`
+//   display: block;
+//   margin: 0 auto;
+//   border-color: red;
+//   position: absolute;
+//   margin-top: -13px;
+// 	margin-left: -13px;
+//   left: 50%;
+//   top: 50%;
+// `;
 const localizer = momentLocalizer(moment);
 
 const doc = new jsPDF();
@@ -1967,46 +1967,46 @@ document.getElementById("service").value="";
     
 
 
-    const styles = StyleSheet.create({
-      page: {
-        backgroundColor: "#f0ebeb",
-      },
-      appointmentLogo: {
-        display: "flex",
-        marginLeft: 219,
-      },
-      appointmentTitle: {
-        fontSize: 18,
-        marginTop: 10,
-        fontWeight: "bold",
-        marginLeft: 10,
-      },
-      image: {
-        height: 100,
-        width: 165,
-        alignItems: "center",
-        marginTop: 30,
-      },
-      appointmentDetails: {
-        fontSize: 11,
-        marginTop: 2,
-        marginLeft: 45,
-      },
-      appointmentDetailsDate: {
-        fontSize: 11,
-        marginBottom: 3,
-        marginLeft: 45,
-        fontWeight: "bold",
-        color:"#1d353d"
-      },
-      receiptFooter: {
-        fontSize: 15,
-        marginTop: 100,
-        marginLeft: 160,
-        fontWeight: "bold",
+    // const styles = StyleSheet.create({
+    //   page: {
+    //     backgroundColor: "#f0ebeb",
+    //   },
+    //   appointmentLogo: {
+    //     display: "flex",
+    //     marginLeft: 219,
+    //   },
+    //   appointmentTitle: {
+    //     fontSize: 18,
+    //     marginTop: 10,
+    //     fontWeight: "bold",
+    //     marginLeft: 10,
+    //   },
+    //   image: {
+    //     height: 100,
+    //     width: 165,
+    //     alignItems: "center",
+    //     marginTop: 30,
+    //   },
+    //   appointmentDetails: {
+    //     fontSize: 11,
+    //     marginTop: 2,
+    //     marginLeft: 45,
+    //   },
+    //   appointmentDetailsDate: {
+    //     fontSize: 11,
+    //     marginBottom: 3,
+    //     marginLeft: 45,
+    //     fontWeight: "bold",
+    //     color:"#1d353d"
+    //   },
+    //   receiptFooter: {
+    //     fontSize: 15,
+    //     marginTop: 100,
+    //     marginLeft: 160,
+    //     fontWeight: "bold",
         
-      },
-    });
+    //   },
+    // });
 
 
 

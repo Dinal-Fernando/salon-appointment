@@ -405,8 +405,7 @@ mobileNumber:"",
     this.setState(
       {
         pageNumber: index,
-        data3: [],
-        data4: [],
+       
       },
       () => {
 
@@ -425,21 +424,6 @@ mobileNumber:"",
               pageCount: Math.ceil(res.data.count / this.state.limit),
             });
 
-            console.log("length of limit" + this.state.data3.length);
-
-            this.state.data3.map((item) => {
-              const values = {
-                id: item.id,
-                name: item.name,
-                nic: item.nic,
-                countryCode: item.country_code,
-                mobile: item.mobile,
-                is_active:item.is_active
-              };
-              this.setState({
-                data4: [values, ...this.state.data4],
-              });
-            });
 
             console.log("length of data4" + this.state.data4.length);
           })
@@ -781,6 +765,22 @@ if(e===true)
 
 
   deletestaff=()=>{
+
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+   
+      if (result.value) {
+
+
+
     document.getElementById("updatebtn").disabled=true;
     document.getElementById("deletebtn").disabled=true;
   
@@ -816,6 +816,11 @@ if(e===true)
         alertify.alert("Cannot perform the operation");
         console.log("if error"+err);
       });
+
+
+
+    }
+  })
     
   }
 
@@ -1264,11 +1269,11 @@ if(e===true)
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.data4.map((item) => (
+                      {this.state.data3.map((item) => (
                         <tr >
                            <i
                       className="fa fa-edit fa-lg mt-4"
-                      onClick={()=>{this.toggleLarge3();this.pass(item.id,item.name,item.nic,item.mobile,item.countryCode)}}
+                      onClick={()=>{this.toggleLarge3();this.pass(item.id,item.name,item.nic,item.mobile,item.country_code)}}
                     ></i>
                           <td>{item.name}</td>
                           <td>{item.nic}</td>

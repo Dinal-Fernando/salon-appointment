@@ -88,7 +88,7 @@ class Client extends Component {
   setStatus=(id,isactive,e)=>{
 
     let updatestate=""
-
+    let active= !(isactive);
     if(e===true)
       {
 
@@ -105,6 +105,8 @@ class Client extends Component {
       }
 
 
+  
+
     const url = "/client/update/";
         BaseService.UpdateService(url, updatestate,id)
           .then((res) => {
@@ -112,7 +114,7 @@ class Client extends Component {
             console.log("response"+res)
             if (res.data.success === true) {
              // this.receivedData(1,1);
-             this.receivedData(1, 1);
+             this.componentDidMount()
              alertify.success("status updated")
             
       
@@ -141,8 +143,7 @@ class Client extends Component {
     this.setState(
       {
         pageNumber: index,
-        data3: [],
-        data4: [],
+        
       },
       () => {
 
@@ -167,23 +168,6 @@ class Client extends Component {
             pageCount: Math.ceil(res.data.count / this.state.limit),
           });
 
-          console.log("length of limit" + this.state.data3.length);
-
-          this.state.data3.map((item) => {
-            const values = {
-              id: item.id,
-              name: item.name,
-              nic: item.nic,
-              countryCode: item.country_code,
-              mobile: item.mobile,
-              is_active:item.is_active,
-              lastdate: item.last_date,
-            };
-            console.log("last date" + item.last_date);
-            this.setState({
-              data4: [values, ...this.state.data4],
-            });
-          });
 
             
           } else {
@@ -501,41 +485,78 @@ console.log("value here:"+this.state.countrycd)
 
 
   deleteClient=()=>{
-    document.getElementById("updatebtn").disabled=true;
-    document.getElementById("deletebtn").disabled=true;
 
-    const url = "/client/delete/";
-    BaseService.DeleteData(url,this.state.updateId)
-      .then((res) => {
-  
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+   
+      if (result.value) {
+       
 
-        console.log("response"+res)
-        document.getElementById("updatebtn").disabled=false;
-        document.getElementById("deletebtn").disabled=false;
 
-        if (res.data.success === true) {
-          this.receivedData(1,1);
+
+
+
+
+
+
+
+        document.getElementById("updatebtn").disabled=true;
+        document.getElementById("deletebtn").disabled=true;
+    
+        const url = "/client/delete/";
+        BaseService.DeleteData(url,this.state.updateId)
+          .then((res) => {
       
-         
-
-          alertify.success("Successfully deleted client");
-  
-          this.setState({
-            large2:false
+    
+            console.log("response"+res)
+            document.getElementById("updatebtn").disabled=false;
+            document.getElementById("deletebtn").disabled=false;
+    
+            if (res.data.success === true) {
+              this.receivedData(1,1);
+          
+             
+    
+              alertify.success("Successfully deleted client");
+      
+              this.setState({
+                large2:false
+              })
+      
+            } else {
+              Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
           })
-  
-        } else {
-          Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-      })
-        }
-      })
-      .catch((err) => {
-        alertify.alert("Cannot perform the operation");
-        console.log("if error"+err);
-      });
+            }
+          })
+          .catch((err) => {
+            alertify.alert("Cannot perform the operation");
+            console.log("if error"+err);
+          });
+
+
+
+
+
+
+
+
+
+
+
+      }
+    })
+
+
     
   }
 
@@ -662,7 +683,7 @@ console.log("value here:"+this.state.countrycd)
             </thead>
 
             <tbody>
-              {this.state.data4.map((person) => (
+              {this.state.data3.map((person) => (
                 <tr>
                   <i
                     className="fa fa-edit fa-lg mt-4"
@@ -672,25 +693,24 @@ console.log("value here:"+this.state.countrycd)
                         person.name,
                         person.nic,
                         person.mobile,
-                        person.countryCode
+                        person.country_code
                       );
                     }}
                   ></i>
 
                   <td>{person.name}</td>
                   <td>{person.nic}</td>
-                  <td>{person.countryCode + person.mobile}</td>
-                  {person.lastdate === null ? (
+                  <td>{person.country_code + person.mobile}</td>
+                  {person.last_date === null ? (
                     <td>No appointments</td>
                   ) : (
                     <td>{person.lastdate}</td>
                   )}
-                  <td><Switch checkedChildren="Active" unCheckedChildren="Deactive" defaultChecked checked={person.is_active} onChange={(e) => this.setStatus(person.id,person.is_active, e)}/></td>
+                  <td><Switch checkedChildren="Active" unCheckedChildren="Deactive" defaultChecked checked={person.is_active} unchecked={false} onChange={(e) => this.setStatus(person.id,person.is_active, e)}/></td>
                 </tr>
               ))}
             </tbody>
           </Table>
-
 
           <Modal
             isOpen={this.state.large2}

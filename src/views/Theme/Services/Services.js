@@ -365,6 +365,22 @@ if(e===true)
 
 
 deleteservice=()=>{
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+ 
+    if (result.value) {
+
+
+
+
   document.getElementById("updatebtn").disabled=true;
   document.getElementById("deletebtn").disabled=true;
 
@@ -400,6 +416,10 @@ deleteservice=()=>{
       alertify.alert("Cannot perform the operation");
       console.log("if error"+err);
     });
+
+
+  }
+})
   
 }
 
