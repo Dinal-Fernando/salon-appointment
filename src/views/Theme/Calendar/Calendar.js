@@ -2363,7 +2363,7 @@ document.getElementById("service").value="";
         </div>
         :<></>}<br></br>
         
-        {this.state.cancelAppointment===true?
+        {this.state.cancelAppointment===true && this.state.iscanceled===false?
         <form onSubmit={this.cancelAppointmentSubmit}>
         <FormGroup>
                     <Label htmlFor="reason">Cancel Reason</Label>
