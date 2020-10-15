@@ -6,7 +6,10 @@ import "alertifyjs/build/css/themes/default.min.css";
 
 
 
-const base_url = "http://salon-be-dev2.ap-southeast-1.elasticbeanstalk.com";
+//const base_url = "http://salon-be-dev2.ap-southeast-1.elasticbeanstalk.com";
+const base_url = "https://dev-reservation-api.onepos.lk";
+
+
 
 export const PostService = (url, data) => {
   return axios(base_url + url, {
