@@ -109,7 +109,7 @@ BaseService.PostServiceWithoutHeader(url, login)
         
       }else{
 
-        alertify.alert("Invalid user type login")
+        alertify.alert("Invalid user type login").setHeader('').set('closable', false);
       }
 
 
@@ -193,7 +193,7 @@ if (curHr < 12) {
 
   render() {
     return (
-      <div>
+      <div className="animated fadeIn">
 
 
 <ToastContainer

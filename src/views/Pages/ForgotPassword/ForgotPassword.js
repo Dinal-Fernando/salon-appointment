@@ -63,8 +63,13 @@ BaseService.PostServiceWithoutHeader(url, reset)
   render() {
     return (
 
-      
-      <div className="app flex-row align-items-center">
+      <div className="animated fadeIn">
+         <div style={{paddingLeft:"20px",cursor:"pointer"}} onClick={()=>window.location.href="/#/login"} className="d-flex justify-content-start">
+       
+      <i className="fa fa-arrow-circle-left fa-3x mt-4" onClick={()=>window.location.href="/#/login"}></i>
+ </div>
+      <div className="app flex-row align-items-center">          
+    
         <Container>
      
 
@@ -128,6 +133,8 @@ BaseService.PostServiceWithoutHeader(url, reset)
             </Col>
           </Row>
         </Container>
+      </div>
+
       </div>
     );
   }

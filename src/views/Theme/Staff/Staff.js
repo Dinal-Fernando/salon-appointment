@@ -181,19 +181,19 @@ mobileNumber:"",
 
           this.receivedData(1, 1);
         } else {
-          alertify.alert("Cannot perform the operation");
+          alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
         }
 
         
       })
       .catch((err) => {
-        alertify.alert("Cannot perform the operation");
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
       });
 
 
     }else{
   
-      alertify.alert("please provide valid phone number")
+      alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
     }
   };
 
@@ -211,7 +211,7 @@ mobileNumber:"",
 
     if(this.state.isuser===0 && this.state.isadmin===0)
     {
-      alertify.alert("please add user type")
+      alertify.alert("please add user type").setHeader('').set('closable', false);
     }else{
 
   
@@ -241,11 +241,11 @@ mobileNumber:"",
           })
 
         } else {
-          alertify.alert("Cannot perform the operation");
+          alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
         }
       })
       .catch((err) => {
-        alertify.alert("Cannot perform the operation");
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
       });
 
     }
@@ -574,6 +574,7 @@ mobileNumber:"",
               this.receivedData(1, 1);
             } else {
               Swal.fire({
+                allowOutsideClick: false,
                 icon: 'error',
                 title: 'Oops...',
                 text: 'cannot perform operation!',
@@ -583,6 +584,7 @@ mobileNumber:"",
           })
           .catch((err) => {
             Swal.fire({
+              allowOutsideClick: false,
               icon: 'error',
               title: 'Oops...',
               text: 'cannot perform operation!',
@@ -595,7 +597,7 @@ mobileNumber:"",
       })
 
     }else{
-      alertify.alert("please provide valid phone number")
+      alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
     }
 
 
@@ -644,6 +646,7 @@ mobileNumber:"",
               this.receivedData(1, 1);
             } else {
               Swal.fire({
+                allowOutsideClick: false,
                 icon: 'error',
                 title: 'Oops...',
                 text: 'cannot perform operation!',
@@ -653,6 +656,7 @@ mobileNumber:"",
           })
           .catch((err) => {
             Swal.fire({
+              allowOutsideClick: false,
               icon: 'error',
               title: 'Oops...',
               text: 'cannot perform operation!',
@@ -750,6 +754,7 @@ if(e===true)
   
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
@@ -757,7 +762,7 @@ if(e===true)
         }
       })
       .catch((err) => {
-        alertify.alert("Cannot perform the operation");
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
         console.log("if error"+err);
       });
 
@@ -768,6 +773,7 @@ if(e===true)
 
     
     Swal.fire({
+      allowOutsideClick: false,
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
@@ -806,6 +812,7 @@ if(e===true)
   
         } else {
           Swal.fire({
+            allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Something went wrong!',
@@ -813,7 +820,7 @@ if(e===true)
         }
       })
       .catch((err) => {
-        alertify.alert("Cannot perform the operation");
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
         console.log("if error"+err);
       });
 

@@ -83,6 +83,7 @@ class Services extends Component {
          } else {
         
            Swal.fire({
+            allowOutsideClick: false,
              icon: 'error',
              title: 'Oops...',
              text: 'Error loading data!',
@@ -96,6 +97,7 @@ class Services extends Component {
        .catch((err) => {
         
        Swal.fire({
+        allowOutsideClick: false,
          icon: 'error',
          title: 'Oops...',
          text: 'Error loading data!',
@@ -168,6 +170,7 @@ class Services extends Component {
         } else {
        
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
@@ -181,6 +184,7 @@ class Services extends Component {
       .catch((err) => {
        
       Swal.fire({
+        allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
@@ -317,7 +321,7 @@ if(e===true)
         }
       })
       .catch((err) => {
-        alertify.alert("Cannot perform the operation");
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
         console.log("if error"+err);
       });
 
@@ -362,6 +366,7 @@ if(e===true)
 
       } else {
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'error',
           title: 'Oops...',
           text: 'Something went wrong!',
@@ -369,7 +374,7 @@ if(e===true)
       }
     })
     .catch((err) => {
-      alertify.alert("Cannot perform the operation");
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
       console.log("if error"+err);
     });
 }
@@ -379,6 +384,7 @@ if(e===true)
 deleteservice=()=>{
 
   Swal.fire({
+    allowOutsideClick: false,
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
     icon: 'warning',
@@ -418,6 +424,7 @@ deleteservice=()=>{
 
       } else {
         Swal.fire({
+          allowOutsideClick: false,
       icon: 'error',
       title: 'Oops...',
       text: 'Something went wrong!',
@@ -425,7 +432,7 @@ deleteservice=()=>{
       }
     })
     .catch((err) => {
-      alertify.alert("Cannot perform the operation");
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
       console.log("if error"+err);
     });
 

@@ -219,6 +219,7 @@ class Calendarc extends Component {
 
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -227,6 +228,7 @@ class Calendarc extends Component {
       })
       .catch((err) => {
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "Error loading data!",
@@ -532,6 +534,7 @@ if(value.is_canceled===true)
 
 
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Data retrieval fail!",
@@ -543,6 +546,7 @@ if(value.is_canceled===true)
       })
         .catch((err) => {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -576,6 +580,7 @@ eventClickModelFunction=()=>{
           });
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -584,6 +589,7 @@ eventClickModelFunction=()=>{
       })
       .catch((err) => {
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "Error loading data!",
@@ -599,6 +605,7 @@ eventClickModelFunction=()=>{
           });
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -607,6 +614,7 @@ eventClickModelFunction=()=>{
       })
       .catch((err) => {
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "Error loading data!",
@@ -623,7 +631,7 @@ let num=0;
 
 if(this.state.reportstart==="" ||this.state.reportend==="")
 {
-  alertify.alert("Cannot keep start and end dates empty");
+  alertify.alert("Cannot keep start and end dates empty").setHeader('').set('closable', false);
 }else{
 
 
@@ -687,6 +695,7 @@ this.generatePDF();
       })
         .catch((err) => {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -712,6 +721,7 @@ this.generatePDF();
 
     if (!isNaN(dt) && dt < today.getTime()) {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "You cannot add appointments to past dates!",
@@ -918,6 +928,7 @@ this.setState({
           .catch((err) => {
          
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot perform operation!",
@@ -930,6 +941,7 @@ this.setState({
       }
     } else {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "Please fill all details before saving appointment!",
@@ -974,6 +986,7 @@ this.setState({
         } else {
     
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "cannot perform operation!",
@@ -983,6 +996,7 @@ this.setState({
       .catch((err) => {
       
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "cannot perform operation!",
@@ -1022,6 +1036,7 @@ this.setState({
       });
     } else {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "Please fill client details before proceeding!",
@@ -1067,6 +1082,7 @@ this.setState({
             ) < new Date()
           ) {
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot add appointment to past time!",
@@ -1093,7 +1109,7 @@ this.setState({
             alertify.alert(
               "Next appointment can be placed after first appointment. Previous appointment ends at " +
                 arr["lasttime"]
-            );
+            ).setHeader('').set('closable', false);
 
             this.setState({
               starttime: "",
@@ -1225,7 +1241,7 @@ var ele13 = document.querySelectorAll('[id="service"]');
             })
             .catch((err) => {
               console.log(err)
-              alertify.alert(err);
+              alertify.alert(err).setHeader('').set('closable', false);;
             });
         }
       }
@@ -1920,6 +1936,7 @@ document.getElementById("service").value="";
    
     if(new Date(arg.start)<new Date()){
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "cannot add appointment to past time!",

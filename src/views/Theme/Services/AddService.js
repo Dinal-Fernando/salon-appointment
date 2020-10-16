@@ -93,6 +93,7 @@ class AddService extends Component {
         } else {
        
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',

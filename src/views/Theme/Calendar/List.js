@@ -156,6 +156,7 @@ class List extends Component {
         } else {
 
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
@@ -169,6 +170,7 @@ class List extends Component {
       .catch((err) => {
 
       Swal.fire({
+        allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
@@ -364,6 +366,7 @@ SmsreminderCheck=(e)=>{
         } else {
 
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
@@ -377,6 +380,7 @@ SmsreminderCheck=(e)=>{
       .catch((err) => {
 
       Swal.fire({
+        allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
@@ -533,6 +537,7 @@ BaseService.GetDataWithoutParams(url)
     } else {
 
       Swal.fire({
+        allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
@@ -546,6 +551,7 @@ BaseService.GetDataWithoutParams(url)
   .catch((err) => {
 
   Swal.fire({
+    allowOutsideClick: false,
     icon: 'error',
     title: 'Oops...',
     text: 'Error loading data!',
@@ -571,6 +577,7 @@ BaseService.GetDataWithoutParams(url)
         } else {
 
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
@@ -584,6 +591,7 @@ BaseService.GetDataWithoutParams(url)
       .catch((err) => {
 
       Swal.fire({
+        allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
@@ -612,6 +620,7 @@ BaseService.GetDataWithoutParams(url)
     console.log("This is today time" + today);
     if (!isNaN(dt) && dt < today.getTime()) {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "You cannot add appointments to past dates!",
@@ -723,6 +732,7 @@ BaseService.GetDataWithoutParams(url)
             } else {
  
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot perform operation!",
@@ -737,6 +747,7 @@ BaseService.GetDataWithoutParams(url)
           .catch((err) => {
 
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "cannot perform operation!",
@@ -806,6 +817,7 @@ BaseService.GetDataWithoutParams(url)
             } else {
   
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot perform operation!",
@@ -820,6 +832,7 @@ BaseService.GetDataWithoutParams(url)
           .catch((err) => {
 
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "cannot perform operation!",
@@ -834,6 +847,7 @@ BaseService.GetDataWithoutParams(url)
       }
     } else {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "Please fill all details before saving appointment!",
@@ -896,6 +910,7 @@ BaseService.GetDataWithoutParams(url)
       });
     } else {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "Please fill client details before proceeding!",
@@ -965,6 +980,7 @@ BaseService.GetDataWithoutParams(url)
             ) < new Date()
           ) {
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot add appointment to past time!",

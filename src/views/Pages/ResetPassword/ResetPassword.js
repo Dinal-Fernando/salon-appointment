@@ -33,6 +33,7 @@ class ResetPassword extends Component {
       {
    
         Swal.fire({
+          allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Unable to reset password. Please contact system administrator or check your email inbox for password reset link!',
@@ -121,11 +122,11 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
           )
       window.location.href="/#/login";
     } else {
-      alertify.alert("Cannot perform the operation");
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
     }
   })
   .catch((err) => {
-    alertify.alert("Cannot perform the operation");
+    alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
   });
 
 
@@ -136,6 +137,7 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
 
       
       <div className="app flex-row align-items-center">
+ 
         <Container>
           <Row className="justify-content-center">
             <Col md="9" lg="7" xl="6">

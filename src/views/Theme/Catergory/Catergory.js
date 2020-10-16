@@ -129,6 +129,7 @@ class Catergory extends Component {
         } else {
        
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
@@ -142,6 +143,7 @@ class Catergory extends Component {
       .catch((err) => {
        
       Swal.fire({
+        allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
@@ -294,6 +296,7 @@ if(e===true)
   
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
@@ -342,6 +345,7 @@ if(e===true)
 
       } else {
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'error',
           title: 'Oops...',
           text: 'Something went wrong!',
@@ -394,6 +398,7 @@ catergorySubmitHandler = (event) => {
 deletecatergory=()=>{
 
   Swal.fire({
+    allowOutsideClick: false,
     title: 'Are you sure?',
     text: "You won't be able to revert this!",
     icon: 'warning',

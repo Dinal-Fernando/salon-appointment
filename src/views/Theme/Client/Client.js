@@ -121,6 +121,7 @@ class Client extends Component {
             } else {
 
               Swal.fire({
+                allowOutsideClick: false,
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Something went wrong!',
@@ -128,7 +129,7 @@ class Client extends Component {
             }
           })
           .catch((err) => {
-            alertify.alert("Cannot perform the operation");
+            alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
             console.log("if error"+err);
           });
 
@@ -173,6 +174,7 @@ class Client extends Component {
           } else {
          
             Swal.fire({
+              allowOutsideClick: false,
               icon: 'error',
               title: 'Oops...',
               text: 'Error loading data!',
@@ -186,6 +188,7 @@ class Client extends Component {
         .catch((err) => {
          
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'error',
           title: 'Oops...',
           text: 'Error loading data!',
@@ -270,6 +273,7 @@ if(this.state.mobileNumber.length===9)
 
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
@@ -277,7 +281,7 @@ if(this.state.mobileNumber.length===9)
         }
       })
       .catch((err) => {
-        alertify.alert("Cannot perform the operation");
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
       });
 
     }else{
@@ -316,6 +320,7 @@ if(this.state.mobileNumber.length===9)
 
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
@@ -323,13 +328,13 @@ if(this.state.mobileNumber.length===9)
         }
       })
       .catch((err) => {
-        alertify.alert("Cannot perform the operation");
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
       });
 
     }
   }else{
 
-    alertify.alert("please provide valid phone number")
+    alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
   }
  
     
@@ -402,6 +407,7 @@ console.log(code)
             } else {
 
               Swal.fire({
+                allowOutsideClick: false,
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Something went wrong!',
@@ -409,7 +415,7 @@ console.log(code)
             }
           })
           .catch((err) => {
-            alertify.alert("Cannot perform the operation");
+            alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
             console.log("if error"+err);
           });
 
@@ -460,6 +466,7 @@ console.log("value here:"+this.state.countrycd)
       
             } else {
               Swal.fire({
+                allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
@@ -467,7 +474,7 @@ console.log("value here:"+this.state.countrycd)
             }
           })
           .catch((err) => {
-            alertify.alert("Cannot perform the operation");
+            alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
             console.log("if error"+err);
           });
       
@@ -487,6 +494,7 @@ console.log("value here:"+this.state.countrycd)
   deleteClient=()=>{
 
     Swal.fire({
+      allowOutsideClick: false,
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
@@ -532,6 +540,7 @@ console.log("value here:"+this.state.countrycd)
       
             } else {
               Swal.fire({
+                allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
@@ -539,7 +548,7 @@ console.log("value here:"+this.state.countrycd)
             }
           })
           .catch((err) => {
-            alertify.alert("Cannot perform the operation");
+            alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
             console.log("if error"+err);
           });
 

@@ -127,6 +127,7 @@ class MonthlyView extends Component {
 
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -135,6 +136,7 @@ class MonthlyView extends Component {
       })
       .catch((err) => {
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "Error loading data!",
@@ -247,6 +249,7 @@ res2.data.data.map(async value=>{
       })
         .catch((err) => {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -275,6 +278,7 @@ eventClickModelFunction=()=>{
           });
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -283,6 +287,7 @@ eventClickModelFunction=()=>{
       })
       .catch((err) => {
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "Error loading data!",
@@ -306,6 +311,7 @@ eventClickModelFunction=()=>{
       })
       .catch((err) => {
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "Error loading data!",
@@ -359,6 +365,7 @@ await this.setState({
       })
         .catch((err) => {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -398,6 +405,7 @@ await this.setState({
         } else {
     
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "cannot perform operation!",
@@ -407,6 +415,7 @@ await this.setState({
       .catch((err) => {
       
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "cannot perform operation!",
@@ -432,6 +441,7 @@ await this.setState({
     console.log("This is today time" + today);
     if (!isNaN(dt) && dt < today.getTime()) {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "You cannot add appointments to past dates!",
@@ -531,6 +541,7 @@ await this.setState({
             } else {
         
               Swal.fire({
+                allowOutsideClick: false,
                 icon: "error",
                 title: "Oops...",
                 text: "cannot perform operation!",
@@ -540,6 +551,7 @@ await this.setState({
           .catch((err) => {
           
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot perform operation!",
@@ -591,6 +603,7 @@ await this.setState({
             } else {
           
               Swal.fire({
+                allowOutsideClick: false,
                 icon: "error",
                 title: "Oops...",
                 text: "cannot perform operation!",
@@ -600,6 +613,7 @@ await this.setState({
           .catch((err) => {
          
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot perform operation!",
@@ -608,6 +622,7 @@ await this.setState({
       }
     } else {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "Please fill all details before saving appointment!",
@@ -653,6 +668,7 @@ await this.setState({
       });
     } else {
       Swal.fire({
+        allowOutsideClick: false,
         icon: "error",
         title: "Oops...",
         text: "Please fill client details before proceeding!",
@@ -724,6 +740,7 @@ await this.setState({
             ) < new Date()
           ) {
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot add appointment to past time!",

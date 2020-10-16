@@ -400,6 +400,7 @@ class Dashboard extends Component {
       avg:0,
       totalPrice:0,
       totalCost:0,
+      profit:0
     };
   }
 
@@ -550,8 +551,9 @@ await this.setState({
 
               })
               this.setState({
-                totalPrice:total,
-                totalCost:total2
+                totalPrice:parseInt(total),
+                totalCost:parseInt(total2),
+                profit:this.state.totalPrice-this.state.totalCost*100/this.state.totalPrice,
               })
             
           } else {
@@ -1006,7 +1008,7 @@ await this.setState({
                         <div className="progress-group-header">
                           <i className="icon-social-linkedin progress-group-icon"></i>
                           <span className="title">% change in profit</span>
-                          <span className="ml-auto font-weight-bold">{(this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice}%</span>
+                          <span className="ml-auto font-weight-bold">{((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice)===NaN ||((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice)<0?<p>0%</p>:<p>{((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice).toString()}%</p>}</span>
                         </div>
                         <div className="progress-group-bars">
                           <Progress className="progress-xs" color="success" value="8" />
