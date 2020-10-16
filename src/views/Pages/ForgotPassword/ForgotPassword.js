@@ -50,11 +50,11 @@ BaseService.PostServiceWithoutHeader(url, reset)
       )
       //window.location.href="/#/login";
     } else {
-      alertify.alert("Cannot perform the operation");
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);;
     }
   })
   .catch((err) => {
-    alertify.alert("Cannot perform the operation");
+    alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);;
   });
 
 

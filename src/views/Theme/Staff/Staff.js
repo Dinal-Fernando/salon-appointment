@@ -138,11 +138,33 @@ class Staff extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
+    const lastLetter = this.state.Nic[this.state.Nic.length-1];
+   const numbers = this.state.Nic.slice(0,this.state.Nic.length-1);
 
-if(this.state.mobileNumber.length===9)
+   var regExp = /[a-zA-Z]/g;
+
+if(this.state.mobileNumber.length!==9)
 {
 
-  document.getElementById("submitbtn").disabled=true;
+  alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
+
+
+}else if(this.state.Nic.length===10)
+{
+
+  console.log(lastLetter)
+  console.log(numbers)
+  console.log(regExp.test(numbers))
+
+  if((lastLetter!=='V' || lastLetter!=='X') || regExp.test(numbers) )
+  {
+
+    alertify.alert("Your Nic Should have a letter at the end. With 9 numbers").setHeader('').set('closable', false);
+
+  }else{
+
+
+    document.getElementById("submitbtn").disabled=true;
 
     const staff = {
       name: this.state.fullname,
@@ -191,10 +213,148 @@ mobileNumber:"",
       });
 
 
-    }else{
+
+
+
+  }
+
+}else if(this.state.Nic.length===12)
+{
+
+  if(regExp.test(this.state.Nic))
+  {
+
+    alertify.alert("Your Nic should not have letters").setHeader('').set('closable', false);
+
+  }else{
+
+
+
+    document.getElementById("submitbtn").disabled=true;
+
+    const staff = {
+      name: this.state.fullname,
+      nic: this.state.Nic,
+      address_line1: this.state.address1,
+      address_line2: this.state.address2,
+      city: this.state.city,
+      country: this.state.Country,
+      country_code: "+" + this.state.dialCode,
+      mobile: this.state.mobileNumber,
+      is_active: "1",
+    };
+   
+    const url = "/employee/save/";
+    BaseService.PostService(url, staff)
+      .then((res) => {
+     
+
+        if (res.data.success === true) {
+          Swal.fire(
+            'Good job!',
+            'successfuly added staff member',
+            'success'
+          )
+          document.getElementById("submitbtn").disabled=false;
+          this.setState({
+large:false,
+fullname:"",
+Nic:"",
+address1:"",
+address2:"",
+city:"",
+mobileNumber:"",
+
+          })
+
+          this.receivedData(1, 1);
+        } else {
+          alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+        }
+
+        
+      })
+      .catch((err) => {
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+      });
+
+
+
+
+
+  }
+
+
+
+}else{
+
+
+  alertify.alert("Please provide either a valid New or old NIC").setHeader('').set('closable', false);
+
+}
+
+
+
+
+
+
+
+// if(this.state.mobileNumber.length===9)
+// {
+
+//   document.getElementById("submitbtn").disabled=true;
+
+//     const staff = {
+//       name: this.state.fullname,
+//       nic: this.state.Nic,
+//       address_line1: this.state.address1,
+//       address_line2: this.state.address2,
+//       city: this.state.city,
+//       country: this.state.Country,
+//       country_code: "+" + this.state.dialCode,
+//       mobile: this.state.mobileNumber,
+//       is_active: "1",
+//     };
+   
+//     const url = "/employee/save/";
+//     BaseService.PostService(url, staff)
+//       .then((res) => {
+     
+
+//         if (res.data.success === true) {
+//           Swal.fire(
+//             'Good job!',
+//             'successfuly added staff member',
+//             'success'
+//           )
+//           document.getElementById("submitbtn").disabled=false;
+//           this.setState({
+// large:false,
+// fullname:"",
+// Nic:"",
+// address1:"",
+// address2:"",
+// city:"",
+// mobileNumber:"",
+
+//           })
+
+//           this.receivedData(1, 1);
+//         } else {
+//           alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+//         }
+
+        
+//       })
+//       .catch((err) => {
+//         alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+//       });
+
+
+//     }else{
   
-      alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
-    }
+//       alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
+//     }
   };
 
 
@@ -867,7 +1027,7 @@ if(e===true)
 
                   <Modal
                     isOpen={this.state.large}
-                    toggle={this.toggleLarge}
+                  
                     className={"modal-lg " + this.props.className}
                   >
                     <ModalHeader toggle={this.toggleLarge}>
@@ -1016,7 +1176,7 @@ if(e===true)
 
                   <Modal
                     isOpen={this.state.large3}
-                    toggle={this.toggleLarge3}
+                   
                     className={"modal-lg " + this.props.className}
                   >
                     <ModalHeader toggle={this.toggleLarge3}>
@@ -1155,7 +1315,7 @@ if(e===true)
 
  <Modal
                     isOpen={this.state.large2}
-                    toggle={this.toggleLarge2}
+                    
                     className={"modal-lg " + this.props.className}
                   >
                     <form onSubmit={this.SystemUserSubmitHandler}>
