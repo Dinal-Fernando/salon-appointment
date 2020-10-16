@@ -820,6 +820,7 @@ this.generatePDF();
               });
 
               Swal.fire(
+            
                 "Good job!",
                 "Appointment successfuly inserted",
                 "success"
@@ -832,6 +833,7 @@ this.setState({
             } else {
         
               Swal.fire({
+                allowOutsideClick: false,
                 icon: "error",
                 title: "Oops...",
                 text: "cannot perform operation!",
@@ -841,6 +843,7 @@ this.setState({
           .catch((err) => {
           
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "cannot perform operation!",
@@ -896,6 +899,7 @@ this.setState({
               });
 
               Swal.fire(
+               
                 "Good job!",
                 "Appointment successfuly inserted",
                 "success"
@@ -904,6 +908,7 @@ this.setState({
             } else {
           
               Swal.fire({
+                allowOutsideClick: false,
                 icon: "error",
                 title: "Oops...",
                 text: "cannot perform operation!",

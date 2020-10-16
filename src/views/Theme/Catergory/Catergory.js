@@ -237,7 +237,7 @@ class Catergory extends Component {
       }
       })
       .catch((error) => {
-        alertify.alert("Cannot perform operation "+error);
+        alertify.alert("Cannot perform operation "+error).setHeader('').set('closable', false);
       });
   };
 
@@ -301,7 +301,7 @@ if(e===true)
         }
       })
       .catch((err) => {
-        alertify.alert("Cannot perform the operation");
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
         console.log("if error"+err);
       });
 
@@ -349,7 +349,7 @@ if(e===true)
       }
     })
     .catch((err) => {
-      alertify.alert("Cannot perform the operation");
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
       console.log("if error"+err);
     });
 }
@@ -386,7 +386,7 @@ catergorySubmitHandler = (event) => {
     }
     })
     .catch((error) => {
-      alertify.alert("Cannot perform operation "+error);
+      alertify.alert("Cannot perform operation "+error).setHeader('').set('closable', false);
     });
 };
 
@@ -432,6 +432,7 @@ deletecatergory=()=>{
 
       } else {
         Swal.fire({
+          allowOutsideClick: false,
       icon: 'error',
       title: 'Oops...',
       text: 'Something went wrong!',
@@ -439,7 +440,7 @@ deletecatergory=()=>{
       }
     })
     .catch((err) => {
-      alertify.alert("Cannot perform the operation");
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
       console.log("if error"+err);
     });
   

@@ -116,6 +116,7 @@ BaseService.PostServiceWithoutHeader(url, login)
     } else {
       
       Swal.fire({
+        allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Invalid Credentials!',
@@ -129,11 +130,16 @@ BaseService.PostServiceWithoutHeader(url, login)
   .catch((err) => {
    
   Swal.fire({
+    allowOutsideClick: false,
     icon: 'error',
     title: 'Oops...',
     text: 'Invalid Credentials!',
     
   })
+
+  // alertify.alert("invalid").setHeader('').set('closable', false); 
+  
+
   });
   }
 
@@ -226,7 +232,7 @@ pauseOnHover
                 <Card className="p-4">
                   <CardBody>
                     <Form onSubmit={this.onSubmitHandler}>
-                      <h1>Login to proceed</h1>
+                      <h1>Login</h1>
                       <p className="text-muted">Sign in to your account</p>
       
                       <InputGroup className="mb-3">

@@ -480,6 +480,7 @@ await this.setState({
 
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -488,6 +489,7 @@ await this.setState({
       })
       .catch((err) => {
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "Error loading data!",
@@ -504,6 +506,7 @@ await this.setState({
           });
         } else {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",
@@ -512,6 +515,7 @@ await this.setState({
       })
       .catch((err) => {
         Swal.fire({
+          allowOutsideClick: false,
           icon: "error",
           title: "Oops...",
           text: "Error loading data!",
@@ -552,6 +556,7 @@ await this.setState({
             
           } else {
             Swal.fire({
+              allowOutsideClick: false,
               icon: "error",
               title: "Oops...",
               text: "Error loading data!",
@@ -560,6 +565,7 @@ await this.setState({
         })
         .catch((err) => {
           Swal.fire({
+            allowOutsideClick: false,
             icon: "error",
             title: "Oops...",
             text: "Error loading data!",

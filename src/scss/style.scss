@@ -18,3 +18,20 @@
     -moz-box-shadow:-1px 9px 40px -12px rgba(0,0,0,0.75);
     box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
 }
+
+.ok{
+    color: blue !important;
+  }
+  .cancel{
+    color: black !important;
+  }
+
+  .ajs-close{
+      display: none;
+  }
+
+  .ajs-ok{
+      background-color: #3085d6 !important;
+    color: white !important;
+}
+  

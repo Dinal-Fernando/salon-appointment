@@ -52,7 +52,7 @@ export const PostService = (url, data) => {
                 return res;
               },
               (err) => {
-                alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator");
+                alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator").setHeader('').set('closable', false);;
                 return err;
               }
             );
@@ -65,7 +65,7 @@ export const PostService = (url, data) => {
               window.location.href = `/#/login`;
               window.location.reload();
             } else {
-              alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator");
+              alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator").setHeader('').set('closable', false);;
               return err;
             }
           }
@@ -194,7 +194,7 @@ export const UpdateService=(url, data,param)=>{
                 return res;
               },
               (err) => {
-                alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator");
+                alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator").setHeader('').set('closable', false);;
                 return err;
               }
             );
@@ -206,7 +206,7 @@ export const UpdateService=(url, data,param)=>{
               localStorage.removeItem("AccessToken");
               window.location.href = `/#/login`;
             } else {
-              alertify.alert("Cannot perform the operation");
+              alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);;
               return err;
             }
           }
@@ -261,7 +261,7 @@ export const GetDataWithParams = (url, data) => {
                 return res;
               },
               (err) => {
-                alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator");
+                alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator").setHeader('').set('closable', false);;
                 return err;
               }
             );
@@ -273,7 +273,7 @@ export const GetDataWithParams = (url, data) => {
               localStorage.removeItem("AccessToken");
               window.location.href = `/#/login`;
             } else {
-              alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator");
+              alertify.alert("Cannot perform the operation. Try refreshing page or contact administrator").setHeader('').set('closable', false);;
               return err;
             }
           }
@@ -340,7 +340,7 @@ export const GetDataWithoutParams = (url) => {
               localStorage.removeItem("AccessToken");
               window.location.href = `/#/login`;
             } else {
-              alertify.alert("Cannot perform the operation");
+              alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);;
               return err;
             }
           }
@@ -396,7 +396,7 @@ export const DeleteData = (url,param) => {
                 return res;
               },
               (err) => {
-                alertify.alert("Cannot perform the operation");
+                alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);;
                 return err;
               }
             );
@@ -408,7 +408,7 @@ export const DeleteData = (url,param) => {
               localStorage.removeItem("AccessToken");
               window.location.href = `/#/login`;
             } else {
-              alertify.alert("Cannot perform the operation");
+              alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);;
               return err;
             }
           }
@@ -465,7 +465,7 @@ export const DeleteDataWithParams = (url,param) => {
                 return res;
               },
               (err) => {
-                alertify.alert("Cannot perform the operation");
+                alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);;
                 return err;
               }
             );
@@ -477,7 +477,7 @@ export const DeleteDataWithParams = (url,param) => {
               localStorage.removeItem("AccessToken");
               window.location.href = `/#/login`;
             } else {
-              alertify.alert("Cannot perform the operation");
+              alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);;
               return err;
             }
           }

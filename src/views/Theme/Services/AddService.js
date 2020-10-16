@@ -106,6 +106,7 @@ class AddService extends Component {
       .catch((err) => {
        
       Swal.fire({
+        allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
@@ -208,7 +209,7 @@ class AddService extends Component {
       }
       })
       .catch((error) => {
-        alertify.alert("Cannot perform operation "+error);
+        alertify.alert("Cannot perform operation "+error).setHeader('').set('closable', false);
       });
   };
 
@@ -217,10 +218,10 @@ class AddService extends Component {
 
     if(this.state.servCatergory==="")
     {
-      alertify.alert("Please add service")
+      alertify.alert("Please add service").setHeader('').set('closable', false);
     }else if(this.state.time==="")
     {
-      alertify.alert("Please add time")
+      alertify.alert("Please add time").setHeader('').set('closable', false);
     }else{
 
 
@@ -257,11 +258,11 @@ this.props.displayservice(1,1);
 
             
           } else {
-            alertify.alert("Cannot perform the operation");
+            alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
           }
         })
         .catch((err) => {
-          alertify.alert("Cannot perform the operation");
+          alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
         });
 
 
