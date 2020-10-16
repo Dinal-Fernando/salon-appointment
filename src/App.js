@@ -81,8 +81,8 @@ _onIdle(e) {
   console.log('user is idle', e)
   const isTimedOut = this.state.isTimedOut
   if (isTimedOut) {
-    alertify.alert("Your session timeut...login to continue").setHeader('').set('closable', false);
-    window.location.href="/"
+    alertify.alert("Your session timed out...Login to continue").setHeader('').set('closable', false);
+    window.location.href="/#/login"
 
   } else {
     this.setState({showModal: true})
