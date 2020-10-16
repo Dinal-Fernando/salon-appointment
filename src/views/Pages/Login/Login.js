@@ -227,7 +227,7 @@ pauseOnHover
                   <CardBody>
                     <Form onSubmit={this.onSubmitHandler}>
                       <h1>Login to proceed</h1>
-                      <p className="text-muted">Sign In to your account</p>
+                      <p className="text-muted">Sign in to your account</p>
       
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
