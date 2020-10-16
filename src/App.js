@@ -1,11 +1,17 @@
 import React, { Component } from "react";
-import { HashRouter, Route, Switch} from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 
 
 
+import IdleTimer from 'react-idle-timer';
 
 import "./App.scss";
 
+
+import alertify from "alertifyjs/build/alertify";
+import "alertifyjs/build/css/alertify.min.css";
+import "alertifyjs/build/css/alertify.css";
+import "alertifyjs/build/css/themes/default.min.css";
 
 //const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 const loading = () => (
@@ -41,9 +47,70 @@ const ResetPassword=React.lazy(() => import("./views/Pages/ResetPassword/ResetPa
 // )
 
 class App extends Component {
+
+  constructor(props){
+    super(props)
+
+    this.state = {
+        timeout:10000 * 5 * 1,
+        showModal: false,
+        userLoggedIn: false,
+        isTimedOut: false
+    }
+
+    this.idleTimer = null
+    this.onAction = this._onAction.bind(this)
+    this.onActive = this._onActive.bind(this)
+    this.onIdle = this._onIdle.bind(this)
+}
+
+
+
+
+_onAction(e) {
+  console.log('user did something', e)
+  this.setState({isTimedOut: false})
+}
+
+_onActive(e) {
+  console.log('user is active', e)
+  this.setState({isTimedOut: false})
+}
+
+_onIdle(e) {
+  console.log('user is idle', e)
+  const isTimedOut = this.state.isTimedOut
+  if (isTimedOut) {
+    alertify.alert("Your session timeut...login to continue").setHeader('').set('closable', false);
+    window.location.href="/"
+
+  } else {
+    this.setState({showModal: true})
+    this.idleTimer.reset();
+    this.setState({isTimedOut: true})
+  }
+  
+}
+
+
+
+
   render() {
     return (
+    <>
     
+    
+    <IdleTimer
+            ref={ref => { this.idleTimer = ref }}
+            element={document}
+            onActive={this.onActive}
+            onIdle={this.onIdle}
+            onAction={this.onAction}
+            debounce={250}
+            timeout={this.state.timeout} />
+
+
+
     <HashRouter>
         <React.Suspense fallback={loading()}>
           <Switch>
@@ -102,7 +169,7 @@ class App extends Component {
           </Switch>
        </React.Suspense>
           </HashRouter>
-      
+          </>
     );
   }
 }

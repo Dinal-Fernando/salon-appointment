@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import * as BaseService from "../../../BaseService.js";
+import { HashRouter, Route, Switch } from "react-router-dom";
+import { useHistory } from 'react-router';
+
 
 import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
@@ -88,7 +91,7 @@ BaseService.PostServiceWithoutHeader(url, login)
         localStorage.setItem('place',res.data.place);
         localStorage.setItem('logo',res.data.logo)
 
-        window.location.href="/#/dashboard";
+      window.location.href="/#/dashboard";
 
        
         
