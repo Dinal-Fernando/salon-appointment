@@ -146,7 +146,7 @@ class Staff extends Component {
 if(this.state.mobileNumber.length!==9)
 {
 
-  alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
+  alertify.alert("Please provide valid phone number").setHeader('').set('closable', false);
 
 
 }else if(this.state.Nic.length===10)
@@ -159,7 +159,7 @@ if(this.state.mobileNumber.length!==9)
   if(lastLetter.toString()!=="V")
   {
 
-    alertify.alert("Your Nic Should have a capital letter at the end. With 9 numbers").setHeader('').set('closable', false);
+    alertify.alert("Your NIC Should have a capital letter at the end. With 9 numbers").setHeader('').set('closable', false);
 
   }else{
 
@@ -224,7 +224,7 @@ mobileNumber:"",
   if(regExp.test(this.state.Nic))
   {
 
-    alertify.alert("Your Nic should not have letters").setHeader('').set('closable', false);
+    alertify.alert("Your NIC should not have letters").setHeader('').set('closable', false);
 
   }else{
 
@@ -371,7 +371,7 @@ mobileNumber:"",
 
     if(this.state.isuser===0 && this.state.isadmin===0)
     {
-      alertify.alert("please add user type").setHeader('').set('closable', false);
+      alertify.alert("Please add user type").setHeader('').set('closable', false);
     }else{
 
   

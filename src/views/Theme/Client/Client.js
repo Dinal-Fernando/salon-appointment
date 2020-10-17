@@ -304,7 +304,7 @@ if(this.state.NIC.length===10)
   if(lastLetter.toString()!=="V")
   {
 
-    alertify.alert("Your Nic Should have a capital letter at the end. With 9 numbers").setHeader('').set('closable', false);
+    alertify.alert("Your NIC Should have a capital letter at the end. With 9 numbers").setHeader('').set('closable', false);
 
   }else{
 
@@ -450,7 +450,7 @@ if(this.state.NIC.length===10)
 
   }else{
 
-    alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
+    alertify.alert("Please provide valid phone number").setHeader('').set('closable', false);
   }
  
     
