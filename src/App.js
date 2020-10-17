@@ -52,7 +52,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-        timeout:10000 * 5 * 1,
+        timeout:600000,
         showModal: false,
         userLoggedIn: false,
         isTimedOut: false

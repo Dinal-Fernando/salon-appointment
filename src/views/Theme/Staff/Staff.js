@@ -119,8 +119,8 @@ class Staff extends Component {
       updateId: null,
       loading: true,
       isadmin:0,
-      isuser:0
-     
+      isuser:0,
+      searchString:""
     };
 
     //this.toggle = this.toggle.bind(this);
@@ -154,12 +154,12 @@ if(this.state.mobileNumber.length!==9)
 
   console.log(lastLetter)
   console.log(numbers)
-  console.log(regExp.test(numbers))
+  console.log(lastLetter.toString()!=="v")
 
-  if((lastLetter!=='V' || lastLetter!=='X') || regExp.test(numbers) )
+  if(lastLetter.toString()!=="V")
   {
 
-    alertify.alert("Your Nic Should have a letter at the end. With 9 numbers").setHeader('').set('closable', false);
+    alertify.alert("Your Nic Should have a capital letter at the end. With 9 numbers").setHeader('').set('closable', false);
 
   }else{
 
@@ -397,7 +397,12 @@ mobileNumber:"",
           )
 
           this.setState({
-            large2:false
+            large2:false,
+            firstName:"",
+            lastName:"",
+            email:"",
+            isuser:0,
+            isadmin:0
           })
 
         } else {
@@ -430,6 +435,12 @@ mobileNumber:"",
   toggleLarge() {
     this.setState({
       large: !this.state.large,
+      fullname:"",
+Nic:"",
+address1:"",
+address2:"",
+city:"",
+mobileNumber:"",
     });
   }
   toggleLarge1() {
@@ -441,6 +452,11 @@ mobileNumber:"",
   toggleLarge2() {
     this.setState({
       large2: !this.state.large2,
+      firstName:"",
+      lastName:"",
+      email:"",
+      isuser:0,
+      isadmin:0
     });
   }
 
@@ -451,10 +467,25 @@ mobileNumber:"",
     });
   }
 
-  handleOnChange1 = (value, data, event) => {
-    console.log(value);
-    console.log(data);
-    console.log("Hi");
+  handleOnChange = (event) => {
+    let orderkeyword=event.target.value.trim().toLowerCase();
+    if(orderkeyword.length>0){
+        this.setState({
+            data6:this.state.data6.filter(element=>{
+                return(
+                    element.first_name.toLowerCase().match(event.target.value)||
+                    element.last_name.toLowerCase().match(event.target.value)||
+                    element.email.toLowerCase().match(event.target.value)
+                   
+
+
+
+                )
+            })
+        })
+    }else{
+        this.receivedData1(1,1);
+    }
   };
 
   changeHandler = (event) => {
@@ -481,6 +512,13 @@ mobileNumber:"",
       this.setState({
         isadmin:0,
         isuser:1
+      })
+
+    }else{
+
+      this.setState({
+        isadmin:0,
+        isuser:0
       })
 
     }
@@ -629,8 +667,8 @@ mobileNumber:"",
               {
                 values = {
                   id: item.id,
-                  fname: item.first_name,
-                  lname: item.last_name,
+                  first_name: item.first_name,
+                  last_name: item.last_name,
                   email: item.email,
                   type: "admin",
                 };
@@ -639,8 +677,8 @@ mobileNumber:"",
 
                 values = {
                   id: item.id,
-                  fname: item.first_name,
-                  lname: item.last_name,
+                  first_name: item.first_name,
+                  last_name: item.last_name,
                   email: item.email,
                   type: "User",
                 };
@@ -910,7 +948,7 @@ if(e===true)
         if (res.data.success === true) {
          
         this.receivedData(1,1);
-        alertify.success("state changed")
+       
   
         } else {
           Swal.fire({
@@ -1569,6 +1607,7 @@ if(e===true)
 
             <Card>
               <CardBody>
+              <Input placeholder={'Serach user from first name, email or password '} name="searchString"  onChange={this.handleOnChange}></Input>   
             <Table responsive className="table table-hover">
             <thead>
               <tr>
@@ -1595,8 +1634,8 @@ if(e===true)
               {this.state.data6.map((item) => (
                 <tr >
                   
-                  <td>{item.fname}</td>
-                  <td>{item.lname}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
                   <td>{item.email}</td>
                   
                   <td>
@@ -1652,6 +1691,21 @@ if(e===true)
   }
 
   render() {
+
+  //  var searchString = this.state.searchString.trim().toLowerCase();
+
+  //   if (searchString.length > 0) {
+  //     this.state.data6 = this.state.data5.filter(function(i) {
+  //          return (i.first_name.toLowerCase().match( searchString )||
+  //                 i.last_name.toLowerCase().match( searchString )||
+  //                 i.email.toLowerCase().match( searchString )
+                 
+  //                  );
+  //     });
+  //  }
+
+
+
     
     return (
       <div className="animated fadeIn">

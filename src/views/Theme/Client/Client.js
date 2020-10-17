@@ -115,7 +115,7 @@ class Client extends Component {
             if (res.data.success === true) {
              // this.receivedData(1,1);
              this.componentDidMount()
-             alertify.success("status updated")
+            
             
       
             } else {
@@ -210,6 +210,9 @@ class Client extends Component {
   toggleLarge=()=> {
     this.setState({
       large: !this.state.large,
+      fullName:"",
+      NIC:"",
+      mobileNumber:""
     });
   }
 
@@ -234,7 +237,7 @@ class Client extends Component {
 
 if(this.state.mobileNumber.length===9)
 {
-  document.getElementById("submitbtn").disabled=true;
+
 
 
     if(this.state.NIC==="")
@@ -250,7 +253,7 @@ if(this.state.mobileNumber.length===9)
     };
 
 
-
+    document.getElementById("submitbtn").disabled=true;
     const url = "/client/save/";
     BaseService.PostService(url, client)
       .then((res) => {
@@ -286,52 +289,165 @@ if(this.state.mobileNumber.length===9)
 
     }else{
 
-
-      const client = {
-        name: this.state.fullName,
-        nic: this.state.NIC,
-        country_code: "+" + this.state.dialCode,
-        mobile: this.state.mobileNumber,
-        is_active: "1",
-      };
-
-
-
-      const url = "/client/save/";
-    BaseService.PostService(url, client)
-      .then((res) => {
+      const lastLetter = this.state.NIC[this.state.NIC.length-1];
+      const numbers = this.state.NIC.slice(0,this.state.NIC.length-1);
+   
+      var regExp = /[a-zA-Z]/g;
+   
     
 
-        if (res.data.success === true) {
+if(this.state.NIC.length===10)
+{
 
-          Swal.fire(
-            'Good job!',
-            'Client successfuly inserted',
-            'success'
-          )
-          this.setState({
-            large:false,
-            fullName:"",
-            NIC:"",
-            mobileNumber:""
-          })
-          document.getElementById("submitbtn").disabled=false;
-          this.receivedData(1, 1);
 
-        } else {
-          Swal.fire({
-            allowOutsideClick: false,
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-          })
-        }
-      })
-      .catch((err) => {
-        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
-      });
+
+  if(lastLetter.toString()!=="V")
+  {
+
+    alertify.alert("Your Nic Should have a capital letter at the end. With 9 numbers").setHeader('').set('closable', false);
+
+  }else{
+
+
+    document.getElementById("submitbtn").disabled=true;
+
+    const client = {
+      name: this.state.fullName,
+      nic: this.state.NIC,
+      country_code: "+" + this.state.dialCode,
+      mobile: this.state.mobileNumber,
+      is_active: "1",
+    };
+
+
+    document.getElementById("submitbtn").disabled=true;
+    const url = "/client/save/";
+  BaseService.PostService(url, client)
+    .then((res) => {
+  
+
+      if (res.data.success === true) {
+
+        Swal.fire(
+          'Good job!',
+          'Client successfuly inserted',
+          'success'
+        )
+        this.setState({
+          large:false,
+          fullName:"",
+          NIC:"",
+          mobileNumber:""
+        })
+        document.getElementById("submitbtn").disabled=false;
+        this.receivedData(1, 1);
+
+      } else {
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
+      }
+    })
+    .catch((err) => {
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+    });
+
+
+
+
+
+
+  }
+
+}else if(this.state.NIC.length===12)
+{
+
+  if(regExp.test(this.state.NIC))
+  {
+
+    alertify.alert("Your NIC should not have letters").setHeader('').set('closable', false);
+
+  }else{
+
+
+
+    document.getElementById("submitbtn").disabled=true;
+
+    const client = {
+      name: this.state.fullName,
+      nic: this.state.NIC,
+      country_code: "+" + this.state.dialCode,
+      mobile: this.state.mobileNumber,
+      is_active: "1",
+    };
+
+
+    document.getElementById("submitbtn").disabled=true;
+    const url = "/client/save/";
+  BaseService.PostService(url, client)
+    .then((res) => {
+  
+
+      if (res.data.success === true) {
+
+        Swal.fire(
+          'Good job!',
+          'Client successfuly inserted',
+          'success'
+        )
+        this.setState({
+          large:false,
+          fullName:"",
+          NIC:"",
+          mobileNumber:""
+        })
+        document.getElementById("submitbtn").disabled=false;
+        this.receivedData(1, 1);
+
+      } else {
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
+      }
+    })
+    .catch((err) => {
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+    });
+
+
+
+
+
+  }
+
+
+
+}else{
+
+
+  alertify.alert("Please provide either a valid New or old NIC or keep Field blank").setHeader('').set('closable', false);
+
+}
+
+
+
+
+
+
 
     }
+
+
+
+
+
+
   }else{
 
     alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
@@ -597,7 +713,7 @@ console.log("value here:"+this.state.countrycd)
 
           <Modal
             isOpen={this.state.large}
-            toggle={this.toggleLarge}
+            
             className={"modal-lg " + this.props.className}
           >
             <form onSubmit={this.clientsubmitHandler}>
@@ -723,7 +839,7 @@ console.log("value here:"+this.state.countrycd)
 
           <Modal
             isOpen={this.state.large2}
-            toggle={this.toggleLarge2}
+         
             className={"modal-lg " + this.props.className}
           >
             <form onSubmit={this.clientUpdateHandler}>
