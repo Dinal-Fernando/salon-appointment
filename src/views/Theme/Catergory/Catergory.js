@@ -166,6 +166,7 @@ class Catergory extends Component {
   toggleLarge1=()=> {
     this.setState({
       large1: !this.state.large1,
+      catName: "",
     });
   }
 
@@ -292,7 +293,7 @@ if(e===true)
         //   'success'
         // );
         this.receivedData(1,1);
-        alertify.success("state changed")
+        
   
         } else {
           Swal.fire({
@@ -507,7 +508,7 @@ deletecatergory=()=>{
 
             <Modal
           isOpen={this.state.large1}
-          toggle={this.toggleLarge1}
+        
           className={"modal-lg " + this.props.className}
         >
           <form onSubmit={this.catergorySubmitHandler}>
@@ -548,7 +549,7 @@ deletecatergory=()=>{
 
         <Modal
           isOpen={this.state.large}
-          toggle={this.toggleLarge}
+   
           className={"modal-lg " + this.props.className}
         >
           <form onSubmit={this.updateCatergoryHandler}>

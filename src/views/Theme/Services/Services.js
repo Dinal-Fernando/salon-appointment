@@ -310,7 +310,7 @@ if(e===true)
         //   'success'
         // );
         this.receivedData(1,1);
-        alertify.success("state changed")
+      
   
         } else {
           Swal.fire({

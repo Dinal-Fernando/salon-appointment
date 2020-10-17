@@ -303,6 +303,12 @@ this.setState({
   availableSlots:[data,...this.state.availableSlots],
   resources:this.state.empInfo
 })
+  }else{
+
+    this.setState({
+     
+      resources:this.state.empInfo
+    })
   }
 
 
@@ -434,7 +440,7 @@ this.setState({
   showappId:info.event.id,
   showAppTitle:info.event.title,
   showEmpName:info.event._def.extendedProps.desc,
-  showDate:info.event.start.getDate()+"/"+(info.event.start.getMonth()+1)+"/"+info.event.start.getFullYear(),
+ showDate:info.event.start.getDate()+"/"+(info.event.start.getMonth()+1)+"/"+info.event.start.getFullYear(),
   showTimeStart:info.event.start.getHours()+":"+info.event.start.getMinutes(),
   showTimeEnd:info.event.end.getHours()+":"+info.event.end.getMinutes(),
   iscanceled:this.state.events[index1].cancel
@@ -787,7 +793,9 @@ this.generatePDF();
 
    
 
-    if (this.state.appdate !== "" && this.state.appointmentDet.length !== 0) {
+
+    if (this.state.appdate !== "" && this.state.appointmentDet.length !== 0 && (this.state.mobileNum !== ""||this.state.mobileNumber!=="") &&
+    (this.state.fullnameInput !== "" || this.state.clientID !== "")) {
       if (this.state.setdisable === true) {
         let start = "";
         const cldetails = {
@@ -1009,7 +1017,23 @@ this.setState({
   toggleLarge = () => {
     this.setState({
       large: !this.state.large,
+      appdate: "",
+        datedisable: false,
+        starttime: "",
+        service: "",
+        duration: "",
+        employee: "",
+        arrayVal: [true],
+        appointmentDet: [],
+        mobileNumber:"",
+        NIC:"",
+        fullnameInput:"",
+        clientID:"",
+        mobileNum:""
+
     });
+
+    
 
   };
 
@@ -1025,15 +1049,39 @@ this.setState({
 
 //For add appointment Tab pane
   toggle = (tabPane, tab) => {
-    if (
-      (this.state.mobileNum !== ""||this.state.mobileNumber!=="") &&
-      (this.state.fullnameInput !== "" || this.state.clientID !== "")
-    ) {
+
+console.log(tab)
+    if(parseInt(tab)===1)
+    {
       const newArray = this.state.activeTab.slice();
       newArray[tabPane] = tab;
       this.setState({
         activeTab: newArray,
       });
+    }else{
+
+
+   
+
+
+    if (
+      (this.state.mobileNum !== ""||this.state.mobileNumber!=="") &&
+      (this.state.fullnameInput !== "" || this.state.clientID !== "")
+    ) {
+
+
+
+
+      const newArray = this.state.activeTab.slice();
+      newArray[tabPane] = tab;
+      this.setState({
+        activeTab: newArray,
+      });
+
+
+
+
+
     } else {
       Swal.fire({
         allowOutsideClick: false,
@@ -1042,6 +1090,9 @@ this.setState({
         text: "Please fill client details before proceeding!",
       });
     }
+
+
+  }
   };
 
 
@@ -1091,6 +1142,11 @@ this.setState({
             this.setState({
               starttime: "",
             });
+
+            var ele = document.querySelectorAll('[id="starttime"]');
+            ele[index].value = "";
+
+
           }
         }
 
@@ -1159,6 +1215,8 @@ this.setState({
 
   
           document.getElementById("submitbtn").disabled=true;
+          document.getElementById("resetbtn").disabled=true;
+
          document.getElementById("starttime").disabled=true;
 document.getElementById("duration").disabled=true;
 document.getElementById("employee").disabled=true;
@@ -1192,6 +1250,7 @@ alertify.message('we are checking availability...');
           BaseService.PostService(url, data)
             .then((res) => {
               document.getElementById("submitbtn").disabled=false;
+              document.getElementById("resetbtn").disabled=false;
               
               if (res.data.validity === true) {
            
@@ -1221,27 +1280,34 @@ alertify.message('we are checking availability...');
               } else {
 
                 var ele10 = document.querySelectorAll('[id="starttime"]');
-                ele[index].disabled = false;
+                ele10[index].disabled = false;
+                ele10[index].value = "";
 
                 var ele11 = document.querySelectorAll('[id="duration"]');
 
   ele11[index].disabled = false;
+  ele11[index].value = "";
+
 
 
 var ele12 = document.querySelectorAll('[id="employee"]');
 
   ele12[index].disabled = false;
+  ele12[index].value = "";
+
 
 var ele13 = document.querySelectorAll('[id="service"]');
 
   ele13[index].disabled = false;
+  ele13[index].value = "";
 
-                alertify.alert("Slot unavailable");
+
+                alertify.alert("Slot unavailable").setHeader('').set('closable', false);
               }
             })
             .catch((err) => {
               console.log(err)
-              alertify.alert(err).setHeader('').set('closable', false);;
+              alertify.alert(err).setHeader('').set('closable', false);
             });
         }
       }
@@ -1399,7 +1465,7 @@ document.getElementById("service").value="";
                     id="basic-typeahead-example"
                     labelKey="name"
                     options={this.state.data}
-                    placeholder="Choose a state..."
+                    placeholder="Choose a name or type new client ..."
                     onInputChange={this.handleInputChange}
                     onChange={this.handleChange}
                   />
@@ -1510,7 +1576,7 @@ document.getElementById("service").value="";
                     <Row>
                       <Col xs="4">
                         <FormGroup>
-                          <Label htmlFor="ccmonth">start time</Label>
+                          <Label htmlFor="ccmonth">Start Time</Label>
                           <Input
                             type="select"
                             name="starttime"
@@ -1918,7 +1984,7 @@ document.getElementById("service").value="";
                     Save appointment
                   </Button>
 
-                  <Button color="secondary" onClick={(e) => this.resetform()}>
+                  <Button id="resetbtn" color="secondary" onClick={(e) => this.resetform()}>
                     Reset
                   </Button>
                   </ModalFooter>
@@ -1942,7 +2008,7 @@ document.getElementById("service").value="";
         text: "cannot add appointment to past time!",
       });
     }else{
-
+      this.toggleLarge();
       this.setState({
         starttime:moment(arg.start).format("HH:mm"),
         appdate:moment(arg.start).format("YYYY-MM-DD"),
@@ -1951,7 +2017,7 @@ document.getElementById("service").value="";
       },()=>{
       
   
-  this.toggleLarge();
+  
   this.GetServiceAndClient();
   this.ShowAvailableSlots(this.state.appdate);
   
@@ -2146,8 +2212,8 @@ document.getElementById("service").value="";
           
         </Row><br></br>
 
-        <Modal className="modal-xl" isOpen={this.state.large} toggle={this.toggleLarge}>
-          <ModalHeader toggle={this.toggleLarge}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add New Appointment</ModalHeader>
+        <Modal className="modal-xl" isOpen={this.state.large} >
+          <ModalHeader  toggle={this.toggleLarge}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add New Appointment</ModalHeader>
           <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
             <Nav tabs>
               <NavItem>
@@ -2371,7 +2437,7 @@ document.getElementById("service").value="";
 </Card>
 
 
-        <Modal isOpen={this.state.eventClickModel} toggle={this.eventClickModelFunction}>
+        <Modal isOpen={this.state.eventClickModel} >
           <ModalHeader toggle={this.eventClickModelFunction}> <i className="fa fa-calendar-o fa-lg mt-4" style={{paddingRight:"8px"}}></i>View Event</ModalHeader>
           <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
           <p><b>Appointment Type:-</b> {this.state.showAppTitle} </p>

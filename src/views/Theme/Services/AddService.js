@@ -152,6 +152,9 @@ class AddService extends Component {
   toggleLarge() {
     this.setState({
       large: !this.state.large,
+      serviceName:"",
+price:"",
+cost:""
     });
   }
 
