@@ -405,6 +405,8 @@ mobileNumber:"",
             isadmin:0
           })
 
+          this.receivedData1(1,1);
+
         } else {
           alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
         }
@@ -1439,7 +1441,7 @@ if(e===true)
                         <Button
                           type="submit"
                           color="success"
-                          onClick={this.toggleLarge2}
+                          
                         >
                           Save
                         </Button>{" "}
