@@ -17,7 +17,13 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 import moment from "moment";
-
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  DatePicker,
+  TimePicker,
+  DateTimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 
 import Swal from "sweetalert2";
 import Back from "../../../assets/back.png";
@@ -174,7 +180,10 @@ class Calendarc extends Component {
       jumpDate:new Date(),
       cancelReason:"",
       iscanceled:true,
-      cancelReason:""
+      cancelReason:"",
+      Addbtn:false,
+      crossevent:"visible"
+
     };
   }
 
@@ -822,51 +831,53 @@ this.generatePDF();
         };
 
         console.log(data)
-        document.getElementById("submitbtn").disabled=true;
-        const url = "/appointment/save/";
-        BaseService.PostService(url, data)
-          .then((res) => {
-            document.getElementById("submitbtn").disabled=false;
 
-            if (res.data.success === true) {
+//         console.log(data)
+//         document.getElementById("submitbtn").disabled=true;
+//         const url = "/appointment/save/";
+//         BaseService.PostService(url, data)
+//           .then((res) => {
+//             document.getElementById("submitbtn").disabled=false;
+
+//             if (res.data.success === true) {
              
-              this.setState({
-                large: false,
-                appointmentDet:[],
-                appointmentDetails:[],
-                arrayVal: [true]
-              });
+//               this.setState({
+//                 large: false,
+//                 appointmentDet:[],
+//                 appointmentDetails:[],
+//                 arrayVal: [true]
+//               });
 
-              Swal.fire(
+//               Swal.fire(
             
-                "Good job!",
-                "Appointment successfuly inserted",
-                "success"
-              );
-              //window.location.reload();
-this.setState({
-  events:[]
-},()=>this.eventInfo())
+//                 "Good job!",
+//                 "Appointment successfuly inserted",
+//                 "success"
+//               );
+//               //window.location.reload();
+// this.setState({
+//   events:[]
+// },()=>this.eventInfo())
              
-            } else {
+//             } else {
         
-              Swal.fire({
-                allowOutsideClick: false,
-                icon: "error",
-                title: "Oops...",
-                text: "cannot perform operation!",
-              });
-            }
-          })
-          .catch((err) => {
+//               Swal.fire({
+//                 allowOutsideClick: false,
+//                 icon: "error",
+//                 title: "Oops...",
+//                 text: "cannot perform operation!",
+//               });
+//             }
+//           })
+//           .catch((err) => {
           
-            Swal.fire({
-              allowOutsideClick: false,
-              icon: "error",
-              title: "Oops...",
-              text: "cannot perform operation!",
-            });
-          });
+//             Swal.fire({
+//               allowOutsideClick: false,
+//               icon: "error",
+//               title: "Oops...",
+//               text: "cannot perform operation!",
+//             });
+//           });
 
 
 
@@ -901,47 +912,47 @@ this.setState({
 
         console.log(data)
 
-        document.getElementById("submitbtn").disabled=true;
-        const url = "/appointment/save/";
-        BaseService.PostService(url, data)
-          .then((res) => {
-            document.getElementById("submitbtn").disabled=false;
-            if (res.data.success === true) {
+        // document.getElementById("submitbtn").disabled=true;
+        // const url = "/appointment/save/";
+        // BaseService.PostService(url, data)
+        //   .then((res) => {
+        //     document.getElementById("submitbtn").disabled=false;
+        //     if (res.data.success === true) {
             
 
-              this.setState({
-                large: false,
-                appointmentDet:[],
-                appointmentDetails:[],
-                arrayVal: [true]
-              });
+        //       this.setState({
+        //         large: false,
+        //         appointmentDet:[],
+        //         appointmentDetails:[],
+        //         arrayVal: [true]
+        //       });
 
-              Swal.fire(
+        //       Swal.fire(
                
-                "Good job!",
-                "Appointment successfuly inserted",
-                "success"
-              );
-              window.location.reload();
-            } else {
+        //         "Good job!",
+        //         "Appointment successfuly inserted",
+        //         "success"
+        //       );
+        //       window.location.reload();
+        //     } else {
           
-              Swal.fire({
-                allowOutsideClick: false,
-                icon: "error",
-                title: "Oops...",
-                text: "cannot perform operation!",
-              });
-            }
-          })
-          .catch((err) => {
+        //       Swal.fire({
+        //         allowOutsideClick: false,
+        //         icon: "error",
+        //         title: "Oops...",
+        //         text: "cannot perform operation!",
+        //       });
+        //     }
+        //   })
+        //   .catch((err) => {
          
-            Swal.fire({
-              allowOutsideClick: false,
-              icon: "error",
-              title: "Oops...",
-              text: "cannot perform operation!",
-            });
-          });
+        //     Swal.fire({
+        //       allowOutsideClick: false,
+        //       icon: "error",
+        //       title: "Oops...",
+        //       text: "cannot perform operation!",
+        //     });
+        //   });
 
 
 
@@ -1109,9 +1120,25 @@ console.log(tab)
   };
 
 
+addNewForm=()=>{
+
+  this.setState({
+    arrayVal:[...this.state.arrayVal,false],
+    Addbtn:false
+  })
+}
 
 
 
+timeclickcheck=(e)=>{
+
+  this.setState({
+    starttime:moment(e).format("HH:mm")
+  })
+
+  //console.log()
+
+}
 
   //for appoitnemt details validity check
   checkStatus = (e, index) => {
@@ -1193,6 +1220,10 @@ console.log(tab)
           const endtime = moment(this.state.starttime + ":00", "HH:mm:ss")
             .add(durationminutes, "minutes")
             .format("HH:mm");
+
+            this.setState({
+              crossevent:"none"
+            })
         
 
           const data = {
@@ -1276,8 +1307,13 @@ alertify.message('we are checking availability...');
                   service: "",
                   cktime: true,
                   datedisable: true,
+                  crossevent:"visible"
                 });
               } else {
+
+                this.setState({
+                  crossevent:"visible"
+                })
 
                 var ele10 = document.querySelectorAll('[id="starttime"]');
                 ele10[index].disabled = false;
@@ -1317,39 +1353,40 @@ var ele13 = document.querySelectorAll('[id="service"]');
   //for appointment form selection
   printconsole = (index) => {
 
-//     const copy = Object.assign([], this.state.arrayVal);
-//     copy.splice(index, 1);
-//     this.setState(
-//       {
-//         arrayVal: copy,
-//       },
-//     );
+    const copy = Object.assign([], this.state.arrayVal);
+    copy.splice(index, 1);
+    this.setState(
+      {
+        arrayVal: copy,
+        Addbtn:true
+      },
+    );
 
-//     const index1 = this.state.appointmentDet.findIndex((res) => {
-//       return res.indexarr === index;
-//     });
+    const index1 = this.state.appointmentDet.findIndex((res) => {
+      return res.indexarr === index;
+    });
 
-//     console.log(this.state.appointmentDetails[index1])
-// if(index1>=0)
-// {
+    console.log(this.state.appointmentDetails[index1])
+if(index1>=0)
+{
 
-// console.log("removed")
-//     const copy1 = Object.assign([], this.state.appointmentDetails);
-//     copy1.splice(index1, 1);
-//     this.setState(
-//       {
-//         appointmentDetails: copy1,
-//       },
-//     );
+console.log("removed")
+    const copy1 = Object.assign([], this.state.appointmentDetails);
+    copy1.splice(index1, 1);
+    this.setState(
+      {
+        appointmentDetails: copy1,
+      },
+    );
 
-//     const copy2 = Object.assign([], this.state.appointmentDet);
-//     copy2.splice(index1, 1);
-//     this.setState(
-//       {
-//         appointmentDet: copy2,
-//       },
-//     );
-//     }
+    const copy2 = Object.assign([], this.state.appointmentDet);
+    copy2.splice(index1, 1);
+    this.setState(
+      {
+        appointmentDet: copy2,
+      },
+    );
+    }
 
 console.log(this.state.arrayVal.length)
 console.log(index)
@@ -1373,13 +1410,14 @@ console.log(index)
 // }
 
 
-    const copy = Object.assign([], this.state.arrayVal);
-    copy.splice(index, 1);
-    this.setState(
-      {
-        arrayVal: copy,
-      },
-    );
+    // const copy = Object.assign([], this.state.arrayVal);
+    // copy.splice(index, 1);
+    // this.setState(
+    //   {
+    //     arrayVal: copy,
+    //     Addbtn:true
+    //   },
+    // );
 
 
 
@@ -1423,8 +1461,9 @@ console.log(index)
         service: "",
         duration: "",
         employee: "",
-        arrayVal: [false],
+        arrayVal: [true],
         appointmentDet: [],
+        Addbtn:false
       },
  
     );
@@ -1565,14 +1604,30 @@ document.getElementById("service").value="";
                    }
 
 
+{(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length === 1 && this.state.arrayVal[0]===true && this.state.appointmentDet.length!==0? 
+                       <span >
+                       <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
+                     </span>
+                    : 
+                     <></>
+                   }
+
+
           {(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length >1 ? 
-                      <span onClick={(e) => this.printconsole(index)}>
-                        <i className="fa fa-close fa-lg mt-4 pull-right"></i>
+                      <span style={{pointerEvents:this.state.crossevent,cursor:"pointer"}} onClick={(e) => this.printconsole(index)}>
+                        <i title="click to remove appointment" className="fa fa-close fa-lg mt-4 pull-right"></i>
                       </span>
                      : 
                       <></>
                     }
-
+             {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+     
+      <TimePicker value={this.state.starttime} onChange={(e) => {
+                             this.timeclickcheck(e)
+                            }}  disabled={this.state.arrayVal[index]}  name="starttime"
+                            id="starttime"/>
+    
+    </MuiPickersUtilsProvider> */}
                     <Row>
                       <Col xs="4">
                         <FormGroup>
@@ -1904,7 +1959,7 @@ document.getElementById("service").value="";
                           >
                             <option value="">Select service</option>
                             {this.state.data2.map((val) => (
-                              <option value={val.id}>{val.name}</option>
+                              <option value={val.id}>{val.name}     :- {val.time} min</option>
                             ))}
                           </Input>
                         </FormGroup>
@@ -1936,7 +1991,7 @@ document.getElementById("service").value="";
 
                       <Col xs="6">
                         <FormGroup>
-                          <Label htmlFor="ccmonth">Time Allocated</Label>
+                          <Label htmlFor="ccmonth">Additional Time Allocated</Label>
                           <Input
                             type="select"
                             name="duration"
@@ -1948,6 +2003,7 @@ document.getElementById("service").value="";
                           >
                             <option value="">Duration</option>
                             <option value="0">0 min</option>
+                            <option value="15">15 min</option>
                             <option value="30">30 min</option>
                             <option value="45">45 min</option>
                             <option value="60">1 hr</option>
@@ -1964,6 +2020,21 @@ document.getElementById("service").value="";
                     <hr></hr>
                   </div>
                 ))}
+
+
+{this.state.Addbtn===true?
+
+
+<div>
+                
+                       <span onClick={()=>this.addNewForm()}>
+                       <i style={{cursor:"pointer"}} title="Click to add an event" className="fa fa-plus-circle fa-3x mt-4 pull-right" ></i>
+                     </span>
+                     </div>
+
+:<></>}
+
+
                 {this.state.appdate!==""?
                     <Calendar2
       localizer={localizer}
@@ -2406,6 +2477,7 @@ document.getElementById("service").value="";
           </CardHeader>
   <CardBody>
 <FullCalendar
+
           schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
           plugins={[resourceCommonPlugin,resourceTimelinePlugin, timeGridPlugin, interactionPlugin,resourceTimeGridPlugin ]}
          //plugins={[resourceTimelinePlugin]}
