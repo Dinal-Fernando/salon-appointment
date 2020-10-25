@@ -933,19 +933,7 @@ console.log("value here:"+this.state.countrycd)
                 next
               />
             </PaginationItem>
-            {/* 
-                <PaginationItem>
-                  <PaginationLink tag="button">2</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink tag="button">3</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink tag="button">4</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink next tag="button"></PaginationLink>
-                </PaginationItem> */}
+            
           </Pagination>
         </CardBody>
       </Card>

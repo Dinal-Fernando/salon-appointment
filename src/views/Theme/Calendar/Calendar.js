@@ -830,54 +830,54 @@ this.generatePDF();
           detail: this.state.appointmentDetails,
         };
 
+      
+
         console.log(data)
+        document.getElementById("submitbtn").disabled=true;
+        const url = "/appointment/save/";
+        BaseService.PostService(url, data)
+          .then((res) => {
+            document.getElementById("submitbtn").disabled=false;
 
-//         console.log(data)
-//         document.getElementById("submitbtn").disabled=true;
-//         const url = "/appointment/save/";
-//         BaseService.PostService(url, data)
-//           .then((res) => {
-//             document.getElementById("submitbtn").disabled=false;
-
-//             if (res.data.success === true) {
+            if (res.data.success === true) {
              
-//               this.setState({
-//                 large: false,
-//                 appointmentDet:[],
-//                 appointmentDetails:[],
-//                 arrayVal: [true]
-//               });
+              this.setState({
+                large: false,
+                appointmentDet:[],
+                appointmentDetails:[],
+                arrayVal: [true]
+              });
 
-//               Swal.fire(
+              Swal.fire(
             
-//                 "Good job!",
-//                 "Appointment successfuly inserted",
-//                 "success"
-//               );
-//               //window.location.reload();
-// this.setState({
-//   events:[]
-// },()=>this.eventInfo())
+                "Good job!",
+                "Appointment successfuly inserted",
+                "success"
+              );
+              //window.location.reload();
+this.setState({
+  events:[]
+},()=>this.eventInfo())
              
-//             } else {
+            } else {
         
-//               Swal.fire({
-//                 allowOutsideClick: false,
-//                 icon: "error",
-//                 title: "Oops...",
-//                 text: "cannot perform operation!",
-//               });
-//             }
-//           })
-//           .catch((err) => {
+              Swal.fire({
+                allowOutsideClick: false,
+                icon: "error",
+                title: "Oops...",
+                text: "cannot perform operation!",
+              });
+            }
+          })
+          .catch((err) => {
           
-//             Swal.fire({
-//               allowOutsideClick: false,
-//               icon: "error",
-//               title: "Oops...",
-//               text: "cannot perform operation!",
-//             });
-//           });
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: "error",
+              title: "Oops...",
+              text: "cannot perform operation!",
+            });
+          });
 
 
 
@@ -912,47 +912,47 @@ this.generatePDF();
 
         console.log(data)
 
-        // document.getElementById("submitbtn").disabled=true;
-        // const url = "/appointment/save/";
-        // BaseService.PostService(url, data)
-        //   .then((res) => {
-        //     document.getElementById("submitbtn").disabled=false;
-        //     if (res.data.success === true) {
+        document.getElementById("submitbtn").disabled=true;
+        const url = "/appointment/save/";
+        BaseService.PostService(url, data)
+          .then((res) => {
+            document.getElementById("submitbtn").disabled=false;
+            if (res.data.success === true) {
             
 
-        //       this.setState({
-        //         large: false,
-        //         appointmentDet:[],
-        //         appointmentDetails:[],
-        //         arrayVal: [true]
-        //       });
+              this.setState({
+                large: false,
+                appointmentDet:[],
+                appointmentDetails:[],
+                arrayVal: [true]
+              });
 
-        //       Swal.fire(
+              Swal.fire(
                
-        //         "Good job!",
-        //         "Appointment successfuly inserted",
-        //         "success"
-        //       );
-        //       window.location.reload();
-        //     } else {
+                "Good job!",
+                "Appointment successfuly inserted",
+                "success"
+              );
+              window.location.reload();
+            } else {
           
-        //       Swal.fire({
-        //         allowOutsideClick: false,
-        //         icon: "error",
-        //         title: "Oops...",
-        //         text: "cannot perform operation!",
-        //       });
-        //     }
-        //   })
-        //   .catch((err) => {
+              Swal.fire({
+                allowOutsideClick: false,
+                icon: "error",
+                title: "Oops...",
+                text: "cannot perform operation!",
+              });
+            }
+          })
+          .catch((err) => {
          
-        //     Swal.fire({
-        //       allowOutsideClick: false,
-        //       icon: "error",
-        //       title: "Oops...",
-        //       text: "cannot perform operation!",
-        //     });
-        //   });
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: "error",
+              title: "Oops...",
+              text: "cannot perform operation!",
+            });
+          });
 
 
 
