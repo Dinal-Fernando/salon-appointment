@@ -672,7 +672,7 @@ mobileNumber:"",
                   first_name: item.first_name,
                   last_name: item.last_name,
                   email: item.email,
-                  type: "admin",
+                  type: "Admin",
                 };
 
               }else{
@@ -1033,6 +1033,73 @@ if(e===true)
 
 
 
+  deletestaff1=()=>{
+
+    
+    Swal.fire({
+      allowOutsideClick: false,
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+   
+      if (result.value) {
+
+
+
+  
+    const url = "/employee/delete/";
+    BaseService.DeleteData(url,this.state.updateId)
+      .then((res) => {
+  
+  
+        console.log("response"+res)
+  
+  
+        if (res.data.success === true) {
+          this.receivedData(1,1);
+      
+         
+  
+          alertify.success("Successfully deleted staff");
+  
+          this.setState({
+            large3:false
+          })
+  
+        } else {
+          Swal.fire({
+            allowOutsideClick: false,
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
+        }
+      })
+      .catch((err) => {
+        alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+        console.log("if error"+err);
+      });
+
+
+
+    }
+  })
+    
+  }
+
+
+  onSelectLimit=(e)=>{
+    this.setState({
+      [e.target.name]:e.target.value
+    },()=>{this.receivedData(1,1);this.receivedData1(1,1);})
+        
+      }
+
   tabPane() {
     const {pageNumber}=this.state;
     return (
@@ -1043,7 +1110,26 @@ if(e===true)
               <Card>
                 <CardBody>
                  
-
+                <div className="text-center d-flex justify-content-end">
+            <div className="col-2 mb-3">
+            <Input
+             type="select"
+             id="limit"
+             name="limit"
+             value={this.state.limit.toString()}
+             onChange={this.onSelectLimit}>
+               
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </Input>
+            </div>
+         
+  </div>
                   {/* <Dropdown
                     color="dark"
                     className="pull-right"
@@ -1482,6 +1568,10 @@ if(e===true)
                       className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
                       onClick={()=>{this.toggleLarge3();this.pass(item.id,item.name,item.nic,item.mobile,item.country_code)}}
                     ></i>
+                     <i
+                      className="fa fa-trash fa-lg mt-4 ml-3" style={{cursor:"pointer"}}
+                      onClick={()=>{this.pass(item.id,item.name,item.nic,item.mobile,item.country_code);this.deletestaff1()}}
+                    ></i>
                           <td>{item.name}</td>
                           <td>{item.nic}</td>
                           <td>{item.mobile}</td>
@@ -1515,10 +1605,10 @@ if(e===true)
             )}
 
 
-<PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
+<PaginationItem disabled={pageNumber >= this.state.pageCount}>
               
               <PaginationLink
-                onClick={e => this.handleClick(e, pageNumber + 1)}
+                onClick={e => this.receivedData(e, pageNumber + 1)}
                 next
                
               />
@@ -1609,7 +1699,29 @@ if(e===true)
 
             <Card>
               <CardBody>
-              <Input placeholder={'Serach user from first name, email or password '} name="searchString"  onChange={this.handleOnChange}></Input>   
+              <div className="text-center d-flex justify-content-end">
+              <Input placeholder={'Serach user from first name, email or last name '} name="searchString"  onChange={this.handleOnChange}></Input>   
+
+            <div className="col-2 mb-3">
+            <Input
+             type="select"
+             id="limit"
+             name="limit"
+             value={this.state.limit.toString()}
+             onChange={this.onSelectLimit}>
+               
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </Input>
+            </div>
+         
+  </div>
+            
             <Table responsive className="table table-hover">
             <thead>
               <tr>
@@ -1656,7 +1768,7 @@ if(e===true)
             <PaginationItem disabled={pageNumber <= 1}>
       
       <PaginationLink
-        onClick={e => this.receivedData(e, pageNumber - 1)}
+        onClick={e => this.receivedData1(e, pageNumber - 1)}
         previous
         
       />
@@ -1665,17 +1777,17 @@ if(e===true)
 
       {[...Array(this.state.pageCount)].map((page, i) => 
       <PaginationItem active={i === pageNumber-1} key={i}>
-        <PaginationLink onClick={e => this.receivedData(e, i+1)}>
+        <PaginationLink onClick={e => this.receivedData1(e, i+1)}>
           {i + 1}
         </PaginationLink>
       </PaginationItem>
     )}
 
 
-<PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
+<PaginationItem disabled={pageNumber >= this.state.pageCount}>
       
       <PaginationLink
-        onClick={e => this.handleClick(e, pageNumber + 1)}
+        onClick={e => this.receivedData1(e, pageNumber + 1)}
         next
        
       />

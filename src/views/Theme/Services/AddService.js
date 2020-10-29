@@ -299,7 +299,7 @@ this.props.displayservice(1,1);
         </Dropdown> */}
 
 <Button color="dark"
-          className="pull-right" onClick={this.toggleLarge}>New Service</Button>
+          className="pull-right" onClick={this.toggleLarge}  style={{ marginBottom: 20 }}>New Service</Button>
         {/* To add new Catergory */}
         <Modal
           isOpen={this.state.large1}
@@ -389,7 +389,7 @@ this.props.displayservice(1,1);
 
                       <FormGroup row>
                         <Col md="3">
-                          <Label htmlFor="select">catergory</Label>
+                          <Label htmlFor="select">Catergory</Label>
                         </Col>
                         <Col xs="12" md="9">
                           <Input

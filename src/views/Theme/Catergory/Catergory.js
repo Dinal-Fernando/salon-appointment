@@ -456,6 +456,68 @@ deletecatergory=()=>{
 
 }
 
+
+deletecatergory1=()=>{
+
+  Swal.fire({
+    allowOutsideClick: false,
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+ 
+    if (result.value) {
+
+  const url = "/category/delete/";
+  BaseService.DeleteData(url,this.state.updateId)
+    .then((res) => {
+
+
+     
+
+      if (res.data.success === true) {
+        this.receivedData(1,1);
+    
+       
+
+        alertify.success("Successfully deleted service");
+
+        this.setState({
+          large:false
+        })
+
+      } else {
+        Swal.fire({
+          allowOutsideClick: false,
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+    })
+      }
+    })
+    .catch((err) => {
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+      console.log("if error"+err);
+    });
+  
+
+  }
+})
+
+}
+
+onSelectLimit=(e)=>{
+  this.setState({
+    [e.target.name]:e.target.value
+  },()=>this.receivedData(1,1))
+      
+    }
+
+
   render() {
 
     const {pageNumber}=this.state;
@@ -473,9 +535,27 @@ deletecatergory=()=>{
           </CardHeader>
        
           <CardBody>
+          <div className="text-center d-flex justify-content-end">
+            <div className="col-2 ">
+            <Input
+             type="select"
+             id="limit"
+             name="limit"
+             value={this.state.limit.toString()}
+             onChange={this.onSelectLimit}>
+               
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </Input>
+            </div>
           <Button color="dark"
-          className="pull-right" onClick={this.toggleLarge1}>New Catergory</Button>
-
+          className="pull-right" onClick={this.toggleLarge1} style={{ marginBottom: 20 }}>New Catergory</Button>
+  </div>
             <Table responsive className="table table-hover hover">
               <thead>
                 <tr>
@@ -491,6 +571,10 @@ deletecatergory=()=>{
                     <i
                       className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
                       onClick={()=>{this.toggleLarge();this.pass(item.name,item.id)}}
+                    ></i>
+                         <i
+                      className="fa fa-trash fa-lg mt-4 ml-3" style={{cursor:"pointer"}}
+                      onClick={()=>{this.pass(item.name,item.id);this.deletecatergory1();}}
                     ></i>
                     <td>{item.name}</td>
                 
@@ -617,10 +701,10 @@ deletecatergory=()=>{
             )}
 
 
-<PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
+<PaginationItem disabled={pageNumber >= this.state.pageCount}>
               
               <PaginationLink
-                onClick={e => this.handleClick(e, pageNumber + 1)}
+                onClick={e => this.receivedData(e, pageNumber + 1)}
                 next
                
               />

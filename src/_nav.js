@@ -15,19 +15,19 @@ export default {
     },
     {
       title:true,
-      name:'Appointment Management',
+      name:'Appointment Display',
       wrapper:{
         element:'',
         attributes:{},
       }
     },
     {
-      name: 'Calendar',
+      name: 'Calendar View',
       url: '/saloon/Calendar',
       icon: 'icon-calendar',
     }, 
     {
-      name: 'List',
+      name: 'List View',
       url: '/saloon/List',
       icon: 'icon-list',
     },
@@ -39,17 +39,17 @@ export default {
         attributes:{},
       }
     },
-
-    {
-      name: 'Services',
-      url: '/saloon/Services',
-      icon: 'icon-list',
-    },
     {
       name: 'Caterory',
       url: '/saloon/catergory',
       icon: 'icon-calendar',
     },
+    {
+      name: 'Services',
+      url: '/saloon/Services',
+      icon: 'icon-list',
+    },
+   
     {
       title:true,
       name:'Staff Management',

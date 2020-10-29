@@ -685,6 +685,85 @@ console.log("value here:"+this.state.countrycd)
     
   }
 
+
+
+  deleteClient1=()=>{
+
+    Swal.fire({
+      allowOutsideClick: false,
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+   
+      if (result.value) {
+       
+
+    
+        const url = "/client/delete/";
+        BaseService.DeleteData(url,this.state.updateId)
+          .then((res) => {
+      
+    
+            console.log("response"+res)
+           
+            if (res.data.success === true) {
+              this.receivedData(1,1);
+          
+             
+    
+              alertify.success("Successfully deleted client");
+      
+              this.setState({
+                large2:false
+              })
+      
+            } else {
+              Swal.fire({
+                allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+          })
+            }
+          })
+          .catch((err) => {
+            alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+            console.log("if error"+err);
+          });
+
+
+
+
+
+
+
+
+
+
+
+      }
+    })
+
+
+    
+  }
+
+
+
+  onSelectLimit=(e)=>{
+    this.setState({
+      [e.target.name]:e.target.value
+    },()=>this.receivedData(1,1))
+        
+      }
+
+  
+
   render() {
    
     const { pageNumber } = this.state;
@@ -696,11 +775,27 @@ console.log("value here:"+this.state.countrycd)
            Client Details</h5>
           </CardHeader>
 
-    {this.props.employee}
 
         <CardBody>
         
-          <div className="text-center">
+          <div className="text-center d-flex justify-content-end">
+            <div className="col-2 ">
+            <Input
+             type="select"
+             id="limit"
+             name="limit"
+             value={this.state.limit.toString()}
+             onChange={this.onSelectLimit}>
+              
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </Input>
+            </div>
             <Button
               onClick={this.toggleLarge}
               color="dark"
@@ -823,6 +918,20 @@ console.log("value here:"+this.state.countrycd)
                     }}
                   ></i>
 
+<i
+                    className="fa fa-trash fa-lg mt-4 ml-3"  style={{cursor:"pointer"}}
+                    onClick={() => {
+                     this.pass(
+                        person.id,
+                        person.name,
+                        person.nic,
+                        person.mobile,
+                        person.country_code
+                      );
+                      this.deleteClient1();
+                    }}
+                  ></i>
+
                   <td>{person.name}</td>
                   <td>{person.nic}</td>
                   <td>{person.country_code + person.mobile}</td>
@@ -927,9 +1036,9 @@ console.log("value here:"+this.state.countrycd)
               </PaginationItem>
             ))}
 
-            <PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
+            <PaginationItem disabled={pageNumber >= this.state.pageCount}>
               <PaginationLink
-                onClick={(e) => this.handleClick(e, pageNumber + 1)}
+                onClick={(e) => this.receivedData(e, pageNumber + 1)}
                 next
               />
             </PaginationItem>

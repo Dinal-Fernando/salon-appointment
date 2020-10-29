@@ -643,7 +643,9 @@ eventClickModelFunction=()=>{
 
   Report=()=>{
 let num=0;
-
+this.setState({
+  dailyreport:[]
+})
 if(this.state.reportstart==="" ||this.state.reportend==="")
 {
   alertify.alert("Cannot keep start and end dates empty").setHeader('').set('closable', false);
@@ -1190,7 +1192,7 @@ timeclickcheck=(e)=>{
 
           if (this.state.starttime < arr["lasttime"]) {
             alertify.alert(
-              "Next appointment can be placed after first appointment. Previous appointment ends at " +
+              "Next appointment can be placed after previous appointment. Previous appointment ends at " +
                 arr["lasttime"]
             ).setHeader('').set('closable', false);
 
@@ -2178,7 +2180,7 @@ document.getElementById("service").value="";
 {this.state.events.length===0?
 
   <div class="alert alert-warning" role="alert">
-  Please Wait for events to load
+  Please wait for events to load
  </div>
 :<></>}
 
@@ -2284,7 +2286,7 @@ document.getElementById("service").value="";
         </Row><br></br>
 
         <Modal className="modal-xl" isOpen={this.state.large} >
-          <ModalHeader  toggle={this.toggleLarge}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>Add New Appointment</ModalHeader>
+          <ModalHeader  toggle={this.toggleLarge}>Add New Appointment</ModalHeader>
           <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
             <Nav tabs>
               <NavItem>
@@ -2501,6 +2503,7 @@ document.getElementById("service").value="";
     datesAboveResources= {true}
           select={this.handleDateClick}
           resources= {this.state.empInfo}
+        
             // your list of resources
         />
 

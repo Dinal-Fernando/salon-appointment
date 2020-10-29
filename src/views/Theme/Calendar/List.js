@@ -95,6 +95,8 @@ class List extends Component {
       data5: [],
       data6: [],
       data7: [],
+      data8: [],
+      data9: [],
       weekdata1: [],
       weekdata2: [],
       weekdata3: [],
@@ -283,9 +285,11 @@ SmsreminderCheck=(e)=>{
             {
               data5: [],
               data6: [],
+              data8:[],
+              data9:[],
             },
             async () => {
-              if (res2.data.data !== null) {
+              if (res2.data.data.length !== 0) {
                 this.setState(
                   {
                     data5: res2.data.data,
@@ -317,10 +321,10 @@ SmsreminderCheck=(e)=>{
                         var data =  await{
                           id: count.toString(),
                           title: value.service,
-                          label: startparam + " " + endtimeparam,
-                          description: "Client is " + value.client,
+                          label:"Start: "+startparam + " End: " +endtimeparam,
+                          description: "Client is " + value.client+" ",
 
-                      }
+                        }
                      
                     }
                       // var data1 =  {
@@ -357,6 +361,44 @@ SmsreminderCheck=(e)=>{
                     });
                   }
                 );
+              }else{
+
+                console.log("visted else")
+
+                count = count + 1;
+
+           
+                     
+
+
+                        var data =  await{
+                          id: count.toString(),
+                          title:"No Appointments",
+                         
+                          
+                        };
+                
+
+
+                    const app = await {
+                      id: index,
+                      title: val.name,
+                      cards: [data],
+                      
+                    };
+
+                    console.log(app);
+
+                    this.setState({
+                      data7: [app,...this.state.data7],
+                    })
+               
+
+
+
+
+
+
               }
             }
           );
@@ -474,8 +516,15 @@ SmsreminderCheck=(e)=>{
               weekdata2: [],
             });
 
+            if(res[index].data.data.length!==0)
+            {
+
             res[index].data.data.map((value) => {
-        
+        let count1=0;
+        console.log("length"+res[index].data.data.length)
+            
+                console.log("visited weely if")
+              
 
               console.log("for each count" + count);
 
@@ -498,7 +547,38 @@ SmsreminderCheck=(e)=>{
                 },
                 console.log(this.state.weekdata2)
               );
+
+
+
+
+
             });
+
+
+
+
+          }else{
+
+
+            var data = {
+              id: new Date(),
+              title: "",
+              description:"No Appointments"
+              
+             
+            };
+
+          
+
+            this.setState(
+              {
+                weekdata2: [...this.state.weekdata2, data],
+              },
+              console.log(this.state.weekdata2)
+            );
+
+          }
+
 
             const app = {
               id: count.toString(),
@@ -863,6 +943,7 @@ BaseService.GetDataWithoutParams(url)
         data7: [],
         weekdata2: [],
         weekdata3: [],
+        dropdownOpen: new Array(19).fill(false),
       },
       async () => {
         this.fordailydisplay();
@@ -1810,7 +1891,7 @@ BaseService.GetDataWithoutParams(url)
             >
               <DropdownToggle caret color="dark">
                 {" "}
-                {this.state.daily ? "Daily" : "weekly"}
+                {this.state.daily ? "Daily" : "Weekly"}
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem

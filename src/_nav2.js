@@ -22,19 +22,19 @@ export default {
       },
       {
         title:true,
-        name:'Appointment Management',
+        name:'Appointment Display',
         wrapper:{
           element:'',
           attributes:{},
         }
       },
       {
-        name: 'Calendar',
+        name: 'Calendar View',
         url: '/saloon/Calendar',
         icon: 'icon-calendar',
       }, 
       {
-        name: 'List',
+        name: 'List View',
         url: '/saloon/List',
         icon: 'icon-list',
       },

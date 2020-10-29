@@ -231,6 +231,9 @@ class Services extends Component {
           });
 
       
+if(index1>=0)
+{
+
 
     this.setState({
       serviceName:servvalue,
@@ -241,6 +244,18 @@ class Services extends Component {
       updateId:id
 
     })
+  }else{
+    this.setState({
+      serviceName:servvalue,
+      servCatergory: catvalue,
+      price: price,
+      cost: cost,
+      time: time1,
+      updateId:id
+
+    })
+
+  }
 
     // if(time1==="1")
     // {
@@ -442,6 +457,71 @@ deleteservice=()=>{
   
 }
 
+
+deleteservice1=()=>{
+
+  Swal.fire({
+    allowOutsideClick: false,
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+ 
+    if (result.value) {
+
+
+
+  const url = "/service/delete/";
+  BaseService.DeleteData(url,this.state.updateId)
+    .then((res) => {
+
+
+      console.log("response"+res)
+
+
+      if (res.data.success === true) {
+        this.receivedData(1,1);
+    
+       
+
+        alertify.success("Successfully deleted service");
+
+        this.setState({
+          large:false
+        })
+
+      } else {
+        Swal.fire({
+          allowOutsideClick: false,
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+    })
+      }
+    })
+    .catch((err) => {
+      alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+      console.log("if error"+err);
+    });
+
+
+  }
+})
+  
+}
+
+onSelectLimit=(e)=>{
+  this.setState({
+    [e.target.name]:e.target.value
+  },()=>this.receivedData(1,1))
+      
+    }
+
+
   render() {
 
     const {pageNumber}=this.state;
@@ -457,8 +537,24 @@ deleteservice=()=>{
 
        
           <CardBody>
-            <div className="text-center">
-        
+            <div className="text-center text-center d-flex justify-content-end">
+            <div className="col-2 ">
+            <Input
+             type="select"
+             id="limit"
+             name="limit"
+             value={this.state.limit.toString()}
+             onChange={this.onSelectLimit}>
+               
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </Input>
+            </div>
 
               <AddService displayservice={this.receivedData}/>
             </div>
@@ -469,7 +565,7 @@ deleteservice=()=>{
                   <i className="fa fa-reorder fa-lg mt-4"  style={{paddingTop:12}}></i>
                   <th><i className="fa fa-file-text-o fa-fw"></i>Service Type</th>
                   <th><i className="fa fa-clock-o fa-fw"></i>Average time</th>
-                  <th><i className="fa fa-money fa-fw"></i>Price</th>
+                  <th><i className="fa fa-money fa-fw"></i>Price (LKR)</th>
                   <th><i className="fa fa-exclamation-triangle fa-fw mt-4"></i>Action</th>
                 </tr>
               </thead>
@@ -479,6 +575,10 @@ deleteservice=()=>{
                     <i
                       className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
                       onClick={()=>{this.toggleLarge();this.pass(item.name,item.category,item.price,item.cost,item.slots,item.id)}}
+                    ></i>
+                     <i
+                      className="fa fa-trash fa-lg mt-4 ml-3" style={{cursor:"pointer"}}
+                      onClick={()=>{this.pass(item.name,item.category,item.price,item.cost,item.slots,item.id);this.deleteservice1();}}
                     ></i>
                     <td>{item.name}</td>
                     <td>{item.time} min</td>
@@ -665,10 +765,10 @@ deleteservice=()=>{
             )}
 
 
-<PaginationItem disabled={pageNumber >= this.state.pageCount - 2}>
+<PaginationItem disabled={pageNumber >= this.state.pageCount}>
               
               <PaginationLink
-                onClick={e => this.handleClick(e, pageNumber + 1)}
+                onClick={e => this.receivedData(e, pageNumber + 1)}
                 next
                
               />
