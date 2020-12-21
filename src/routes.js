@@ -10,6 +10,7 @@ const Services=React.lazy(()=>import('./views/Theme/Services'));//Added Services
 
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const MonthlyView=React.lazy(()=>import('./views/Theme/Calendar/MonthlyView')); //Home view Added
+const TableView=React.lazy(()=>import('./views/Theme/Calendar/TableView')); 
 const Catergory=React.lazy(()=>import('./views/Theme/Catergory/Catergory')); //Home view Added
 const Location=React.lazy(()=>import('./views/Theme/Location/Location')); 
 
@@ -43,6 +44,7 @@ const routes = [
 {path:'/saloon/Services',name:'Services',component:Services},
   {path:'/saloon/catergory',name:'Catergory',component:Catergory},
   {path:'/saloon/monthly',name:'MonthlyView',component:MonthlyView},
+  {path:'/saloon/table',name:'TableView',component:TableView},
   {path:'/saloon/location',name:'MonthlyView',component:Location},
 ];
 

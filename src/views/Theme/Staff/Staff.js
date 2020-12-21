@@ -387,29 +387,59 @@ mobileNumber:"",
     const url = "/user/save/";
     BaseService.PostService(url, users)
       .then((res) => {
-     
 
-        if (res.data.success === true) {
-          Swal.fire(
-            'Good job!',
-            'successfuly added system user',
-            'success'
-          )
 
-          this.setState({
-            large2:false,
-            firstName:"",
-            lastName:"",
-            email:"",
-            isuser:0,
-            isadmin:0
-          })
 
-          this.receivedData1(1,1);
 
-        } else {
-          alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
+        if(res.data!==undefined)
+        {
+          if(res.data.success===true)
+          {
+            Swal.fire(
+              'Good job!',
+              'successfuly added system user',
+              'success'
+            )
+  
+            this.setState({
+              large2:false,
+              firstName:"",
+              lastName:"",
+              email:"",
+              isuser:0,
+              isadmin:0
+            })
+  
+            this.receivedData1(1,1);
+          }
         }
+       else if(res.response.data!==null) {
+        
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error Saving data! '+res.response.data["description"],
+            
+          })
+      
+        }else{
+      
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error Saving data!',
+            
+          })
+      
+        }
+
+
+
+
+
+     
       })
       .catch((err) => {
         alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
@@ -489,6 +519,32 @@ mobileNumber:"",
         this.receivedData1(1,1);
     }
   };
+
+
+
+  handleOnChange1 = (event) => {
+    let orderkeyword=event.target.value.trim().toLowerCase();
+    if(orderkeyword.length>0){
+        this.setState({
+            data3:this.state.data3.filter(element=>{
+                return(
+                    element.name.toLowerCase().match(event.target.value)||
+                    element.nic.toLowerCase().match(event.target.value)
+                 
+                   
+
+
+
+                )
+            })
+        })
+    }else{
+        this.receivedData(1,1);
+    }
+  };
+
+
+
 
   changeHandler = (event) => {
     this.setState({
@@ -1111,6 +1167,8 @@ if(e===true)
                 <CardBody>
                  
                 <div className="text-center d-flex justify-content-end">
+                <Input placeholder={'Search staff from  name or NIC '} name="searchString"  onChange={this.handleOnChange1}></Input>   
+
             <div className="col-2 mb-3">
             <Input
              type="select"
@@ -1119,13 +1177,13 @@ if(e===true)
              value={this.state.limit.toString()}
              onChange={this.onSelectLimit}>
                
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+                <option value="5">5 records</option>
+                <option value="10">10 records</option>
+                <option value="15">15 records</option>
+                <option value="20">20 records</option>
+                <option value="25">25 records</option>
+                <option value="50">50 records</option>
+                <option value="100">100 records</option>
             </Input>
             </div>
          
@@ -1514,7 +1572,7 @@ if(e===true)
                                   id="type"
                                   onChange={this.onChangeType}
                                 >
-                                  <option value="">select User Type</option>
+                                  <option value="">Select user type</option>
                                   <option value="2">Admin</option>
                                   <option value="3">User</option>
                                 </Input>
@@ -1700,7 +1758,7 @@ if(e===true)
             <Card>
               <CardBody>
               <div className="text-center d-flex justify-content-end">
-              <Input placeholder={'Serach user from first name, email or last name '} name="searchString"  onChange={this.handleOnChange}></Input>   
+              <Input placeholder={'Search user from first name, email or last name '} name="searchString"  onChange={this.handleOnChange}></Input>   
 
             <div className="col-2 mb-3">
             <Input

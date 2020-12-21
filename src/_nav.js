@@ -32,6 +32,11 @@ export default {
       icon: 'icon-list',
     },
     {
+      name: 'Table View',
+      url: '/saloon/table',
+      icon: 'icon-list',
+    },
+    {
       title:true,
       name:'Service Management',
       wrapper:{

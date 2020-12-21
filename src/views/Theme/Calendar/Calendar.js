@@ -53,7 +53,8 @@ import {
   Col,
   ButtonDropdown,
   ModalFooter,
-  CardHeader
+  CardHeader,
+  Table
 } from "reactstrap";
 
 
@@ -121,6 +122,7 @@ class Calendarc extends Component {
       dropdownOpen4: new Array(19).fill(false),
       large: false,
       large1: false,
+      largeUpdate: false,
       arrayVal: [true],
       id: "",
       title: "",
@@ -182,8 +184,16 @@ class Calendarc extends Component {
       iscanceled:true,
       cancelReason:"",
       Addbtn:false,
-      crossevent:"visible"
+      crossevent:"visible",
 
+      //For update app
+      appdateupdate:"",
+starttimeupdate:"",
+durationupdate:"",
+employeeupdate:"",
+serviceupdate:"",
+pastDateChecker:"",
+updateClient:"",
     };
   }
 
@@ -429,35 +439,106 @@ SmsCheck=(e)=>{
   
   }
 
-  displayEventClick=async(info)=>{
+  displayEventClick=(info)=>{
+
+          const index1= this.state.empInfo.findIndex((res)=>{
+  
+       
+        return res.title===info.event._def.extendedProps.desc
+        
+      });
 
     console.log(info.event._def.extendedProps.desc)
 
- const index1=await this.state.events.findIndex( (res)=>{
+            const param={
+          id:info.event.id
+        }
 
-  console.log(info.event._def.resourceIds[0])
-  console.log("this is id "+res.id)
-  
-  return  parseInt(res.id)===parseInt(info.event.id)
-  
-});
-
-console.log(index1)
-console.log(this.state.events[index1])
-
-this.setState({
-  showappId:info.event.id,
+               const url2 = "/appointment/getdetail/";
+    BaseService.GetDataWithParams(url2,param)
+      .then(async(res2) => {
+        console.log(res2.data.data)
+ this.setState({
+          appdateupdate:res2.data.data.appointment_date,
+          updateClient:res2.data.data.client__name,
+           showappId:info.event.id,
   showAppTitle:info.event.title,
   showEmpName:info.event._def.extendedProps.desc,
+  pastDateChecker:info.event.start,
  showDate:info.event.start.getDate()+"/"+(info.event.start.getMonth()+1)+"/"+info.event.start.getFullYear(),
-  showTimeStart:info.event.start.getHours()+":"+info.event.start.getMinutes(),
-  showTimeEnd:info.event.end.getHours()+":"+info.event.end.getMinutes(),
-  iscanceled:this.state.events[index1].cancel
-},()=>{this.eventClickModelFunction()})
+  showTimeStart:info.event.start.getHours()+":"+info.event.start.getMinutes()+":00",
+  showTimeEnd:info.event.end.getHours()+":"+info.event.end.getMinutes()+":00",
+  iscanceled:res2.data.data.is_canceled
+        },()=>{this.eventClickModelFunction();console.log(this.state.updateClient)})
+       
+
+
+      }).catch((err)=>{
+
+      })
+
+
+//  const index1=await this.state.events.findIndex( (res)=>{
+
+//   console.log(info.event._def.resourceIds[0])
+//   console.log("this is id "+res.id)
+  
+//   return  parseInt(res.id)===parseInt(info.event.id)
+  
+// });
+
+// console.log("check date",info.event.start)
+// console.log(this.state.events[index1])
+
+// this.setState({
+//   showappId:info.event.id,
+//   showAppTitle:info.event.title,
+//   showEmpName:info.event._def.extendedProps.desc,
+//   pastDateChecker:info.event.start,
+//  showDate:info.event.start.getDate()+"/"+(info.event.start.getMonth()+1)+"/"+info.event.start.getFullYear(),
+//   showTimeStart:info.event.start.getHours()+":"+info.event.start.getMinutes(),
+//   showTimeEnd:info.event.end.getHours()+":"+info.event.end.getMinutes(),
+//   iscanceled:this.state.events[index1].cancel
+// },()=>{this.eventClickModelFunction()})
 }
 
   
+onAppUpdate=()=>{
 
+  const data={
+    id:this.state.showappId
+  }
+
+  const url2 = "/appointment/getbypage/";
+   BaseService.GetDataWithParams(url2,data)
+    .then((res) => {
+      if (res.data.success === true) {
+       
+     
+               console.log(res.data.data)
+
+
+
+      
+      } else {
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: "error",
+          title: "Oops...",
+          text: "Error loading data!",
+        });
+      }
+    })
+    .catch((err) => {
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: "error",
+        title: "Oops...",
+        text: "Error loading data!",
+      });
+    });
+
+}
 
 
 
@@ -576,6 +657,7 @@ eventClickModelFunction=()=>{
 
   this.setState({
     eventClickModel: !this.state.eventClickModel,
+    cancelAppointment:false
   });
 
 }
@@ -754,6 +836,39 @@ this.generatePDF();
     }
   };
 
+  //For update calendar
+
+
+
+    onChangeHandlerUpdate = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+
+    const dt = Date.parse(e.target.value) + 86400000;
+  
+    const today = new Date();
+
+    if (!isNaN(dt) && dt < today.getTime()) {
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: "error",
+        title: "Oops...",
+        text: "You cannot add appointments to past dates!",
+      });
+      this.setState({
+        appdate: "",
+        arrayVal: [true],
+      });
+    } else {
+      this.setState({
+        arrayVal: [false],
+      },()=>this.ShowAvailableSlots(this.state.appdate));
+    }
+  };
+
+
+
   //for manual input for client details
   handleInputChange = (input, e) => {
     this.setState({
@@ -836,10 +951,13 @@ this.generatePDF();
 
         console.log(data)
         document.getElementById("submitbtn").disabled=true;
+                document.getElementById("resetbtn").disabled=true;
+
         const url = "/appointment/save/";
         BaseService.PostService(url, data)
           .then((res) => {
             document.getElementById("submitbtn").disabled=false;
+                            document.getElementById("resetbtn").disabled=false;
 
             if (res.data.success === true) {
              
@@ -856,7 +974,7 @@ this.generatePDF();
                 "Appointment successfuly inserted",
                 "success"
               );
-              //window.location.reload();
+         
 this.setState({
   events:[]
 },()=>this.eventInfo())
@@ -915,10 +1033,14 @@ this.setState({
         console.log(data)
 
         document.getElementById("submitbtn").disabled=true;
+                                    document.getElementById("resetbtn").disabled=true;
+
         const url = "/appointment/save/";
         BaseService.PostService(url, data)
           .then((res) => {
             document.getElementById("submitbtn").disabled=false;
+                                        document.getElementById("resetbtn").disabled=false;
+
             if (res.data.success === true) {
             
 
@@ -1052,6 +1174,32 @@ this.setState({
 
 
 
+//For adding appointment
+  toggleLargeUpdate = () => {
+    this.setState({
+      largeUpdate: !this.state.largeUpdate,
+      appdate: "",
+        datedisable: false,
+        starttimeupdate: "",
+        serviceupdate: "",
+        durationupdate: "",
+        employeeupdate: "",
+        arrayVal: [false],
+        appointmentDet: [],
+        mobileNumber:"",
+        NIC:"",
+        fullnameInput:"",
+        clientID:"",
+        mobileNum:""
+
+    },()=>this.ShowAvailableSlots(this.state.appdateupdate));
+
+    
+
+  };
+
+
+
 //for report generation 
   toggleLarge1 = () => {
     this.setState({
@@ -1111,6 +1259,59 @@ console.log(tab)
 
 
 
+
+//For Update appointment Tab pane
+  toggleUpdate = (tabPane, tab) => {
+
+console.log(tab)
+    if(parseInt(tab)===1)
+    {
+      const newArray = this.state.activeTab.slice();
+      newArray[tabPane] = tab;
+      this.setState({
+        activeTab: newArray,
+      });
+    }else{
+
+
+   
+
+
+    if (
+      (this.state.mobileNum !== ""||this.state.mobileNumber!=="") &&
+      (this.state.fullnameInput !== "" || this.state.clientID !== "")
+    ) {
+
+
+
+
+      const newArray = this.state.activeTab.slice();
+      newArray[tabPane] = tab;
+      this.setState({
+        activeTab: newArray,
+      });
+
+
+
+
+
+    } else {
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill client details before proceeding!",
+      });
+    }
+
+
+  }
+  };
+
+
+
+
+
 //For add appointment drop down
   toggle4 = (i) => {
     const newArray = this.state.dropdownOpen4.map((element, index) => {
@@ -1146,7 +1347,7 @@ timeclickcheck=(e)=>{
   checkStatus = (e, index) => {
 
   
-
+console.log("vidula",document.querySelectorAll('[id="service"]')[index].value)
     let servtime = 0;
     this.setState(
       {
@@ -1458,11 +1659,13 @@ console.log(index)
     this.setState(
       {
         appdate: "",
+
         datedisable: false,
         starttime: "",
         service: "",
         duration: "",
         employee: "",
+
         arrayVal: [true],
         appointmentDet: [],
         Addbtn:false
@@ -1474,10 +1677,40 @@ document.getElementById("duration").value="";
 document.getElementById("employee").value="";
 document.getElementById("service").value="";
 
+
     this.state.appointmentDet.splice();
  
   };
 
+
+
+
+  //for form data reset
+  resetformUpdate = (e) => {
+    this.setState(
+      {
+  
+         appdateupdate: "",
+        datedisable: false,
+          starttimeupdate: "",
+        serviceupdate: "",
+        durationupdate: "",
+        employeeupdate: "",
+        arrayVal: [true],
+        appointmentDet: [],
+        Addbtn:false
+      },
+ 
+    );
+document.getElementById("starttimeupdate").value="";
+document.getElementById("durationupdate").value="";
+document.getElementById("employeeupdate").value="";
+document.getElementById("serviceupdate").value="";
+
+
+    this.state.appointmentDet.splice();
+ 
+  };
   //for add appointment tab pane
   tabPane() {
     return (
@@ -1638,11 +1871,12 @@ document.getElementById("service").value="";
                             type="select"
                             name="starttime"
                             id="starttime"
+                           
                             onChange={(e) => {
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
                             <option value="">Time</option>
                             <option value="00:05">00:05</option>
                             <option value="00:10">00:10</option>
@@ -1958,7 +2192,7 @@ document.getElementById("service").value="";
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
                             <option value="">Select service</option>
                             {this.state.data2.map((val) => (
                               <option value={val.id}>{val.name}     :- {val.time} min</option>
@@ -1982,7 +2216,7 @@ document.getElementById("service").value="";
                               this.checkSlotWithEmployee(e.target.value)
                             }}
                             disabled={this.state.arrayVal[index]}
-                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
                             <option value="">Select stylist</option>
                             {this.state.empInfo.map((val) => (
                               <option value={val.id}>{val.title}</option>
@@ -2002,6 +2236,7 @@ document.getElementById("service").value="";
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
+                            className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
                           >
                             <option value="">Duration</option>
                             <option value="0">0 min</option>
@@ -2121,6 +2356,1173 @@ document.getElementById("service").value="";
   };
 
 
+  ClickOnUpdateBtn=()=>{
+
+ 
+    Swal.fire({
+      allowOutsideClick: false,
+      title: 'Are you sure ?',
+      text: "Changes will be made and You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+   
+      if (result.value) {
+
+
+        this.GetServiceAndClient();
+
+       
+
+   
+
+   const data = {
+   id:parseInt(this.state.showappId),
+  
+    };
+
+    const url = "/appointment/update/";
+    BaseService.UpdateService(url, "",parseInt(this.state.showappId))
+      .then((res) => {
+        if (res.data.success === true) {
+       
+       this.setState({
+         eventClickModel:false,
+        
+       })
+      
+
+ this.toggleLargeUpdate();
+
+
+         
+        } else {
+    
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: "error",
+            title: "Oops...",
+            text: "cannot perform operation!",
+          });
+        }
+      })
+      .catch((err) => {
+      
+ 
+      });
+
+
+      }
+
+    })
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //For update 
+
+
+
+
+
+
+
+
+ appointmentUpdate = (e) => {
+    e.preventDefault();
+
+   
+
+
+    if (this.state.appdateupdate !== "" && this.state.appointmentDet.length !== 0 && (this.state.mobileNum !== ""||this.state.mobileNumber!=="") &&
+    (this.state.fullnameInput !== "" || this.state.clientID !== "")) {
+      if (this.state.setdisable === true) {
+        let start = "";
+        const cldetails = {
+          client_id: this.state.clientID,
+          send_sms:this.state.sendSMS,
+          send_reminder:this.state.sendReminder
+        };
+
+        this.state.appointmentDet.map((val, index) => {
+          if (index === 0) {
+            start = val.start_time;
+          }
+        });
+        const appdetails = {
+          appointment_date: this.state.appdateupdate,
+          appointment_time: start,
+        };
+
+     
+        const data = {
+          client: cldetails,
+          appointment: appdetails,
+          detail: this.state.appointmentDetails,
+        };
+
+      
+
+        console.log(data)
+        document.getElementById("submitbtn").disabled=true;
+        
+        document.getElementById("resetbtn").disabled=true;
+        const url = "/appointment/save/";
+        BaseService.PostService(url, data)
+          .then((res) => {
+            document.getElementById("submitbtn").disabled=false;
+              document.getElementById("resetbtn").disabled=false;
+
+            if (res.data.success === true) {
+             
+              this.setState({
+                largeUpdate: false,
+                appointmentDet:[],
+                appointmentDetails:[],
+                arrayVal: [true]
+              });
+
+              Swal.fire(
+            
+                "Good job!",
+                "Appointment successfuly updated",
+                "success"
+              );
+              //window.location.reload();
+this.setState({
+  events:[]
+},()=>this.eventInfo())
+             
+            } else {
+        
+              Swal.fire({
+                allowOutsideClick: false,
+                icon: "error",
+                title: "Oops...",
+                text: "cannot perform operation!",
+              });
+            }
+          })
+          .catch((err) => {
+          
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: "error",
+              title: "Oops...",
+              text: "cannot perform operation!",
+            });
+          });
+
+
+
+      } else {
+        let start = "";
+        const cldetails = {
+          client_id: 0,
+          nic: this.state.NIC,
+          name: this.state.fullnameInput,
+          country_code: "+" + this.state.dialCode,
+          mobile: this.state.mobileNumber,
+          send_sms:this.state.sendSMS,
+          send_reminder:this.state.sendReminder
+        };
+
+        this.state.appointmentDet.map((val, index) => {
+          if (index === 0) {
+            start = val.start_time;
+          }
+        });
+        const appdetails = {
+          appointment_date: this.state.appdateupdate,
+          appointment_time: start,
+        };
+     
+
+        const data = {
+          client: cldetails,
+          appointment: appdetails,
+          detail: this.state.appointmentDetails,
+        };
+
+        console.log(data)
+
+        document.getElementById("submitbtn").disabled=true;
+        const url = "/appointment/save/";
+        BaseService.PostService(url, data)
+          .then((res) => {
+            document.getElementById("submitbtn").disabled=false;
+            if (res.data.success === true) {
+            
+
+              this.setState({
+                largeUpdate: false,
+                appointmentDet:[],
+                appointmentDetails:[],
+                arrayVal: [true]
+              });
+
+              Swal.fire(
+               
+                "Good job!",
+                "Appointment successfuly updated",
+                "success"
+              );
+              window.location.reload();
+            } else {
+          
+              Swal.fire({
+                allowOutsideClick: false,
+                icon: "error",
+                title: "Oops...",
+                text: "cannot perform operation!",
+              });
+            }
+          })
+          .catch((err) => {
+         
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: "error",
+              title: "Oops...",
+              text: "cannot perform operation!",
+            });
+          });
+
+
+
+
+      }
+    } else {
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill all details before updating appointment!",
+      });
+    }
+  };
+
+
+
+
+
+  checkStatusUpdate = (e, index) => {
+
+  
+
+    let servtime = 0;
+    this.setState(
+      {
+        [e.target.name]: e.target.value,
+      },
+      () => {
+        var time2 = moment().format("YYYY-MM-DD");
+
+        if (this.state.starttimeupdate !== "" && time2 === this.state.appdateupdate) {
+          if (
+            Date.parse(
+              this.state.appdateupdate + " " + this.state.starttimeupdate + ":00"
+            ) < new Date()
+          ) {
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: "error",
+              title: "Oops...",
+              text: "cannot add appointment to past time!",
+            });
+
+            this.setState({
+              starttimeupdate: "",
+            });
+
+            var ele = document.querySelectorAll('[id="starttimeupdate"]');
+            ele[index].value = "";
+
+
+          }
+        }
+
+        if (
+          this.state.cktime === true &&
+          this.state.appointmentDet.length !== 0
+        ) {
+         
+          const arr = this.state.appointmentDet[
+            this.state.appointmentDet.length - 1
+          ];
+
+        
+
+          if (this.state.starttimeupdate < arr["lasttime"]) {
+            alertify.alert(
+              "Next appointment can be placed after previous appointment. Previous appointment ends at " +
+                arr["lasttime"]
+            ).setHeader('').set('closable', false);
+
+            this.setState({
+              starttimeupdate: "",
+            });
+          }
+        }
+
+        if (
+          this.state.appdateupdate !== "" &&
+          this.state.starttimeupdate !== "" &&
+          this.state.employeeupdate !== "" &&
+          this.state.durationupdate !== "" &&
+          this.state.serviceupdate !== ""
+        ) {
+          this.state.data2.map((item) => {
+            if (parseInt(item.id) === parseInt(this.state.serviceupdate)) {
+              servtime = item.time;
+            }
+          });
+
+
+          const durationminutes =
+            parseInt(this.state.durationupdate) + parseInt(servtime);
+
+          const endtime = moment(this.state.starttimeupdate + ":00", "HH:mm:ss")
+            .add(durationminutes, "minutes")
+            .format("HH:mm");
+
+            this.setState({
+              crossevent:"none"
+            })
+        
+
+          const data = {
+            employee: parseInt(this.state.employeeupdate),
+            date: this.state.appdateupdate,
+            start_time: this.state.starttimeupdate + ":00",
+            duration: parseInt(this.state.durationupdate),
+            service: parseInt(this.state.serviceupdate),
+          };
+
+          const data2 = {
+            employee: parseInt(this.state.employeeupdate),
+            date: this.state.appdateupdate,
+            start_time: this.state.starttimeupdate + ":00",
+            duration: parseInt(this.state.durationupdate),
+            service: parseInt(this.state.serviceupdate),
+            lasttime: endtime + ":00",
+            indexarr: index,
+          };
+
+  
+          document.getElementById("submitbtn").disabled=true;
+          document.getElementById("resetbtn").disabled=true;
+
+         document.getElementById("starttimeupdate").disabled=true;
+document.getElementById("durationupdate").disabled=true;
+document.getElementById("employeeupdate").disabled=true;
+document.getElementById("serviceupdate").disabled=true;
+
+
+var ele = document.querySelectorAll('[id="starttimeupdate"]');
+for (var i = 1; i < ele.length; i++){
+  ele[i].disabled = true;
+}
+
+var ele1 = document.querySelectorAll('[id="durationupdate"]');
+for (var j = 1; j < ele1.length; j++){
+  ele1[j].disabled = true;
+}
+
+var ele2 = document.querySelectorAll('[id="employeeupdate"]');
+for (var k = 1; k < ele2.length; k++){
+  ele2[k].disabled = true;
+}
+
+var ele3 = document.querySelectorAll('[id="serviceupdate"]');
+for (var l = 1; l < ele3.length; l++){
+  ele3[l].disabled = true;
+}
+
+
+alertify.message('we are checking availability...');
+
+          const url = "/appointment/check/";
+          BaseService.PostService(url, data)
+            .then((res) => {
+              document.getElementById("submitbtn").disabled=false;
+              document.getElementById("resetbtn").disabled=false;
+              
+              if (res.data.validity === true) {
+           
+                alertify.success("Slot Available");
+
+                this.setState(
+                  {
+                    arrayVal: [...this.state.arrayVal, false],
+                  },
+               
+                );
+                const somearray = [...this.state.arrayVal];
+                somearray[index] = true;
+
+  
+                this.setState({
+                  arrayVal: somearray,
+                  appointmentDet: [...this.state.appointmentDet, data2],
+                  appointmentDetails: [...this.state.appointmentDetails, data],
+                  starttimeupdate: "",
+                  employeeupdate: "",
+                  durationupdate: "",
+                  serviceupdate: "",
+                  cktime: true,
+                  datedisable: true,
+                  crossevent:"visible"
+                });
+              } else {
+
+                this.setState({
+                  crossevent:"visible"
+                })
+
+                var ele10 = document.querySelectorAll('[id="starttimeupdate"]');
+                ele10[index].disabled = false;
+                ele10[index].value = "";
+
+                var ele11 = document.querySelectorAll('[id="durationupdate"]');
+
+  ele11[index].disabled = false;
+  ele11[index].value = "";
+
+
+
+var ele12 = document.querySelectorAll('[id="employeeupdate"]');
+
+  ele12[index].disabled = false;
+  ele12[index].value = "";
+
+
+var ele13 = document.querySelectorAll('[id="serviceupdate"]');
+
+  ele13[index].disabled = false;
+  ele13[index].value = "";
+
+
+                alertify.alert("Slot unavailable").setHeader('').set('closable', false);
+              }
+            })
+            .catch((err) => {
+              console.log(err)
+              alertify.alert(err).setHeader('').set('closable', false);
+            });
+        }
+      }
+    );
+  };
+
+
+
+
+
+
+ tabPaneForUpdate() {
+    return (
+      <>
+        <TabPane tabId="1">
+          {
+            <form>
+              <Card style={{ border: "transparent" }}>
+                <CardBody>
+                  {/* <FormGroup> */}
+                  <div className="d-flex justify-content-between">
+                  <Label htmlFor="fullName">Full Name</Label>
+                  {this.state.fullnameInput==="" && this.state.clientID ===""?
+
+                  <div>
+                  <i class="motion fa fa-arrow-down pr-3" aria-hidden="true"></i>
+                <strong>Confirm client details</strong>
+              </div>
+:<></>}
+                  </div>
+                  
+                
+                  <Typeahead
+                    filterBy={(option, props) => {
+                      if (props.selected.length > 0) {
+                        // Display all the options if there's a selection.
+                     
+                        return true;
+                      }
+                      // Otherwise filter on some criteria.
+                      return (
+                        option.name
+                          .toLowerCase()
+                          .indexOf(props.text.toLowerCase()) !== -1
+                      );
+                    }}
+                    defaultSelected={this.state.data.slice(this.state.data.findIndex((res)=>{
+  
+       
+        return res.name===this.state.updateClient
+        
+      }))}
+                    id="basic-typeahead-example"
+                    labelKey="name"
+                    options={this.state.data}
+                    placeholder="Choose a name or type new client ..."
+                    onInputChange={this.handleInputChange}
+                    onChange={this.handleChange}
+                  />
+
+                  <FormGroup>
+                    <Label htmlFor="NIC">NIC</Label>
+                    <Input
+                      type="text"
+                      id="NIC"
+                      name="NIC"
+                      disabled={this.state.setdisable}
+                      placeholder="Enter NIC"
+                      value={this.state.NIC}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="mobileNumber">Mobile Number</Label>
+                    <PhoneInput
+                      containerStyle={{ width: "20px" }}
+                      country={"lk"}
+                      disabled={this.state.setdisable}
+                      name="mobileNumber"
+                      value={this.state.mobileNum}
+                      onChange={(country, value, event) => {
+                        this.setState({
+                          dialCode: value["dialCode"],
+                          Country: value["name"],
+                          mobileNumber: country.slice(value.dialCode.length),
+                        });
+                      }}
+                    />
+                  </FormGroup>
+
+                  <FormGroup check>
+        <Label check>
+          <Input name="sms" value="sms" type="checkbox" onChange={this.SmsCheck}/>{' '}
+          Check this box if you want to send sms
+        </Label>
+      </FormGroup><br></br>
+
+
+      <FormGroup check>
+        <Label check>
+          <Input type="checkbox" value="reminder" name="reminder" onChange={this.SmsreminderCheck}/>{' '}
+          Check this box if you want to send reminder
+        </Label>
+      </FormGroup><br></br>
+
+
+
+                  <Button
+                    color="success"
+                    onClick={() => {
+                      this.toggle(0, "2");
+                    }}
+                  >
+                    Save and next
+                  </Button>
+                </CardBody>
+              </Card>
+            </form>
+          }
+        </TabPane>
+        <TabPane tabId="2">
+          {
+            <div>
+              <form onSubmit={this.appointmentUpdate}>
+
+                <FormGroup row>
+                  <Col md="3">
+                    <Label htmlFor="date-input">Appointment Date</Label>
+                  </Col>
+                  <Col xs="12" md="9">
+                    <Input
+                      type="date"
+                      id="appdateupdate"
+                      name="appdateupdate"
+                      placeholder="date"
+                      value={this.state.appdateupdate}
+                      onChange={this.onChangeHandler}
+                      disabled={this.state.datedisable}
+                    />
+                  </Col>
+                </FormGroup>
+{this.state.arrayVal.length === 1?
+<div className="pull-right">
+                  <i class="motion fa fa-arrow-down pr-3" aria-hidden="true"></i>
+                <strong>Fill the updated appointments</strong>
+              </div>
+:<></>}
+
+<hr style={{paddingBottom:"10px"}}></hr>
+
+
+                {this.state.arrayVal.map((val, index) => (
+                  <div>
+                    {(this.state.arrayVal.length -1)!== index && this.state.arrayVal.length > 1 && this.state.arrayVal[0]===true ? 
+                       <span >
+                       <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
+                     </span>
+                    : 
+                     <></>
+                   }
+
+
+{(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length === 1 && this.state.arrayVal[0]===true && this.state.appointmentDet.length!==0? 
+                       <span >
+                       <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
+                     </span>
+                    : 
+                     <></>
+                   }
+
+
+          {(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length >1 ? 
+                      <span style={{pointerEvents:this.state.crossevent,cursor:"pointer"}} onClick={(e) => this.printconsole(index)}>
+                        <i title="click to remove appointment" className="fa fa-close fa-lg mt-4 pull-right"></i>
+                      </span>
+                     : 
+                      <></>
+                    }
+             {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+     
+      <TimePicker value={this.state.starttime} onChange={(e) => {
+                             this.timeclickcheck(e)
+                            }}  disabled={this.state.arrayVal[index]}  name="starttime"
+                            id="starttime"/>
+    
+    </MuiPickersUtilsProvider> */}
+                    <Row>
+                      <Col xs="4">
+                        <FormGroup>
+                          <Label htmlFor="ccmonth">Start Time</Label>
+                          <Input
+                            type="select"
+                            name="starttimeupdate"
+                            id="starttimeupdate"
+                            onChange={(e) => {
+                              this.checkStatusUpdate(e, index);
+                            }}
+                            disabled={this.state.arrayVal[index]}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+
+                          >
+                            <option value="">Time</option>
+                            <option value="00:05">00:05</option>
+                            <option value="00:10">00:10</option>
+                            <option value="00:15">00:15</option>
+                            <option value="00:20">00:20</option>
+                            <option value="00:25">00:25</option>
+                            <option value="00:30">00:30</option>
+                            <option value="00:35">00:35</option>
+                            <option value="00:40">00:40</option>
+                            <option value="00:45">00:45</option>
+                            <option value="00:50">00:50</option>
+                            <option value="00:55">00:55</option>
+                            <option value="01:00">01:00</option>
+                            <option value="01:05">01:05</option>
+                            <option value="01:10">01:10</option>
+                            <option value="01:15">01:15</option>
+                            <option value="01:20">01:20</option>
+                            <option value="01:25">01:25</option>
+                            <option value="01:30">01:30</option>
+                            <option value="01:35">01:35</option>
+                            <option value="01:40">01:40</option>
+                            <option value="01:45">01:45</option>
+                            <option value="01:50">01:50</option>
+                            <option value="01:55">01:55</option>
+                            <option value="02:00">02:00</option>
+                            <option value="02:05">02:05</option>
+                            <option value="02:10">02:10</option>
+                            <option value="02:15">02:15</option>
+                            <option value="02:20">02:20</option>
+                            <option value="02:25">02:25</option>
+                            <option value="02:30">02:30</option>
+                            <option value="02:35">02:35</option>
+                            <option value="02:40">02:40</option>
+                            <option value="02:45">02:45</option>
+                            <option value="02:50">02:50</option>
+                            <option value="02:55">02:55</option>
+                            <option value="03:00">03:00</option>
+                            <option value="03:05">03:05</option>
+                            <option value="03:10">03:10</option>
+                            <option value="03:15">03:15</option>
+                            <option value="03:20">03:20</option>
+                            <option value="03:25">03:25</option>
+                            <option value="03:30">03:30</option>
+                            <option value="03:35">03:35</option>
+                            <option value="03:40">03:40</option>
+                            <option value="03:45">03:45</option>
+                            <option value="03:50">03:50</option>
+                            <option value="03:55">03:55</option>
+                            <option value="04:00">04:00</option>
+                            <option value="04:05">04:05</option>
+                            <option value="04:10">04:10</option>
+                            <option value="04:15">04:15</option>
+                            <option value="04:20">04:20</option>
+                            <option value="04:25">04:25</option>
+                            <option value="04:30">04:30</option>
+                            <option value="04:35">04:35</option>
+                            <option value="04:40">04:40</option>
+                            <option value="04:45">04:45</option>
+                            <option value="04:50">04:50</option>
+                            <option value="04:55">04:55</option>
+                            <option value="05:00">05:00</option>
+                            <option value="05:05">05:05</option>
+                            <option value="05:10">05:10</option>
+                            <option value="05:15">05:15</option>
+                            <option value="05:20">05:20</option>
+                            <option value="05:25">05:25</option>
+                            <option value="05:30">05:30</option>
+                            <option value="05:35">05:35</option>
+                            <option value="05:40">05:40</option>
+                            <option value="05:45">05:45</option>
+                            <option value="05:50">05:50</option>
+                            <option value="05:55">05:55</option>
+                            <option value="06:00">06:00</option>
+                            <option value="06:05">06:05</option>
+                            <option value="06:10">06:10</option>
+                            <option value="06:15">06:15</option>
+                            <option value="06:20">06:20</option>
+                            <option value="06:25">06:25</option>
+                            <option value="06:30">06:30</option>
+                            <option value="06:35">06:35</option>
+                            <option value="06:40">06:40</option>
+                            <option value="06:45">06:45</option>
+                            <option value="06:50">06:50</option>
+                            <option value="06:55">06:55</option>
+                            <option value="07:00">07:00</option>
+                            <option value="07:05">07:05</option>
+                            <option value="07:10">07:10</option>
+                            <option value="07:15">07:15</option>
+                            <option value="07:20">07:20</option>
+                            <option value="07:25">07:25</option>
+                            <option value="07:30">07:30</option>
+                            <option value="07:35">07:35</option>
+                            <option value="07:40">07:40</option>
+                            <option value="07:45">07:45</option>
+                            <option value="07:50">07:50</option>
+                            <option value="07:55">07:55</option>
+                            <option value="08:00">08:00</option>
+                            <option value="08:05">08:05</option>
+                            <option value="08:10">08:10</option>
+                            <option value="08:15">08:15</option>
+                            <option value="08:20">08:20</option>
+                            <option value="08:25">08:25</option>
+                            <option value="08:30">08:30</option>
+                            <option value="08:35">08:35</option>
+                            <option value="08:40">08:40</option>
+                            <option value="08:45">08:45</option>
+                            <option value="08:50">08:50</option>
+                            <option value="08:55">08:55</option>
+                            <option value="09:00">09:00</option>
+                            <option value="09:05">09:05</option>
+                            <option value="09:10">09:10</option>
+                            <option value="09:15">09:15</option>
+                            <option value="09:20">09:20</option>
+                            <option value="09:25">09:25</option>
+                            <option value="09:30">09:30</option>
+                            <option value="09:35">09:35</option>
+                            <option value="09:40">09:40</option>
+                            <option value="09:45">09:45</option>
+                            <option value="09:50">09:50</option>
+                            <option value="09:55">09:55</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:05">10:05</option>
+                            <option value="10:10">10:10</option>
+                            <option value="10:15">10:15</option>
+                            <option value="10:20">10:20</option>
+                            <option value="10:25">10:25</option>
+                            <option value="10:30">10:30</option>
+                            <option value="10:35">10:35</option>
+                            <option value="10:40">10:40</option>
+                            <option value="10:45">10:45</option>
+                            <option value="10:50">10:50</option>
+                            <option value="10:55">10:55</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:05">11:05</option>
+                            <option value="11:10">11:10</option>
+                            <option value="11:15">11:15</option>
+                            <option value="11:20">11:20</option>
+                            <option value="11:25">11:25</option>
+                            <option value="11:30">11:30</option>
+                            <option value="11:35">11:35</option>
+                            <option value="11:40">11:40</option>
+                            <option value="11:45">11:45</option>
+                            <option value="11:50">11:50</option>
+                            <option value="11:55">11:55</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:05">12:05</option>
+                            <option value="12:10">12:10</option>
+                            <option value="12:15">12:15</option>
+                            <option value="12:20">12:20</option>
+                            <option value="12:25">12:25</option>
+                            <option value="12:30">12:30</option>
+                            <option value="12:35">12:35</option>
+                            <option value="12:40">12:40</option>
+                            <option value="12:45">12:45</option>
+                            <option value="12:50">12:50</option>
+                            <option value="12:55">12:55</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:05">13:05</option>
+                            <option value="13:10">13:10</option>
+                            <option value="13:15">13:15</option>
+                            <option value="13:20">13:20</option>
+                            <option value="13:25">13:25</option>
+                            <option value="13:30">13:30</option>
+                            <option value="13:35">13:35</option>
+                            <option value="13:40">13:40</option>
+                            <option value="13:45">13:45</option>
+                            <option value="13:50">13:50</option>
+                            <option value="13:55">13:55</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:05">14:05</option>
+                            <option value="14:10">14:10</option>
+                            <option value="14:15">14:15</option>
+                            <option value="14:20">14:20</option>
+                            <option value="14:25">14:25</option>
+                            <option value="14:30">14:30</option>
+                            <option value="14:35">14:35</option>
+                            <option value="14:40">14:40</option>
+                            <option value="14:45">14:45</option>
+                            <option value="14:50">14:50</option>
+                            <option value="14:55">14:55</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:05">15:05</option>
+                            <option value="15:10">15:10</option>
+                            <option value="15:15">15:15</option>
+                            <option value="15:20">15:20</option>
+                            <option value="15:25">15:25</option>
+                            <option value="15:30">15:30</option>
+                            <option value="15:35">15:35</option>
+                            <option value="15:40">15:40</option>
+                            <option value="15:45">15:45</option>
+                            <option value="15:50">15:50</option>
+                            <option value="15:55">15:55</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:05">16:05</option>
+                            <option value="16:10">16:10</option>
+                            <option value="16:15">16:15</option>
+                            <option value="16:20">16:20</option>
+                            <option value="16:25">16:25</option>
+                            <option value="16:30">16:30</option>
+                            <option value="16:35">16:35</option>
+                            <option value="16:40">16:40</option>
+                            <option value="16:45">16:45</option>
+                            <option value="16:50">16:50</option>
+                            <option value="16:55">16:55</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:05">17:05</option>
+                            <option value="17:10">17:10</option>
+                            <option value="17:15">17:15</option>
+                            <option value="17:20">17:20</option>
+                            <option value="17:25">17:25</option>
+                            <option value="17:30">17:30</option>
+                            <option value="17:35">17:35</option>
+                            <option value="17:40">17:40</option>
+                            <option value="17:45">17:45</option>
+                            <option value="17:50">17:50</option>
+                            <option value="17:55">17:55</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:05">18:05</option>
+                            <option value="18:10">18:10</option>
+                            <option value="18:15">18:15</option>
+                            <option value="18:20">18:20</option>
+                            <option value="18:25">18:25</option>
+                            <option value="18:30">18:30</option>
+                            <option value="18:35">18:35</option>
+                            <option value="18:40">18:40</option>
+                            <option value="18:45">18:45</option>
+                            <option value="18:50">18:50</option>
+                            <option value="18:55">18:55</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:05">19:05</option>
+                            <option value="19:10">19:10</option>
+                            <option value="19:15">19:15</option>
+                            <option value="19:20">19:20</option>
+                            <option value="19:25">19:25</option>
+                            <option value="19:30">19:30</option>
+                            <option value="19:35">19:35</option>
+                            <option value="19:40">19:40</option>
+                            <option value="19:45">19:45</option>
+                            <option value="19:50">19:50</option>
+                            <option value="19:55">19:55</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:05">20:05</option>
+                            <option value="20:10">20:10</option>
+                            <option value="20:15">20:15</option>
+                            <option value="20:20">20:20</option>
+                            <option value="20:25">20:25</option>
+                            <option value="20:30">20:30</option>
+                            <option value="20:35">20:35</option>
+                            <option value="20:40">20:40</option>
+                            <option value="20:45">20:45</option>
+                            <option value="20:50">20:50</option>
+                            <option value="20:55">20:55</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:05">21:05</option>
+                            <option value="21:10">21:10</option>
+                            <option value="21:15">21:15</option>
+                            <option value="21:20">21:20</option>
+                            <option value="21:25">21:25</option>
+                            <option value="21:30">21:30</option>
+                            <option value="21:35">21:35</option>
+                            <option value="21:40">21:40</option>
+                            <option value="21:45">21:45</option>
+                            <option value="21:50">21:50</option>
+                            <option value="21:55">21:55</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:05">22:05</option>
+                            <option value="22:10">22:10</option>
+                            <option value="22:15">22:15</option>
+                            <option value="22:20">22:20</option>
+                            <option value="22:25">22:25</option>
+                            <option value="22:30">22:30</option>
+                            <option value="22:35">22:35</option>
+                            <option value="22:40">22:40</option>
+                            <option value="22:45">22:45</option>
+                            <option value="22:50">22:50</option>
+                            <option value="22:55">22:55</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:05">22:05</option>
+                            <option value="22:10">22:10</option>
+                            <option value="22:15">22:15</option>
+                            <option value="22:20">22:20</option>
+                            <option value="22:25">22:25</option>
+                            <option value="22:30">22:30</option>
+                            <option value="22:35">22:35</option>
+                            <option value="22:40">22:40</option>
+                            <option value="22:45">22:45</option>
+                            <option value="22:50">22:50</option>
+                            <option value="22:55">22:55</option>
+                            <option value="23:00">23:00</option>
+                            <option value="23:05">23:05</option>
+                            <option value="23:10">23:10</option>
+                            <option value="23:15">23:15</option>
+                            <option value="23:20">23:20</option>
+                            <option value="23:25">23:25</option>
+                            <option value="23:30">23:30</option>
+                            <option value="23:35">23:35</option>
+                            <option value="23:40">23:40</option>
+                            <option value="23:45">23:45</option>
+                            <option value="23:50">23:50</option>
+                            <option value="23:55">23:55</option>
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                      <Col xs="8">
+                        <FormGroup>
+                          <Label htmlFor="ccyear">Service</Label>
+
+                          <Input
+                            type="select"
+                            name="serviceupdate"
+                            id="serviceupdate"
+                            onChange={(e) => {
+                              this.checkStatusUpdate(e, index);
+                            }}
+                            disabled={this.state.arrayVal[index]}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+
+                          >
+                            <option value="">Select service</option>
+                            {this.state.data2.map((val) => (
+                              <option value={val.id}>{val.name}     :- {val.time} min</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+
+                    <Row>
+
+                    <Col xs="6">
+                        <FormGroup>
+                          <Label htmlFor="ccyear">Select Stylist</Label>
+                          <Input
+                            type="select"
+                            name="employeeupdate"
+                            id="employeeupdate"
+                            onChange={(e) => {
+                              this.checkStatusUpdate(e, index);
+                              this.checkSlotWithEmployee(e.target.value)
+                            }}
+                            disabled={this.state.arrayVal[index]}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+
+                          >
+                            <option value="">Select stylist</option>
+                            {this.state.empInfo.map((val) => (
+                              <option value={val.id}>{val.title}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+
+                      <Col xs="6">
+                        <FormGroup>
+                          <Label htmlFor="ccmonth">Additional Time Allocated</Label>
+                          <Input
+                            type="select"
+                            name="durationupdate"
+                            id="durationupdate"
+                            onChange={(e) => {
+                              this.checkStatusUpdate(e, index);
+                            }}
+                            disabled={this.state.arrayVal[index]}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+
+                          >
+                            <option value="">Duration</option>
+                            <option value="0">0 min</option>
+                            <option value="15">15 min</option>
+                            <option value="30">30 min</option>
+                            <option value="45">45 min</option>
+                            <option value="60">1 hr</option>
+                            <option value="75">1 hr 15 min</option>
+                            <option value="90">1 hr 30 min</option>
+                            <option value="105">1 hr 45 min</option>
+                            <option value="120">2 hr</option>
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                   
+                    </Row>
+
+                    <hr></hr>
+                  </div>
+                ))}
+
+
+{this.state.Addbtn===true?
+
+
+<div>
+                
+                       <span onClick={()=>this.addNewForm()}>
+                       <i style={{cursor:"pointer"}} title="Click to add an event" className="fa fa-plus-circle fa-3x mt-4 pull-right" ></i>
+                     </span>
+                     </div>
+
+:<></>}
+
+
+                {this.state.appdateupdate!==""?
+                    <Calendar2
+      localizer={localizer}
+      events={this.state.availableSlots}
+      defaultView={Views.DAY}
+      views={['day']}
+      date={this.state.appdateupdate}
+      startAccessor="start"
+      endAccessor="end"
+      style={{ height: 500 }}
+      resources={this.state.resources}
+      resourceIdAccessor="resourceId"
+      resourceTitleAccessor="resourceTitle"
+    />:<></>}
+                <hr></hr>
+                <ModalFooter>
+                  <Button color="success" type="submit" id="submitbtn">
+                    Save appointment
+                  </Button>
+
+                  <Button id="resetbtn" color="secondary" onClick={(e) => this.resetformUpdate()}>
+                    Reset
+                  </Button>
+                  </ModalFooter>
+                
+              </form>
+            </div>
+          }
+        </TabPane>
+      </>
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2180,7 +3582,7 @@ document.getElementById("service").value="";
 {this.state.events.length===0?
 
   <div class="alert alert-warning" role="alert">
-  Please wait for events to load
+ No events yet...
  </div>
 :<></>}
 
@@ -2315,6 +3717,44 @@ document.getElementById("service").value="";
             </TabContent>
           </ModalBody>
         </Modal>
+
+
+
+
+         <Modal className="modal-xl" isOpen={this.state.largeUpdate} >
+          <ModalHeader  >Update Appointment</ModalHeader>
+          <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
+            <Nav tabs>
+              <NavItem>
+                <NavLink
+                  active={this.state.activeTab[0] === "1"}
+                  onClick={() => {
+                    this.toggleUpdate(0, "1");
+                  }}
+                >
+                  Client Details
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  active={this.state.activeTab[0] === "2"}
+                  onClick={() => {
+                    this.toggleUpdate(0, "2");
+                  }}
+                >
+                  Appointment Details
+                </NavLink>
+              </NavItem>
+            </Nav>
+            <TabContent activeTab={this.state.activeTab[0]}>
+              {this.tabPaneForUpdate()}
+            </TabContent>
+          </ModalBody>
+        </Modal>
+
+
+
+
 
         <Modal isOpen={this.state.large1} toggle={this.toggleLarge1}>
           <ModalHeader toggle={()=>{this.toggleLarge1();this.setState({reportstart:"",reportend:""});}}><i className="fa fa-book fa-lg mt-4" style={{paddingRight:"8px"}}></i>Report Generator</ModalHeader>
@@ -2515,14 +3955,44 @@ document.getElementById("service").value="";
         <Modal isOpen={this.state.eventClickModel} >
           <ModalHeader toggle={this.eventClickModelFunction}> <i className="fa fa-calendar-o fa-lg mt-4" style={{paddingRight:"8px"}}></i>View Event</ModalHeader>
           <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
-          <p><b>Appointment Type:-</b> {this.state.showAppTitle} </p>
-        <p ><b>Appointment assigned employee:-</b> {this.state.showEmpName}</p>
-        <p ><b>Appointment Date:-</b> {this.state.showDate}</p>
-        <p ><b>Appointment Start Time:-</b> {this.state.showTimeStart}</p>
-        <p ><b>Appointment End Time:-</b> {this.state.showTimeEnd}</p><br></br>
+          <Table responsive className="table table-striped table-dark  ">
+          <tbody>
+                  <tr>
+                        <td><b>Appointment Type</b></td>
+                        <td>{this.state.showAppTitle}</td>
+                  </tr>
+                  <tr>
+                          <td><b>Appointment assigned employee</b></td>
+                          <td>{this.state.showEmpName}</td>
+                  </tr>
+                  <tr>
+                          <td><b>Appointment Date</b></td>
+                          <td>{this.state.showDate}</td>
+                  </tr>
+                  <tr>
+                          <td><b>Appointment Start Time</b></td>
+                          <td> {this.state.showTimeStart}</td>
+                  </tr>
+                  <tr>
+                          <td><b>Appointment End Time</b></td>
+                          <td> {this.state.showTimeEnd}</td>
+                  </tr>
+                    <tr>
+                          <td><b>Client Name</b></td>
+                          <td> {this.state.updateClient}</td>
+                  </tr>
+          </tbody>
+          </Table>
+         
+ 
+
+       
+        
         {this.state.iscanceled===false?
         <div className="float-right">
-        <Button color="dark" onClick={()=>{this.setState({cancelAppointment:true})}}>Cancel Appointment</Button>
+{new moment(this.state.pastDateChecker)>new moment()?
+        <Button className="btn btn-success" onClick={()=>this.ClickOnUpdateBtn()}>Update</Button>:<></>}
+        <Button color="dark" className="ml-3" onClick={()=>{this.setState({cancelAppointment:true})}}>Cancel Appointment</Button>
         </div>
         :<></>}<br></br>
         

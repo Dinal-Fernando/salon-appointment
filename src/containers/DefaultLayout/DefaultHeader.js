@@ -41,6 +41,7 @@ class DefaultHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
+        {localStorage.getItem("type")===2?
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <NavLink to="/dashboard" className="nav-link" >Dashboard</NavLink>
@@ -50,6 +51,7 @@ class DefaultHeader extends Component {
           </NavItem>
         
         </Nav>
+        :<></>}
         <Nav className="ml-auto" navbar>
    
           <UncontrolledDropdown nav direction="down">

@@ -111,7 +111,7 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
     if (res.data.success === true) {
       Swal.fire(
         'Good job!',
-        'successfully registered. Login to continue',
+        'Successfully registered. Login to continue',
         'success'
       )
       window.location.href="/#/login";

@@ -93,5 +93,21 @@ Input[type=number] {
   -moz-appearance: textfield;
 }
 
-  
-  
+.motion{
+  position: relative;
+  animation-name: example;
+  animation-duration: 3s;  
+  animation-iteration-count: infinite;
+ animation-fill-mode: both;
+ animation-delay: 2s;
+}
+
+@keyframes example {
+  from {top: 0px}
+  to {top: 13px}
+}
+
+.ondisable{
+  border-color: darkgreen;
+  background-color: #f8fff2 !important;
+}

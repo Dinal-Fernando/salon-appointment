@@ -762,6 +762,30 @@ console.log("value here:"+this.state.countrycd)
         
       }
 
+
+
+      handleOnChange = (event) => {
+        let orderkeyword=event.target.value.trim().toLowerCase();
+        if(orderkeyword.length>0){
+            this.setState({
+                data3:this.state.data3.filter(element=>{
+                    return(
+                        element.name.toLowerCase().match(event.target.value)||
+                        element.nic.match(event.target.value)
+                      
+                      
+                       
+    
+    
+    
+                    )
+                })
+            })
+        }else{
+            this.receivedData(1,1);
+        }
+      };
+
   
 
   render() {
@@ -779,6 +803,7 @@ console.log("value here:"+this.state.countrycd)
         <CardBody>
         
           <div className="text-center d-flex justify-content-end">
+          <Input placeholder={'Search by client name or NIC '} name="searchString"  onChange={this.handleOnChange}></Input>  
             <div className="col-2 ">
             <Input
              type="select"
@@ -787,13 +812,13 @@ console.log("value here:"+this.state.countrycd)
              value={this.state.limit.toString()}
              onChange={this.onSelectLimit}>
               
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+                <option value="5">5 records</option>
+                <option value="10">10 records</option>
+                <option value="15">15 records</option>
+                <option value="20">20 records</option>
+                <option value="25">25 records</option>
+                <option value="50">50 records</option>
+                <option value="100">100 records</option>
             </Input>
             </div>
             <Button
