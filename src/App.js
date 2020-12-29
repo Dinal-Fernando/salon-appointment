@@ -27,6 +27,8 @@ const DefaultLayout = React.lazy(() => import("./containers/DefaultLayout"));
 const Main=React.lazy(() => import("./views/Pages/Main/Main"));
 
 const Login = React.lazy(() => import("./views/Pages/Login"));
+
+const Appointment = React.lazy(() => import("./views/Pages/UnauthorizedAppointment/UnauthorizedAppointment.js"));
 const Register = React.lazy(() => import("./views/Pages/Register"));
 const Page404 = React.lazy(() => import("./views/Pages/Page404"));
 const Page500 = React.lazy(() => import("./views/Pages/Page500"));
@@ -93,6 +95,12 @@ _onIdle(e) {
 }
 
 
+ componentDidMount = () => {
+  
+  console.log(window.location.pathname.split("/")[1])
+  };
+
+
 
 
   render() {
@@ -144,6 +152,13 @@ _onIdle(e) {
               name="main"
               render={(props) => <Main {...props} />}
             />
+
+              <Route
+              path="/appointment"
+              name="appointment"
+              render={(props) => <Appointment {...props} />}
+            />
+
             <Route
               exact
               path="/404"

@@ -1872,8 +1872,8 @@ document.getElementById("service").value="";
 
             <tbody>
               {this.state.appdata.map((appointment) => (
-  
-                <tr>
+appointment.is_canceled?
+<tr className="table-danger">
                   {/* <i
                     className="fa fa-edit fa-lg mt-4"  style={{cursor:"pointer"}}
                     onClick={() => {
@@ -1943,7 +1943,78 @@ document.getElementById("service").value="";
                   
               
                 </tr>
-       
+      
+:<tr >
+                  {/* <i
+                    className="fa fa-edit fa-lg mt-4"  style={{cursor:"pointer"}}
+                    onClick={() => {
+                    
+                    }}
+                  ></i>
+
+<i
+                    className="fa fa-trash fa-lg mt-4 ml-3"  style={{cursor:"pointer"}}
+                    onClick={() => {
+                  
+                    }}
+                  ></i> */}
+
+                  <td>{appointment.appointment_date}</td>
+                  <td>{appointment.client}</td>
+<td >
+<div class="table-responsive">
+ <Table responsive className="table table-bordered  ">
+{/* <thead>
+           <th >
+                  <i className="fa fa-id-card fa-fw mt-4 ml-5"></i>
+                  Staff Member
+                </th>
+                  <th>
+                <i className="fa fa-exclamation-triangle fa-fw mt-4 ml-5"></i>
+                  Service
+                </th>
+                   <th>
+                <i className="fa fa-exclamation-triangle fa-fw mt-4 ml-5"></i>
+                  Service
+                </th>
+</thead> */}
+
+                 {appointment.details.map((value)=>(
+         <tbody>
+                        <tr className="table-light">
+                                <td >
+                                  
+                                   <b>Start Time:-</b> {new moment(value.start_time).format("HH:mm")}
+                                  
+                              </td>
+
+                               <td>
+                                  
+                                   <b>Stylist:-</b> {value.employee_name}
+                                  
+                              </td>
+
+                               <td >
+                                  
+                                   <b>Service:-</b> {value.service}
+                                  
+                              </td>
+                             
+                               </tr>
+
+                               </tbody>
+                           
+                              ))}
+                           
+                               </Table>
+                               </div>
+      </td>
+
+                      
+                  
+              
+                </tr>
+      
                
               ))}
           

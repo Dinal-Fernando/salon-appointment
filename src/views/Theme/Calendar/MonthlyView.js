@@ -187,10 +187,10 @@ this.setState({
   eventInfo=()=>{
 
     let data=""
-
-    const dateparam = moment(this.state.date).format("YYYY-MM-DD");
+ const dateparam = moment(moment().add(60,'d').toDate()).format("YYYY-MM-DD");
+    //const dateparam = moment(this.state.date).format("YYYY-MM-DD");
     const paramdata = {
-      first_date: "2020-06-01",
+      first_date: moment(moment().subtract(10,'d').toDate()).format("YYYY-MM-DD"),
       second_date: dateparam,
     };
 
