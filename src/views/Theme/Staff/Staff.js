@@ -120,7 +120,8 @@ class Staff extends Component {
       loading: true,
       isadmin:0,
       isuser:0,
-      searchString:""
+      searchString:"",
+      profilepic:"",
     };
 
     //this.toggle = this.toggle.bind(this);
@@ -176,6 +177,7 @@ if(this.state.mobileNumber.length!==9)
       country_code: "+" + this.state.dialCode,
       mobile: this.state.mobileNumber,
       is_active: "1",
+      profile_pic:this.state.profilepic
     };
    
     const url = "/employee/save/";
@@ -242,6 +244,7 @@ mobileNumber:"",
       country_code: "+" + this.state.dialCode,
       mobile: this.state.mobileNumber,
       is_active: "1",
+        profile_pic:this.state.profilepic
     };
    
     const url = "/employee/save/";
@@ -1150,7 +1153,7 @@ if(e===true)
 
       onDrop(picture) {
         this.setState({
-            pictures: this.state.pictures.concat(picture),
+            profilepic: picture,
         });
     }
 

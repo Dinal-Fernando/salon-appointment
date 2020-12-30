@@ -15,7 +15,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
+import Avatar from '@material-ui/core/Avatar';
 import moment from "moment";
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -222,7 +222,8 @@ updateClient:"",
                      id:val.id,
                      title:val.name,
                      resourceId:val.id,
-                      resourceTitle:val.name
+                      resourceTitle:val.name,
+                      profile_pic:val.profile_pic
                  }
                
                   this.setState({
@@ -2219,7 +2220,7 @@ document.getElementById("serviceupdate").value="";
   className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
                             <option value="">Select stylist</option>
                             {this.state.empInfo.map((val) => (
-                              <option value={val.id}>{val.title}</option>
+                              <option  value={val.id}>{val.title}</option>
                             ))}
                           </Input>
                         </FormGroup>

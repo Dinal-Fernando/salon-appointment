@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(<App />, document.getElementById('root'));
 
 //global.Backend="http://salon-be-dev2.ap-southeast-1.elasticbeanstalk.com";
-global.Backend="https://dev-reservation-api.onepos.lk";
+global.Backend="https://reserveme-api.ereserv.me";
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
