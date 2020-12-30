@@ -12,7 +12,7 @@ import Back5 from "../../../assets/back5.png";
 import Swal from 'sweetalert2'
 import { Switch } from 'antd';
 import 'antd/dist/antd.css';
-
+import ImageUploader from 'react-images-upload';
 import {
   Badge,
   Col,
@@ -1148,6 +1148,12 @@ if(e===true)
     
   }
 
+      onDrop(picture) {
+        this.setState({
+            pictures: this.state.pictures.concat(picture),
+        });
+    }
+
 
   onSelectLimit=(e)=>{
     this.setState({
@@ -1323,6 +1329,17 @@ if(e===true)
                             </Card>
                           </Col>
                         </Row>
+                                                <Card>
+                        <CardBody>
+  <ImageUploader
+                withIcon={true}
+                buttonText='Add staff image'
+                onChange={this.onDrop}
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+            />
+                        </CardBody>
+                        </Card>
                         <ModalFooter>
                         <Button
                         id="submitbtn"
@@ -1421,6 +1438,8 @@ if(e===true)
                                     required
                                   />
                                 </FormGroup>
+
+
                               </CardBody>
                             </Card>
                           </Col>
@@ -1472,6 +1491,17 @@ if(e===true)
                             </Card>
                           </Col>
                         </Row>
+                        <Card>
+                        <CardBody>
+  <ImageUploader
+                withIcon={true}
+                buttonText='Choose images'
+                onChange={this.onDrop}
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+            />
+                        </CardBody>
+                        </Card>
                         <ModalFooter>
                         <Button
                           type="submit"
