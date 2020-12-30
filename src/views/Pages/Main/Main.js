@@ -11,6 +11,7 @@ import makeup from "../../../images/makeup.svg";
 import cream from "../../../images/cream.svg";
 import makeup2 from "../../../images/make-up.svg";
 import testimonial from "../../../images/testimonials.jpg";
+import testimonial2 from "../../../images/testimonials2.jpg";
 import placeholder from "../../../images/placeholder.svg";
 import phone from "../../../images/phone-call.svg";
 import message from "../../../images/message.svg";
@@ -18,6 +19,10 @@ import footer from "../../../images/footer.jpg";
 import author_1 from "../../../images/author_1.jpg";
 import author_2 from "../../../images/author_2.jpg";
 import author_3 from "../../../images/author_3.jpg";
+import wallpaper1 from "../../../images/wallpaper1.png";
+import wallpaper2 from "../../../images/wallpaper2.jpg";
+import wallpaper4 from "../../../images/wallpaper4.jpg";
+import wallpaper5 from "../../../images/wallpaper5.jpg";
 
 
 class Main extends Component {
@@ -25,6 +30,7 @@ class Main extends Component {
         super(props);
         this.state={
             large: false,
+            
         }
     }
     
@@ -36,20 +42,23 @@ class Main extends Component {
     }
 
 
+
+
+
     
     render() { 
-        return ( <div className="super_container">
+        return ( <div className="  divelement super_container">
 	
 
      
      <Header/>
         
-        <div className="menu">
+        <div className="divelement menu">
             <nav className="menu_nav">
                 <ul className="d-flex flex-column align-items-start justify-content-start">
                     <li className="active"><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="services.html">Services</a></li>
+                    <li><a href="https://spemai.com/">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
                     <li><a href="articles.html">Articles</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -60,29 +69,29 @@ class Main extends Component {
     
        
        
-        <div className="home">
+        <div className="divelement home">
     
       
-            <div className="home_slider_container">
-                <div className="owl-carousel owl-theme home_slider">
+            <div className="divelement home_slider_container">
+                <div className="divelement owl-carousel owl-theme home_slider">
                     
                    
-                     <div className="owl-item home_slide">
-                        <div className="background_image" style={{backgroundImage:`url(${index})`}}></div>
-                        <div className="slide_text" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                            <div className="slide_title">Our best offers</div>
-                            <div className="slide_subtitle">Lorem ipsum dolor sit amet, consectetur</div>
+                     <div className="divelement owl-item home_slide">
+                        <div className=" divelement background_image" style={{backgroundImage:`url(${wallpaper1})`}}></div>
+                        <div className="divelement slide_text" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+                            {/* <div className="divelement slide_title">Our best offers</div>
+                            <div className="divelement slide_subtitle">Lorem ipsum dolor sit amet, consectetur</div> */}
                         </div>
-                        <div className="slide_container">
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-lg-11">
-                                        <div className="slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
-                                            <div className="home_title"><h1>The <span>Best</span> Salon appointment scheduler</h1></div>
-                                            <div className="home_text">
+                        <div className="divelement slide_container">
+                            <div className="divelement container">
+                                <div className="divelement row">
+                                    <div className="divelement col-lg-11">
+                                        <div className="divelement slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
+                                            <div className="divelement home_title"><h1>The <span>Best</span> Reservation system</h1></div><br></br>
+                                            <div className="divelement home_text">
                                                 <p>Schedule appointments as your wish.</p>
                                             </div>
-                                            <div className="home_link"><a href="#">View our offers</a></div>
+                                            {/* <div className="divelement home_link"><a href="#">View our offers</a></div> */}
                                         </div>
                                     </div>
                                 </div>
@@ -95,22 +104,22 @@ class Main extends Component {
 
 
                   
-                    <div className="owl-item home_slide">
-                        <div className="background_image" style={{backgroundImage:`url(${index})`}}></div>
-                        <div className="slide_text" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                            <div className="slide_title">Our best offers</div>
-                            <div className="slide_subtitle">Lorem ipsum dolor sit amet, consectetur</div>
+                    <div className="divelement owl-item home_slide">
+                        <div className="divelement background_image" style={{backgroundImage:`url(${wallpaper2})`}}></div>
+                        <div className="divelement slide_text" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+                            {/* <div className="divelement slide_title">Our best offers</div>
+                            <div className="divelement slide_subtitle">Lorem ipsum dolor sit amet, consectetur</div> */}
                         </div>
-                        <div className="slide_container">
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-lg-11">
-                                        <div className="slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
-                                            <div className="home_title"><h1>Convinient <span>Appointment</span> Management</h1></div>
-                                            <div className="home_text">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum. Ut ac ligula sapien cursus faucibus finibus.</p>
+                        <div className="divelement slide_container">
+                            <div className="divelement container">
+                                <div className="divelement row">
+                                    <div className="divelement col-lg-11">
+                                        <div className="divelement slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
+                                            <div className="divelement home_title"><h1>Convinient <span>Appointment</span> Management</h1></div><br></br>
+                                            <div className="divelement home_text">
+                                                <p>The most effective and user friendly approach to manage your appointments.</p>
                                             </div>
-                                            <div className="home_link"><a href="#">View our offers</a></div>
+                                            {/* <div className="divelement home_link"><a href="#">View our offers</a></div> */}
                                         </div>
                                     </div>
                                 </div>
@@ -122,23 +131,23 @@ class Main extends Component {
 
 
 
-                    <div className="owl-item home_slide">
-                        <div className="background_image" style={{backgroundImage:`url(${index1})`}}></div>
-                        <div className="slide_text" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                            <div className="slide_title">Our best offers</div>
-                            <div className="slide_subtitle">Lorem ipsum dolor sit amet, consectetur</div>
+                    <div className="divelement owl-item home_slide">
+                        <div className="divelement background_image" style={{backgroundImage:`url(${index1})`}}></div>
+                        <div className="divelement slide_text" data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
+                            {/* <div className="divelement slide_title">Our best offers</div>
+                            <div className="divelement slide_subtitle">Lorem ipsum dolor sit amet, consectetur</div> */}
                         </div>
-                        <div className="slide_container">
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-lg-11">
-                                        <div className="slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
+                        <div className="divelement slide_container">
+                            <div className="divelement container">
+                                <div className="divelement row">
+                                    <div className="divelement col-lg-11">
+                                        <div className="divelement slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
                                             
-                                            <div className="home_text">
-                                            <div className="home_title"><h1>Responsive <span>Web</span> Design</h1></div>
+                                            <div className="divelement home_text">
+                                            <div className="divelement home_title"><h1>Responsive <span>Web</span> Design</h1></div>
                                                 
                                             </div>
-                                            <div className="home_link"><a href="#">View our offers</a></div>
+                                            {/* <div className="divelement home_link"><a href="#">View our offers</a></div> */}
                                         </div>
                                     </div>
                                 </div>
@@ -150,59 +159,59 @@ class Main extends Component {
             </div>
     
         
-            <div className="scroll_down scroll_to d-flex flex-column align-items-center justify-content-center" data-scroll-to="#services">
-                <div className="scroll_icon"></div>
-                <div>Scroll Down</div>
+            <div className="divelement scroll_down scroll_to d-flex flex-column align-items-center justify-content-center" data-scroll-to="#services">
+                <div className="divelement scroll_icon"></div>
+                <div className="divelement">Scroll Down</div>
             </div>
     
             
-            <div className="slide_progress">
-                <div className="slide_num">01.</div>
-                <div className="slide_bar"><div></div></div>
+            <div className="divelement slide_progress">
+                <div className="divelement slide_num">01.</div>
+                <div className="divelement slide_bar"><div></div></div>
             </div>
         </div>
     
         
     
-        <div className="services" id="services">
-            <div className="parallax_background" data-image-src={services}></div>
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-9">
-                        <div className="section_title_container">
-                            <div className="section_title"><h1>Our Services</h1></div>
-                            <p>Our service is to provide appointment scheduling facility for salon industry.</p>
+        <div className="divelement services" id="services">
+            <div className="divelement parallax_background" data-image-src={wallpaper4}></div>
+            <div className="divelement container">
+                <div className="divelement row">
+                    <div className="divelement col-lg-9">
+                        <div className="divelement section_title_container">
+                            <div className="divelement section_title"><h1>Our Services</h1></div>
+                            <p>Our service is to provide the best reservation facility for your company.</p>
                         </div>
                     </div>
                 </div>
-                <div className="row services_row">
-                    <div className="col">
-                        <div className="section_expander">
+                <div className="divelement row services_row">
+                    <div className="divelement col">
+                        <div className="divelement section_expander">
     
-                            <div className="services_slider_container">
-                                <div className="owl-carousel owl-theme services_slider">
+                            <div className="divelement services_slider_container">
+                                <div className="divelement owl-carousel owl-theme services_slider">
                                     
                                    
-                                    <div className="owl-item">
+                                    <div className="divelement owl-item">
     
                                         
-                                        <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
-                                            <div className="service_icon"><div><img src={mirror} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="service_content">
-                                                <div className="service_title trans_200">Appointment management</div>
-                                                <div className="service_text trans_200">
-                                                    <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui ferme ntum eros hendrerit, id lobortis.</p>
+                                        <div className="divelement service d-flex flex-row align-items-center justify-content-start trans_200">
+                                            <div className="divelement service_icon"><div><img src={mirror} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement service_content">
+                                                <div className="divelement service_title trans_200">Appointment management</div>
+                                                <div className="divelement service_text trans_200">
+                                                    <p>Provide appointment management facility with multiple display views including monthly, weekly, daily and employee wise.</p>
                                                 </div>
                                             </div>
                                         </div>
     
                                        
-                                        <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
-                                            <div className="service_icon"><div><img src={facial} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="service_content">
-                                                <div className="service_title trans_200">Staff management</div>
-                                                <div className="service_text trans_200">
-                                                    <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui ferme ntum eros hendrerit, id lobortis.</p>
+                                        <div className="divelement service d-flex flex-row align-items-center justify-content-start trans_200">
+                                            <div className="divelement service_icon"><div><img src={facial} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement service_content">
+                                                <div className="divelement service_title trans_200">Staff management</div>
+                                                <div className="divelement service_text trans_200">
+                                                    <p>Provides facility to add your staff members to the system and assign them to appointments.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -210,25 +219,25 @@ class Main extends Component {
                                     </div>
     
                                 
-                                    <div className="owl-item">
+                                    <div className="divelement owl-item">
                                         
                                     
-                                        <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
-                                            <div className="service_icon"><div><img src={makeup} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="service_content">
-                                                <div className="service_title trans_200">Client management</div>
-                                                <div className="service_text trans_200">
-                                                    <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui ferme ntum eros hendrerit, id lobortis.</p>
+                                        <div className="divelement service d-flex flex-row align-items-center justify-content-start trans_200">
+                                            <div className="divelement service_icon"><div><img src={makeup} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement service_content">
+                                                <div className="divelement service_title trans_200">Client management</div>
+                                                <div className="divelement service_text trans_200">
+                                                    <p>Add your clients to the system and manage them so you can identify your regular clients.</p>
                                                 </div>
                                             </div>
                                         </div>
     
-                                        <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
-                                            <div className="service_icon service_icon_2"><div><img src={cream} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="service_content">
-                                                <div className="service_title trans_200">Report generation</div>
-                                                <div className="service_text trans_200">
-                                                    <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui ferme ntum eros hendrerit, id lobortis.</p>
+                                        <div className="divelement service d-flex flex-row align-items-center justify-content-start trans_200">
+                                            <div className="divelement service_icon service_icon_2"><div><img src={cream} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement service_content">
+                                                <div className="divelement service_title trans_200">Report generation</div>
+                                                <div className="divelement service_text trans_200">
+                                                    <p>Generate reports to get an idea about the appointments you had for a period of time.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -236,26 +245,26 @@ class Main extends Component {
                                     </div>
     
                                   
-                                    <div className="owl-item">
+                                    <div className="divelement owl-item">
                                         
                                       
-                                        <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
-                                            <div className="service_icon service_icon_flip"><div><img src={makeup2} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="service_content">
-                                                <div className="service_title trans_200">Provide System User Accessibility</div>
-                                                <div className="service_text trans_200">
-                                                    <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui ferme ntum eros hendrerit, id lobortis.</p>
+                                        <div className="divelement service d-flex flex-row align-items-center justify-content-start trans_200">
+                                            <div className="divelement service_icon service_icon_flip"><div><img src={makeup2} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement service_content">
+                                                <div className="divelement service_title trans_200">Provide System User Accessibility</div>
+                                                <div className="divelement service_text trans_200">
+                                                    <p>The facility to assign multiple admins and co-workers to handle the system with various levels of authentication.</p>
                                                 </div>
                                             </div>
                                         </div>
     
                                        
-                                        <div className="service d-flex flex-row align-items-center justify-content-start trans_200">
-                                            <div className="service_icon service_icon_3"><div><img src={cream} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="service_content">
-                                                <div className="service_title trans_200">Keratin Streightening</div>
-                                                <div className="service_text trans_200">
-                                                    <p>In vitae nisi aliquam, scelerisque leo a, volutpat sem. Vivamus rutrum dui ferme ntum eros hendrerit, id lobortis.</p>
+                                        <div className="divelement service d-flex flex-row align-items-center justify-content-start trans_200">
+                                            <div className="divelement service_icon service_icon_3"><div><img src={cream} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement service_content">
+                                                <div className="divelement service_title trans_200">SMS services</div>
+                                                <div className="divelement service_text trans_200">
+                                                    <p>Provides SMS facility for notification purposes before the respective appointments for your clients.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -271,71 +280,71 @@ class Main extends Component {
     
     
     
-        <div className="testimonials">
-            <div className="parallax_background" data-image-src={testimonial}></div>
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-9">
-                        <div className="section_title_container">
-                            <div className="section_title"><h1>Testimonials</h1></div>
-                            <p>Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum dolor sit amet.</p>
+        <div className="divelement testimonials">
+            <div className="divelement parallax_background" data-image-src={testimonial2}></div>
+            <div className="divelement container">
+                <div className="divelement row">
+                    <div className="divelement col-lg-9">
+                        <div className="divelement section_title_container">
+                            <div className="divelement section_title"><h1>Testimonials</h1></div>
+                            <p>Assuring the best for your company.</p>
                         </div>
                     </div>
                 </div>
-                <div className="row testimonials_row">
-                    <div className="col">
-                        <div className="section_expander">
+                <div className="divelement row testimonials_row">
+                    <div className="divelement col">
+                        <div className="divelement section_expander">
                             
                          
-                            <div className="testimonials_slider_container">
-                                <div className="owl-carousel owl-theme testimonials_slider">
+                            <div className="divelement testimonials_slider_container">
+                                <div className="divelement owl-carousel owl-theme testimonials_slider">
                                     
                                    
-                                    <div className="owl-item">
-                                        <div className="testimonial_container">
-                                            <div className="testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
-                                                <div className="testimonial_image"><img src={author_1} alt="img"></img></div>
-                                                <div className="testimonial_title">The perfect hair</div>
-                                                <div className="testimonial_text">
+                                    <div className="divelement owl-item">
+                                        <div className="divelement testimonial_container">
+                                            <div className="divelement testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
+                                                <div className="divelement testimonial_image"><img src={author_1} alt="img"></img></div>
+                                                <div className="divelement testimonial_title">The reservation system</div>
+                                                <div className="divelement testimonial_text">
                                                     <p>Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit.</p>
                                                 </div>
-                                                <div className="testimonial_author">Jessica Smith, Client</div>
+                                                <div className="divelement testimonial_author">Jessica Smith, Client</div>
                                             </div>
                                         </div>
                                     </div>
     
                                   
-                                    <div className="owl-item">
-                                        <div className="testimonial_container">
-                                            <div className="testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
-                                                <div className="testimonial_image"><img src={author_2} alt="img"></img></div>
-                                                <div className="testimonial_title">I just love my hair</div>
-                                                <div className="testimonial_text">
+                                    <div className="divelement owl-item">
+                                        <div className="divelement testimonial_container">
+                                            <div className="divelement testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
+                                                <div className="divelement testimonial_image"><img src={author_2} alt="img"></img></div>
+                                                <div className="divelement testimonial_title">Convinient to handle appointments</div>
+                                                <div className="divelement testimonial_text">
                                                     <p>Mattis effic iturut magna. Pellentesque sit am et tellus blandit. Etiam nec odio vestibul. Etiam nec odio vestibulum est mat tis effic iturut magna. Pellentesque sit amet tellus.</p>
                                                 </div>
-                                                <div className="testimonial_author">Jessica Smith, Client</div>
+                                                <div className="divelement testimonial_author">Jessica Smith, Client</div>
                                             </div>
                                         </div>
                                     </div>
     
                                    
-                                    <div className="owl-item">
-                                        <div className="testimonial_container">
-                                            <div className="testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
-                                                <div className="testimonial_image"><img src={author_3} alt="img"></img></div>
-                                                <div className="testimonial_title">The best hair salon</div>
-                                                <div className="testimonial_text">
+                                    <div className="divelement owl-item">
+                                        <div className="divelement testimonial_container">
+                                            <div className="divelement testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
+                                                <div className="divelement testimonial_image"><img src={author_3} alt="img"></img></div>
+                                                <div className="divelement testimonial_title">Efficient to handle reservations</div>
+                                                <div className="divelement testimonial_text">
                                                     <p>Retiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit.</p>
                                                 </div>
-                                                <div className="testimonial_author">Jessica Smith, Client</div>
+                                                <div className="divelement testimonial_author">Jessica Smith, Client</div>
                                             </div>
                                         </div>
                                     </div>
     
                                 </div>
                             </div>
-                            <div className="testimonials_more">
-                                <div className="testimonials_more_button ml-auto mr-auto trans_200"><a href="#">load more</a></div>
+                            <div className="divelement testimonials_more">
+                                <div className="divelement testimonials_more_button ml-auto mr-auto trans_200"><a href="#">load more</a></div>
                             </div>
                         </div>
                     </div>
@@ -346,39 +355,39 @@ class Main extends Component {
    
     
         <footer className="footer">
-            <div className="parallax_background" data-image-src={footer}></div>
+            <div className="divelement parallax_background" data-image-src={wallpaper5}></div>
   
-            <div className="footer_container">
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
-                            <div className="section_title_container">
-                                <div className="section_title"><h1>Get in touch</h1></div>
-                                <p>Maximus mauris sceleri sque, at rutrum nulla dictum.</p>
+            <div className="divelement footer_container">
+                <div className="divelement container">
+                    <div className="divelement row">
+                        <div className="divelement col">
+                            <div className="divelement section_title_container">
+                                <div className="divelement section_title"><h1>Get in touch</h1></div>
+                                <p>Contact us to clarify your doubts.</p>
                             </div>
                         </div>
                     </div>
-                    <div className="row footer_row">
-                        <div className="col-lg-4 footer_col">
-                            <div className="contact_info">
-                                <div className="footer_title">Contact Info</div>
-                                <div className="contact_info_list">
+                    <div className=" row footer_row">
+                        <div className="divelement col-lg-4 footer_col">
+                            <div className="divelement contact_info">
+                                <div className="divelement footer_title">Contact Info</div>
+                                <div className="divelement contact_info_list">
                                     <ul>
-                                        <li className="d-flex flex-row align-items-start justify-content-start">
-                                            <div><div className="contact_info_icon"><img src={placeholder} alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="contact_info_content">410, 22 Galle Rd, colpittiya 00300</div>
+                                        <li className=" d-flex flex-row align-items-start justify-content-start">
+                                            <div className="divelement"><div className="divelement contact_info_icon"><img src={placeholder} alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement contact_info_content">410, 22 Galle Rd, colpittiya 00300</div>
                                         </li>
                                         <li className="d-flex flex-row align-items-center justify-content-start">
-                                            <div><div className="contact_info_icon"><img src={phone} alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="contact_info_content">+94 117 021 540</div>
+                                            <div className="divelement"><div className="divelement contact_info_icon"><img src={phone} alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement contact_info_content">+94 117 021 540</div>
                                         </li>
-                                        <li className="d-flex flex-row align-items-center justify-content-start">
-                                            <div><div className="contact_info_icon"><img src={message} alt="https://www.flaticon.com/authors/freepik"></img></div></div>
-                                            <div className="contact_info_content">info@spemai.com</div>
+                                        <li className=" d-flex flex-row align-items-center justify-content-start">
+                                            <div><div className="divelement contact_info_icon"><img src={message} alt="https://www.flaticon.com/authors/freepik"></img></div></div>
+                                            <div className="divelement contact_info_content">info@spemai.com</div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div className="social">
+                                <div className="divelement social">
                                     <ul className="d-flex flex-row align-items-center justify-content-start">
                                         <li><a href="#"><i className="fa fa-pinterest" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -390,22 +399,22 @@ class Main extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-8">
-                            <div className="footer_title">Leave a comment</div>
-                            <div className="contact_form_container">
+                        <div className="divelement col-lg-8">
+                            <div className="divelement footer_title">Leave a comment</div>
+                            <div className="divelement contact_form_container">
                                 <form action="#" id="contact_form" className="contact_form">
                                     <div>
-                                        <div className="row">
-                                            <div className="col-lg-6">
+                                        <div className="divelement row">
+                                            <div className="divelement col-lg-6">
                                                 <input type="text" placeholder="Name" className="contact_input" required="required"></input>
                                             </div>
-                                            <div className="col-lg-6">
+                                            <div className="divelement col-lg-6">
                                                 <input type="email" placeholder="E-mail" className="contact_input" required="required"></input>
                                             </div>
                                         </div>
                                     </div>
-                                    <div><input type="text" placeholder="Subject" className="contact_input"></input></div>
-                                    <div><textarea className="contact_input contact_textarea" placeholder="Message" required="required"></textarea></div>
+                                    <div className="divelement"><input type="text" placeholder="Subject" className="contact_input"></input></div>
+                                    <div className="divelement"><textarea className="contact_input contact_textarea" placeholder="Message" required="required"></textarea></div>
                                     <button className="contact_form_button">send message</button>
                                 </form>
                             </div>
@@ -413,8 +422,8 @@ class Main extends Component {
                     </div>
                 </div>
             </div>
-            <div className="footer_bar d-flex flex-row align-items-center justify-content-start">
-                <div className="copyright">
+            <div className="divelement footer_bar d-flex flex-row align-items-center justify-content-start">
+                <div className="divelement copyright">
     Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | developed <i className="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://spemai.com/" target="_blank">Spemai</a>
    </div>
             </div>

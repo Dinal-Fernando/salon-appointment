@@ -169,11 +169,11 @@
 	{
 		display: none;
 	}
-	.app
+	.appstyle
 	{
 		width: 221px;
 	}
-	.app.active
+	.appstyle.active
 	{
 		width: 331px;
 	}

@@ -1919,7 +1919,7 @@ appointment.is_canceled?
 
                                <td>
                                   
-                                   <b>Stylist:-</b> {value.employee_name}
+                                   <b>Employee:-</b> {value.employee_name}
                                   
                               </td>
 
@@ -1990,7 +1990,7 @@ appointment.is_canceled?
 
                                <td>
                                   
-                                   <b>Stylist:-</b> {value.employee_name}
+                                   <b>Employee:-</b> {value.employee_name}
                                   
                               </td>
 

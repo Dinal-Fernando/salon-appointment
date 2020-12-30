@@ -3,7 +3,7 @@ import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGr
 import * as BaseService from "../../../BaseService.js";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import { useHistory } from 'react-router';
-
+import wallpaper1 from "../../../images/wallpaper1.png";
 
 import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
@@ -196,7 +196,7 @@ if (curHr < 12) {
 
   render() {
     return (
-      <div className="animated fadeIn">
+      <div  className="animated fadeIn">
 
 
 <ToastContainer
@@ -213,13 +213,13 @@ pauseOnHover
 {/* Same as */}
 <ToastContainer />
 
-      <div className="app flex-row align-items-center">
+      <div className="app flex-row align-items-center" style={{backgroundImage:`url(${wallpaper1})`}}>
 
                <div className="sweet-loading text-center" style={{zIndex:"5"}}>
         <ClockLoader
           css={override}
           size={75}
-          color={"#123abc"}
+          color={"white"}
           loading={this.state.loading}
         />
       </div>
@@ -232,11 +232,11 @@ pauseOnHover
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>
-                <Card className="p-4">
+                <Card className="p-4" style={{backgroundColor:"black",opacity:"0.7"}}>
                   <CardBody>
-                    <Form onSubmit={this.onSubmitHandler}>
-                      <h1>Login</h1>
-                      <p className="text-muted">Sign in to your account</p>
+                    <Form onSubmit={this.onSubmitHandler} >
+                      <h1 style={{color:"white"}}>Login</h1>
+                      <p className="text-muted">Sign in to your reservation system account</p>
       
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">

@@ -35,7 +35,7 @@
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
-body
+.bodystyle
 {
 	font-family: 'Montserrat', sans-serif;
 	font-size: 14px;
@@ -44,7 +44,7 @@ body
 	color: #a5a5a5;
 	
 }
-div
+.divelement
 {
 	display: block;
 	position: relative;
@@ -156,7 +156,7 @@ button:active
 {
 	color: #db5246;
 }
-section
+.sectionstyle
 {
 	display: block;
 	position: relative;
@@ -541,7 +541,7 @@ section
 	border: solid 2px #ffbb00;
 	border-radius: 50%;
 }
-.app
+.appstyle
 {
 	position: absolute;
 	top: 0;
@@ -550,12 +550,12 @@ section
 	padding-right: 11px;
 	z-index: 1;
 }
-.app.active
+.appstyle.active
 {
 	width: 411px;
 	background: rgba(0,0,0,0.5);
 }
-.app.active::after
+.appstyle.active::after
 {
 	display: block;
 	position: absolute;
@@ -585,7 +585,7 @@ section
 	overflow: hidden;
 	padding-left: 53px;
 }
-.app.active .app_button
+.appstyle.active .app_button
 {
 	height: 74px;
 	background: transparent;
@@ -618,6 +618,7 @@ section
 .app_button_close
 {
 	position: absolute;
+	
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
@@ -638,7 +639,7 @@ section
 	-o-transition: all 400ms 200ms ease;
 	transition: all 400ms 200ms ease;
 }
-.app.active .app_button_close
+.appstyle.active .app_button_close
 {
 	visibility: visible;
 	opacity: 1;
@@ -646,6 +647,7 @@ section
 .app_content
 {
 	position: fixed;
+	z-index: 2;
 	top: 0;
 	right: 0;
 	width: 281px;
