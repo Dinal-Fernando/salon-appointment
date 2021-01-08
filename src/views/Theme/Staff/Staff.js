@@ -3,7 +3,7 @@ import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
-
+import Avatar from '@material-ui/core/Avatar';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Back from "../../../assets/back.png";
@@ -122,6 +122,9 @@ class Staff extends Component {
       isuser:0,
       searchString:"",
       profilepic:"",
+      profilepicupdate:"",
+      updateprofilepic:"",
+      isPicUpdate:false,
     };
 
     //this.toggle = this.toggle.bind(this);
@@ -363,7 +366,11 @@ mobileNumber:"",
 
 
 
-
+updatePicture=()=>{
+  this.setState({
+    isPicUpdate:true
+  })
+}
 
 
 
@@ -476,6 +483,7 @@ address1:"",
 address2:"",
 city:"",
 mobileNumber:"",
+profilepic:"",
     });
   }
   toggleLarge1() {
@@ -787,11 +795,91 @@ mobileNumber:"",
 
     if(this.state.mobileisUpdated===true)
     {
-      document.getElementById("updatebtn").disabled=true;
+
+      if(this.state.isPicUpdate && this.state.profilepicupdate!=="")
+      {
+
+ document.getElementById("updatebtn").disabled=true;
       document.getElementById("deletebtn").disabled=true;
 
       if(this.state.mobileNumber.length===9)
-{
+      {
+
+
+      this.setState({
+        mobilefinal:this.state.mobileNumber,
+        dialcodefinal:this.state.dialCodeupd,
+        countryfinal:this.state.Country
+      },()=>{
+
+        const values={
+
+          name: this.state.fullnameupd,
+      nic: this.state.Nicupd,
+      address_line1: this.state.address1upd,
+      address_line2: this.state.address2upd,
+      city: this.state.cityupd,
+      country: this.state.countryfinal,
+      country_code: this.state.dialcodefinal,
+      mobile: this.state.mobilefinal,
+      profile_pic:this.state.profilepicupdate
+
+        }
+      
+        const url = "/employee/update/";
+        BaseService.UpdateService(url, values,this.state.updateId)
+          .then((res) => {
+           
+            console.log("response"+res)
+            if (res.data.success === true) {
+             // this.receivedData(1,1);
+             Swal.fire(
+              'Good job!',
+              'successfuly updated staff',
+              'success'
+            )
+            document.getElementById("updatebtn").disabled=false;
+            document.getElementById("deletebtn").disabled=false;
+              this.setState({
+                large3:false
+              })
+              this.receivedData(1, 1);
+            } else {
+              Swal.fire({
+                allowOutsideClick: false,
+                icon: 'error',
+                title: 'Oops...',
+                text: 'cannot perform operation!',
+                
+              })
+            }
+          })
+          .catch((err) => {
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: 'error',
+              title: 'Oops...',
+              text: 'cannot perform operation!',
+              
+            })
+            console.log("if error"+err);
+          });
+  
+
+      })
+
+    }else{
+      alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
+    }
+
+
+      }else{
+
+ document.getElementById("updatebtn").disabled=true;
+      document.getElementById("deletebtn").disabled=true;
+
+      if(this.state.mobileNumber.length===9)
+      {
 
 
       this.setState({
@@ -859,10 +947,85 @@ mobileNumber:"",
       alertify.alert("please provide valid phone number").setHeader('').set('closable', false);
     }
 
+      }
+     
 
     }else{
 
-      document.getElementById("updatebtn").disabled=true;
+
+       if(this.state.isPicUpdate && this.state.profilepicupdate!=="")
+      {
+
+              document.getElementById("updatebtn").disabled=true;
+      document.getElementById("deletebtn").disabled=true;
+
+
+      this.setState({
+        mobilefinal:this.state.mobilewithoutupd,
+        dialcodefinal:this.state.codewithoutupd,
+        countryfinal:this.state.countrywithoutupd
+      },()=>{
+
+        const values={
+
+          name: this.state.fullnameupd,
+      nic: this.state.Nicupd,
+      address_line1: this.state.address1upd,
+      address_line2: this.state.address2upd,
+      city: this.state.cityupd,
+      country: this.state.countryfinal,
+      country_code: this.state.dialcodefinal,
+      mobile: this.state.mobilefinal,
+      profile_pic:this.state.profilepicupdate
+
+        }
+       
+        const url = "/employee/update/";
+        BaseService.UpdateService(url, values,this.state.updateId)
+          .then((res) => {
+          
+            console.log("response"+res)
+            if (res.data.success === true) {
+             // this.receivedData(1,1);
+             Swal.fire(
+              'Good job!',
+              'successfuly updated staff',
+              'success'
+            )
+            document.getElementById("updatebtn").disabled=false;
+            document.getElementById("deletebtn").disabled=false;
+              this.setState({
+                large3:false
+              })
+              this.receivedData(1, 1);
+            } else {
+              Swal.fire({
+                allowOutsideClick: false,
+                icon: 'error',
+                title: 'Oops...',
+                text: 'cannot perform operation!',
+                
+              })
+            }
+          })
+          .catch((err) => {
+            Swal.fire({
+              allowOutsideClick: false,
+              icon: 'error',
+              title: 'Oops...',
+              text: 'cannot perform operation!',
+              
+            })
+            console.log("if error"+err);
+          });
+  
+
+
+      })
+      }else{
+
+
+              document.getElementById("updatebtn").disabled=true;
       document.getElementById("deletebtn").disabled=true;
 
 
@@ -928,11 +1091,16 @@ mobileNumber:"",
 
       })
 
+
+      }
+
+
+
     }
 
   }
 
-  pass=(valueId,name,nic,mobile,code)=>{
+  pass=(valueId,name,nic,mobile,code,pic)=>{
 
     this.setState(
       {
@@ -942,6 +1110,9 @@ mobileNumber:"",
         codewithoutupd:code,
         data7: [],
         data8: [],
+        updateprofilepic:"http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+pic,
+        isPicUpdate:false,
+        profilepicupdate:""
       });
 
       const paramdata= {
@@ -1151,12 +1322,18 @@ if(e===true)
     
   }
 
-      onDrop(picture) {
+      onDrop=(picturefiles,pictureDataURLS)=> {
         this.setState({
-            profilepic: picture,
+            profilepic: pictureDataURLS[0],
         });
     }
 
+
+      onDropUpdate=(picturefiles,pictureDataURLS)=> {
+        this.setState({
+            profilepicupdate: pictureDataURLS[0],
+        },console.log(this.state.profilepicupdate));
+    }
 
   onSelectLimit=(e)=>{
     this.setState({
@@ -1336,10 +1513,12 @@ if(e===true)
                         <CardBody>
   <ImageUploader
                 withIcon={true}
-                buttonText='Add staff image'
+                buttonText='Add staff profile image'
                 onChange={this.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                imgExtension={['.jpg', '.png']}
                 maxFileSize={5242880}
+                singleImage={true}
+                withPreview={true}
             />
                         </CardBody>
                         </Card>
@@ -1496,13 +1675,27 @@ if(e===true)
                         </Row>
                         <Card>
                         <CardBody>
+
+
+
+{this.state.isPicUpdate?
   <ImageUploader
                 withIcon={true}
-                buttonText='Choose images'
-                onChange={this.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                buttonText='Add staff profile image'
+                onChange={this.onDropUpdate}
+                imgExtension={['.jpg', '.png']}
                 maxFileSize={5242880}
+                singleImage={true}
+                withPreview={true}
             />
+            :
+<div className="d-flex justify-content-center">
+                                    <div className="divelement2">
+  <img src={this.state.updateprofilepic} className="main-profile-img" />
+  <i className="fa fa-edit" title="Click to update profile picture" onClick={()=>this.updatePicture()} style={{cursor:"pointer"}}></i>
+</div>
+</div>
+  }
                         </CardBody>
                         </Card>
                         <ModalFooter>
@@ -1633,6 +1826,13 @@ if(e===true)
                     <thead>
                       <tr>
                       <i className="fa fa-reorder fa-lg mt-4" style={{paddingTop:12}}></i>
+
+                         <th>
+                        
+                          <i className="fa fa-user-circle-o fa-fw"></i>
+                          Image
+                        </th>
+                      
                         <th>
                         
                           <i className="fa fa-user-circle-o fa-fw"></i>Staff
@@ -1657,12 +1857,14 @@ if(e===true)
                         <tr >
                            <i
                       className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
-                      onClick={()=>{this.toggleLarge3();this.pass(item.id,item.name,item.nic,item.mobile,item.country_code)}}
+                      onClick={()=>{this.toggleLarge3();this.pass(item.id,item.name,item.nic,item.mobile,item.country_code,item.profile_pic)}}
                     ></i>
                      <i
                       className="fa fa-trash fa-lg mt-4 ml-3" style={{cursor:"pointer"}}
-                      onClick={()=>{this.pass(item.id,item.name,item.nic,item.mobile,item.country_code);this.deletestaff1()}}
+                      onClick={()=>{this.pass(item.id,item.name,item.nic,item.mobile,item.country_code,item.profile_pic);this.deletestaff1()}}
                     ></i>
+                   
+                    <td>  <Avatar alt={item.name} src={"http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+item.profile_pic}  /></td>
                           <td>{item.name}</td>
                           <td>{item.nic}</td>
                           <td>{item.mobile}</td>

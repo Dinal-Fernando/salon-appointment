@@ -108,6 +108,50 @@ Input[type=number] {
 }
 
 .ondisable{
-  border-color: darkgreen;
+  border-color: darkgreen !important;
   background-color: #f8fff2 !important;
+}
+
+
+
+
+
+.NormalColor{
+  // border-color: grey;
+  // background-color: grey !important;
+}
+
+
+.divelement2 {
+ 
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #FFFFFF;
+  box-shadow: 0 0 8px 3px #B8B8B8;
+  position: relative;
+}
+
+.divelement2 img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.divelement2 i {
+  position: absolute;
+  top: 20px;
+  right: -7px;
+  /* border: 1px solid; */
+  border-radius: 50%;
+  /* padding: 11px; */
+  height: 30px;
+  width: 30px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: cornflowerblue;
+  box-shadow: 0 0 8px 3px #B8B8B8;
 }

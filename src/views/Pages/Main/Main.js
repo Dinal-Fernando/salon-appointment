@@ -16,9 +16,9 @@ import placeholder from "../../../images/placeholder.svg";
 import phone from "../../../images/phone-call.svg";
 import message from "../../../images/message.svg";
 import footer from "../../../images/footer.jpg";
-import author_1 from "../../../images/author_1.jpg";
-import author_2 from "../../../images/author_2.jpg";
-import author_3 from "../../../images/author_3.jpg";
+import author_1 from "../../../images/test1.jpg";
+import author_2 from "../../../images/test2.jpg";
+import author_3 from "../../../images/test3.jpg";
 import wallpaper1 from "../../../images/wallpaper1.png";
 import wallpaper2 from "../../../images/wallpaper2.jpg";
 import wallpaper4 from "../../../images/wallpaper4.jpg";
@@ -286,8 +286,8 @@ class Main extends Component {
                 <div className="divelement row">
                     <div className="divelement col-lg-9">
                         <div className="divelement section_title_container">
-                            <div className="divelement section_title"><h1>Testimonials</h1></div>
-                            <p>Assuring the best for your company.</p>
+                            <div className="divelement section_title"><h1>Benefits</h1></div>
+                            <p>Assuring the best for business.</p>
                         </div>
                     </div>
                 </div>
@@ -304,11 +304,11 @@ class Main extends Component {
                                         <div className="divelement testimonial_container">
                                             <div className="divelement testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
                                                 <div className="divelement testimonial_image"><img src={author_1} alt="img"></img></div>
-                                                <div className="divelement testimonial_title">The reservation system</div>
+                                                <div className="divelement testimonial_title">reservation notification system</div>
                                                 <div className="divelement testimonial_text">
-                                                    <p>Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit.</p>
+                                                    <p>It really helps to keep track of the reservation with the reseration reminders.</p>
                                                 </div>
-                                                <div className="divelement testimonial_author">Jessica Smith, Client</div>
+                                                <div className="divelement testimonial_author"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -320,9 +320,9 @@ class Main extends Component {
                                                 <div className="divelement testimonial_image"><img src={author_2} alt="img"></img></div>
                                                 <div className="divelement testimonial_title">Convinient to handle appointments</div>
                                                 <div className="divelement testimonial_text">
-                                                    <p>Mattis effic iturut magna. Pellentesque sit am et tellus blandit. Etiam nec odio vestibul. Etiam nec odio vestibulum est mat tis effic iturut magna. Pellentesque sit amet tellus.</p>
+                                                    <p>The calendar system helps to handle appointments without any difficulty.</p>
                                                 </div>
-                                                <div className="divelement testimonial_author">Jessica Smith, Client</div>
+                                                <div className="divelement testimonial_author"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -334,9 +334,9 @@ class Main extends Component {
                                                 <div className="divelement testimonial_image"><img src={author_3} alt="img"></img></div>
                                                 <div className="divelement testimonial_title">Efficient to handle reservations</div>
                                                 <div className="divelement testimonial_text">
-                                                    <p>Retiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit.</p>
+                                                    <p>The client and admin side dual method of handling reservations makes the process of handling reservations efficient.</p>
                                                 </div>
-                                                <div className="divelement testimonial_author">Jessica Smith, Client</div>
+                                                <div className="divelement testimonial_author"></div>
                                             </div>
                                         </div>
                                     </div>

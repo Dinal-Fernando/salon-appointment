@@ -308,7 +308,7 @@ this.state.events.map(async(val)=>{
   const dateparam = moment(val.start).format("YYYY-MM-DD");
   console.log("slot"+date);
   console.log(dateparam);
-  if(dateparam===date){
+  if(dateparam===date && !val.cancel){
 
     const data=await{
       id:val.id,
@@ -449,7 +449,7 @@ SmsCheck=(e)=>{
         
       });
 
-    console.log(info.event._def.extendedProps.desc)
+    console.log(info.event.start)
 
             const param={
           id:info.event.id
@@ -467,8 +467,9 @@ SmsCheck=(e)=>{
   showEmpName:info.event._def.extendedProps.desc,
   pastDateChecker:info.event.start,
  showDate:info.event.start.getDate()+"/"+(info.event.start.getMonth()+1)+"/"+info.event.start.getFullYear(),
-  showTimeStart:info.event.start.getHours()+":"+info.event.start.getMinutes()+":00",
-  showTimeEnd:info.event.end.getHours()+":"+info.event.end.getMinutes()+":00",
+ // showTimeStart:info.event.start.getHours()+":"+info.event.start.getMinutes()+":00",
+ showTimeStart:moment(info.event.start).format("HH:mm"),
+  showTimeEnd:moment(info.event.end).format("HH:mm"),
   iscanceled:res2.data.data.is_canceled
         },()=>{this.eventClickModelFunction();console.log(this.state.updateClient)})
        
@@ -1760,7 +1761,7 @@ document.getElementById("serviceupdate").value="";
                   <FormGroup>
                     <Label htmlFor="mobileNumber">Mobile Number</Label>
                     <PhoneInput
-                      containerStyle={{ width: "20px" }}
+                      
                       country={"lk"}
                       disabled={this.state.setdisable}
                       name="mobileNumber"
@@ -2943,7 +2944,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                   <FormGroup>
                     <Label htmlFor="mobileNumber">Mobile Number</Label>
                     <PhoneInput
-                      containerStyle={{ width: "20px" }}
+                      
                       country={"lk"}
                       disabled={this.state.setdisable}
                       name="mobileNumber"

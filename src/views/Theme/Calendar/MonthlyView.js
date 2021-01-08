@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-import {Card,CardBody,Button,Modal,ModalHeader,FormGroup,Label,Input,ModalBody} from "reactstrap";
+import {Card,CardBody,Button,Modal,ModalHeader,FormGroup,Label,Input,ModalBody,Table} from "reactstrap";
 import Back from "../../../assets/back.png";
 
 const localizer = momentLocalizer(moment);
@@ -167,8 +167,8 @@ this.setState({
   showAppTitle:info.title,
   showEmpName:this.state.empInfo[index1].resourceTitle,
   showDate:info.start.getDate()+"/"+(info.start.getMonth()+1)+"/"+info.start.getFullYear(),
-  showTimeStart:info.start.getHours()+":"+info.start.getMinutes(),
-  showTimeEnd:info.end.getHours()+":"+info.end.getMinutes(),
+ showTimeStart:moment(info.start).format("HH:mm"),
+  showTimeEnd:moment(info.end).format("HH:mm"),
 },()=>{this.eventClickModelFunction()})
 
 
@@ -947,11 +947,36 @@ await this.setState({
 <Modal isOpen={this.state.eventClickModel} toggle={this.eventClickModelFunction}>
           <ModalHeader toggle={this.eventClickModelFunction}><i className="fa fa-calendar-o fa-lg mt-4" style={{paddingRight:"8px"}}></i>View Event</ModalHeader>
           <ModalBody style={{backgroundImage: `url(${Back})`,backgroundSize:"auto"}}>
-          <p><b>Appointment Type:-</b> {this.state.showAppTitle} </p>
+           <Table responsive className="table table-striped table-dark  ">
+          <tbody>
+                  <tr>
+                        <td><b>Appointment Type</b></td>
+                        <td>{this.state.showAppTitle}</td>
+                  </tr>
+                  <tr>
+                          <td><b>Appointment assigned employee</b></td>
+                          <td>{this.state.showEmpName}</td>
+                  </tr>
+                  <tr>
+                          <td><b>Appointment Date</b></td>
+                          <td>{this.state.showDate}</td>
+                  </tr>
+                  <tr>
+                          <td><b>Appointment Start Time</b></td>
+                          <td> {this.state.showTimeStart}</td>
+                  </tr>
+                  <tr>
+                          <td><b>Appointment End Time</b></td>
+                          <td> {this.state.showTimeEnd}</td>
+                  </tr>
+              
+          </tbody>
+          </Table>
+          {/* <p><b>Appointment Type:-</b> {this.state.showAppTitle} </p>
         <p ><b>Appointment assigned employee:-</b> {this.state.showEmpName}</p>
         <p ><b>Appointment Date:-</b> {this.state.showDate}</p>
         <p ><b>Appointment Start Time:-</b> {this.state.showTimeStart}</p>
-        <p ><b>Appointment End Time:-</b> {this.state.showTimeEnd}</p><br></br>
+        <p ><b>Appointment End Time:-</b> {this.state.showTimeEnd}</p><br></br> */}
         {/* <div className="float-right">
         <Button color="dark" onClick={()=>{this.setState({cancelAppointment:true})}}>Cancel Appointment</Button>
         </div><br></br>

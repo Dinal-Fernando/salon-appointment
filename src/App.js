@@ -97,7 +97,7 @@ _onIdle(e) {
 
  componentDidMount = () => {
   
-  console.log(window.location.pathname.split("/")[1])
+  console.log(localStorage.getItem('AccessToken'))
   };
 
 
@@ -108,14 +108,14 @@ _onIdle(e) {
     <>
     
     
-    <IdleTimer
+    {/* <IdleTimer
             ref={ref => { this.idleTimer = ref }}
             element={document}
             onActive={this.onActive}
             onIdle={this.onIdle}
             onAction={this.onAction}
             debounce={250}
-            timeout={this.state.timeout} />
+            timeout={this.state.timeout} /> */}
 
 
 

@@ -33,14 +33,23 @@ class DefaultHeaderUnauthorized extends Component {
         },0)}</p> */}
 
 
-        <AppSidebarToggler className="d-lg-none" display="md" mobile />
+        {/* <AppSidebarToggler className="d-lg-none" display="md" mobile /> */}
         <AppNavbarBrand
          // full={{ src: logo, width: 100, height: 75, alt: 'CoreUI Logo' }}
          full={{ src: "http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+localStorage.getItem("logo"), width:80, height: 50, alt: logo }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
+          
         />
+      
         {/* <AppSidebarToggler className="d-md-down-none" display="lg" /> */}
-
+<Nav className="d-md-down-none" navbar>
+          <NavItem className="px-3">
+        
+           <h4><span class="badge bg-secondary">{ localStorage.getItem("name")}</span></h4>
+          </NavItem>
+         
+        
+        </Nav>
         {/* {localStorage.getItem("type")===2?
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
