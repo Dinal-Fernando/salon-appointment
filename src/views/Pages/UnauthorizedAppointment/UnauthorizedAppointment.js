@@ -102,7 +102,7 @@ import 'jspdf-autotable';
 import Countdown, { CountdownApi } from 'react-countdown';
 import { Dropdown as DropDownImage } from 'semantic-ui-react'
 
- import 'semantic-ui-css/semantic.min.css';
+//  import 'semantic-ui-css/semantic.min.css';
 // const override = css`
 //   display: block;
 //   margin: 0 auto;
