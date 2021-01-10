@@ -45,7 +45,7 @@ class DefaultHeaderUnauthorized extends Component {
 <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
         
-           <h4><span class="badge bg-secondary">{ localStorage.getItem("name")}</span></h4>
+           <h4><span className="badge bg-secondary">{ localStorage.getItem("name")}</span></h4>
           </NavItem>
          
         

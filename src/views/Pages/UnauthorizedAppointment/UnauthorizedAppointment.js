@@ -1,4 +1,5 @@
 import React, { Component,Suspense } from "react";
+import { Dropdown as DropDownImage } from 'semantic-ui-react'
 import {
   AppFooter,
   AppHeader,
@@ -100,7 +101,7 @@ import 'jspdf-autotable';
 //import ClockLoader from "react-spinners/ClockLoader";
 
 import Countdown, { CountdownApi } from 'react-countdown';
-import { Dropdown as DropDownImage } from 'semantic-ui-react'
+
 
 //  import 'semantic-ui-css/semantic.min.css';
 // const override = css`
@@ -1991,7 +1992,7 @@ document.getElementById("serviceupdate").value="";
                   {this.state.fullnameInput===""?
 
                   <div>
-                  <i class="motion fa fa-arrow-down pr-3" aria-hidden="true"></i>
+                  <i className="motion fa fa-arrow-down pr-3" aria-hidden="true"></i>
                 <strong>Add your details</strong>
               </div>
 :<></>}
@@ -2125,7 +2126,7 @@ document.getElementById("serviceupdate").value="";
 
 <hr style={{paddingBottom:"10px"}}></hr>
                 {this.state.arrayVal.map((val, index) => (
-                  <div>
+                  <div key={index}>
                     {(this.state.arrayVal.length -1)!== index && this.state.arrayVal.length > 1 && this.state.arrayVal[0]===true ? 
                        <span >
                        <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
@@ -2160,7 +2161,7 @@ document.getElementById("serviceupdate").value="";
     
     </MuiPickersUtilsProvider> */}
                     <Row>
-                      <Col xs="4">
+                      <Col xs="6" sm="6">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Start Time</Label>
                           <Input
@@ -2173,7 +2174,7 @@ document.getElementById("serviceupdate").value="";
                              
                             }}
                             disabled={this.state.arrayVal[index]}
-  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}                          >
                             <option value="">Time</option>
                             <option value="00:05">00:05</option>
                             <option value="00:10">00:10</option>
@@ -2477,7 +2478,7 @@ document.getElementById("serviceupdate").value="";
                           </Input>
                         </FormGroup>
                       </Col>
-                      <Col xs="8">
+                      <Col xs="6" sm="6">
                         <FormGroup>
                           <Label htmlFor="ccyear">Service</Label>
 
@@ -2489,10 +2490,10 @@ document.getElementById("serviceupdate").value="";
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}                          >
                             <option value="">Select service</option>
-                            {this.state.data2.map((val) => (
-                              <option value={val.id}>{val.name}     :- {val.time} min</option>
+                            {this.state.data2.map((val,index) => (
+                              <option key={index} value={val.id}>{val.name}     :- {val.time} min</option>
                             ))}
                           </Input>
                         </FormGroup>
@@ -2500,7 +2501,7 @@ document.getElementById("serviceupdate").value="";
                     </Row>
 
                     <Row>
-           <Col xs="6">
+           <Col xs="6" sm="6">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Additional Time Allocated</Label>
                           <Input
@@ -2511,7 +2512,7 @@ document.getElementById("serviceupdate").value="";
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                            className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                            className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}
                           >
                             <option value="">Duration</option>
                             <option value="0">0 min</option>
@@ -2526,7 +2527,7 @@ document.getElementById("serviceupdate").value="";
                           </Input>
                         </FormGroup>
                       </Col>
-                    <Col xs="6">
+                    <Col xs="6" sm="6">
                         <FormGroup>
                           <Label htmlFor="ccyear">Select Stylist</Label>
                           {/* <Input
@@ -2553,7 +2554,7 @@ document.getElementById("serviceupdate").value="";
                           
                                                                     <DropDownImage
                                                                      name="employee"
-                                                                     className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':'NormalColor'}
+                                                                     className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}
                             id="employee"  
     placeholder='Select Friend'
     fluid
@@ -3359,7 +3360,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
 
                 {this.state.arrayVal.map((val, index) => (
-                  <div>
+                  <div key={index}>
                     {(this.state.arrayVal.length -1)!== index && this.state.arrayVal.length > 1 && this.state.arrayVal[0]===true ? 
                        <span >
                        <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
@@ -3405,7 +3406,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                               this.checkStatusUpdate(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}
 
                           >
                             <option value="">Time</option>
@@ -3723,12 +3724,12 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                               this.checkStatusUpdate(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}
 
                           >
                             <option value="">Select service</option>
-                            {this.state.data2.map((val) => (
-                              <option value={val.id}>{val.name}     :- {val.time} min</option>
+                            {this.state.data2.map((val,index) => (
+                              <option key={index} value={val.id}>{val.name}     :- {val.time} min</option>
                             ))}
                           </Input>
                         </FormGroup>
@@ -3749,12 +3750,12 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                               this.checkSlotWithEmployee(e.target.value)
                             }}
                             disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}
 
                           >
                             <option value="">Select stylist</option>
-                            {this.state.empInfo.map((val) => (
-                              <option value={val.id}>{val.title}</option>
+                            {this.state.empInfo.map((val,index) => (
+                              <option key={index} value={val.id}>{val.title}</option>
                             ))}
                           </Input>
                         </FormGroup>
@@ -3773,7 +3774,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                               this.checkStatusUpdate(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}
 
                           >
                             <option value="">Duration</option>
