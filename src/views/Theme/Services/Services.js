@@ -653,7 +653,7 @@ onSelectLimit=(e)=>{
 
                       <FormGroup row>
                         <Col md="3">
-                          <Label htmlFor="select">catergory</Label>
+                          <Label htmlFor="select">category</Label>
                         </Col>
                         <Col xs="12" md="9">
                           <Input
@@ -663,7 +663,7 @@ onSelectLimit=(e)=>{
                             value={this.state.servCatergory}
                             onChange={this.OnChangeHandler}
                           >
-                            <option value="0">Select Catergory</option>
+                            <option value="0">Select Category</option>
                             {this.state.data2.map((item1) => (
                               <option value={item1.id}>{item1.name}</option>
                             ))}
@@ -701,7 +701,7 @@ onSelectLimit=(e)=>{
                             </Col>
                             <Col xs="6">
                               <FormGroup>
-                                <Label htmlFor="lastName">Price</Label>
+                                <Label htmlFor="lastName">Selling Price</Label>
                                 <Input
                                   type="number"
                                   id="price"
@@ -715,7 +715,7 @@ onSelectLimit=(e)=>{
                           </FormGroup>
                           <FormGroup row className="my-0">
                             <Label htmlFor="select" style={{ marginLeft: 10 }}>
-                              Time
+                              Average Time
                             </Label>
 
                             <Input

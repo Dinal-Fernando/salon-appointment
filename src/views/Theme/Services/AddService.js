@@ -389,7 +389,7 @@ this.props.displayservice(1,1);
 
                       <FormGroup row>
                         <Col md="3">
-                          <Label htmlFor="select">Catergory</Label>
+                          <Label htmlFor="select">Category</Label>
                         </Col>
                         <Col xs="12" md="9">
                           <Input
@@ -399,7 +399,7 @@ this.props.displayservice(1,1);
                             
                             onChange={this.OnChangeHandler}
                           >
-                            <option value="">Select Catergory</option>
+                            <option value="">Select Category</option>
                             {this.state.data2.map((item1) => (
                               <option value={item1.id}>{item1.name}</option>
                             ))}
@@ -416,7 +416,7 @@ this.props.displayservice(1,1);
                             marginLeft:"10px"
                           }}
                         >
-                          Add catergory and time
+                          Add category and time
                         </p>
                         <hr />
                         <Container fluid>
@@ -438,7 +438,7 @@ this.props.displayservice(1,1);
                             </Col>
                             <Col xs="6">
                               <FormGroup>
-                                <Label htmlFor="lastName">Price</Label>
+                                <Label htmlFor="lastName">Selling Price</Label>
                                 <Input
                                   type="number"
                                   id="price"
@@ -454,7 +454,7 @@ this.props.displayservice(1,1);
 
                           <FormGroup row className="my-0">
                             <Label htmlFor="select" style={{ marginLeft: "20px" }}>
-                              Time
+                             Average Time
                             </Label>
 
                             <Input

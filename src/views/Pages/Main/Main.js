@@ -53,7 +53,7 @@ class Main extends Component {
      
      <Header/>
         
-        <div className="divelement menu">
+        <div className="divelement menu1">
             <nav className="menu_nav">
                 <ul className="d-flex flex-column align-items-start justify-content-start">
                     <li className="active"><a href="index.html">Home</a></li>
