@@ -206,6 +206,18 @@ updateClient:"",
 
 
   componentDidMount = async () => {
+    window.onbeforeunload = function (e) {
+    e = e || window.event;
+
+    // For IE and Firefox prior to version 4
+    if (e) {
+        e.returnValue = 'Any string';
+    }
+
+    // For Safari
+    return 'Any string';
+};
+
    $('.fc-toolbar.fc-header-toolbar').addClass('row col-lg-12');
 
 
@@ -1059,7 +1071,9 @@ this.setState({
                 "Appointment successfuly inserted",
                 "success"
               );
-              window.location.reload();
+              this.setState({
+  events:[]
+},()=>this.eventInfo())
             } else {
           
               Swal.fire({
@@ -2627,7 +2641,9 @@ this.setState({
                 "Appointment successfuly updated",
                 "success"
               );
-              window.location.reload();
+        this.setState({
+  events:[]
+},()=>this.eventInfo())
             } else {
           
               Swal.fire({

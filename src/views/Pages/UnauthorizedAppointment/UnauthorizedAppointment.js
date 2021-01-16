@@ -265,7 +265,7 @@ updateClient:"",
 intervalVaalue:"",
 workspaceArray:[],
 workspaceID:"",
-
+makeDisable:false,
     };
   }
 
@@ -278,6 +278,24 @@ workspaceID:"",
 
 
   componentDidMount = async () => {
+
+
+window.onbeforeunload = function (e) {
+    e = e || window.event;
+
+    // For IE and Firefox prior to version 4
+    if (e) {
+        e.returnValue = 'Any string';
+    }
+
+    // For Safari
+    return 'Any string';
+};
+
+
+
+
+
 
 
                   let value=window.location.href.split("?");
@@ -445,7 +463,7 @@ getEmployeeData=()=>{
                      value:value.id,
                      resourceId:value.id,
                       resourceTitle:value.name,
-                      image:"http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+value.profile_pic
+                      image:"https://images.ereserv.me/"+value.profile_pic
                  }
 
                  console.log(data)
@@ -1446,7 +1464,6 @@ this.setState({
 
     },()=>this.ShowAvailableSlots(this.state.appdateupdate));
 
-    
 
   };
 
@@ -1612,7 +1629,7 @@ timeclickcheck=(e)=>{
   checkStatus = (e, index) => {
 
   
-console.log("vidula",document.querySelectorAll('[id="service"]')[index].value)
+console.log("vidula",document.querySelectorAll('.ui')[index].value)
     let servtime = 0;
     this.setState(
       {
@@ -1690,7 +1707,8 @@ console.log("vidula",document.querySelectorAll('[id="service"]')[index].value)
             .format("HH:mm");
 
             this.setState({
-              crossevent:"none"
+              crossevent:"none",
+              makeDisable:true
             })
         
 
@@ -1719,7 +1737,7 @@ console.log("vidula",document.querySelectorAll('[id="service"]')[index].value)
 
          document.getElementById("starttime").disabled=true;
 document.getElementById("duration").disabled=true;
-document.getElementById("employee").disabled=true;
+document.getElementsByClassName("ui").disabled=true;
 document.getElementById("service").disabled=true;
 
 
@@ -1733,7 +1751,7 @@ for (var j = 1; j < ele1.length; j++){
   ele1[j].disabled = true;
 }
 
-var ele2 = document.querySelectorAll('[id="employee"]');
+var ele2 = document.querySelectorAll('.ui');
 for (var k = 1; k < ele2.length; k++){
   ele2[k].disabled = true;
 }
@@ -1776,7 +1794,8 @@ alertify.message('we are checking availability...');
                   service: "",
                   cktime: true,
                   datedisable: true,
-                  crossevent:"visible"
+                  crossevent:"visible",
+                  makeDisable:false
                 });
               } else {
 
@@ -1795,7 +1814,7 @@ alertify.message('we are checking availability...');
 
 
 
-var ele12 = document.querySelectorAll('[id="employee"]');
+var ele12 = document.querySelectorAll('.ui');
 
   ele12[index].disabled = false;
   ele12[index].value = "";
@@ -2554,7 +2573,7 @@ document.getElementById("serviceupdate").value="";
                           
                                                                     <DropDownImage
                                                                      name="employee"
-                                                                     className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}
+                                                                     className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':this.state.makeDisable?'disabled':''}
                             id="employee"  
     placeholder='Select Friend'
     fluid

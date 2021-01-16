@@ -1110,7 +1110,7 @@ profilepic:"",
         codewithoutupd:code,
         data7: [],
         data8: [],
-        updateprofilepic:"http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+pic,
+        updateprofilepic:"https://images.ereserv.me/"+pic,
         isPicUpdate:false,
         profilepicupdate:""
       });
@@ -1864,7 +1864,7 @@ if(e===true)
                       onClick={()=>{this.pass(item.id,item.name,item.nic,item.mobile,item.country_code,item.profile_pic);this.deletestaff1()}}
                     ></i>
                    
-                    <td>  <Avatar alt={item.name} src={"http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+item.profile_pic}  /></td>
+                    <td>  <Avatar alt={item.name} src={"https://images.ereserv.me/"+item.profile_pic}  /></td>
                           <td>{item.name}</td>
                           <td>{item.nic}</td>
                           <td>{item.mobile}</td>

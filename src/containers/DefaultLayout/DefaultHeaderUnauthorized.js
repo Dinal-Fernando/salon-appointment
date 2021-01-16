@@ -36,7 +36,7 @@ class DefaultHeaderUnauthorized extends Component {
         {/* <AppSidebarToggler className="d-lg-none" display="md" mobile /> */}
         <AppNavbarBrand
          // full={{ src: logo, width: 100, height: 75, alt: 'CoreUI Logo' }}
-         full={{ src: "http://salonlogos.s3-website-ap-southeast-1.amazonaws.com/"+localStorage.getItem("logo"), width:80, height: 50, alt: logo }}
+         full={{ src: "https://images.ereserv.me/"+localStorage.getItem("logo"), width:80, height: 50, alt: logo }}
           minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
           
         />
@@ -71,7 +71,7 @@ class DefaultHeaderUnauthorized extends Component {
               <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
            
               {/* <DropdownItem onClick={()=>document.getElementById('lock').style.display="block"}><i className="fa fa-shield"></i> Lock Screen</DropdownItem> */}
-              <DropdownItem onClick={e => {localStorage.clear();window.location.href="/"}}><i className="fa fa-lock"></i> Logout</DropdownItem>
+              <DropdownItem onClick={e => {localStorage.clear();window.location.href="/"}}><i className="fa fa-lock"></i> Home</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>

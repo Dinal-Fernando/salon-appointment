@@ -138,7 +138,6 @@ h1::selection,
 h2::selection, 
 h3::selection, 
 h4::selection, 
-
 h6::selection
 {
 	
@@ -776,7 +775,7 @@ section
 4. Menu
 *********************************/
 
-.menu
+.menu1
 {
 	position: fixed;
 	top: -353px;
@@ -795,7 +794,7 @@ section
 	-o-transition: all 600ms ease;
 	transition: all 600ms ease;
 }
-.menu.active
+.menu1.active
 {
 	visibility: visible;
 	opacity: 1;
