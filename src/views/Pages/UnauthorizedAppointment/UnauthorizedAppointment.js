@@ -211,7 +211,7 @@ countdownApi: CountdownApi | null = null;
       value: "",
       starttime: "",
       appointmentDet: [],
-      duration: "",
+      duration: 0,
       employee: "",
       service: "",
       fullnameInput: "",
@@ -266,6 +266,7 @@ intervalVaalue:"",
 workspaceArray:[],
 workspaceID:"",
 makeDisable:false,
+
     };
   }
 
@@ -1629,7 +1630,7 @@ timeclickcheck=(e)=>{
   checkStatus = (e, index) => {
 
   
-console.log("vidula",document.querySelectorAll('.ui')[index].value)
+
     let servtime = 0;
     this.setState(
       {
@@ -1639,6 +1640,7 @@ console.log("vidula",document.querySelectorAll('.ui')[index].value)
         var time2 = moment().format("YYYY-MM-DD");
 
         if (this.state.starttime !== "" && time2 === this.state.appdate) {
+        
           if (
             Date.parse(
               this.state.appdate + " " + this.state.starttime + ":00"
@@ -1682,6 +1684,7 @@ console.log("vidula",document.querySelectorAll('.ui')[index].value)
             this.setState({
               starttime: "",
             });
+           
           }
         }
 
@@ -1689,7 +1692,7 @@ console.log("vidula",document.querySelectorAll('.ui')[index].value)
           this.state.appdate !== "" &&
           this.state.starttime !== "" &&
           this.state.employee !== "" &&
-          this.state.duration !== "" &&
+         
           this.state.service !== ""
         ) {
           this.state.data2.map((item) => {
@@ -1699,8 +1702,7 @@ console.log("vidula",document.querySelectorAll('.ui')[index].value)
           });
 
 
-          const durationminutes =
-            parseInt(this.state.duration) + parseInt(servtime);
+          const durationminutes = parseInt(servtime);
 
           const endtime = moment(this.state.starttime + ":00", "HH:mm:ss")
             .add(durationminutes, "minutes")
@@ -1716,7 +1718,7 @@ console.log("vidula",document.querySelectorAll('.ui')[index].value)
             employee: parseInt(this.state.employee),
             date: this.state.appdate,
             start_time: this.state.starttime + ":00",
-            duration: parseInt(this.state.duration),
+            duration: 0,
             service: parseInt(this.state.service),
             workspace_id:this.state.workspaceID
           };
@@ -1725,7 +1727,7 @@ console.log("vidula",document.querySelectorAll('.ui')[index].value)
             employee: parseInt(this.state.employee),
             date: this.state.appdate,
             start_time: this.state.starttime + ":00",
-            duration: parseInt(this.state.duration),
+            duration: 0,
             service: parseInt(this.state.service),
             lasttime: endtime + ":00",
             indexarr: index,
@@ -1736,7 +1738,7 @@ console.log("vidula",document.querySelectorAll('.ui')[index].value)
           document.getElementById("resetbtn").disabled=true;
 
          document.getElementById("starttime").disabled=true;
-document.getElementById("duration").disabled=true;
+// document.getElementById("duration").disabled=true;
 document.getElementsByClassName("ui").disabled=true;
 document.getElementById("service").disabled=true;
 
@@ -1746,10 +1748,10 @@ for (var i = 1; i < ele.length; i++){
   ele[i].disabled = true;
 }
 
-var ele1 = document.querySelectorAll('[id="duration"]');
-for (var j = 1; j < ele1.length; j++){
-  ele1[j].disabled = true;
-}
+// var ele1 = document.querySelectorAll('[id="duration"]');
+// for (var j = 1; j < ele1.length; j++){
+//   ele1[j].disabled = true;
+// }
 
 var ele2 = document.querySelectorAll('.ui');
 for (var k = 1; k < ele2.length; k++){
@@ -1790,7 +1792,7 @@ alertify.message('we are checking availability...');
                   appointmentDetails: [...this.state.appointmentDetails, data],
                   starttime: "",
                   employee: "",
-                  duration: "",
+                  duration: 0,
                   service: "",
                   cktime: true,
                   datedisable: true,
@@ -1807,17 +1809,17 @@ alertify.message('we are checking availability...');
                 ele10[index].disabled = false;
                 ele10[index].value = "";
 
-                var ele11 = document.querySelectorAll('[id="duration"]');
+  //               var ele11 = document.querySelectorAll('[id="duration"]');
 
-  ele11[index].disabled = false;
-  ele11[index].value = "";
+  // ele11[index].disabled = false;
+  // ele11[index].value = "";
 
 
 
-var ele12 = document.querySelectorAll('.ui');
+// var ele12 = document.querySelectorAll('.ui');
 
-  ele12[index].disabled = false;
-  ele12[index].value = "";
+//   ele12[index].disabled = false;
+//   ele12[index].value = "";
 
 
 var ele13 = document.querySelectorAll('[id="service"]');
@@ -1948,7 +1950,7 @@ console.log(index)
         datedisable: false,
         starttime: "",
         service: "",
-        duration: "",
+        duration: 0,
         employee: "",
 
         arrayVal: [true],
@@ -1958,7 +1960,7 @@ console.log(index)
  
     );
 document.getElementById("starttime").value="";
-document.getElementById("duration").value="";
+// document.getElementById("duration").value="";
 document.getElementById("employee").value="";
 document.getElementById("service").value="";
 
@@ -2519,8 +2521,8 @@ document.getElementById("serviceupdate").value="";
                       </Col>
                     </Row>
 
-                    <Row>
-           <Col xs="6" sm="6">
+                    <Row >
+           {/* <Col xs="6" sm="6">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Additional Time Allocated</Label>
                           <Input
@@ -2545,8 +2547,8 @@ document.getElementById("serviceupdate").value="";
                             <option value="120">2 hr</option>
                           </Input>
                         </FormGroup>
-                      </Col>
-                    <Col xs="6" sm="6">
+                      </Col> */}
+                    <Col className="pl-5" xs="10" sm="10">
                         <FormGroup>
                           <Label htmlFor="ccyear">Select Stylist</Label>
                           {/* <Input
@@ -2572,12 +2574,14 @@ document.getElementById("serviceupdate").value="";
 
                           
                                                                     <DropDownImage
+                                                                    style={{zIndex:"1000"}}
                                                                      name="employee"
                                                                      className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':this.state.makeDisable?'disabled':''}
                             id="employee"  
     placeholder='Select Friend'
     fluid
     selection
+   
     options={this.state.empInfo}
     disabled={this.state.arrayVal[index]}
      onChange={(e,{value}) => {this.onDropDownChange(value,index)
