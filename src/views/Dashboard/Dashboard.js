@@ -417,7 +417,8 @@ class Dashboard extends Component {
 
     const dateparam = moment(this.state.date).format("YYYY-MM-DD");
     const paramdata = {
-      first_date: moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),
+      first_date: "2020-01-01",
+      //first_date: moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),
       second_date: dateparam,
     };
 
@@ -441,14 +442,14 @@ await res2.data.data.map(async value=>{
       end:value2.end_time
     }
 
-await this.setState({
+ this.setState({
   events:[data,...this.state.events]
 },console.log(this.state.events))
   })
 
-  await this.clientInfo();
+   
 })
-
+await this.clientInfo();
 
         }else{
 
@@ -471,7 +472,7 @@ await this.setState({
     let total2=0;
 
     const url2 = "/employee/get/";
-     BaseService.GetDataWithoutParams(url2)
+    await BaseService.GetDataWithoutParams(url2)
       .then((res) => {
         if (res.data.success === true) {
          
@@ -499,7 +500,7 @@ await this.setState({
 
 
     const url = "/client/get/";
-   await BaseService.GetDataWithoutParams(url)
+  await  BaseService.GetDataWithoutParams(url)
       .then((res) => {
         if (res.data.success === true) {
           this.setState({
@@ -524,15 +525,15 @@ await this.setState({
       });
 
       const url1 = "/service/get/";
-      BaseService.GetDataWithoutParams(url1)
-        .then((res) => {
+    await  BaseService.GetDataWithoutParams(url1)
+        .then(async(res) => {
           if (res.data.success === true) {
             this.setState({
               data2: res.data.data,
             });
 
             
-              this.state.events.map(val2=>{
+             await this.state.events.map(val2=>{
 
               
                 const index1=res.data.data.findIndex((res)=>{
@@ -575,16 +576,16 @@ await this.setState({
         });
 
 
-        var value=this.state.events.length/this.state.client.length;
-        var value2=this.state.events.length/this.state.emp.length;
-        var value3=this.state.client.length/this.state.emp.length;
+        var value=await this.state.events.length/this.state.client.length;
+        var value2=await this.state.events.length/this.state.emp.length;
+        var value3=await this.state.client.length/this.state.emp.length;
 
-        this.setState({
+       await this.setState({
           avg1:value2,
           avg2:value,
           avg3:value3,
           
-        })
+        },()=>console.log("Avg1"+this.state.avg1))
   }
 
 
@@ -633,7 +634,8 @@ await this.setState({
                 <div>Total Appointments</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Line data={cardChartData2} options={cardChartOpts2} height={70} />
+              {/* <span className="text-muted pl-3">(Past 30 days)</span> */}
+                {/* <Line data={cardChartData2} options={cardChartOpts2} height={70} /> */}
               </div>
             </Card>
           </Col>
@@ -654,10 +656,10 @@ await this.setState({
                   </Dropdown>
                 </ButtonGroup> */}
               <div className="text-value">{this.state.client.length}</div>
-                <div>Total Clients</div>
+                <div>Total active Clients</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Line data={cardChartData1} options={cardChartOpts1} height={70} />
+                {/* <Line data={cardChartData1} options={cardChartOpts1} height={70} /> */}
               </div>
             </Card>
           </Col>
@@ -678,10 +680,10 @@ await this.setState({
                   </Dropdown> 
                 </ButtonGroup>*/}
                 <div className="text-value">{this.state.emp.length}</div>
-                <div>Staff Members</div>
+                <div>Active Staff Members</div>
               </CardBody>
               <div className="chart-wrapper" style={{ height: '70px' }}>
-                <Line data={cardChartData3} options={cardChartOpts3} height={70} />
+                {/* <Line data={cardChartData3} options={cardChartOpts3} height={70} /> */}
               </div>
             </Card>
           </Col>
@@ -702,10 +704,10 @@ await this.setState({
                   </ButtonDropdown>
                 </ButtonGroup> */}
                 <div className="text-value">{this.state.data2.length}</div>
-                <div>Total Services</div>
+                <div>Total active Services</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
-                <Bar data={cardChartData4} options={cardChartOpts4} height={70} />
+                {/* <Bar data={cardChartData4} options={cardChartOpts4} height={70} /> */}
               </div>
             </Card>
           </Col>
@@ -738,17 +740,17 @@ await this.setState({
                 <Row className="text-center">
                   <Col sm={12} md className="mb-sm-2 mb-0">
                     <div className="text-muted">Average Appointments per client</div>
-                    <strong>{parseInt(this.state.avg2)}</strong>
+                    <strong>{parseInt(this.state.avg2)>0?parseInt(this.state.avg2):'Not Available'}</strong>
                     <Progress className="progress-xs mt-2" color="success" value="40" />
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0 d-md-down-none">
                     <div className="text-muted">Average appointment per Staff member</div>
-                    <strong>{parseInt(this.state.avg1)}</strong>
+                    <strong>{parseInt(this.state.avg1)>0?parseInt(this.state.avg1):'Not Available'}</strong>
                     <Progress className="progress-xs mt-2" color="info" value="20" />
                   </Col>
                   <Col sm={12} md className="mb-sm-2 mb-0">
                     <div className="text-muted">Average Client per Staff Member</div>
-                    <strong>{parseInt(this.state.avg3)}</strong>
+                    <strong>{parseInt(this.state.avg3)>0?parseInt(this.state.avg3):'Not Available'}</strong>
                     <Progress className="progress-xs mt-2" color="warning" value="60" />
                   </Col>
                   {/* <Col sm={12} md className="mb-sm-2 mb-0">
@@ -823,9 +825,9 @@ await this.setState({
                         <div className="callout callout-info">
                           <small className="text-muted">Total sale price</small>
                           <br />
-                <strong className="h4">LKR {parseInt(this.state.totalPrice)}</strong>
+                <strong className="h4">{parseInt(this.state.totalPrice)>0?'LKR '+parseInt(this.state.totalPrice).toFixed(2):'Not Available'}</strong>
                           <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
+                            {/* <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} /> */}
                           </div>
                         </div>
                       </Col>
@@ -834,9 +836,9 @@ await this.setState({
                           <small className="text-muted">Average Sale per client</small>
                           <br />
 
-                <strong className="h4">LKR {parseInt(this.state.totalPrice/this.state.client.length)}</strong>
+                <strong className="h4">{this.state.totalPrice/parseInt(this.state.client.length)>0?'LKR '+(this.state.totalPrice/parseInt(this.state.client.length)).toFixed(2):"Not available"}</strong>
                           <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} />
+                            {/* <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} /> */}
                           </div>
                         </div>
                       </Col>
@@ -935,9 +937,9 @@ await this.setState({
                         <div className="callout callout-warning">
                           <small className="text-muted">Average sales per employee</small>
                           <br />
-                  <strong className="h4">LKR {parseInt(this.state.totalPrice/this.state.emp.length)}</strong>
+                  <strong className="h4">{parseInt(this.state.totalPrice/this.state.emp.length)>0?'LKR '+parseInt(this.state.totalPrice/this.state.emp.length).toFixed(2):'Not Available'}</strong>
                           <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(2, brandWarning)} options={sparklineChartOpts} width={100} height={30} />
+                            {/* <Line data={makeSparkLineData(2, brandWarning)} options={sparklineChartOpts} width={100} height={30} /> */}
                           </div>
                         </div>
                       </Col>
@@ -945,9 +947,9 @@ await this.setState({
                         <div className="callout callout-success">
                           <small className="text-muted">Cost of Sales</small>
                           <br />
-                  <strong className="h4">LKR {parseInt(this.state.totalCost)}</strong>
+                  <strong className="h4">{parseInt(this.state.totalCost)>0?'LKR '+parseInt(this.state.totalCost).toFixed(2):'Not Available'}</strong>
                           <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(3, brandSuccess)} options={sparklineChartOpts} width={100} height={30} />
+                            {/* <Line data={makeSparkLineData(3, brandSuccess)} options={sparklineChartOpts} width={100} height={30} /> */}
                           </div>
                         </div>
                       </Col>
@@ -978,7 +980,7 @@ await this.setState({
                         <div className="progress-group-header">
                           <i className="icon-globe progress-group-icon"></i>
                           <span className="title">Total Income</span>
-                          <span className="ml-auto font-weight-bold">LKR {parseInt(this.state.totalPrice)}</span>
+                          <span className="ml-auto font-weight-bold">{parseInt(this.state.totalPrice)>0?'LKR '+parseInt(this.state.totalPrice).toFixed(2):'Not Available'}</span>
                         </div>
                         <div className="progress-group-bars">
                           <Progress className="progress-xs" color="success" value="56" />
@@ -988,7 +990,7 @@ await this.setState({
                         <div className="progress-group-header">
                           <i className="fa fa-icon-money"></i>
                           <span className="title">Total Expenses</span>
-                          <span className="ml-auto font-weight-bold">LKR {parseInt(this.state.totalCost)}</span>
+                          <span className="ml-auto font-weight-bold">{parseInt(this.state.totalCost)>0?'LKR '+parseInt(this.state.totalCost).toFixed(2):'Not Available'}</span>
                         </div>
                         <div className="progress-group-bars">
                           <Progress className="progress-xs" color="success" value="15" />
@@ -998,7 +1000,7 @@ await this.setState({
                         <div className="progress-group-header">
                           <i ></i>
                           <span className="title">Total Profit</span>
-                          <span className="ml-auto font-weight-bold">LKR {parseInt(this.state.totalPrice-this.state.totalCost)}</span>
+                          <span className="ml-auto font-weight-bold">{parseInt(this.state.totalPrice-this.state.totalCost)>0?'LKR '+parseInt(this.state.totalPrice-this.state.totalCost).toFixed(2):'Not Available'}</span>
                         </div>
                         <div className="progress-group-bars">
                           <Progress className="progress-xs" color="success" value="11" />
@@ -1008,7 +1010,7 @@ await this.setState({
                         <div className="progress-group-header">
                           <i className="icon-social-linkedin progress-group-icon"></i>
                           <span className="title">% change in profit</span>
-                          <span className="ml-auto font-weight-bold">{((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice)===NaN ||((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice)<0?<p>0%</p>:<p>{((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice).toString()}%</p>}</span>
+                          <span className="ml-auto font-weight-bold">{((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice)>0?((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice).toFixed(2)+'%':'Not Available'}</span>
                         </div>
                         <div className="progress-group-bars">
                           <Progress className="progress-xs" color="success" value="8" />

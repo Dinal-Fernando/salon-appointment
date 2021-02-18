@@ -407,7 +407,7 @@ const url1 = "/service/get_workspace_details/";
                  this.setState({
             workspaceArray: res.data.data,
             data2: res.data.data.services
-          },()=>{this.getEmployeeData();this.eventInfo();});
+          },()=>{this.getEmployeeData();this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD"));});
 
             localStorage.setItem('latitude',res.data.data.latitude);
         localStorage.setItem('longitude',res.data.data.longitude);
@@ -616,6 +616,7 @@ if(e.target.checked===true)
 
 
 onSelectCalendar = (gate) => {
+this.eventInfo(moment(moment(gate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(gate).add(30,'d').toDate()).format("YYYY-MM-DD"));
 
   let calendarApi = this.calendarComponentRef.current.getApi();
     calendarApi.gotoDate(gate); // call a method on the Calendar object
@@ -782,12 +783,18 @@ onAppUpdate=()=>{
 
 
 
-  eventInfo=()=>{
+  eventInfo=(first,second)=>{
 
-    const dateparam = moment(moment().add(60,'d').toDate()).format("YYYY-MM-DD");
-    const paramdata = {
-      first_date: moment(moment().subtract(10,'d').toDate()).format("YYYY-MM-DD"),
-      second_date: dateparam,
+    // const dateparam = moment(moment().add(60,'d').toDate()).format("YYYY-MM-DD");
+    // const paramdata = {
+    //   first_date: moment(moment().subtract(10,'d').toDate()).format("YYYY-MM-DD"),
+    //   second_date: dateparam,
+    //   workspace_id:this.state.workspaceID
+    // };
+
+      const paramdata = {
+      first_date: first,
+      second_date: second,
       workspace_id:this.state.workspaceID
     };
 
@@ -1219,7 +1226,7 @@ this.generatePDF();
          
 this.setState({
   events:[]
-},()=>this.eventInfo())
+},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")))
              
             } else {
         
@@ -1302,7 +1309,7 @@ this.setState({
               );
        this.setState({
   events:[]
-},()=>this.eventInfo())
+},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")))
             } else {
           
               Swal.fire({
@@ -1359,7 +1366,7 @@ this.setState({
           this.setState({
             eventClickModel: false,
             events:[]
-          },()=>this.eventInfo());
+          },()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
 
      
 
@@ -2913,7 +2920,7 @@ document.getElementById("serviceupdate").value="";
               //window.location.reload();
 this.setState({
   events:[]
-},()=>this.eventInfo())
+},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")))
              
             } else {
         
@@ -3983,7 +3990,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                 }).format(this.state.jumpDate)}
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem header>
+                <DropdownItem header style={{width:"310px"}}>
                   {" "}
                   <Calendar
                     onChange={this.onSelectCalendar}
@@ -4173,7 +4180,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
           events={this.state.events}
           initialView="resourceTimelineDay"
           headerToolbar={{
-            left: "prev,next today",
+            left: "prev,next",
             center: "title",
             right: "resourceTimelineDay,resourceTimelineWeek",
           }}

@@ -34,9 +34,9 @@ import {
   CardHeader,
   Container,
 } from "reactstrap";
-import Scissor from "../../../assets/Scissor.png";
+//import Scissor from "../../../assets/Scissor.png";
 import AddService from "./AddService";
-
+import Scissor from "../../../assets/service.jpg";
 
 class Services extends Component {
   constructor(props) {

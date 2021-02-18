@@ -246,7 +246,7 @@ updateClient:"",
 
           });
          
-          this.eventInfo();
+          this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD"));
      
 
         } else {
@@ -381,6 +381,8 @@ if(e.target.checked===true)
 
 onSelectCalendar = (gate) => {
 
+
+this.eventInfo(moment(moment(gate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(gate).add(30,'d').toDate()).format("YYYY-MM-DD"));
   let calendarApi = this.calendarComponentRef.current.getApi();
     calendarApi.gotoDate(gate); // call a method on the Calendar object
   this.setState({
@@ -556,12 +558,20 @@ onAppUpdate=()=>{
 
 
 
-  eventInfo=()=>{
+  eventInfo=(first,second)=>{
 
-    const dateparam = moment(moment().add(60,'d').toDate()).format("YYYY-MM-DD");
-    const paramdata = {
-      first_date: moment(moment().subtract(10,'d').toDate()).format("YYYY-MM-DD"),
-      second_date: dateparam,
+    // const dateparam = moment(moment().add(60,'d').toDate()).format("YYYY-MM-DD");
+    // const paramdata = {
+    //   first_date: moment(moment().subtract(10,'d').toDate()).format("YYYY-MM-DD"),
+    //   second_date: dateparam,
+    // };
+    this.setState({
+      events:[]
+    })
+
+       const paramdata = {
+      first_date: first,
+      second_date: second,
     };
 
     const url2 = "/appointment/get/";
@@ -991,7 +1001,7 @@ this.generatePDF();
          
 this.setState({
   events:[]
-},()=>this.eventInfo())
+},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")))
              
             } else {
         
@@ -1073,7 +1083,7 @@ this.setState({
               );
               this.setState({
   events:[]
-},()=>this.eventInfo())
+},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
             } else {
           
               Swal.fire({
@@ -1130,7 +1140,7 @@ this.setState({
           this.setState({
             eventClickModel: false,
             events:[]
-          },()=>this.eventInfo());
+          },()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
 
      
 
@@ -2565,7 +2575,7 @@ document.getElementById("serviceupdate").value="";
               //window.location.reload();
 this.setState({
   events:[]
-},()=>this.eventInfo())
+},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
              
             } else {
         
@@ -2643,7 +2653,7 @@ this.setState({
               );
         this.setState({
   events:[]
-},()=>this.eventInfo())
+},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
             } else {
           
               Swal.fire({
@@ -3599,12 +3609,12 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
 
 
-{this.state.events.length===0?
+{/* {this.state.events.length===0?
 
   <div class="alert alert-warning" role="alert">
  No events yet...
  </div>
-:<></>}
+:<></>} */}
 
 
         {/* The flex line on header */}
@@ -3653,7 +3663,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                 }).format(this.state.jumpDate)}
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem header>
+                <DropdownItem header style={{width:"310px"}}>
                   {" "}
                   <Calendar
                     onChange={this.onSelectCalendar}
@@ -3946,7 +3956,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
           events={this.state.events}
           initialView="resourceTimelineDay"
           headerToolbar={{
-            left: "prev,next today",
+            left: "prev,next",
             center: "title",
             right: "resourceTimelineDay,resourceTimelineWeek",
           }}

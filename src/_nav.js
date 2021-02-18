@@ -86,7 +86,7 @@ export default {
 
     {
       title:true,
-      name:'Salon Location',
+      name:'Merchant Location',
       wrapper:{
         element:'',
         attributes:{},

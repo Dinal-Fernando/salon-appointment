@@ -33,7 +33,8 @@ import {
   Row,
 
 } from "reactstrap";
-import Scissor from "../../../assets/Scissor.png";
+//import Scissor from "../../../assets/Scissor.png";
+import Scissor from "../../../assets/service.jpg";
 import * as BaseService from "../../../BaseService.js";
 import Swal from "sweetalert2";
 
