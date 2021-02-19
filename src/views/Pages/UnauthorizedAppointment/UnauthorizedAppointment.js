@@ -295,44 +295,64 @@ window.onbeforeunload = function (e) {
 
 
 
+      var subdomain =  window.location.host.split('.')[1] ? window.location.host.split('.')[0] : false;
+      console.log("subs",subdomain)
 
-
-
-
-                  let value=window.location.href.split("?");
-               const values=queryString.parse(value[1]);
-              console.log("values",value[1])
-
-
-
-              if(value[1]===undefined)
-              {
-                 Swal.fire({
-              icon:'error',
-              title:'Oopss....',
-              text:"please use valid URL"
-            })
-             window.location.href="#/main"
-              }else  if(value[1].includes("id"))
-          {
-
-
-
-            this.setState({
-              workspaceID:values.id
+if(subdomain!==false && subdomain!=="ereserv" && subdomain!=="www")
+{             
+              this.setState({
+              workspaceID:subdomain
             },()=>{this.getWorkspaceDetails();})
+ 
+
+}else{
+ this.props.history.push('/main');
+
+      Swal.fire({   
+              icon:'error',               
+              title:'Oopss....',
+             text:"Invalid URL for reserve 'Me'"
+             })
+
+}
+
+
+
+
+          //         let value=window.location.href.split("?");
+          //      const values=queryString.parse(value[1]);
+          //     console.log("values",value[1])
+
+
+
+          //     if(value[1]===undefined)
+          //     {
+          //        Swal.fire({
+          //     icon:'error',
+          //     title:'Oopss....',
+          //     text:"please use valid URL"
+          //   })
+          //    window.location.href="#/main"
+          //     }else  if(value[1].includes("id"))
+          // {
+
+
+
+          //   this.setState({
+          //     workspaceID:values.id
+          //   },()=>{this.getWorkspaceDetails();})
 
   
            
-          }else{
-            Swal.fire({
-              icon:'error',
-              title:'Oopss....',
-              text:"please use valid URL"
-            })
-             window.location.href="#/main"
+          // }else{
+          //   Swal.fire({
+          //     icon:'error',
+          //     title:'Oopss....',
+          //     text:"please use valid URL"
+          //   })
+          //    window.location.href="#/main"
 
-          }
+          // }
 
 
    $('.fc-toolbar.fc-header-toolbar').addClass('row col-lg-12');
@@ -392,7 +412,7 @@ window.onbeforeunload = function (e) {
 
   getWorkspaceDetails=()=>{
    const param={
-     workspace_id:this.state.workspaceID
+     sub_domain:this.state.workspaceID
    }
 
 const url1 = "/service/get_workspace_details/";
@@ -795,7 +815,7 @@ onAppUpdate=()=>{
       const paramdata = {
       first_date: first,
       second_date: second,
-      workspace_id:this.state.workspaceID
+      sub_domain:this.state.workspaceID
     };
 
     const url2 = "/appointment/get_appointments/";
@@ -1190,7 +1210,7 @@ this.generatePDF();
 
      
         const data = {
-          workspace_id:this.state.workspaceID,
+          sub_domain:this.state.workspaceID,
           client: cldetails,
           appointment: appdetails,
           detail: this.state.appointmentDetails,
@@ -1274,7 +1294,7 @@ this.setState({
      
 
         const data = {
-           workspace_id:this.state.workspaceID,
+           sub_domain:this.state.workspaceID,
           client: cldetails,
           appointment: appdetails,
           detail: this.state.appointmentDetails,
@@ -1727,7 +1747,7 @@ timeclickcheck=(e)=>{
             start_time: this.state.starttime + ":00",
             duration: 0,
             service: parseInt(this.state.service),
-            workspace_id:this.state.workspaceID
+            sub_domain:this.state.workspaceID
           };
 
           const data2 = {

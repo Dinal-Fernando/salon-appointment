@@ -154,7 +154,7 @@ _onIdle(e) {
                       />
                     ) : null;
                   })}
-                  <Redirect from="/" to="/main" />
+                  <Redirect from="/" to="/loader" />
                 </Switch>
                 </Suspense>
             </Container>
@@ -198,7 +198,7 @@ _onIdle(e) {
             />
           ) : null;
         })}
-        <Redirect from="/" to="/main" />
+        <Redirect from="/" to="/loader" />
       </Switch>
       </Suspense>
   </Container>

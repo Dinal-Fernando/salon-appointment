@@ -656,7 +656,7 @@ await this.clientInfo();
                   </Dropdown>
                 </ButtonGroup> */}
               <div className="text-value">{this.state.client.length}</div>
-                <div>Total active Clients</div>
+                <div>Total Active Clients</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 {/* <Line data={cardChartData1} options={cardChartOpts1} height={70} /> */}
@@ -704,7 +704,7 @@ await this.clientInfo();
                   </ButtonDropdown>
                 </ButtonGroup> */}
                 <div className="text-value">{this.state.data2.length}</div>
-                <div>Total active Services</div>
+                <div>Total Active Services</div>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
                 {/* <Bar data={cardChartData4} options={cardChartOpts4} height={70} /> */}

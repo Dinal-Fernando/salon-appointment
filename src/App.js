@@ -34,7 +34,7 @@ const Page404 = React.lazy(() => import("./views/Pages/Page404"));
 const Page500 = React.lazy(() => import("./views/Pages/Page500"));
 const ForgotPassword=React.lazy(() => import("./views/Pages/ForgotPassword/ForgotPassword"));
 const ResetPassword=React.lazy(() => import("./views/Pages/ResetPassword/ResetPassword"));
-
+const Loader=React.lazy(() => import("./views/Pages/Loader/Loader"));
 // const PrivateRouteUser = ({ component: Component, ...rest }) => (
 //   <Route {...rest} render={(props) => (
 //     //fakeAuth.isAuthenticated === true
@@ -93,12 +93,6 @@ _onIdle(e) {
   }
   
 }
-
-
- componentDidMount = () => {
-  
-  console.log(localStorage.getItem('AccessToken'))
-  };
 
 
 
@@ -172,12 +166,20 @@ _onIdle(e) {
               render={(props) => <Page500 {...props} />}
             />
          
+                 <Route
+              path="/loader"
+              name="Loader"
+              render={(props) => <Loader {...props} />}
+            />
 
             <Route
               path="/"
               name="Home"
               render={(props) => <DefaultLayout {...props} />}
             />
+
+           
+
 
             
          
