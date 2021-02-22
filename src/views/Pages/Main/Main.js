@@ -87,7 +87,7 @@ class Main extends Component {
                                 <div className="divelement row">
                                     <div className="divelement col-lg-11">
                                         <div className="divelement slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
-                                            <div className="divelement home_title"><h1>The <span>Best</span> Reservation system</h1></div><br></br>
+                                            <div className="divelement home_title"><h1 className="h1">The <span>Best</span> Reservation system</h1></div><br></br>
                                             <div className="divelement home_text">
                                                 <p>Schedule appointments as your wish.</p>
                                             </div>
@@ -115,7 +115,7 @@ class Main extends Component {
                                 <div className="divelement row">
                                     <div className="divelement col-lg-11">
                                         <div className="divelement slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
-                                            <div className="divelement home_title"><h1>Convinient <span>Appointment</span> Management</h1></div><br></br>
+                                            <div className="divelement home_title"><h1 className="h1">Convinient <span>Appointment</span> Management</h1></div><br></br>
                                             <div className="divelement home_text">
                                                 <p>The most effective and user friendly approach to manage your appointments.</p>
                                             </div>
@@ -144,7 +144,7 @@ class Main extends Component {
                                         <div className="divelement slide_content" data-animation-in="fadeInRight" data-animation-out="animate-out fadeOut">
                                             
                                             <div className="divelement home_text">
-                                            <div className="divelement home_title"><h1>Responsive <span>Web</span> Design</h1></div>
+                                            <div className="divelement home_title"><h1 className="h1">Responsive <span>Web</span> Design</h1></div>
                                                 
                                             </div>
                                             {/* <div className="divelement home_link"><a href="#">View our offers</a></div> */}
@@ -179,7 +179,7 @@ class Main extends Component {
                 <div className="divelement row">
                     <div className="divelement col-lg-9">
                         <div className="divelement section_title_container">
-                            <div className="divelement section_title"><h1>Our Services</h1></div>
+                            <div className="divelement section_title"><h1 className="h1">Our Services</h1></div>
                             <p>Our service is to provide the best reservation facility for your company.</p>
                         </div>
                     </div>
@@ -286,7 +286,7 @@ class Main extends Component {
                 <div className="divelement row">
                     <div className="divelement col-lg-9">
                         <div className="divelement section_title_container">
-                            <div className="divelement section_title"><h1>Benefits</h1></div>
+                            <div className="divelement section_title"><h1 className="h1">Benefits</h1></div>
                             <p>Assuring the best for business.</p>
                         </div>
                     </div>
@@ -362,7 +362,7 @@ class Main extends Component {
                     <div className="divelement row">
                         <div className="divelement col">
                             <div className="divelement section_title_container">
-                                <div className="divelement section_title"><h1>Get in touch</h1></div>
+                                <div className="divelement section_title"><h1 className="h1">Get in touch</h1></div>
                                 <p>Contact us to clarify your doubts.</p>
                             </div>
                         </div>
