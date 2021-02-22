@@ -251,7 +251,7 @@ class Main extends Component {
                                         <div className="divelement service d-flex flex-row align-items-center justify-content-start trans_200">
                                             <div className="divelement service_icon service_icon_flip"><div><img src={makeup2} className="svg" alt="https://www.flaticon.com/authors/freepik"></img></div></div>
                                             <div className="divelement service_content">
-                                                <div className="divelement service_title trans_200">Provide System User Accessibility</div>
+                                                <div className="divelement service_title trans_200">Provide system user accessibility</div>
                                                 <div className="divelement service_text trans_200">
                                                     <p>The facility to assign multiple admins and co-workers to handle the system with various levels of authentication.</p>
                                                 </div>
@@ -304,7 +304,7 @@ class Main extends Component {
                                         <div className="divelement testimonial_container">
                                             <div className="divelement testimonial d-flex flex-column align-items-center justify-content-center text-center trans_200">
                                                 <div className="divelement testimonial_image"><img src={author_1} alt="img"></img></div>
-                                                <div className="divelement testimonial_title">reservation notification system</div>
+                                                <div className="divelement testimonial_title">Reservation notification system</div>
                                                 <div className="divelement testimonial_text">
                                                     <p>It really helps to keep track of the reservation with the reseration reminders.</p>
                                                 </div>
@@ -368,6 +368,39 @@ class Main extends Component {
                         </div>
                     </div>
                     <div className=" row footer_row">
+
+           
+         
+          <div className="divelement col-lg-3 footer_col">
+            <div className="divelement footer_title pb-5">Pages</div>
+       
+
+            <ul>
+                                        <li className=" d-flex flex-row align-items-start justify-content-start pb-3">
+                                            <a href="https://spemai.com/" className="divelement contact_info_content">Company</a>
+                                        </li>
+                                        <li className="d-flex flex-row align-items-center justify-content-start pb-3">
+                                            <a href="https://www.onepay.lk/"  className="divelement contact_info_content">Other products</a>
+                                        </li>
+                                        <li className=" d-flex flex-row align-items-center justify-content-start">
+                                                           <a href="https://spemai.com/contact.html"  className="divelement contact_info_content">Contact us</a>
+
+                                        </li>
+                                    </ul>
+          </div>
+          
+<div className="divelement col-lg-5 footer_col">
+<div className="divelement footer_title">A name you can trust</div>
+<div className="divelement contact_info_list">
+ <ul>
+ <li className=" d-flex flex-row align-items-start justify-content-start">
+<div className="divelement contact_info_content">
+We provide high quality customer service experience
+</div>
+ </li>
+</ul>
+</div>
+</div>
                         <div className="divelement col-lg-4 footer_col">
                             <div className="divelement contact_info">
                                 <div className="divelement footer_title">Contact Info</div>
@@ -399,7 +432,7 @@ class Main extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="divelement col-lg-8">
+                        {/* <div className="divelement col-lg-8">
                             <div className="divelement footer_title">Leave a comment</div>
                             <div className="divelement contact_form_container">
                                 <form action="#" id="contact_form" className="contact_form">
@@ -418,7 +451,8 @@ class Main extends Component {
                                     <button className="contact_form_button">send message</button>
                                 </form>
                             </div>
-                        </div>
+                        </div> */}
+               
                     </div>
                 </div>
             </div>

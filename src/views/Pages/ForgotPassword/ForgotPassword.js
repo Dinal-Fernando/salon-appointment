@@ -79,16 +79,17 @@ BaseService.PostServiceWithoutHeader(url, reset)
               <Card className="mx-4">
                 <CardBody className="p-4">
                   <Form onSubmit={this.onSubmitHandler}>
-                    <h1>Forgot Password</h1>
-                    <p className="text-muted">Add username to reset password</p>
-                    
+                    <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Merchant Panel</h1>
+                                            <h2 style={{fontWeight:"100"}} className="pb-2 text-center">Forgot password</h2>
+                                            <p className="text-muted pt-3">Enter email to reset your password</p>
+                            
                     <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
+                      <InputGroupAddon addonType="prepend" style={{height:"40px"}}>
                         <InputGroupText>
                           <i className="icon-user"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="Email" placeholder="Email" autoComplete="username" name="username" onChange={this.onChangeHandler} value={this.state.username}  />
+                      <Input style={{height:"40px"}} type="Email" placeholder="Email" autoComplete="username" name="username" onChange={this.onChangeHandler} value={this.state.username}  />
                     </InputGroup>
                     {/* <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">

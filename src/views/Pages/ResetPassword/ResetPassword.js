@@ -7,6 +7,8 @@ import "alertifyjs/build/css/alertify.min.css";
 import "alertifyjs/build/css/alertify.css";
 import "alertifyjs/build/css/themes/default.min.css";
 import * as BaseService from "../../../BaseService.js";
+import image from "../../../assets/register.jpg";
+
 class ResetPassword extends Component {
 
   constructor(props){
@@ -136,46 +138,46 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
     return (
 
       
-      <div className="app flex-row align-items-center">
- 
-        <Container>
-          <Row className="justify-content-center">
-            <Col md="9" lg="7" xl="6">
-              <Card className="mx-4">
-                <CardBody className="p-4">
+           <div className="animated fadeIn">
+       
+          <div className="row align-items-center"  style={{marginLeft:"0",marginRight:"0",paddingTop:"100px"}}>
+          <div className="col-lg-6">
+          <img src={image} className="img-fluid"></img>
+          </div>
+            <div className="col-lg-6">
+             <div className="col-lg-8">
                   <Form onSubmit={this.onSubmitHandler}>
-                    <h1>Reset Password</h1>
-                    <p className="text-muted">provide the new password</p>
+                     <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Merchant Panel</h1>
+                                            <h2 style={{fontWeight:"100"}} className="pb-2 text-center">Reset Password</h2>
+                                            <p className="text-muted pt-3">complete the reset password process</p>
                     
                  
                     <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
+                      <InputGroupAddon addonType="prepend" style={{height:"40px"}}>
                         <InputGroupText>
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Password" name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onChangeHandler}/>
+                      <Input style={{height:"40px"}} type="password" placeholder="Password" name="password" value={this.state.password} autoComplete="new-password" valid={this.state.valid1} invalid={this.state.invalid1} onChange={this.onChangeHandler}/>
                       <FormFeedback>Password length should be more than 7</FormFeedback>
                     </InputGroup>
                     
                     
                     <InputGroup className="mb-4">
-                      <InputGroupAddon addonType="prepend">
+                      <InputGroupAddon addonType="prepend" style={{height:"40px"}}>
                         <InputGroupText>
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Repeat password" name="confirmPass" autoComplete="new-password" valid={this.state.valid} invalid={this.state.invalid} onChange={this.HandlepasswordConfirm}/>
+                      <Input style={{height:"40px"}} type="password" placeholder="Repeat password" name="confirmPass" autoComplete="new-password" valid={this.state.valid} invalid={this.state.invalid} onChange={this.HandlepasswordConfirm}/>
                       <FormFeedback>Passwords doesn't match</FormFeedback>
                     </InputGroup>
-                    <Button color="success" block>Reset Password</Button>
+                    <Button style={{height:"40",fontSize:"larger"}} color="success" block>Reset Password</Button>
                   </Form>
-                </CardBody>
-                
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+             </div>
+            </div>
+          </div>
+
       </div>
     );
   }

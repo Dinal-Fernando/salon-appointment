@@ -1890,8 +1890,8 @@ appointment.is_canceled?
 
                   <td>{appointment.appointment_date}</td>
                   <td>{appointment.client}</td>
-<td >
-<div class="table-responsive">
+<td style={{width:"700px"}}>
+<div class="table-responsive" >
  <Table responsive className="table table-bordered  ">
 {/* <thead>
            <th >
@@ -1911,19 +1911,19 @@ appointment.is_canceled?
                  {appointment.details.map((value)=>(
          <tbody>
                         <tr className="table-light">
-                                <td >
+                                <td style={{width:"200px"}}>
                                   
                                    <b>Start Time:-</b> {new moment(value.start_time).format("HH:mm")}
                                   
                               </td>
 
-                               <td>
+                               <td style={{width:"200px"}}>
                                   
                                    <b>Employee:-</b> {value.employee_name}
                                   
                               </td>
 
-                               <td >
+                               <td style={{width:"200px"}}>
                                   
                                    <b>Service:-</b> {value.service}
                                   
@@ -1982,19 +1982,19 @@ appointment.is_canceled?
                  {appointment.details.map((value)=>(
          <tbody>
                         <tr className="table-light">
-                                <td >
+                                <td  style={{width:"200px"}}>
                                   
                                    <b>Start Time:-</b> {new moment(value.start_time).format("HH:mm")}
                                   
                               </td>
 
-                               <td>
+                               <td style={{width:"200px"}}>
                                   
                                    <b>Employee:-</b> {value.employee_name}
                                   
                               </td>
 
-                               <td >
+                               <td style={{width:"200px"}}>
                                   
                                    <b>Service:-</b> {value.service}
                                   

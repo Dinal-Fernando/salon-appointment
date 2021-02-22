@@ -6,20 +6,7 @@ export default {
 
 
     items: [
-      {
-        title:true,
-        name:'Client Management',
-        wrapper:{
-          element:'',
-          attributes:{},
-        }
-      },
-  
-      {
-        name: 'Client',
-        url: '/saloon/Client',
-        icon: 'icon-user',
-      },
+ 
       {
         title:true,
         name:'Appointment Display',
@@ -37,6 +24,25 @@ export default {
         name: 'List View',
         url: '/saloon/List',
         icon: 'icon-list',
+      },
+       {
+      name: 'Table View',
+      url: '/saloon/table',
+      icon: 'icon-list',
+    },
+         {
+        title:true,
+        name:'Client Management',
+        wrapper:{
+          element:'',
+          attributes:{},
+        }
+      },
+  
+      {
+        name: 'Client',
+        url: '/saloon/Client',
+        icon: 'icon-user',
       },
       {
         title:true,

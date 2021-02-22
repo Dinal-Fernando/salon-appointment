@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { css } from "@emotion/core";
 import CircleLoader from "react-spinners/CircleLoader";
+import ClockLoader from "react-spinners/ClockLoader";
 import "./loaderstyle.css";
 import {Link,withRouter } from "react-router-dom";
 const override = css`
@@ -63,7 +64,7 @@ if(subdomain!==false && subdomain!=="ereserv" && subdomain!=="www" && subdomain!
             
              
             <div className="sweet-loading loaderalign" >
-            <CircleLoader
+            <ClockLoader
               css={override}
               size={100}
               color={"#123abc"}

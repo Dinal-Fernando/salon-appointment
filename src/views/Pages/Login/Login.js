@@ -4,6 +4,7 @@ import * as BaseService from "../../../BaseService.js";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import { useHistory } from 'react-router';
 import wallpaper1 from "../../../images/wallpaper1.png";
+import image from "../../../assets/login.jpg";
 
 import alertify from "alertifyjs/build/alertify";
 import "alertifyjs/build/css/alertify.min.css";
@@ -12,7 +13,7 @@ import "alertifyjs/build/css/themes/default.min.css";
 import Swal from 'sweetalert2'
 import { css } from "@emotion/core";
 import ClockLoader from "react-spinners/ClockLoader";
-
+import DefaultFooter from "../../../containers/DefaultLayout/DefaultFooter"
 
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
@@ -70,6 +71,10 @@ BaseService.PostServiceWithoutHeader(url, login)
       loading:false
     })
 
+if(res.data!==undefined)
+        {
+
+        
     if (res.data.success === true) {
      
       
@@ -115,17 +120,28 @@ BaseService.PostServiceWithoutHeader(url, login)
         alertify.alert("Invalid user type login").setHeader('').set('closable', false);
       }
 
-
-    } else {
-      
-      Swal.fire({
-        allowOutsideClick: false,
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Invalid Credentials!',
+}
+    }  else if(res.response.data!==null) {
         
-      })
-    }
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error logging in! '+res.response.data["description"],
+            
+          })
+      
+        }else{
+      
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error logging in!',
+            
+          })
+      
+        }
 
  
 
@@ -136,7 +152,7 @@ BaseService.PostServiceWithoutHeader(url, login)
     allowOutsideClick: false,
     icon: 'error',
     title: 'Oops...',
-    text: 'Invalid Credentials!',
+    text: err,
     
   })
 
@@ -196,7 +212,7 @@ if (curHr < 12) {
 
   render() {
     return (
-      <div  className="animated fadeIn">
+      <div  className="animated fadeIn" style={{backgroundColor:"white"}}>  
 
 
 <ToastContainer
@@ -210,78 +226,78 @@ pauseOnFocusLoss
 draggable
 pauseOnHover
 />
-{/* Same as */}
+
 <ToastContainer />
 
-      <div className="app flex-row align-items-center" style={{backgroundImage:`url(${wallpaper1})`}}>
+     
 
-               <div className="sweet-loading text-center" style={{zIndex:"5"}}>
+               {/* <div className="sweet-loading text-center" style={{zIndex:"10000"}}>
         <ClockLoader
           css={override}
           size={75}
-          color={"white"}
-          loading={this.state.loading}
+          color={"#03081b"}
+          loading={true}
         />
-      </div>
-         
-        <Container>
+      </div> 
+          */}
+      
       
 
     
       
-          <Row className="justify-content-center">
-            <Col md="6">
-              <CardGroup>
-                <Card className="p-4" style={{backgroundColor:"black",opacity:"0.7"}}>
-                  <CardBody>
-                    <Form onSubmit={this.onSubmitHandler} >
-                      <h1 style={{color:"white"}}>Login</h1>
-                      <p className="text-muted">Sign in to your reservation system account</p>
-      
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input type="email" placeholder="Email" autoComplete="email" name="username" value={this.state.username} onChange={this.onChangeHandler} required/>
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-lock"></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input type="password" placeholder="Password" autoComplete="current-password" name="password" value={this.state.password} onChange={this.onChangeHandler} required/>
-                      </InputGroup>
-                      <Row>
-                        <Col xs="6">
-                          <Button color="primary" className="px-4">Login</Button>
-                        </Col>
-                        <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0" onClick={()=>{window.location.href="#/forgotpassword"}}>Forgot password?</Button>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </CardBody>
-                </Card>
-                {/* <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                  <CardBody className="text-center">
-                    <div>
-                      <h2>Sign up</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                      <Link to="/register">
-                        <Button color="primary" className="mt-3" active tabIndex={-1}>Register Now!</Button>
-                      </Link>
+          <div className="mt-5 row align-items-center" style={{marginLeft:"0",marginRight:"0"}}>
+              <div className="col-lg-6" >
+                <img src={image} className="img-fluid"></img>
+                </div>
+
+
+                    <div className="col-lg-6">
+                                  <div className=" col-lg-8 ">
+                                  
+                                
+                                          <Form onSubmit={this.onSubmitHandler} >
+                                          <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Merchant Panel</h1>
+                                            <h2 style={{fontWeight:"100"}} className="pb-2 text-center">Login</h2>
+                                            <p className="text-muted pt-3">Sign in to your reservation managemnt system account</p>
+                            
+                                            <InputGroup className="mb-4" >
+                                              <InputGroupAddon addonType="prepend" style={{height:"40px"}}>
+                                                <InputGroupText>
+                                                  <i className="icon-user"></i>
+                                                </InputGroupText>
+                                              </InputGroupAddon>
+                                              <Input style={{height:"40px"}} type="email" placeholder="Email" autoComplete="email" name="username" value={this.state.username} onChange={this.onChangeHandler} required/>
+                                            </InputGroup>
+                                            <InputGroup className="mb-4">
+                                              <InputGroupAddon addonType="prepend" style={{height:"40px"}}>
+                                                <InputGroupText>
+                                                  <i className="icon-lock"></i>
+                                                </InputGroupText>
+                                              </InputGroupAddon>
+                                              <Input style={{height:"40px"}} type="password" placeholder="Password" autoComplete="current-password" name="password" value={this.state.password} onChange={this.onChangeHandler} required/>
+                                            </InputGroup>
+                                            <Row>
+                                              <Col >
+                                                <Button style={{height:"40",fontSize:"larger"}} color="success" className="px-4" block>Login</Button>
+                                              </Col>
+                                             
+                                            </Row>
+                                            <div>
+                                             <Col  className="text-right">
+                                                <Button color="link" className="px-0" onClick={()=>{window.location.href="#/forgotpassword"}}>Forgot password?</Button>
+                                              </Col>
+                                              </div>
+                                          </Form>
+                                     
+                             
+                                  
+                                    </div>
                     </div>
-                  </CardBody>
-                </Card> */}
-              </CardGroup>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+           
+          </div>
+       
+   
+      
       </div>
       
     );
