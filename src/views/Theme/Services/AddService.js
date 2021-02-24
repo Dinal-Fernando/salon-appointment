@@ -14,10 +14,10 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  
+
   Jumbotron,
   FormGroup,
-  
+
   Input,
 
   Label,
@@ -69,17 +69,17 @@ class AddService extends Component {
     const url2= "/category/get/";
     BaseService.GetDataWithoutParams(url2)
       .then((res) => {
-        
-      
+
+
 
         if (res.data.success === true) {
 
           this.setState({
             data: res.data.data,
           });
-  
+
           console.log("length " + this.state.data.length);
-  
+
           this.state.data.map((item) => {
             const values = {
               id: item.id,
@@ -90,32 +90,32 @@ class AddService extends Component {
             });
           });
 
-          
+
         } else {
-       
+
           Swal.fire({
             allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
-            
+
           })
         }
-    
-     
-    
+
+
+
       })
       .catch((err) => {
-       
+
       Swal.fire({
         allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
-        
+
       })
       });
-      
+
 
 
 
@@ -197,7 +197,7 @@ cost:""
       .then((res) => {
         console.log(res)
         if (res.data.success === true) {
-    
+
         console.log(res);
         console.log(res.data);
         this.setState({
@@ -230,7 +230,7 @@ cost:""
     }else{
 
 
-    
+
     const service = {
       name: this.state.serviceName,
       price: this.state.price,
@@ -261,7 +261,7 @@ this.props.displayservice(1,1);
               "success"
             );
 
-            
+
           } else {
             alertify.alert("Cannot perform the operation").setHeader('').set('closable', false);
           }
@@ -397,7 +397,7 @@ this.props.displayservice(1,1);
                             type="select"
                             name="servCatergory"
                             id="servCatergory"
-                            
+
                             onChange={this.OnChangeHandler}
                           >
                             <option value="">Select Category</option>
@@ -468,12 +468,12 @@ this.props.displayservice(1,1);
                             >
                               <option value="">Select Time</option>
 
-                              <option value="1">Slots 1</option>
-                              <option value="2">Slots 2</option>
-                              <option value="3">Slots 3</option>
-                              <option value="4">Slots 4</option>
-                              <option value="5">Slots 5</option>
-                              <option value="6">Slots 6</option>
+                              <option value="1">Slots 1 : {localStorage.getItem("slot_minutes")*1} min</option>
+                              <option value="2">Slots 2 : {localStorage.getItem("slot_minutes")*2} min</option>
+                              <option value="3">Slots 3 : {localStorage.getItem("slot_minutes")*3} min</option>
+                              <option value="4">Slots 4 : {localStorage.getItem("slot_minutes")*4} min</option>
+                              <option value="5">Slots 5 : {localStorage.getItem("slot_minutes")*5} min</option>
+                              <option value="6">Slots 6 : {localStorage.getItem("slot_minutes")*6} min</option>
                             </Input>
                           </FormGroup>
                         </Container>
@@ -483,7 +483,7 @@ this.props.displayservice(1,1);
                 </Col>
 
                 <Col xs="12" sm="6">
-                
+
                       {/* <p
                       style={{
                         color: "grey",
@@ -565,12 +565,12 @@ this.props.displayservice(1,1);
                       </Col>
                     </FormGroup> */}
                       <img src={Scissor}  className="img-fluid" alt="img" style={{ paddingTop: 50 }} />
-               
+
                 </Col>
               </Row>
             </ModalBody>
             <ModalFooter>
-            
+
               <Button id="submitbtn" type="submit" color="success">
                 Save
               </Button>

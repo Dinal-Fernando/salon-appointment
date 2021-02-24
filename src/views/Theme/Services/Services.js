@@ -61,47 +61,47 @@ class Services extends Component {
       updateId:null,
       loading:true,
     };
- 
+
   }
 
 
   componentWillMount = () => {
-  
+
 
 
     const url2= "/category/get/";
      BaseService.GetDataWithoutParams(url2)
        .then((res) => {
-         
-     
+
+
          if (res.data.success === true) {
-           
+
            this.setState({
              data2: res.data.data,
            });
-          
+
          } else {
-        
+
            Swal.fire({
             allowOutsideClick: false,
              icon: 'error',
              title: 'Oops...',
              text: 'Error loading data!',
-             
+
            })
          }
-     
-      
-     
+
+
+
        })
        .catch((err) => {
-        
+
        Swal.fire({
         allowOutsideClick: false,
          icon: 'error',
          title: 'Oops...',
          text: 'Error loading data!',
-         
+
        })
        });
 
@@ -109,17 +109,17 @@ class Services extends Component {
       this.receivedData(1,1);
 
 
-   
+
   };
 
 
   receivedData=(e,index)=>{
-    
+
 
     console.log("index"+index)
     this.setState({
       pageNumber:index,
-     
+
     },()=>{
 
 
@@ -129,28 +129,28 @@ class Services extends Component {
       const url2= "/service/getbypage/";
     BaseService.GetDataWithParams(url2,paramdata)
       .then((res) => {
-        
-       
+
+
         if (res.data.success === true) {
 
 
           this.setState({
             data3: res.data.data,
             pageCount:Math.ceil(res.data.count / this.state.limit),
-  
-            
+
+
           });
-          
+
           console.log("length of limit" + this.state.data3.length);
-  
+
           // this.state.data3.map((item) => {
-  
+
           //   const index1=this.state.data2.findIndex((res)=>{
-              
+
           //     return res.name===item.category
-              
+
           // });
-  
+
           //   const values = {
           //     id: item.id,
           //     name: item.name,
@@ -166,29 +166,29 @@ class Services extends Component {
           //   });
           // });
 
-          
+
         } else {
-       
+
           Swal.fire({
             allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error loading data!',
-            
+
           })
         }
-    
-     
-    
+
+
+
       })
       .catch((err) => {
-       
+
       Swal.fire({
         allowOutsideClick: false,
         icon: 'error',
         title: 'Oops...',
         text: 'Error loading data!',
-        
+
       })
       });
 
@@ -206,8 +206,8 @@ class Services extends Component {
             data3:this.state.data3.filter(element=>{
                 return(
                     element.name.toLowerCase().match(event.target.value)
-                  
-                   
+
+
 
 
 
@@ -245,16 +245,16 @@ class Services extends Component {
   pass = (servvalue,catvalue,price,cost,time1,id) => {
 
 
- 
 
-   
+
+
    const index1=this.state.data2.findIndex((res)=>{
-              
+
               return res.name===catvalue
-              
+
           });
 
-      
+
 if(index1>=0)
 {
 
@@ -296,7 +296,7 @@ if(index1>=0)
     // }else if(time1==="5")
     // {
     //   document.getElementById("time").value="5";
-    // }else 
+    // }else
     // {
     //   document.getElementById("time").value="6";
     // }
@@ -315,7 +315,7 @@ if(index1>=0)
   setStatus=(id,isactive,e)=>{
     console.log(isactive)
     let updatestate=""
-    
+
 console.log(id)
 
 if(e===true)
@@ -332,14 +332,14 @@ if(e===true)
   }
 
 }
-   
+
 
     const url = "/service/update/";
     BaseService.UpdateService(url, updatestate,id)
       .then((res) => {
-  
-       
-        
+
+
+
         console.log("response"+res)
         if (res.data.success === true) {
          // this.receivedData(1,1);
@@ -349,8 +349,8 @@ if(e===true)
         //   'success'
         // );
         this.receivedData(1,1);
-      
-  
+
+
         } else {
           Swal.fire({
             icon: 'error',
@@ -375,19 +375,19 @@ if(e===true)
       name: this.state.serviceName,
       price: this.state.price,
       cost: this.state.cost,
-      
+
       category_id: parseInt(this.state.servCatergory),
       slots: parseInt(this.state.time),
     };
     document.getElementById("updatebtn").disabled=true;
     document.getElementById("deletebtn").disabled=true;
-  
+
   const url = "/service/update/";
   BaseService.UpdateService(url, Updateservice,this.state.updateId)
     .then((res) => {
 
-     
-      
+
+
       console.log("response"+res)
       if (res.data.success === true) {
      this.receivedData(1,1);
@@ -432,7 +432,7 @@ deleteservice=()=>{
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
- 
+
     if (result.value) {
 
 
@@ -452,8 +452,8 @@ deleteservice=()=>{
 
       if (res.data.success === true) {
         this.receivedData(1,1);
-    
-       
+
+
 
         alertify.success("Successfully deleted service");
 
@@ -478,7 +478,7 @@ deleteservice=()=>{
 
   }
 })
-  
+
 }
 
 
@@ -494,7 +494,7 @@ deleteservice1=()=>{
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
- 
+
     if (result.value) {
 
 
@@ -509,8 +509,8 @@ deleteservice1=()=>{
 
       if (res.data.success === true) {
         this.receivedData(1,1);
-    
-       
+
+
 
         alertify.success("Successfully deleted service");
 
@@ -535,14 +535,14 @@ deleteservice1=()=>{
 
   }
 })
-  
+
 }
 
 onSelectLimit=(e)=>{
   this.setState({
     [e.target.name]:e.target.value
   },()=>this.receivedData(1,1))
-      
+
     }
 
 
@@ -552,18 +552,18 @@ onSelectLimit=(e)=>{
     return (
       <div className="animated fadeIn">
       <Col>
-       
+
         <Card>
         <CardHeader>
             <h5><i className="fa fa-book fa-lg mt-4" style={{paddingRight:"8px"}}></i>
            Service Details</h5>
           </CardHeader>
 
-       
+
           <CardBody>
             <div className="text-center text-center d-flex justify-content-end">
 
-            <Input placeholder={'Search by service type '} name="searchString"  onChange={this.handleOnChange}></Input>  
+            <Input placeholder={'Search by service type '} name="searchString"  onChange={this.handleOnChange}></Input>
 
             <div className="col-2 ">
             <Input
@@ -572,7 +572,7 @@ onSelectLimit=(e)=>{
              name="limit"
              value={this.state.limit.toString()}
              onChange={this.onSelectLimit}>
-               
+
                 <option value="5">5 records</option>
                 <option value="10">10 records</option>
                 <option value="15">15 records</option>
@@ -616,7 +616,7 @@ onSelectLimit=(e)=>{
                   </tr>
 
 
-         
+
                 </tbody>
               ))}
             </Table>
@@ -631,7 +631,7 @@ onSelectLimit=(e)=>{
                     className={"modal-lg " + this.props.className}
                   >
                     {/*table model*/}
-                  
+
           <form onSubmit={this.updateServiceHandler}>
             <ModalHeader toggle={this.toggleLarge}><i className="fa fa-edit fa-lg mt-4" style={{paddingRight:"8px"}}></i>Edit Service</ModalHeader>
             <ModalBody >
@@ -728,12 +728,12 @@ onSelectLimit=(e)=>{
                             >
                               <option value="">Select Time</option>
 
-                              <option value="1">Slots 1</option>
-                              <option value="2">Slots 2</option>
-                              <option value="3">Slots 3</option>
-                              <option value="4">Slots 4</option>
-                              <option value="5">Slots 5</option>
-                              <option value="6">Slots 6</option>
+                              <option value="1">Slots 1 : {localStorage.getItem("slot_minutes")*1} min</option>
+                              <option value="2">Slots 2 : {localStorage.getItem("slot_minutes")*2} min</option>
+                              <option value="3">Slots 3 : {localStorage.getItem("slot_minutes")*3} min</option>
+                              <option value="4">Slots 4 : {localStorage.getItem("slot_minutes")*4} min</option>
+                              <option value="5">Slots 5 : {localStorage.getItem("slot_minutes")*5} min</option>
+                              <option value="6">Slots 6 : {localStorage.getItem("slot_minutes")*6} min</option>
                             </Input>
                           </FormGroup>
                         </Container>
@@ -743,15 +743,15 @@ onSelectLimit=(e)=>{
                 </Col>
 
                 <Col xs="12" sm="6">
-                 
-                
+
+
                       <img src={Scissor} className="img-fluid" alt="img" style={{ paddingTop: 50 }} />
-                   
+
                 </Col>
               </Row>
             </ModalBody>
             <ModalFooter>
-       
+
               <Button id="updatebtn" type="submit" color="success">
                 Save
               </Button>
@@ -774,16 +774,16 @@ onSelectLimit=(e)=>{
                 <PaginationLink tag="button" value="1">1</PaginationLink>
               </PaginationItem> */}
   <PaginationItem disabled={pageNumber <= 1}>
-              
+
               <PaginationLink
                 onClick={e => this.receivedData(e, pageNumber - 1)}
                 previous
-                
+
               />
-              
+
             </PaginationItem>
 
-              {[...Array(this.state.pageCount)].map((page, i) => 
+              {[...Array(this.state.pageCount)].map((page, i) =>
               <PaginationItem active={i === pageNumber-1} key={i}>
                 <PaginationLink onClick={e => this.receivedData(e, i+1)}>
                   {i + 1}
@@ -793,13 +793,13 @@ onSelectLimit=(e)=>{
 
 
 <PaginationItem disabled={pageNumber >= this.state.pageCount}>
-              
+
               <PaginationLink
                 onClick={e => this.receivedData(e, pageNumber + 1)}
                 next
-               
+
               />
-              
+
             </PaginationItem>
 
               {/* <PaginationItem>

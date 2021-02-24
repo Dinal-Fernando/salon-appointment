@@ -39,7 +39,7 @@ class Login extends Component {
       loading:false
     }
   }
-  
+
 
 componentDidMount=()=>{
   this.toatnotify();
@@ -62,11 +62,11 @@ componentDidMount=()=>{
       email:this.state.username,
       password:this.state.password
     }
-   
+
     const url = "/user/varify/";
 BaseService.PostServiceWithoutHeader(url, login)
   .then(async(res) => {
-    
+
     this.setState({
       loading:false
     })
@@ -74,14 +74,14 @@ BaseService.PostServiceWithoutHeader(url, login)
 if(res.data!==undefined)
         {
 
-        
+
     if (res.data.success === true) {
-     
-      
-      
-    
-    
-     
+
+
+
+
+
+
 
       if (parseInt(res.data.type)===2)
 
@@ -95,11 +95,13 @@ if(res.data!==undefined)
         localStorage.setItem('longitude',res.data.longitude);
         localStorage.setItem('place',res.data.place);
         localStorage.setItem('logo',res.data.logo)
+        localStorage.setItem('slot_minutes',res.data.slot_minutes);
+        localStorage.setItem('unauthorized_url',res.data.unauthorized_url)
 
       window.location.href="/#/dashboard";
 
-       
-        
+
+
       }else if(res.data.type===3){
 
         alertify.success("Successfully logged in");
@@ -110,11 +112,13 @@ if(res.data!==undefined)
         localStorage.setItem('latitude',res.data.latitude);
         localStorage.setItem('longitude',res.data.longitude);
         localStorage.setItem('place',res.data.place);
-        localStorage.setItem('logo',res.data.logo)
+        localStorage.setItem('logo',res.data.logo);
+        localStorage.setItem('slot_minutes',res.data.slot_minutes);
+        localStorage.setItem('unauthorized_url',res.data.unauthorized_url)
 
 
         window.location.href="/#/saloon/Client";
-        
+
       }else{
 
         alertify.alert("Invalid user type login").setHeader('').set('closable', false);
@@ -122,42 +126,42 @@ if(res.data!==undefined)
 
 }
     }  else if(res.response.data!==null) {
-        
+
           Swal.fire({
             allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error logging in! '+res.response.data["description"],
-            
+
           })
-      
+
         }else{
-      
+
           Swal.fire({
             allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
             text: 'Error logging in!',
-            
+
           })
-      
+
         }
 
- 
+
 
   })
   .catch((err) => {
-   
+
   Swal.fire({
     allowOutsideClick: false,
     icon: 'error',
     title: 'Oops...',
     text: err,
-    
+
   })
 
-  // alertify.alert("invalid").setHeader('').set('closable', false); 
-  
+  // alertify.alert("invalid").setHeader('').set('closable', false);
+
 
   });
   }
@@ -206,13 +210,13 @@ if (curHr < 12) {
   console.log('good evening')
 }
 
-    
+
   }
 
 
   render() {
     return (
-      <div  className="animated fadeIn" style={{backgroundColor:"white"}}>  
+      <div  className="animated fadeIn" style={{backgroundColor:"white"}}>
 
 
 <ToastContainer
@@ -229,7 +233,7 @@ pauseOnHover
 
 <ToastContainer />
 
-     
+
 
                {/* <div className="sweet-loading text-center" style={{zIndex:"10000"}}>
         <ClockLoader
@@ -238,13 +242,13 @@ pauseOnHover
           color={"#03081b"}
           loading={true}
         />
-      </div> 
+      </div>
           */}
-      
-      
 
-    
-      
+
+
+
+
           <div className="mt-5 row align-items-center" style={{marginLeft:"0",marginRight:"0"}}>
               <div className="col-lg-6" >
                 <img src={image} className="img-fluid"></img>
@@ -253,13 +257,13 @@ pauseOnHover
 
                     <div className="col-lg-6">
                                   <div className=" col-lg-8 ">
-                                  
-                                
+
+
                                           <Form onSubmit={this.onSubmitHandler} >
                                           <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Merchant Panel</h1>
                                             <h2 style={{fontWeight:"100"}} className="pb-2 text-center">Login</h2>
                                             <p className="text-muted pt-3">Sign in to your reservation managemnt system account</p>
-                            
+
                                             <InputGroup className="mb-4" >
                                               <InputGroupAddon addonType="prepend" style={{height:"40px"}}>
                                                 <InputGroupText>
@@ -280,7 +284,7 @@ pauseOnHover
                                               <Col >
                                                 <Button style={{height:"40",fontSize:"larger"}} color="success" className="px-4" block>Login</Button>
                                               </Col>
-                                             
+
                                             </Row>
                                             <div>
                                              <Col  className="text-right">
@@ -288,18 +292,18 @@ pauseOnHover
                                               </Col>
                                               </div>
                                           </Form>
-                                     
-                             
-                                  
+
+
+
                                     </div>
                     </div>
-           
+
           </div>
-       
-   
-      
+
+
+
       </div>
-      
+
     );
   }
 }

@@ -68,7 +68,7 @@ import {
 //   Image,
 // } from "@react-pdf/renderer";
 
-import FullCalendar, { formatDate } from "@fullcalendar/react"; 
+import FullCalendar, { formatDate } from "@fullcalendar/react";
 //import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import resourceCommonPlugin from "@fullcalendar/resource-common";
@@ -143,7 +143,7 @@ class Calendarc extends Component {
       value: "",
       starttime: "",
       appointmentDet: [],
-      duration: "",
+      duration: "0",
       employee: "",
       service: "",
       fullnameInput: "",
@@ -182,14 +182,13 @@ class Calendarc extends Component {
       jumpDate:new Date(),
       cancelReason:"",
       iscanceled:true,
-      cancelReason:"",
       Addbtn:false,
       crossevent:"visible",
 
       //For update app
       appdateupdate:"",
 starttimeupdate:"",
-durationupdate:"",
+durationupdate:"0",
 employeeupdate:"",
 serviceupdate:"",
 pastDateChecker:"",
@@ -228,7 +227,7 @@ updateClient:"",
     await BaseService.GetDataWithoutParams(url2)
       .then(async(res) => {
         if (res.data.success === true) {
-         
+
          await res.data.data.map(async val=>{
                     const data={
                      id:val.id,
@@ -237,17 +236,17 @@ updateClient:"",
                       resourceTitle:val.name,
                       profile_pic:val.profile_pic
                  }
-               
+
                   this.setState({
                            empInfo:[data,...this.state.empInfo],
                           },()=>console.log(this.state.empInfo));
 
-                        
+
 
           });
-         
+
           this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD"));
-     
+
 
         } else {
           Swal.fire({
@@ -268,7 +267,7 @@ updateClient:"",
       });
 
 
-    
+
     //to get daily appointments
    //await this.eventInfo();
   };
@@ -280,7 +279,7 @@ updateClient:"",
       employeeCheck:e,
       resources:[]
     },()=>{
-      
+
       this.state.empInfo.map((val)=>{
         console.log("v"+val.id)
         console.log("e"+this.state.employeeCheck)
@@ -300,7 +299,7 @@ updateClient:"",
 
 
         }
-      
+
       })
 
 
@@ -329,7 +328,7 @@ this.state.events.map(async(val)=>{
       end:new Date(val.end),
       resourceId:val.resourceId
     }
-    
+
 
 this.setState({
   availableSlots:[data,...this.state.availableSlots],
@@ -338,7 +337,7 @@ this.setState({
   }else{
 
     this.setState({
-     
+
       resources:this.state.empInfo
     })
   }
@@ -387,7 +386,7 @@ this.eventInfo(moment(moment(gate).subtract(30,'d').toDate()).format("YYYY-MM-DD
     calendarApi.gotoDate(gate); // call a method on the Calendar object
   this.setState({
       jumpDate: gate,
-      
+
     })
 }
 
@@ -430,8 +429,8 @@ doc.autoTable({
     doc.text(str, data.settings.margin.left, pageHeight - 10);
 },
 margin: {top: 100,bottom:100}
-  
-  
+
+
   })
 
 doc.save("output.pdf")
@@ -451,16 +450,16 @@ SmsCheck=(e)=>{
       sendSMS:0
     })
   }
-  
+
   }
 
   displayEventClick=(info)=>{
 
           const index1= this.state.empInfo.findIndex((res)=>{
-  
-       
+
+
         return res.title===info.event._def.extendedProps.desc
-        
+
       });
 
     console.log(info.event.start)
@@ -486,7 +485,7 @@ SmsCheck=(e)=>{
   showTimeEnd:moment(info.event.end).format("HH:mm"),
   iscanceled:res2.data.data.is_canceled
         },()=>{this.eventClickModelFunction();console.log(this.state.updateClient)})
-       
+
 
 
       }).catch((err)=>{
@@ -498,9 +497,9 @@ SmsCheck=(e)=>{
 
 //   console.log(info.event._def.resourceIds[0])
 //   console.log("this is id "+res.id)
-  
+
 //   return  parseInt(res.id)===parseInt(info.event.id)
-  
+
 // });
 
 // console.log("check date",info.event.start)
@@ -518,7 +517,7 @@ SmsCheck=(e)=>{
 // },()=>{this.eventClickModelFunction()})
 }
 
-  
+
 onAppUpdate=()=>{
 
   const data={
@@ -529,13 +528,13 @@ onAppUpdate=()=>{
    BaseService.GetDataWithParams(url2,data)
     .then((res) => {
       if (res.data.success === true) {
-       
-     
+
+
                console.log(res.data.data)
 
 
 
-      
+
       } else {
         Swal.fire({
           allowOutsideClick: false,
@@ -588,7 +587,7 @@ let data=""
             res2.data.data.map(async value=>{
 
   console.log(res2.data.data)
-  
+
               await value.details.map(async value2=>{
 
 
@@ -621,19 +620,19 @@ if(value.is_canceled===true)
 
 }
 
-           
-                
-            
+
+
+
              this.setState({
               events:[data,...this.state.events]
             })
 
-          
+
 
 
               })
 
-            
+
 
             })
 
@@ -662,7 +661,7 @@ if(value.is_canceled===true)
 
 
         }
-      
+
       })
         .catch((err) => {
           Swal.fire({
@@ -774,11 +773,11 @@ if(this.state.reportstart==="" ||this.state.reportend==="")
 
 await res2.data.data.map(async (value,index)=>{
 
-  
-  
+
+
   await value.details.map(async( value2)=>{
 
- 
+
     const data=await {
       id:index+1,
       date:    new Intl.DateTimeFormat("en-GB", {
@@ -814,7 +813,7 @@ this.generatePDF();
 
 
         }
-      
+
       })
         .catch((err) => {
           Swal.fire({
@@ -839,7 +838,7 @@ this.generatePDF();
     });
 
     const dt = Date.parse(e.target.value) + 86400000;
-  
+
     const today = new Date();
 
     if (!isNaN(dt) && dt < today.getTime()) {
@@ -870,7 +869,7 @@ this.generatePDF();
     });
 
     const dt = Date.parse(e.target.value) + 86400000;
-  
+
     const today = new Date();
 
     if (!isNaN(dt) && dt < today.getTime()) {
@@ -941,7 +940,7 @@ this.generatePDF();
   appointmentSubmit = (e) => {
     e.preventDefault();
 
-   
+
 
 
     if (this.state.appdate !== "" && this.state.appointmentDet.length !== 0 && (this.state.mobileNum !== ""||this.state.mobileNumber!=="") &&
@@ -964,14 +963,14 @@ this.generatePDF();
           appointment_time: start,
         };
 
-     
+
         const data = {
           client: cldetails,
           appointment: appdetails,
           detail: this.state.appointmentDetails,
         };
 
-      
+
 
         console.log(data)
         document.getElementById("submitbtn").disabled=true;
@@ -984,7 +983,7 @@ this.generatePDF();
                             document.getElementById("resetbtn").disabled=false;
 
             if (res.data.success === true) {
-             
+
               this.setState({
                 large: false,
                 appointmentDet:[],
@@ -993,18 +992,18 @@ this.generatePDF();
               });
 
               Swal.fire(
-            
+
                 "Good job!",
                 "Appointment successfuly inserted",
                 "success"
               );
-         
+
 this.setState({
   events:[]
 },()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")))
-             
+
             } else {
-        
+
               Swal.fire({
                 allowOutsideClick: false,
                 icon: "error",
@@ -1014,7 +1013,7 @@ this.setState({
             }
           })
           .catch((err) => {
-          
+
             Swal.fire({
               allowOutsideClick: false,
               icon: "error",
@@ -1046,7 +1045,7 @@ this.setState({
           appointment_date: this.state.appdate,
           appointment_time: start,
         };
-     
+
 
         const data = {
           client: cldetails,
@@ -1066,7 +1065,7 @@ this.setState({
                                         document.getElementById("resetbtn").disabled=false;
 
             if (res.data.success === true) {
-            
+
 
               this.setState({
                 large: false,
@@ -1076,7 +1075,7 @@ this.setState({
               });
 
               Swal.fire(
-               
+
                 "Good job!",
                 "Appointment successfuly inserted",
                 "success"
@@ -1085,7 +1084,7 @@ this.setState({
   events:[]
 },()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
             } else {
-          
+
               Swal.fire({
                 allowOutsideClick: false,
                 icon: "error",
@@ -1095,7 +1094,7 @@ this.setState({
             }
           })
           .catch((err) => {
-         
+
             Swal.fire({
               allowOutsideClick: false,
               icon: "error",
@@ -1136,13 +1135,13 @@ this.setState({
     BaseService.DeleteDataWithParams(url, data)
       .then((res) => {
         if (res.data.success === true) {
-       
+
           this.setState({
             eventClickModel: false,
             events:[]
           },()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
 
-     
+
 
           // Swal.fire(
           //   "Good job!",
@@ -1151,9 +1150,9 @@ this.setState({
           // );
          alertify.success("Appointment successfully deleted")
 
-         
+
         } else {
-    
+
           Swal.fire({
             allowOutsideClick: false,
             icon: "error",
@@ -1163,7 +1162,7 @@ this.setState({
         }
       })
       .catch((err) => {
-      
+
         Swal.fire({
           allowOutsideClick: false,
           icon: "error",
@@ -1182,7 +1181,7 @@ this.setState({
         datedisable: false,
         starttime: "",
         service: "",
-        duration: "",
+        duration: "0",
         employee: "",
         arrayVal: [true],
         appointmentDet: [],
@@ -1194,7 +1193,7 @@ this.setState({
 
     });
 
-    
+
 
   };
 
@@ -1208,7 +1207,7 @@ this.setState({
         datedisable: false,
         starttimeupdate: "",
         serviceupdate: "",
-        durationupdate: "",
+        durationupdate: "0",
         employeeupdate: "",
         arrayVal: [false],
         appointmentDet: [],
@@ -1220,13 +1219,13 @@ this.setState({
 
     },()=>this.ShowAvailableSlots(this.state.appdateupdate));
 
-    
+
 
   };
 
 
 
-//for report generation 
+//for report generation
   toggleLarge1 = () => {
     this.setState({
       large1: !this.state.large1,
@@ -1248,7 +1247,7 @@ console.log(tab)
     }else{
 
 
-   
+
 
 
     if (
@@ -1300,7 +1299,7 @@ console.log(tab)
     }else{
 
 
-   
+
 
 
     if (
@@ -1372,7 +1371,7 @@ timeclickcheck=(e)=>{
   //for appoitnemt details validity check
   checkStatus = (e, index) => {
 
-  
+
 console.log("vidula",document.querySelectorAll('[id="service"]')[index].value)
     let servtime = 0;
     this.setState(
@@ -1410,12 +1409,12 @@ console.log("vidula",document.querySelectorAll('[id="service"]')[index].value)
           this.state.cktime === true &&
           this.state.appointmentDet.length !== 0
         ) {
-         
+
           const arr = this.state.appointmentDet[
             this.state.appointmentDet.length - 1
           ];
 
-        
+
 
           if (this.state.starttime < arr["lasttime"]) {
             alertify.alert(
@@ -1453,7 +1452,7 @@ console.log("vidula",document.querySelectorAll('[id="service"]')[index].value)
             this.setState({
               crossevent:"none"
             })
-        
+
 
           const data = {
             employee: parseInt(this.state.employee),
@@ -1473,7 +1472,7 @@ console.log("vidula",document.querySelectorAll('[id="service"]')[index].value)
             indexarr: index,
           };
 
-  
+
           document.getElementById("submitbtn").disabled=true;
           document.getElementById("resetbtn").disabled=true;
 
@@ -1511,28 +1510,28 @@ alertify.message('we are checking availability...');
             .then((res) => {
               document.getElementById("submitbtn").disabled=false;
               document.getElementById("resetbtn").disabled=false;
-              
+
               if (res.data.validity === true) {
-           
+
                 alertify.success("Slot Available");
 
                 this.setState(
                   {
                     arrayVal: [...this.state.arrayVal, false],
                   },
-               
+
                 );
                 const somearray = [...this.state.arrayVal];
                 somearray[index] = true;
 
-  
+
                 this.setState({
                   arrayVal: somearray,
                   appointmentDet: [...this.state.appointmentDet, data2],
                   appointmentDetails: [...this.state.appointmentDetails, data],
                   starttime: "",
                   employee: "",
-                  duration: "",
+                  duration: "0",
                   service: "",
                   cktime: true,
                   datedisable: true,
@@ -1551,7 +1550,7 @@ alertify.message('we are checking availability...');
                 var ele11 = document.querySelectorAll('[id="duration"]');
 
   ele11[index].disabled = false;
-  ele11[index].value = "";
+  ele11[index].value = "0";
 
 
 
@@ -1662,22 +1661,22 @@ console.log(index)
     // for (var i = 1; i < ele.length; i++){
     //   ele[i].disabled = true;
     // }
-    
+
     // var ele1 = document.querySelectorAll('[id="duration"]');
     // for (var j = 1; j < ele1.length; j++){
     //   ele1[j].disabled = true;
     // }
-    
+
     // var ele2 = document.querySelectorAll('[id="employee"]');
     // for (var k = 1; k < ele2.length; k++){
     //   ele2[k].disabled = true;
     // }
-    
+
     // var ele3 = document.querySelectorAll('[id="service"]');
     // for (var l = 1; l < ele3.length; l++){
     //   ele3[l].disabled = true;
     // }
-    
+
   };
 
   //for form data reset
@@ -1696,16 +1695,16 @@ console.log(index)
         appointmentDet: [],
         Addbtn:false
       },
- 
+
     );
 document.getElementById("starttime").value="";
-document.getElementById("duration").value="";
+document.getElementById("duration").value="0";
 document.getElementById("employee").value="";
 document.getElementById("service").value="";
 
 
     this.state.appointmentDet.splice();
- 
+
   };
 
 
@@ -1715,7 +1714,7 @@ document.getElementById("service").value="";
   resetformUpdate = (e) => {
     this.setState(
       {
-  
+
          appdateupdate: "",
         datedisable: false,
           starttimeupdate: "",
@@ -1726,16 +1725,16 @@ document.getElementById("service").value="";
         appointmentDet: [],
         Addbtn:false
       },
- 
+
     );
 document.getElementById("starttimeupdate").value="";
-document.getElementById("durationupdate").value="";
+document.getElementById("durationupdate").value="0";
 document.getElementById("employeeupdate").value="";
 document.getElementById("serviceupdate").value="";
 
 
     this.state.appointmentDet.splice();
- 
+
   };
   //for add appointment tab pane
   tabPane() {
@@ -1752,7 +1751,7 @@ document.getElementById("serviceupdate").value="";
                     filterBy={(option, props) => {
                       if (props.selected.length > 0) {
                         // Display all the options if there's a selection.
-                     
+
                         return true;
                       }
                       // Otherwise filter on some criteria.
@@ -1785,7 +1784,7 @@ document.getElementById("serviceupdate").value="";
                   <FormGroup>
                     <Label htmlFor="mobileNumber">Mobile Number</Label>
                     <PhoneInput
-                      
+
                       country={"lk"}
                       disabled={this.state.setdisable}
                       name="mobileNumber"
@@ -1856,38 +1855,38 @@ document.getElementById("serviceupdate").value="";
 <hr style={{paddingBottom:"10px"}}></hr>
                 {this.state.arrayVal.map((val, index) => (
                   <div>
-                    {(this.state.arrayVal.length -1)!== index && this.state.arrayVal.length > 1 && this.state.arrayVal[0]===true ? 
+                    {(this.state.arrayVal.length -1)!== index && this.state.arrayVal.length > 1 && this.state.arrayVal[0]===true ?
                        <span >
                        <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
                      </span>
-                    : 
+                    :
                      <></>
                    }
 
 
-{(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length === 1 && this.state.arrayVal[0]===true && this.state.appointmentDet.length!==0? 
+{(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length === 1 && this.state.arrayVal[0]===true && this.state.appointmentDet.length!==0?
                        <span >
                        <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
                      </span>
-                    : 
+                    :
                      <></>
                    }
 
 
-          {(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length >1 ? 
+          {(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length >1 ?
                       <span style={{pointerEvents:this.state.crossevent,cursor:"pointer"}} onClick={(e) => this.printconsole(index)}>
                         <i title="click to remove appointment" className="fa fa-close fa-lg mt-4 pull-right"></i>
                       </span>
-                     : 
+                     :
                       <></>
                     }
              {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-     
+
       <TimePicker value={this.state.starttime} onChange={(e) => {
                              this.timeclickcheck(e)
                             }}  disabled={this.state.arrayVal[index]}  name="starttime"
                             id="starttime"/>
-    
+
     </MuiPickersUtilsProvider> */}
                     <Row>
                       <Col xs="4">
@@ -1897,7 +1896,7 @@ document.getElementById("serviceupdate").value="";
                             type="select"
                             name="starttime"
                             id="starttime"
-                           
+
                             onChange={(e) => {
                               this.checkStatus(e, index);
                             }}
@@ -2264,7 +2263,6 @@ document.getElementById("serviceupdate").value="";
                             disabled={this.state.arrayVal[index]}
                             className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
                           >
-                            <option value="">Duration</option>
                             <option value="0">0 min</option>
                             <option value="15">15 min</option>
                             <option value="30">30 min</option>
@@ -2277,7 +2275,7 @@ document.getElementById("serviceupdate").value="";
                           </Input>
                         </FormGroup>
                       </Col>
-                   
+
                     </Row>
 
                     <hr></hr>
@@ -2289,7 +2287,7 @@ document.getElementById("serviceupdate").value="";
 
 
 <div>
-                
+
                        <span onClick={()=>this.addNewForm()}>
                        <i style={{cursor:"pointer"}} title="Click to add an event" className="fa fa-plus-circle fa-3x mt-4 pull-right" ></i>
                      </span>
@@ -2322,7 +2320,7 @@ document.getElementById("serviceupdate").value="";
                     Reset
                   </Button>
                   </ModalFooter>
-                
+
               </form>
             </div>
           }
@@ -2333,7 +2331,7 @@ document.getElementById("serviceupdate").value="";
 
   handleDateClick = async(arg) => {
 
-   
+
     if(new Date(arg.start)<new Date()){
       Swal.fire({
         allowOutsideClick: false,
@@ -2350,42 +2348,42 @@ document.getElementById("serviceupdate").value="";
         employee:arg.resource._resource.title,
         arrayVal: [false]
       },()=>{
-      
-  
-  
+
+
+
   this.GetServiceAndClient();
   this.ShowAvailableSlots(this.state.appdate);
-  
-  
+
+
       })
-      
-  
+
+
       const index1=await this.state.empInfo.findIndex((res)=>{
-  
-       
+
+
         return res.title===arg.resource._resource.title
-        
+
       });
 
       this.setState({
         employee:this.state.empInfo[index1].id
       })
-      
+
       document.getElementById("starttime").value=(moment(arg.start).format("HH:mm")).toString();
       document.getElementById("employee").value=this.state.empInfo[index1].id;
       this.checkSlotWithEmployee(this.state.empInfo[index1].id)
     }
 
 
-    
 
-    
+
+
   };
 
 
   ClickOnUpdateBtn=()=>{
 
- 
+
     Swal.fire({
       allowOutsideClick: false,
       title: 'Are you sure ?',
@@ -2396,39 +2394,39 @@ document.getElementById("serviceupdate").value="";
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, update it!'
     }).then((result) => {
-   
+
       if (result.value) {
 
 
         this.GetServiceAndClient();
 
-       
 
-   
+
+
 
    const data = {
    id:parseInt(this.state.showappId),
-  
+
     };
 
     const url = "/appointment/update/";
     BaseService.UpdateService(url, "",parseInt(this.state.showappId))
       .then((res) => {
         if (res.data.success === true) {
-       
+
        this.setState({
          eventClickModel:false,
-        
+
        })
-      
+
 
  this.toggleLargeUpdate();
  this.toggleUpdate(0,"1");
 
 
-         
+
         } else {
-    
+
           Swal.fire({
             allowOutsideClick: false,
             icon: "error",
@@ -2438,8 +2436,8 @@ document.getElementById("serviceupdate").value="";
         }
       })
       .catch((err) => {
-      
- 
+
+
       });
 
 
@@ -2503,7 +2501,7 @@ document.getElementById("serviceupdate").value="";
 
 
 
-  //For update 
+  //For update
 
 
 
@@ -2515,7 +2513,7 @@ document.getElementById("serviceupdate").value="";
  appointmentUpdate = (e) => {
     e.preventDefault();
 
-   
+
 
 
     if (this.state.appdateupdate !== "" && this.state.appointmentDet.length !== 0 && (this.state.mobileNum !== ""||this.state.mobileNumber!=="") &&
@@ -2538,18 +2536,18 @@ document.getElementById("serviceupdate").value="";
           appointment_time: start,
         };
 
-     
+
         const data = {
           client: cldetails,
           appointment: appdetails,
           detail: this.state.appointmentDetails,
         };
 
-      
+
 
         console.log(data)
         document.getElementById("submitbtn").disabled=true;
-        
+
         document.getElementById("resetbtn").disabled=true;
         const url = "/appointment/save/";
         BaseService.PostService(url, data)
@@ -2558,7 +2556,7 @@ document.getElementById("serviceupdate").value="";
               document.getElementById("resetbtn").disabled=false;
 
             if (res.data.success === true) {
-             
+
               this.setState({
                 largeUpdate: false,
                 appointmentDet:[],
@@ -2567,7 +2565,7 @@ document.getElementById("serviceupdate").value="";
               });
 
               Swal.fire(
-            
+
                 "Good job!",
                 "Appointment successfuly updated",
                 "success"
@@ -2576,9 +2574,9 @@ document.getElementById("serviceupdate").value="";
 this.setState({
   events:[]
 },()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
-             
+
             } else {
-        
+
               Swal.fire({
                 allowOutsideClick: false,
                 icon: "error",
@@ -2588,7 +2586,7 @@ this.setState({
             }
           })
           .catch((err) => {
-          
+
             Swal.fire({
               allowOutsideClick: false,
               icon: "error",
@@ -2620,7 +2618,7 @@ this.setState({
           appointment_date: this.state.appdateupdate,
           appointment_time: start,
         };
-     
+
 
         const data = {
           client: cldetails,
@@ -2636,7 +2634,7 @@ this.setState({
           .then((res) => {
             document.getElementById("submitbtn").disabled=false;
             if (res.data.success === true) {
-            
+
 
               this.setState({
                 largeUpdate: false,
@@ -2646,7 +2644,7 @@ this.setState({
               });
 
               Swal.fire(
-               
+
                 "Good job!",
                 "Appointment successfuly updated",
                 "success"
@@ -2655,7 +2653,7 @@ this.setState({
   events:[]
 },()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
             } else {
-          
+
               Swal.fire({
                 allowOutsideClick: false,
                 icon: "error",
@@ -2665,7 +2663,7 @@ this.setState({
             }
           })
           .catch((err) => {
-         
+
             Swal.fire({
               allowOutsideClick: false,
               icon: "error",
@@ -2694,7 +2692,7 @@ this.setState({
 
   checkStatusUpdate = (e, index) => {
 
-  
+
 
     let servtime = 0;
     this.setState(
@@ -2732,12 +2730,12 @@ this.setState({
           this.state.cktime === true &&
           this.state.appointmentDet.length !== 0
         ) {
-         
+
           const arr = this.state.appointmentDet[
             this.state.appointmentDet.length - 1
           ];
 
-        
+
 
           if (this.state.starttimeupdate < arr["lasttime"]) {
             alertify.alert(
@@ -2775,7 +2773,7 @@ this.setState({
             this.setState({
               crossevent:"none"
             })
-        
+
 
           const data = {
             employee: parseInt(this.state.employeeupdate),
@@ -2795,7 +2793,7 @@ this.setState({
             indexarr: index,
           };
 
-  
+
           document.getElementById("submitbtn").disabled=true;
           document.getElementById("resetbtn").disabled=true;
 
@@ -2833,28 +2831,28 @@ alertify.message('we are checking availability...');
             .then((res) => {
               document.getElementById("submitbtn").disabled=false;
               document.getElementById("resetbtn").disabled=false;
-              
+
               if (res.data.validity === true) {
-           
+
                 alertify.success("Slot Available");
 
                 this.setState(
                   {
                     arrayVal: [...this.state.arrayVal, false],
                   },
-               
+
                 );
                 const somearray = [...this.state.arrayVal];
                 somearray[index] = true;
 
-  
+
                 this.setState({
                   arrayVal: somearray,
                   appointmentDet: [...this.state.appointmentDet, data2],
                   appointmentDetails: [...this.state.appointmentDetails, data],
                   starttimeupdate: "",
                   employeeupdate: "",
-                  durationupdate: "",
+                  durationupdate: "0",
                   serviceupdate: "",
                   cktime: true,
                   datedisable: true,
@@ -2873,7 +2871,7 @@ alertify.message('we are checking availability...');
                 var ele11 = document.querySelectorAll('[id="durationupdate"]');
 
   ele11[index].disabled = false;
-  ele11[index].value = "";
+  ele11[index].value = "0";
 
 
 
@@ -2925,13 +2923,13 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
               </div>
 :<></>}
                   </div>
-                  
-                
+
+
                   <Typeahead
                     filterBy={(option, props) => {
                       if (props.selected.length > 0) {
                         // Display all the options if there's a selection.
-                     
+
                         return true;
                       }
                       // Otherwise filter on some criteria.
@@ -2942,10 +2940,10 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                       );
                     }}
                     defaultSelected={this.state.data.slice(this.state.data.findIndex((res)=>{
-  
-       
+
+
         return res.name===this.state.updateClient
-        
+
       }))}
                     id="basic-typeahead-example"
                     labelKey="name"
@@ -2970,7 +2968,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                   <FormGroup>
                     <Label htmlFor="mobileNumber">Mobile Number</Label>
                     <PhoneInput
-                      
+
                       country={"lk"}
                       disabled={this.state.setdisable}
                       name="mobileNumber"
@@ -3048,38 +3046,38 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
                 {this.state.arrayVal.map((val, index) => (
                   <div>
-                    {(this.state.arrayVal.length -1)!== index && this.state.arrayVal.length > 1 && this.state.arrayVal[0]===true ? 
+                    {(this.state.arrayVal.length -1)!== index && this.state.arrayVal.length > 1 && this.state.arrayVal[0]===true ?
                        <span >
                        <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
                      </span>
-                    : 
+                    :
                      <></>
                    }
 
 
-{(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length === 1 && this.state.arrayVal[0]===true && this.state.appointmentDet.length!==0? 
+{(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length === 1 && this.state.arrayVal[0]===true && this.state.appointmentDet.length!==0?
                        <span >
                        <i style={{color:"green"}} className="fa fa-check-circle fa-lg mt-4 pull-right"></i>
                      </span>
-                    : 
+                    :
                      <></>
                    }
 
 
-          {(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length >1 ? 
+          {(this.state.arrayVal.length -1)=== index && this.state.arrayVal.length >1 ?
                       <span style={{pointerEvents:this.state.crossevent,cursor:"pointer"}} onClick={(e) => this.printconsole(index)}>
                         <i title="click to remove appointment" className="fa fa-close fa-lg mt-4 pull-right"></i>
                       </span>
-                     : 
+                     :
                       <></>
                     }
              {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-     
+
       <TimePicker value={this.state.starttime} onChange={(e) => {
                              this.timeclickcheck(e)
                             }}  disabled={this.state.arrayVal[index]}  name="starttime"
                             id="starttime"/>
-    
+
     </MuiPickersUtilsProvider> */}
                     <Row>
                       <Col xs="4">
@@ -3475,7 +3473,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                           </Input>
                         </FormGroup>
                       </Col>
-                   
+
                     </Row>
 
                     <hr></hr>
@@ -3487,7 +3485,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
 
 <div>
-                
+
                        <span onClick={()=>this.addNewForm()}>
                        <i style={{cursor:"pointer"}} title="Click to add an event" className="fa fa-plus-circle fa-3x mt-4 pull-right" ></i>
                      </span>
@@ -3520,7 +3518,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                     Reset
                   </Button>
                   </ModalFooter>
-                
+
               </form>
             </div>
           }
@@ -3557,7 +3555,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
 
   render() {
-    
+
 
 
     // const styles = StyleSheet.create({
@@ -3597,7 +3595,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
     //     marginTop: 100,
     //     marginLeft: 160,
     //     fontWeight: "bold",
-        
+
     //   },
     // });
 
@@ -3605,7 +3603,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
     return (
       <div className="animated fadeIn">
-     
+
 
 
 
@@ -3619,7 +3617,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
         {/* The flex line on header */}
         <Row className="justify-content-between">
-        
+
         <div >
             <Button color="dark" onClick={()=>window.location.href="/#/saloon/monthly"}>
               Vertical View
@@ -3644,7 +3642,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 </div>
 </div>
 </div> */}
-     
+
             {/* Calendar dropdown */}
           <div className="text-center">
             <ButtonDropdown
@@ -3672,11 +3670,11 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                 </DropdownItem>
               </DropdownMenu>
             </ButtonDropdown>
-          </div> 
+          </div>
 
           {/* <div>
             <Button color="dark" onClick={()=>{this.onSelectCalendar()}}>
-            
+
                Go to {new Intl.DateTimeFormat("en-GB", {
                   year: "numeric",
                   month: "long",
@@ -3714,7 +3712,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
               </DropdownMenu>
             </Dropdown>
           </div>
-          
+
         </Row><br></br>
 
         <Modal className="modal-xl" isOpen={this.state.large} >
@@ -3833,7 +3831,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                         style={styles.image}
                       />
                     </View>
-                
+
                     <View style={styles.appointmentTitle}>
                       <Text style={styles.appointmentTitle}>
                         Report for date:{" "}
@@ -3855,7 +3853,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                       </Text>
                     </View>
 
-                 
+
                     {this.state.dailyreport.map((details,index) => (
                       <div>
                         <View style={styles.appointmentDetails}>
@@ -3939,7 +3937,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
             {/* </div>:<></>} */}
 
-         
+
           </ModalBody>
         </Modal>
 <Card>
@@ -3965,15 +3963,15 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
           selectable={true}
           selectMirror={true}
           eventClick={this.displayEventClick}
-          
+
 
     height= "auto" // will activate stickyHeaderDates automatically!
-    
+
     slotDuration= "00:05:00"
     datesAboveResources= {true}
           select={this.handleDateClick}
           resources= {this.state.empInfo}
-        
+
             // your list of resources
         />
 
@@ -4013,11 +4011,11 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                   </tr>
           </tbody>
           </Table>
-         
- 
 
-       
-        
+
+
+
+
         {this.state.iscanceled===false?
         <div className="float-right">
 {new moment(this.state.pastDateChecker)>new moment()?
@@ -4025,7 +4023,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
         <Button color="dark" className="ml-3" onClick={()=>{this.setState({cancelAppointment:true})}}>Cancel Appointment</Button>
         </div>
         :<></>}<br></br>
-        
+
         {this.state.cancelAppointment===true && this.state.iscanceled===false?
         <form onSubmit={this.cancelAppointmentSubmit}>
         <FormGroup>
@@ -4044,7 +4042,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                   :<></>}
           </ModalBody>
         </Modal>
-      
+
 
 
       </div>
