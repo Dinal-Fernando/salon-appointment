@@ -1352,10 +1352,14 @@ if(e===true)
               <Card>
                 <CardBody>
                  
-                <div className="text-center d-flex justify-content-end">
+                <div className="row">
+                <div className="col-lg-7">
+                <FormGroup>
                 <Input placeholder={'Search staff from  name or NIC '} name="searchString"  onChange={this.handleOnChange1}></Input>   
-
-            <div className="col-2 mb-3">
+                </FormGroup>
+</div>
+            <div className="col-lg-2 mb-3">
+            <FormGroup>
             <Input
              type="select"
              id="limit"
@@ -1371,6 +1375,7 @@ if(e===true)
                 <option value="50">50 records</option>
                 <option value="100">100 records</option>
             </Input>
+            </FormGroup>
             </div>
          
   </div>
@@ -1855,6 +1860,7 @@ if(e===true)
                     <tbody>
                       {this.state.data3.map((item) => (
                         <tr >
+                        <div className="d-flex">
                            <i
                       className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
                       onClick={()=>{this.toggleLarge3();this.pass(item.id,item.name,item.nic,item.mobile,item.country_code,item.profile_pic)}}
@@ -1863,7 +1869,7 @@ if(e===true)
                       className="fa fa-trash fa-lg mt-4 ml-3" style={{cursor:"pointer"}}
                       onClick={()=>{this.pass(item.id,item.name,item.nic,item.mobile,item.country_code,item.profile_pic);this.deletestaff1()}}
                     ></i>
-                   
+                   </div>
                     <td>  <Avatar alt={item.name} src={"https://images.ereserv.me/"+item.profile_pic}  /></td>
                           <td>{item.name}</td>
                           <td>{item.nic}</td>
@@ -1992,10 +1998,15 @@ if(e===true)
 
             <Card>
               <CardBody>
-              <div className="text-center d-flex justify-content-end">
+         
+              <div className="row">
+              <div className="col-lg-7">
+              <FormGroup>
               <Input placeholder={'Search user from first name, email or last name '} name="searchString"  onChange={this.handleOnChange}></Input>   
-
-            <div className="col-2 mb-3">
+             </FormGroup>
+              </div>
+            <div className="col-lg-2 mb-3">
+            <FormGroup>
             <Input
              type="select"
              id="limit"
@@ -2011,6 +2022,7 @@ if(e===true)
                 <option value="50">50</option>
                 <option value="100">100</option>
             </Input>
+            </FormGroup>
             </div>
          
   </div>
@@ -2140,8 +2152,7 @@ if(e===true)
                   </Dropdown>
 
 
-        <Row>
-          <Col>
+        <div className="pt-lg-5">
             <Nav tabs>
               <NavItem>
                 <NavLink
@@ -2177,8 +2188,8 @@ if(e===true)
             <TabContent activeTab={this.state.activeTab[0]}>
               {this.tabPane()}
             </TabContent>
-          </Col>
-        </Row>
+            </div>
+        
       </div>
     );
   }

@@ -802,9 +802,14 @@ console.log("value here:"+this.state.countrycd)
 
         <CardBody>
         
-          <div className="text-center d-flex justify-content-end">
+          <div className="row">
+           <div className="col-lg-7 ">
+           <FormGroup>
           <Input placeholder={'Search by client name or NIC '} name="searchString"  onChange={this.handleOnChange}></Input>  
-            <div className="col-2 ">
+          </FormGroup>
+           </div>
+            <div className="col-lg-2 ">
+             <FormGroup>
             <Input
              type="select"
              id="limit"
@@ -820,7 +825,9 @@ console.log("value here:"+this.state.countrycd)
                 <option value="50">50 records</option>
                 <option value="100">100 records</option>
             </Input>
+              </FormGroup>
             </div>
+             <div className="col-lg-2 ">
             <Button
               onClick={this.toggleLarge}
               color="dark"
@@ -829,6 +836,7 @@ console.log("value here:"+this.state.countrycd)
             >
               Add Client
             </Button>
+            </div>
           </div>
 
           <Modal
@@ -904,9 +912,13 @@ console.log("value here:"+this.state.countrycd)
                   className="fa fa-reorder fa-lg mt-4"
                   style={{ paddingTop: 12 }}
                 ></i>
-                <th>
+                <th >
+<div className="d-flex">
+<div>
                   <i className="fa fa-user-circle-o fa-fw"></i>
+                  </div>
                   Full name
+                  </div>
                 </th>
                 <th>
                   <i className="fa fa-id-card fa-fw mt-4"></i>
@@ -930,6 +942,7 @@ console.log("value here:"+this.state.countrycd)
             <tbody>
               {this.state.data3.map((person) => (
                 <tr>
+                <div className="d-flex">
                   <i
                     className="fa fa-edit fa-lg mt-4"  style={{cursor:"pointer"}}
                     onClick={() => {
@@ -956,9 +969,9 @@ console.log("value here:"+this.state.countrycd)
                       this.deleteClient1();
                     }}
                   ></i>
-
+</div>
                   <td>{person.name}</td>
-                  <td>{person.nic}</td>
+                  <td>{person.nic?person.nic:'Not Provided'}</td>
                   <td>{person.country_code + person.mobile}</td>
                   {person.last_date === null ? (
                     <td>No appointments</td>

@@ -976,19 +976,19 @@ await this.clientInfo();
                           <Progress className="progress-xs" color="warning" value="37" />
                         </div>
                       </div> */}
-                      <div className="progress-group">
+                      <div className="progress-group pb-3">
                         <div className="progress-group-header">
                           <i className="icon-globe progress-group-icon"></i>
                           <span className="title">URL</span>
 
-                            <span className="ml-auto font-weight-bold">{localStorage.getItem("unauthorized_url")}</span>
+                            <span className="ml-auto font-weight-bold"><a href={localStorage.getItem("unauthorized_url")}>{localStorage.getItem("unauthorized_url")}</a></span>
                         </div>
-                        <br/>
+                        
 
                       </div>
                       <div className="progress-group">
                         <div className="progress-group-header">
-                          <i className="icon-globe progress-group-icon"></i>
+                          <i className="icon-social-linkedin progress-group-icon"></i>
                           <span className="title">Total Income</span>
                           <span className="ml-auto font-weight-bold">{parseInt(this.state.totalPrice)>0?'LKR '+parseInt(this.state.totalPrice).toFixed(2):'Not Available'}</span>
                         </div>

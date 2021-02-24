@@ -71,7 +71,7 @@ class DefaultHeaderUnauthorized extends Component {
               <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
            
               {/* <DropdownItem onClick={()=>document.getElementById('lock').style.display="block"}><i className="fa fa-shield"></i> Lock Screen</DropdownItem> */}
-              <DropdownItem onClick={e => {localStorage.clear();window.location.href="/"}}><i className="fa fa-lock"></i> Home</DropdownItem>
+              <DropdownItem onClick={e => {localStorage.clear();window.location.href="/#/main"}}><i className="fa fa-lock"></i> Home</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </Nav>

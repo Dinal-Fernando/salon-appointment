@@ -553,10 +553,15 @@ onSelectLimit=(e)=>{
           </CardHeader>
        
           <CardBody>
-          <div className="text-center d-flex justify-content-end">
+          <div className="row">
+          <div className="col-lg-7">
+          <FormGroup>
           <Input placeholder={'Search catergory from catergory name'} name="searchString"  onChange={this.handleOnChange}></Input>   
-
-            <div className="col-2 ">
+           
+            </FormGroup>
+            </div>
+            <div className="col-lg-2 ">
+                <FormGroup>
             <Input
              type="select"
              id="limit"
@@ -572,15 +577,28 @@ onSelectLimit=(e)=>{
                 <option value="50">50 records</option>
                 <option value="100">100 records</option>
             </Input>
+                </FormGroup>
             </div>
+            <div className="col-lg-2 ">
           <Button color="dark"
           className="pull-right" onClick={this.toggleLarge1} style={{ marginBottom: 20 }}>New Catergory</Button>
+          </div>
   </div>
             <Table responsive className="table table-hover hover">
               <thead>
                 <tr>
                   <i className="fa fa-reorder fa-lg mt-4" style={{paddingTop:12}}></i>
-                  <th> <i className="fa fa-user-circle-o fa-fw"></i>Catergory Name</th>
+                  <th> 
+             
+                
+                  <i className="fa fa-user-circle-o fa-fw"></i>
+            
+                  Catergory Name
+               
+                  
+                  
+                  </th>
+                  
                   <th><i className="fa fa-exclamation-triangle fa-fw mt-4"></i>Action</th>
                
                 </tr>
@@ -588,6 +606,7 @@ onSelectLimit=(e)=>{
               {this.state.data3.map((item) => (
                 <tbody>
                   <tr>
+                  <div className="d-flex">
                     <i
                       className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
                       onClick={()=>{this.toggleLarge();this.pass(item.name,item.id)}}
@@ -596,6 +615,7 @@ onSelectLimit=(e)=>{
                       className="fa fa-trash fa-lg mt-4 ml-3" style={{cursor:"pointer"}}
                       onClick={()=>{this.pass(item.name,item.id);this.deletecatergory1();}}
                     ></i>
+                    </div>
                     <td>{item.name}</td>
                 
                     <td><Switch checkedChildren="Active" unCheckedChildren="Deactive" defaultChecked checked={item.is_active} onChange={(e) => this.setStatus(item.id,item.is_active, e)}/></td>

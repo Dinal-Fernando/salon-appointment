@@ -1807,9 +1807,14 @@ document.getElementById("service").value="";
 
         <CardBody>
         
-          <div className="text-center d-flex justify-content-end">
+          <div className="row">
+          <div className="col-lg-7">
+          <FormGroup>
           <Input placeholder={'Search by client name or appointment date '} name="searchString"  onChange={this.handleOnChange}></Input>  
-            <div className="col-2 ">
+           </FormGroup>
+           </div>
+            <div className="col-lg-2 ">
+             <FormGroup>
             <Input
              type="select"
              id="limit"
@@ -1825,6 +1830,7 @@ document.getElementById("service").value="";
                 <option value="50">50 records</option>
                 <option value="100">100 records</option>
             </Input>
+              </FormGroup>
             </div>
             {/* <Button
               onClick={this.toggleLarge}

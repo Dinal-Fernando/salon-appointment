@@ -1869,7 +1869,7 @@ BaseService.GetDataWithoutParams(url)
                 }).format(this.state.date)}
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem header>
+                <DropdownItem header style={{width:"310px"}}>
                   {" "}
                   <Calendar
                     onChange={this.onSelectCalendar}

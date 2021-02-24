@@ -1246,7 +1246,7 @@ this.generatePDF();
          
 this.setState({
   events:[]
-},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")))
+},()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")))
              
             } else {
         
@@ -1329,7 +1329,7 @@ this.setState({
               );
        this.setState({
   events:[]
-},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")))
+},()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")))
             } else {
           
               Swal.fire({
@@ -4215,7 +4215,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
     
     slotDuration= "00:05:00"
     datesAboveResources= {true}
-          select={this.handleDateClick}
+          // select={this.handleDateClick}
           resources= {this.state.empInfo}
         
          

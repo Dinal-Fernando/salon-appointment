@@ -205,6 +205,7 @@ updateClient:"",
 
 
   componentDidMount = async () => {
+   
     window.onbeforeunload = function (e) {
     e = e || window.event;
 
@@ -405,7 +406,7 @@ doc.autoTable({html:'#table'})
 
 doc.autoTable({
 
-  head:[['No','start date', 'Client', 'Employee Name', 'service type', 'start time',' end time']],
+  head:[['No','start date', 'Client', 'Employee Name', 'service type','Cancelled', 'start time',' end time']],
 
   body:this.state.dailyreport,
 
@@ -797,7 +798,7 @@ await res2.data.data.map(async (value,index)=>{
       year: "numeric",
       month: "long",
       day: "2-digit",
-    }).format(new Date(value2.start_time)),value.client,value2.employee_name,value2.service,new Date(value2.start_time).getHours()+":"+new Date(value2.start_time).getMinutes(),new Date(value2.end_time).getHours()+":"+new Date(value2.end_time).getMinutes()];
+    }).format(new Date(value2.start_time)),value.client,value2.employee_name,value2.service,value.is_canceled,moment(value2.start_time).format("HH:mm"),moment(value2.end_time).format("HH:mm")];
 
 
 this.state.dailyreport.push(reportdata);
@@ -1000,7 +1001,7 @@ this.generatePDF();
 
 this.setState({
   events:[]
-},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")))
+},()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")))
 
             } else {
 
@@ -1082,7 +1083,7 @@ this.setState({
               );
               this.setState({
   events:[]
-},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
+},()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")));
             } else {
 
               Swal.fire({
@@ -1139,7 +1140,7 @@ this.setState({
           this.setState({
             eventClickModel: false,
             events:[]
-          },()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
+          },()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")));
 
 
 
@@ -1538,6 +1539,13 @@ alertify.message('we are checking availability...');
                   crossevent:"visible"
                 });
               } else {
+                       this.setState({
+                  starttime: "",
+                  employee: "",
+                  duration: "0",
+                  service: "",
+                  crossevent:"visible"
+                });
 
                 this.setState({
                   crossevent:"visible"
@@ -1888,8 +1896,8 @@ document.getElementById("serviceupdate").value="";
                             id="starttime"/>
 
     </MuiPickersUtilsProvider> */}
-                    <Row>
-                      <Col xs="4">
+                    <div className="row">
+                      <div className="col-lg-4">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Start Time</Label>
                           <Input
@@ -2204,8 +2212,8 @@ document.getElementById("serviceupdate").value="";
                             <option value="23:55">23:55</option>
                           </Input>
                         </FormGroup>
-                      </Col>
-                      <Col xs="8">
+                      </div>
+                      <div className="col-lg-8">
                         <FormGroup>
                           <Label htmlFor="ccyear">Service</Label>
 
@@ -2224,12 +2232,12 @@ document.getElementById("serviceupdate").value="";
                             ))}
                           </Input>
                         </FormGroup>
-                      </Col>
-                    </Row>
+                      </div>
+                    </div>
 
-                    <Row>
+                    <div className="row">
 
-                    <Col xs="6">
+                    <div className="col-lg-6">
                         <FormGroup>
                           <Label htmlFor="ccyear">Select Stylist</Label>
                           <Input
@@ -2248,9 +2256,9 @@ document.getElementById("serviceupdate").value="";
                             ))}
                           </Input>
                         </FormGroup>
-                      </Col>
+                      </div>
 
-                      <Col xs="6">
+                      <div className="col-lg-6">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Additional Time Allocated</Label>
                           <Input
@@ -2274,9 +2282,9 @@ document.getElementById("serviceupdate").value="";
                             <option value="120">2 hr</option>
                           </Input>
                         </FormGroup>
-                      </Col>
+                      </div>
 
-                    </Row>
+                    </div>
 
                     <hr></hr>
                   </div>
@@ -2419,6 +2427,7 @@ document.getElementById("serviceupdate").value="";
 
        })
 
+//this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD"))
 
  this.toggleLargeUpdate();
  this.toggleUpdate(0,"1");
@@ -2573,7 +2582,7 @@ document.getElementById("serviceupdate").value="";
               //window.location.reload();
 this.setState({
   events:[]
-},()=>this.eventInfo(moment(moment().subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment().add(30,'d').toDate()).format("YYYY-MM-DD")));
+},()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")));
 
             } else {
 
@@ -3079,8 +3088,8 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                             id="starttime"/>
 
     </MuiPickersUtilsProvider> */}
-                    <Row>
-                      <Col xs="4">
+                    <div className="row">
+                      <div className="col-lg-4">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Start Time</Label>
                           <Input
@@ -3396,8 +3405,8 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                             <option value="23:55">23:55</option>
                           </Input>
                         </FormGroup>
-                      </Col>
-                      <Col xs="8">
+                      </div>
+                      <div className="col-lg-8">
                         <FormGroup>
                           <Label htmlFor="ccyear">Service</Label>
 
@@ -3418,12 +3427,12 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                             ))}
                           </Input>
                         </FormGroup>
-                      </Col>
-                    </Row>
+                      </div>
+                    </div>
 
-                    <Row>
+                    <div className="row">
 
-                    <Col xs="6">
+                    <div className="col-lg-6">
                         <FormGroup>
                           <Label htmlFor="ccyear">Select Stylist</Label>
                           <Input
@@ -3444,9 +3453,9 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                             ))}
                           </Input>
                         </FormGroup>
-                      </Col>
+                      </div>
 
-                      <Col xs="6">
+                      <div className="col-lg-6">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Additional Time Allocated</Label>
                           <Input
@@ -3460,7 +3469,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                                                         className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
 
                           >
-                            <option value="">Duration</option>
+                            {/* <option value="">Duration</option> */}
                             <option value="0">0 min</option>
                             <option value="15">15 min</option>
                             <option value="30">30 min</option>
@@ -3472,9 +3481,9 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                             <option value="120">2 hr</option>
                           </Input>
                         </FormGroup>
-                      </Col>
+                      </div>
 
-                    </Row>
+                    </div>
 
                     <hr></hr>
                   </div>

@@ -561,11 +561,14 @@ onSelectLimit=(e)=>{
 
 
           <CardBody>
-            <div className="text-center text-center d-flex justify-content-end">
-
+            <div className="row">
+<div className="col-lg-7">
+<FormGroup>
             <Input placeholder={'Search by service type '} name="searchString"  onChange={this.handleOnChange}></Input>
-
-            <div className="col-2 ">
+            </FormGroup>
+</div>
+            <div className="col-lg-2 ">
+            <FormGroup>
             <Input
              type="select"
              id="limit"
@@ -581,9 +584,11 @@ onSelectLimit=(e)=>{
                 <option value="50">50 records</option>
                 <option value="100">100 records</option>
             </Input>
+            </FormGroup>
             </div>
-
+ <div className="col-lg-2 ">
               <AddService displayservice={this.receivedData}/>
+               </div>
             </div>
 
             <Table responsive className="table table-hover hover">
@@ -599,6 +604,7 @@ onSelectLimit=(e)=>{
               {this.state.data3.map((item) => (
                 <tbody>
                   <tr>
+                  <div className="d-flex">
                     <i
                       className="fa fa-edit fa-lg mt-4" style={{cursor:"pointer"}}
                       onClick={()=>{this.toggleLarge();this.pass(item.name,item.category,item.price,item.cost,item.slots,item.id)}}
@@ -607,6 +613,7 @@ onSelectLimit=(e)=>{
                       className="fa fa-trash fa-lg mt-4 ml-3" style={{cursor:"pointer"}}
                       onClick={()=>{this.pass(item.name,item.category,item.price,item.cost,item.slots,item.id);this.deleteservice1();}}
                     ></i>
+                    </div>
                     <td>{item.name}</td>
                     <td>{item.time} min</td>
                     <td>{item.price}</td>
