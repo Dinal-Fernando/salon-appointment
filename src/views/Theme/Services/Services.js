@@ -215,7 +215,7 @@ class Services extends Component {
             })
         })
     }else{
-        this.receivedData1(1,1);
+        this.receivedData(1,1);
     }
   };
 

@@ -349,7 +349,7 @@ this.setState({
                 appdata:this.state.appdata.filter(element=>{
                     return(
                         element.appointment_date.toLowerCase().match(event.target.value)||
-                        element.client.match(event.target.value)
+                        element.client.toLowerCase().match(event.target.value)
                       
                       
                        
