@@ -323,7 +323,7 @@ if(e===true)
     document.getElementById("updatebtn").disabled=true;
     document.getElementById("deletebtn").disabled=true;
   
-  const url = "/catergory/update/";
+  const url = "/category/update/";
   BaseService.UpdateService(url, Updatecatergory,this.state.updateId)
     .then((res) => {
 
@@ -336,7 +336,7 @@ if(e===true)
        // this.receivedData(1,1);
        Swal.fire(
         'Good job!',
-        'Service successfully Updated',
+        'Category successfully Updated',
         'success'
       );
      

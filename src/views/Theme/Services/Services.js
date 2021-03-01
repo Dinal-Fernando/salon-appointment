@@ -660,7 +660,7 @@ onSelectLimit=(e)=>{
 
                       <FormGroup row>
                         <Col md="3">
-                          <Label htmlFor="select">category</Label>
+                          <Label htmlFor="select">Category</Label>
                         </Col>
                         <Col xs="12" md="9">
                           <Input
