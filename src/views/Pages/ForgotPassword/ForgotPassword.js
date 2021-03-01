@@ -79,7 +79,7 @@ BaseService.PostServiceWithoutHeader(url, reset)
               <Card className="mx-4">
                 <CardBody className="p-4">
                   <Form onSubmit={this.onSubmitHandler}>
-                    <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Merchant Panel</h1>
+                    <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Reservation Management System</h1>
                                             <h2 style={{fontWeight:"100"}} className="pb-2 text-center">Forgot password</h2>
                                             <p className="text-muted pt-3">Enter email to reset your password</p>
                             

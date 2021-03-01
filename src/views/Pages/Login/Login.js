@@ -131,7 +131,7 @@ if(res.data!==undefined)
             allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
-            text: 'Error logging in! '+res.response.data["description"],
+            text: 'Login error! '+res.response.data["description"],
 
           })
 
@@ -141,7 +141,7 @@ if(res.data!==undefined)
             allowOutsideClick: false,
             icon: 'error',
             title: 'Oops...',
-            text: 'Error logging in!',
+            text: 'Login error!',
 
           })
 
@@ -260,7 +260,7 @@ pauseOnHover
 
 
                                           <Form onSubmit={this.onSubmitHandler} >
-                                          <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Merchant Panel</h1>
+                                          <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Reservation Management System</h1>
                                             <h2 style={{fontWeight:"100"}} className="pb-2 text-center">Login</h2>
                                             <p className="text-muted pt-3">Sign in to your reservation managemnt system account</p>
 

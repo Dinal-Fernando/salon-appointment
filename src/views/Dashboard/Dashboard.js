@@ -988,7 +988,7 @@ await this.clientInfo();
                       </div>
                       <div className="progress-group">
                         <div className="progress-group-header">
-                          <i className="icon-social-linkedin progress-group-icon"></i>
+                          {/* <i className="icon-social-linkedin progress-group-icon"></i> */}
                           <span className="title">Total Income</span>
                           <span className="ml-auto font-weight-bold">{parseInt(this.state.totalPrice)>0?'LKR '+parseInt(this.state.totalPrice).toFixed(2):'Not Available'}</span>
                         </div>
@@ -1018,7 +1018,7 @@ await this.clientInfo();
                       </div>
                       <div className="progress-group">
                         <div className="progress-group-header">
-                          <i className="icon-social-linkedin progress-group-icon"></i>
+                          {/* <i className="icon-social-linkedin progress-group-icon"></i> */}
                           <span className="title">% change in profit</span>
                           <span className="ml-auto font-weight-bold">{((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice)>0?((this.state.totalPrice-this.state.totalCost)*100/this.state.totalPrice).toFixed(2)+'%':'Not Available'}</span>
                         </div>

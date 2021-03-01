@@ -2222,7 +2222,7 @@ document.getElementById("serviceupdate").value="";
                              
                             }}
                             disabled={this.state.arrayVal[index]}
-  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':''}                          >
                             <option value="">Time</option>
                             <option value="00:05">00:05</option>
                             <option value="00:10">00:10</option>
@@ -2538,7 +2538,7 @@ document.getElementById("serviceupdate").value="";
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':''}                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':''}                          >
                             <option value="">Select service</option>
                             {this.state.data2.map((val,index) => (
                               <option key={index} value={val.id}>{val.name}     :- {val.time} min</option>
@@ -2603,7 +2603,7 @@ document.getElementById("serviceupdate").value="";
                                                                     <DropDownImage
                                                                     style={{zIndex:"1000"}}
                                                                      name="employee"
-                                                                     className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':this.state.makeDisable?'disabled':''}
+                                                                     className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':this.state.makeDisable?'disabled':''}
                             id="employee"  
     placeholder='Select Friend'
     fluid

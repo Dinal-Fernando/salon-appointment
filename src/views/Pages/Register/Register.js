@@ -109,16 +109,55 @@ const regUsers={
 const url = "/user/update/";
 BaseService.PostServiceWithoutHeader(url, regUsers)
   .then((res) => {
-    if (res.data.success === true) {
+    // if (res.data.success === true) {
+    //   Swal.fire(
+    //     'Good job!',
+    //     'Successfully registered. Login to continue',
+    //     'success'
+    //   )
+    //   window.location.href="/#/login";
+    // } else {
+    //   alertify.alert("Cannot perform the operation");
+    // }
+
+
+      if(res.data!==undefined)
+        {
+          if(res.data.success===true)
+          {
       Swal.fire(
         'Good job!',
         'Successfully registered. Login to continue',
         'success'
       )
       window.location.href="/#/login";
-    } else {
-      alertify.alert("Cannot perform the operation");
-    }
+          }
+        }
+       else if(res.response.data!==null) {
+        
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error registering! '+res.response.data["description"],
+            
+          })
+      
+        }else{
+      
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error registering!',
+            
+          })
+      
+        }
+
+
+
+
   })
   .catch((err) => {
     alertify.alert("Cannot perform the operation");
@@ -140,7 +179,7 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
             <div className="col-lg-6">
              <div className="col-lg-8">
                   <Form onSubmit={this.onSubmitHandler}>
-                    <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Merchant Panel</h1>
+                    <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Reservation Management System</h1>
                                             <h2 style={{fontWeight:"100"}} className="pb-2 text-center">Registration</h2>
                                             <p className="text-muted pt-3">Complete the registration process</p>
                     

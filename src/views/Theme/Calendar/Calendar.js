@@ -1696,7 +1696,7 @@ console.log(index)
         datedisable: false,
         starttime: "",
         service: "",
-        duration: "",
+        duration: "0",
         employee: "",
 
         arrayVal: [true],
@@ -1727,7 +1727,7 @@ document.getElementById("service").value="";
         datedisable: false,
           starttimeupdate: "",
         serviceupdate: "",
-        durationupdate: "",
+        durationupdate: "0",
         employeeupdate: "",
         arrayVal: [true],
         appointmentDet: [],
@@ -1909,7 +1909,7 @@ document.getElementById("serviceupdate").value="";
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':<></>}                          >
                             <option value="">Time</option>
                             <option value="00:05">00:05</option>
                             <option value="00:10">00:10</option>
@@ -2225,7 +2225,7 @@ document.getElementById("serviceupdate").value="";
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':<></>}                          >
                             <option value="">Select service</option>
                             {this.state.data2.map((val) => (
                               <option value={val.id}>{val.name}     :- {val.time} min</option>
@@ -2249,7 +2249,7 @@ document.getElementById("serviceupdate").value="";
                               this.checkSlotWithEmployee(e.target.value)
                             }}
                             disabled={this.state.arrayVal[index]}
-  className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}                          >
+  className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':<></>}                          >
                             <option value="">Select stylist</option>
                             {this.state.empInfo.map((val) => (
                               <option  value={val.id}>{val.title}</option>
@@ -2269,7 +2269,7 @@ document.getElementById("serviceupdate").value="";
                               this.checkStatus(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                            className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                            className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':<></>}
                           >
                             <option value="0">0 min</option>
                             <option value="15">15 min</option>
@@ -3100,7 +3100,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                               this.checkStatusUpdate(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdateupdate!==""?'ondisable':<></>}
 
                           >
                             <option value="">Time</option>
@@ -3418,7 +3418,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                               this.checkStatusUpdate(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdateupdate!==""?'ondisable':<></>}
 
                           >
                             <option value="">Select service</option>
@@ -3444,7 +3444,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                               this.checkSlotWithEmployee(e.target.value)
                             }}
                             disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdateupdate!==""?'ondisable':<></>}
 
                           >
                             <option value="">Select stylist</option>
@@ -3466,7 +3466,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                               this.checkStatusUpdate(e, index);
                             }}
                             disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length > 1?'ondisable':<></>}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdateupdate!==""?'ondisable':<></>}
 
                           >
                             {/* <option value="">Duration</option> */}
@@ -3716,7 +3716,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                 </DropdownItem>
 
                 <DropdownItem onClick={this.toggleLarge1}>
-                  generate report
+                  Generate report
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
