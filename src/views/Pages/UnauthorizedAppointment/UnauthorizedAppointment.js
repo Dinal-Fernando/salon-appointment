@@ -2609,7 +2609,7 @@ document.getElementById("serviceupdate").value="";
                                                                      name="employee"
                                                                      className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':this.state.makeDisable?'disabled':''}
                             id="employee"  
-    placeholder='Select Friend'
+    placeholder='Select employee'
     fluid
     selection
    

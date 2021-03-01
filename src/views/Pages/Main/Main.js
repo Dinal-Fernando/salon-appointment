@@ -58,9 +58,9 @@ class Main extends Component {
                 <ul className="d-flex flex-column align-items-start justify-content-start">
                     <li className="active"><a href="index.html">Home</a></li>
                     <li><a href="https://spemai.com/">About Us</a></li>
-                    <li><a href="#services">Services</a></li>
+                    <li><a href="/#/main#services">Services</a></li>
                     <li><a href="articles.html">Articles</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="https://spemai.com/contact.html">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -422,12 +422,12 @@ We provide high quality customer service experience
                                 </div>
                                 <div className="divelement social">
                                     <ul className="d-flex flex-row align-items-center justify-content-start">
-                                        <li><a href="#"><i className="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i className="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i className="fa fa-behance" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i className="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                        {/* <li><a href="#"><i className="fa fa-pinterest" aria-hidden="true"></i></a></li> */}
+                                        <li><a href="https://www.facebook.com/SPEMAIcom"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a href="https://twitter.com/we_spemai"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        {/* <li><a href="#"><i className="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i className="fa fa-behance" aria-hidden="true"></i></a></li> */}
+                                        <li><a href="https://www.instagram.com/spemaicom/"><i className="fa fa-instagram" aria-hidden="true"></i></a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -177,9 +177,9 @@ BaseService.PostServiceWithoutHeader(url, login)
                 <ul className="d-flex flex-row align-items-start justify-content-start">
                         <li className="active"><a href="index.html">Home<div><div></div><div></div><div></div></div></a></li>
                     <li><a href="https://spemai.com/">About Us<div><div></div><div></div><div></div></div></a></li>
-                    <li><a href="#services">Services<div><div></div><div></div><div></div></div></a></li>
+                    {/* <li><a href="/#/main#services">Services<div><div></div><div></div><div></div></div></a></li> */}
                     {/* <li><a href="articles.html">Articles<div><div></div><div></div><div></div></div></a></li> */}
-                    <li><a href="#contact">Contact<div><div></div><div></div><div></div></div></a></li>
+                    <li><a href="https://spemai.com/contact.html">Contact<div><div></div><div></div><div></div></div></a></li>
                 </ul>
             </nav>
 
