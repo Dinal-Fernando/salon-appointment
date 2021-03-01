@@ -983,9 +983,45 @@ this.generatePDF();
             document.getElementById("submitbtn").disabled=false;
                             document.getElementById("resetbtn").disabled=false;
 
-            if (res.data.success === true) {
 
-              this.setState({
+                            
+
+//             if (res.data.success === true) {
+
+//               this.setState({
+//                 large: false,
+//                 appointmentDet:[],
+//                 appointmentDetails:[],
+//                 arrayVal: [true]
+//               });
+
+//               Swal.fire(
+
+//                 "Good job!",
+//                 "Appointment successfully inserted",
+//                 "success"
+//               );
+
+// this.setState({
+//   events:[]
+// },()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")))
+
+//             } else {
+
+//               Swal.fire({
+//                 allowOutsideClick: false,
+//                 icon: "error",
+//                 title: "Oops...",
+//                 text: "cannot perform operation!",
+//               });
+//             }
+
+
+        if(res.data!==undefined)
+        {
+          if(res.data.success===true)
+          {
+                  this.setState({
                 large: false,
                 appointmentDet:[],
                 appointmentDetails:[],
@@ -1003,15 +1039,31 @@ this.setState({
   events:[]
 },()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")))
 
-            } else {
+          }
+        }
+       else if(res.response.data!==null) {
+        
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error adding appointment! '+res.response.data["description"],
+            
+          })
+      
+        }else{
+      
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error adding appointment!',
+            
+          })
+      
+        }
 
-              Swal.fire({
-                allowOutsideClick: false,
-                icon: "error",
-                title: "Oops...",
-                text: "cannot perform operation!",
-              });
-            }
+
           })
           .catch((err) => {
 
@@ -1065,10 +1117,40 @@ this.setState({
             document.getElementById("submitbtn").disabled=false;
                                         document.getElementById("resetbtn").disabled=false;
 
-            if (res.data.success === true) {
+//             if (res.data.success === true) {
 
 
-              this.setState({
+//               this.setState({
+//                 large: false,
+//                 appointmentDet:[],
+//                 appointmentDetails:[],
+//                 arrayVal: [true]
+//               });
+
+//               Swal.fire(
+
+//                 "Good job!",
+//                 "Appointment successfully inserted",
+//                 "success"
+//               );
+//               this.setState({
+//   events:[]
+// },()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")));
+//             } else {
+
+//               Swal.fire({
+//                 allowOutsideClick: false,
+//                 icon: "error",
+//                 title: "Oops...",
+//                 text: "cannot perform operation!",
+//               });
+//             }
+
+        if(res.data!==undefined)
+        {
+          if(res.data.success===true)
+          {
+                  this.setState({
                 large: false,
                 appointmentDet:[],
                 appointmentDetails:[],
@@ -1081,18 +1163,36 @@ this.setState({
                 "Appointment successfully inserted",
                 "success"
               );
-              this.setState({
-  events:[]
-},()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")));
-            } else {
 
-              Swal.fire({
-                allowOutsideClick: false,
-                icon: "error",
-                title: "Oops...",
-                text: "cannot perform operation!",
-              });
-            }
+this.setState({
+  events:[]
+},()=>this.eventInfo(moment(moment(this.state.jumpDate).subtract(30,'d').toDate()).format("YYYY-MM-DD"),moment(moment(this.state.jumpDate).add(30,'d').toDate()).format("YYYY-MM-DD")))
+
+          }
+        }
+       else if(res.response.data!==null) {
+        
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error adding appointment! '+res.response.data["description"],
+            
+          })
+      
+        }else{
+      
+          Swal.fire({
+            allowOutsideClick: false,
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error adding appointment!',
+            
+          })
+      
+        }
+
+
           })
           .catch((err) => {
 
@@ -2236,29 +2336,7 @@ document.getElementById("serviceupdate").value="";
                     </div>
 
                     <div className="row">
-
-                    <div className="col-lg-6">
-                        <FormGroup>
-                          <Label htmlFor="ccyear">Select Stylist</Label>
-                          <Input
-                            type="select"
-                            name="employee"
-                            id="employee"
-                            onChange={(e) => {
-                              this.checkStatus(e, index);
-                              this.checkSlotWithEmployee(e.target.value)
-                            }}
-                            disabled={this.state.arrayVal[index]}
-  className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':<></>}                          >
-                            <option value="">Select stylist</option>
-                            {this.state.empInfo.map((val) => (
-                              <option  value={val.id}>{val.title}</option>
-                            ))}
-                          </Input>
-                        </FormGroup>
-                      </div>
-
-                      <div className="col-lg-6">
+           <div className="col-lg-6">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Additional Time Allocated</Label>
                           <Input
@@ -2283,6 +2361,28 @@ document.getElementById("serviceupdate").value="";
                           </Input>
                         </FormGroup>
                       </div>
+                    <div className="col-lg-6">
+                        <FormGroup>
+                          <Label htmlFor="ccyear">Select Stylist</Label>
+                          <Input
+                            type="select"
+                            name="employee"
+                            id="employee"
+                            onChange={(e) => {
+                              this.checkStatus(e, index);
+                              this.checkSlotWithEmployee(e.target.value)
+                            }}
+                            disabled={this.state.arrayVal[index]}
+  className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdate!==""?'ondisable':<></>}                          >
+                            <option value="">Select stylist</option>
+                            {this.state.empInfo.map((val) => (
+                              <option  value={val.id}>{val.title}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </div>
+
+           
 
                     </div>
 
@@ -3432,30 +3532,7 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
 
                     <div className="row">
 
-                    <div className="col-lg-6">
-                        <FormGroup>
-                          <Label htmlFor="ccyear">Select Stylist</Label>
-                          <Input
-                            type="select"
-                            name="employeeupdate"
-                            id="employeeupdate"
-                            onChange={(e) => {
-                              this.checkStatusUpdate(e, index);
-                              this.checkSlotWithEmployee(e.target.value)
-                            }}
-                            disabled={this.state.arrayVal[index]}
-                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdateupdate!==""?'ondisable':<></>}
-
-                          >
-                            <option value="">Select stylist</option>
-                            {this.state.empInfo.map((val) => (
-                              <option value={val.id}>{val.title}</option>
-                            ))}
-                          </Input>
-                        </FormGroup>
-                      </div>
-
-                      <div className="col-lg-6">
+                                 <div className="col-lg-6">
                         <FormGroup>
                           <Label htmlFor="ccmonth">Additional Time Allocated</Label>
                           <Input
@@ -3482,6 +3559,31 @@ var ele13 = document.querySelectorAll('[id="serviceupdate"]');
                           </Input>
                         </FormGroup>
                       </div>
+
+                    <div className="col-lg-6">
+                        <FormGroup>
+                          <Label htmlFor="ccyear">Select Stylist</Label>
+                          <Input
+                            type="select"
+                            name="employeeupdate"
+                            id="employeeupdate"
+                            onChange={(e) => {
+                              this.checkStatusUpdate(e, index);
+                              this.checkSlotWithEmployee(e.target.value)
+                            }}
+                            disabled={this.state.arrayVal[index]}
+                                                        className={this.state.arrayVal[index] && this.state.arrayVal.length >= 1 && this.state.appdateupdate!==""?'ondisable':<></>}
+
+                          >
+                            <option value="">Select stylist</option>
+                            {this.state.empInfo.map((val) => (
+                              <option value={val.id}>{val.title}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </div>
+
+         
 
                     </div>
 

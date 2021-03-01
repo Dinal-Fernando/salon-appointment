@@ -812,6 +812,10 @@ onAppUpdate=()=>{
     //   workspace_id:this.state.workspaceID
     // };
 
+    this.setState({
+      events:[]
+    })
+
       const paramdata = {
       first_date: first,
       second_date: second,
