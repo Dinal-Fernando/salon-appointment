@@ -233,7 +233,7 @@ class Catergory extends Component {
 
         Swal.fire(
           "Good job!",
-          "Catergory successfuly inserted",
+          "Category successfully inserted",
           "success"
         );
         window.location.reload(false)
@@ -336,7 +336,7 @@ if(e===true)
        // this.receivedData(1,1);
        Swal.fire(
         'Good job!',
-        'Service successfuly Updated',
+        'Service successfully Updated',
         'success'
       );
      
@@ -549,14 +549,14 @@ onSelectLimit=(e)=>{
         <CardHeader>
        
             <h5> <i className="fa fa-list-alt fa-lg mt-4" style={{paddingRight:"8px"}}></i>
-          Catergory Details</h5>
+          Category Details</h5>
           </CardHeader>
        
           <CardBody>
           <div className="row">
           <div className="col-lg-7">
           <FormGroup>
-          <Input placeholder={'Search catergory from catergory name'} name="searchString"  onChange={this.handleOnChange}></Input>   
+          <Input placeholder={'Search category from category name'} name="searchString"  onChange={this.handleOnChange}></Input>   
            
             </FormGroup>
             </div>
@@ -581,7 +581,7 @@ onSelectLimit=(e)=>{
             </div>
             <div className="col-lg-2 ">
           <Button color="dark"
-          className="pull-right" onClick={this.toggleLarge1} style={{ marginBottom: 20 }}>New Catergory</Button>
+          className="pull-right" onClick={this.toggleLarge1} style={{ marginBottom: 20 }}>New Category</Button>
           </div>
   </div>
             <Table responsive className="table table-hover hover">
@@ -636,17 +636,17 @@ onSelectLimit=(e)=>{
           className={"modal-lg " + this.props.className}
         >
           <form onSubmit={this.catergorySubmitHandler}>
-            <ModalHeader toggle={this.toggleLarge1}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>New Catergory</ModalHeader>
+            <ModalHeader toggle={this.toggleLarge1}><i className="fa fa-plus-circle fa-lg mt-4" style={{paddingRight:"8px"}}></i>New Category</ModalHeader>
             <ModalBody>
               <Card>
                 <CardBody>
                   <FormGroup>
-                    <Label htmlFor="catName">Catergory Name</Label>
+                    <Label htmlFor="catName">Category Name</Label>
                     <Input
                       type="text"
                       id="catName"
                       name="catName"
-                      placeholder="Enter Catergory name"
+                      placeholder="Enter Category name"
                       value={this.state.catName}
                       onChange={this.OnChangeHandler}
                       required
@@ -677,12 +677,12 @@ onSelectLimit=(e)=>{
           className={"modal-lg " + this.props.className}
         >
           <form onSubmit={this.updateCatergoryHandler}>
-            <ModalHeader toggle={this.toggleLarge}><i className="fa fa-edit fa-lg mt-4" style={{paddingRight:"8px"}}></i>Edit Catergory</ModalHeader>
+            <ModalHeader toggle={this.toggleLarge}><i className="fa fa-edit fa-lg mt-4" style={{paddingRight:"8px"}}></i>Edit Category</ModalHeader>
             <ModalBody>
               <Card>
                 <CardBody>
                   <FormGroup>
-                    <Label htmlFor="catName">Catergory Name</Label>
+                    <Label htmlFor="catName">Category Name</Label>
                     <Input
                       type="text"
                       id="catNameupdate"

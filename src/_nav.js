@@ -45,7 +45,7 @@ export default {
       }
     },
     {
-      name: 'Catergory',
+      name: 'Category',
       url: '/saloon/catergory',
       icon: 'icon-calendar',
     },
