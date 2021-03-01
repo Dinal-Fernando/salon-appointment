@@ -142,7 +142,7 @@ BaseService.PostServiceWithoutHeader(url, regUsers)
                   <Form onSubmit={this.onSubmitHandler}>
                     <h1 style={{fontWeight:"100"}} className="pb-2 text-center">Merchant Panel</h1>
                                             <h2 style={{fontWeight:"100"}} className="pb-2 text-center">Registration</h2>
-                                            <p className="text-muted pt-3">complete the registration process</p>
+                                            <p className="text-muted pt-3">Complete the registration process</p>
                     
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend" style={{height:"40px"}}>

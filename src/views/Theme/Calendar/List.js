@@ -530,14 +530,29 @@ SmsreminderCheck=(e)=>{
 
               const startparam = moment(value.start_time).format("HH:mm:ss");
               const endtimeparam = moment(value.end_time).format("HH:mm:ss");
+              if(value.is_canceled)
+              {
 
-              var data = {
+                  var data = {
+                id: startparam,
+                title: value.service,
+                label: startparam + " " + endtimeparam,
+                description: "Client is " + value.client+' (cancelled)',
+               
+              };
+
+              }else{
+
+  var data = {
                 id: startparam,
                 title: value.service,
                 label: startparam + " " + endtimeparam,
                 description: "Client is " + value.client,
                
               };
+              }
+
+            
 
             
 
