@@ -995,7 +995,7 @@ this.generatePDF();
               Swal.fire(
 
                 "Good job!",
-                "Appointment successfuly inserted",
+                "Appointment successfully inserted",
                 "success"
               );
 
@@ -1078,7 +1078,7 @@ this.setState({
               Swal.fire(
 
                 "Good job!",
-                "Appointment successfuly inserted",
+                "Appointment successfully inserted",
                 "success"
               );
               this.setState({
@@ -2576,7 +2576,7 @@ document.getElementById("serviceupdate").value="";
               Swal.fire(
 
                 "Good job!",
-                "Appointment successfuly updated",
+                "Appointment successfully updated",
                 "success"
               );
               //window.location.reload();
@@ -2655,7 +2655,7 @@ this.setState({
               Swal.fire(
 
                 "Good job!",
-                "Appointment successfuly updated",
+                "Appointment successfully updated",
                 "success"
               );
         this.setState({

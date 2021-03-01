@@ -384,7 +384,7 @@ catergorySubmitHandler = (event) => {
       this.receivedData(1,1);
       Swal.fire(
         "Good job!",
-        "Catergory successfuly inserted",
+        "Category successfully inserted",
         "success"
       );
      

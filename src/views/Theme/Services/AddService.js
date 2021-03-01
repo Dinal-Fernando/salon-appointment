@@ -207,7 +207,7 @@ cost:""
 
         Swal.fire(
           "Good job!",
-          "Catergory successfuly inserted",
+          "Category successfully inserted",
           "success"
         );
         window.location.reload(false)
@@ -257,7 +257,7 @@ this.props.displayservice(1,1);
 
             Swal.fire(
               "Good job!",
-              "Service successfuly inserted",
+              "Service successfully inserted",
               "success"
             );
 

@@ -191,7 +191,7 @@ if(this.state.mobileNumber.length!==9)
         if (res.data.success === true) {
           Swal.fire(
             'Good job!',
-            'successfuly added staff member',
+            'successfully added staff member',
             'success'
           )
           document.getElementById("submitbtn").disabled=false;
@@ -258,7 +258,7 @@ mobileNumber:"",
         if (res.data.success === true) {
           Swal.fire(
             'Good job!',
-            'successfuly added staff member',
+            'successfully added staff member',
             'success'
           )
           document.getElementById("submitbtn").disabled=false;
@@ -407,7 +407,7 @@ updatePicture=()=>{
           {
             Swal.fire(
               'Good job!',
-              'successfuly added system user',
+              'successfully added system user',
               'success'
             )
   
@@ -835,7 +835,7 @@ profilepic:"",
              // this.receivedData(1,1);
              Swal.fire(
               'Good job!',
-              'successfuly updated staff',
+              'successfully updated staff',
               'success'
             )
             document.getElementById("updatebtn").disabled=false;
@@ -910,7 +910,7 @@ profilepic:"",
              // this.receivedData(1,1);
              Swal.fire(
               'Good job!',
-              'successfuly updated staff',
+              'successfully updated staff',
               'success'
             )
             document.getElementById("updatebtn").disabled=false;
@@ -989,7 +989,7 @@ profilepic:"",
              // this.receivedData(1,1);
              Swal.fire(
               'Good job!',
-              'successfuly updated staff',
+              'successfully updated staff',
               'success'
             )
             document.getElementById("updatebtn").disabled=false;
@@ -1057,7 +1057,7 @@ profilepic:"",
              // this.receivedData(1,1);
              Swal.fire(
               'Good job!',
-              'successfuly updated staff',
+              'successfully updated staff',
               'success'
             )
             document.getElementById("updatebtn").disabled=false;

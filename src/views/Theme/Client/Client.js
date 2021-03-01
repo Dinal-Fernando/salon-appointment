@@ -262,7 +262,7 @@ if(this.state.mobileNumber.length===9)
         if (res.data.success === true) {
           Swal.fire(
             'Good job!',
-            'Client successfuly inserted',
+            'Client successfully inserted',
             'success'
           )
           this.setState({
@@ -330,7 +330,7 @@ if(this.state.NIC.length===10)
 
         Swal.fire(
           'Good job!',
-          'Client successfuly inserted',
+          'Client successfully inserted',
           'success'
         )
         this.setState({
@@ -395,7 +395,7 @@ if(this.state.NIC.length===10)
 
         Swal.fire(
           'Good job!',
-          'Client successfuly inserted',
+          'Client successfully inserted',
           'success'
         )
         this.setState({
@@ -508,7 +508,7 @@ console.log(code)
            this.receivedData(1,1);
                 Swal.fire(
             'Good job!',
-            'Client successfuly Updated',
+            'Client successfully Updated',
             'success'
           )
           document.getElementById("updatebtn").disabled=false;
@@ -570,7 +570,7 @@ console.log("value here:"+this.state.countrycd)
               //this.receivedData(1,1);
               Swal.fire(
                 'Good job!',
-                'Client successfuly Updated',
+                'Client successfully Updated',
                 'success'
               )
               document.getElementById("updatebtn").disabled=false;

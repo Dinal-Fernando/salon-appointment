@@ -393,7 +393,7 @@ if(e===true)
      this.receivedData(1,1);
        Swal.fire(
         'Good job!',
-        'Service successfuly Updated',
+        'Service successfully Updated',
         'success'
       );
       document.getElementById("updatebtn").disabled=false;
