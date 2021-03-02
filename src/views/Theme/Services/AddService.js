@@ -474,6 +474,32 @@ this.props.displayservice(1,1);
                               <option value="4">Slots 4 : {localStorage.getItem("slot_minutes")*4} min</option>
                               <option value="5">Slots 5 : {localStorage.getItem("slot_minutes")*5} min</option>
                               <option value="6">Slots 6 : {localStorage.getItem("slot_minutes")*6} min</option>
+                              <option value="7">Slots 7 : {localStorage.getItem("slot_minutes")*7} min</option>
+                              <option value="8">Slots 8 : {localStorage.getItem("slot_minutes")*8} min</option>
+                              <option value="9">Slots 9 : {localStorage.getItem("slot_minutes")*9} min</option>
+                              <option value="10">Slots 10 : {localStorage.getItem("slot_minutes")*10} min</option>
+                              <option value="11">Slots 11 : {localStorage.getItem("slot_minutes")*11} min</option>
+                              <option value="12">Slots 12 : {localStorage.getItem("slot_minutes")*12} min</option>
+                              <option value="13">Slots 13 : {localStorage.getItem("slot_minutes")*13} min</option>
+                              <option value="14">Slots 14 : {localStorage.getItem("slot_minutes")*14} min</option>
+                              <option value="15">Slots 15 : {localStorage.getItem("slot_minutes")*15} min</option>
+                              <option value="16">Slots 16 : {localStorage.getItem("slot_minutes")*16} min</option>
+                              <option value="17">Slots 17 : {localStorage.getItem("slot_minutes")*17} min</option>
+                              <option value="18">Slots 18 : {localStorage.getItem("slot_minutes")*18} min</option>
+                              <option value="19">Slots 19 : {localStorage.getItem("slot_minutes")*19} min</option>
+                              <option value="20">Slots 20 : {localStorage.getItem("slot_minutes")*20} min</option>
+                              <option value="21">Slots 21 : {localStorage.getItem("slot_minutes")*21} min</option>
+                              <option value="22">Slots 22 : {localStorage.getItem("slot_minutes")*22} min</option>
+                              <option value="23">Slots 23 : {localStorage.getItem("slot_minutes")*23} min</option>
+                              <option value="24">Slots 24 : {localStorage.getItem("slot_minutes")*24} min</option>
+                              <option value="25">Slots 25 : {localStorage.getItem("slot_minutes")*25} min</option>
+                              <option value="26">Slots 26 : {localStorage.getItem("slot_minutes")*26} min</option>
+                              <option value="27">Slots 27 : {localStorage.getItem("slot_minutes")*27} min</option>
+                              <option value="28">Slots 28 : {localStorage.getItem("slot_minutes")*28} min</option>
+                              <option value="29">Slots 29 : {localStorage.getItem("slot_minutes")*29} min</option>
+                              <option value="30">Slots 30 : {localStorage.getItem("slot_minutes")*30} min</option>
+                              <option value="31">Slots 31 : {localStorage.getItem("slot_minutes")*31} min</option>
+                              <option value="32">Slots 32 : {localStorage.getItem("slot_minutes")*32} min</option>
                             </Input>
                           </FormGroup>
                         </Container>
