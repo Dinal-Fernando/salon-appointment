@@ -50,7 +50,7 @@
     "jspdf": "^2.1.1",
     "jspdf-autotable": "^3.5.13",
     "moment": "^2.25.3",
-    "node-sass": "^4.13.1",
+    "node-sass": "^9.0.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.12.1",
     "react": "^16.8.6",
@@ -83,7 +83,7 @@
     "sweetalert2": "^9.11.0"
   },
   "devDependencies": {
-    "react-scripts": "^3.4.0"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
